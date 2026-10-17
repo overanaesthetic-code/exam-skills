@@ -1,0 +1,10 @@
+{
+  "courseName": "IELTS Ladder",
+  "tagline": "Academic English, one rung at a time",
+  "teacherName": "your teacher",
+  "teacherContact": "",
+  "languageTool": {
+    "url": "https://api.languagetool.org/v2/check",
+    "language": "en-GB"
+  }
+}

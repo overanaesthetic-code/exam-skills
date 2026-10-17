@@ -1,0 +1,96 @@
+{
+ "units": [
+  {
+   "n": 1,
+   "id": "u01",
+   "title": "Modern World",
+   "subtitle": "Society and change",
+   "blurb": "Living alone, feeling busy and the speed of modern life. The language of trends and change.",
+   "ready": true
+  },
+  {
+   "n": 2,
+   "id": "u02",
+   "title": "Technology",
+   "subtitle": "Living with machines",
+   "blurb": "Is technology saving us time or taking it? Automation, AI and everyday devices."
+  },
+  {
+   "n": 3,
+   "id": "u03",
+   "title": "Media",
+   "subtitle": "News, networks and attention",
+   "blurb": "How we get information, who we trust and what social media does to attention."
+  },
+  {
+   "n": 4,
+   "id": "u04",
+   "title": "Education",
+   "subtitle": "Learning for a changing world",
+   "blurb": "Schools, universities and lifelong learning when skills go out of date quickly."
+  },
+  {
+   "n": 5,
+   "id": "u05",
+   "title": "Work",
+   "subtitle": "Careers and the future of jobs",
+   "blurb": "Remote work, the four-day week and what makes a job worth doing."
+  },
+  {
+   "n": 6,
+   "id": "u06",
+   "title": "Money",
+   "subtitle": "Consumers and choices",
+   "blurb": "Spending, saving, advertising and why we buy what we buy."
+  },
+  {
+   "n": 7,
+   "id": "u07",
+   "title": "Cities",
+   "subtitle": "Urban life and planning",
+   "blurb": "Housing, transport and how to design cities people want to live in."
+  },
+  {
+   "n": 8,
+   "id": "u08",
+   "title": "Environment",
+   "subtitle": "Climate and responsibility",
+   "blurb": "Who should act on climate change: governments, companies or individuals?"
+  },
+  {
+   "n": 9,
+   "id": "u09",
+   "title": "Health",
+   "subtitle": "Wellbeing in a busy world",
+   "blurb": "Diet, exercise, sleep and the role of public health."
+  },
+  {
+   "n": 10,
+   "id": "u10",
+   "title": "Science",
+   "subtitle": "Discovery and evidence",
+   "blurb": "How science works, how it is funded and how the public understands it."
+  },
+  {
+   "n": 11,
+   "id": "u11",
+   "title": "Culture",
+   "subtitle": "Heritage and identity",
+   "blurb": "Traditions, languages and the arts in a global age."
+  },
+  {
+   "n": 12,
+   "id": "u12",
+   "title": "Global",
+   "subtitle": "Travel and globalisation",
+   "blurb": "Tourism, migration and a connected planet."
+  },
+  {
+   "n": 13,
+   "id": "u13",
+   "title": "The Future",
+   "subtitle": "Where we go next",
+   "blurb": "Predictions, ageing populations and the choices that will shape the next fifty years."
+  }
+ ]
+}

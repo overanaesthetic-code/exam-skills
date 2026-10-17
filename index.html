@@ -1,0 +1,1335 @@
+<!doctype html>
+<html lang="en">
+<head>
+<title>IELTS Ladder</title>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=IBM+Plex+Mono:wght@400;500&family=Manrope:wght@400;500;600;700&display=swap">
+<style>
+/* Layout: sticky top bar; one centred column (max 1100px) with cards only where an object needs setting apart; reading uses a passage/questions split */
+:root{
+  --bg:#ffffff; --surface:#fbf7fa; --ink:#151217; --muted:#6c6370; --line:#ece4ea;
+  --accent:#FF2E93; --accent-ink:#ffffff; --accent-soft:#ffe6f2;
+  --good:#0d8458; --good-soft:#e3f5ec; --bad:#c62f2f; --bad-soft:#fdeaea; --warn:#9a6a00; --warn-soft:#fff4d6; --hl:#fff1a8;
+  --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
+  --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
+  color-scheme:light;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#121014; --surface:#1b171d; --ink:#f5eff3; --muted:#a79ead; --line:#2d2730;
+  --accent:#ff53a6; --accent-ink:#1c0611; --accent-soft:#3a1529;
+  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#121014; --surface:#1b171d; --ink:#f5eff3; --muted:#a79ead; --line:#2d2730;
+  --accent:#ff53a6; --accent-ink:#1c0611; --accent-soft:#3a1529;
+  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; color-scheme:dark}
+
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.55;-webkit-text-size-adjust:100%}
+.wrap{max-width:1100px;margin:0 auto;padding-inline:18px;padding-block:24px 72px}
+.narrow{max-width:720px}
+h1,h2,h3{font-family:var(--display);font-weight:400;letter-spacing:.02em;line-height:1;margin:0;text-wrap:balance}
+h1{font-size:clamp(46px,9vw,84px)}
+h2{font-size:clamp(30px,5vw,40px)}
+h3{font-size:24px}
+p{margin:0}
+a{color:var(--accent)}
+.label{font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+.muted{color:var(--muted)}
+.small{font-size:14px}
+.stack{display:flex;flex-direction:column;gap:16px}
+.stack.tight{gap:8px}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.between{justify-content:space-between}
+.grow{flex:1;min-width:0}
+.section{padding-block:28px;border-bottom:1px solid var(--line);display:grid;gap:18px}
+.section:last-child{border-bottom:0}
+.prose{max-width:65ch}
+.prose p+p{margin-top:10px}
+button,input,select,textarea{font:inherit;color:inherit}
+.btn{appearance:none;border:1.5px solid var(--ink);background:transparent;border-radius:999px;padding:10px 18px;font-weight:600;cursor:pointer;line-height:1.2;text-decoration:none;display:inline-flex;align-items:center;gap:8px;color:var(--ink)}
+.btn:hover{background:var(--surface)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.primary:hover{filter:brightness(1.05)}
+.btn.small{padding:6px 12px;font-size:14px}
+.btn.ghost{border-color:var(--line)}
+.btn.danger{border-color:var(--bad);color:var(--bad)}
+.btn.armed{background:var(--bad);border-color:var(--bad);color:#fff}
+.btn:disabled{opacity:.4;cursor:not-allowed}
+.link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;cursor:pointer;text-decoration:underline}
+:focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
+.chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;color:var(--ink)}
+.chip.lv{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.accent{background:var(--accent-soft);border-color:transparent}
+.chip.good{background:var(--good-soft);color:var(--good);border-color:transparent}
+.chip.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
+.chip.warn{background:var(--warn-soft);color:var(--warn);border-color:transparent}
+.card{border:1px solid var(--line);border-radius:14px;padding:18px;background:var(--bg)}
+.card.soft{background:var(--surface);border-color:transparent}
+.note{font-size:14px;background:var(--accent-soft);border-radius:10px;padding:10px 12px}
+.note.warn{background:var(--warn-soft)}
+input[type=text],input[type=search],select,textarea{border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--bg);width:100%}
+input[type=text]:focus,select:focus,textarea:focus{border-color:var(--ink);outline:none}
+textarea{resize:vertical;line-height:1.6}
+
+/* top bar */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1.5px solid var(--ink)}
+.topbar .inner{max-width:1100px;margin:0 auto;padding-inline:18px;padding-block:10px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.brand{font-family:var(--display);font-size:28px;letter-spacing:.03em;line-height:1;background:none;border:0;padding:0;cursor:pointer;color:var(--ink)}
+.brand span{color:var(--accent)}
+.nav{display:flex;gap:6px;flex-wrap:wrap}
+.nav button{background:none;border:1px solid transparent;border-radius:999px;padding:6px 12px;cursor:pointer;font-weight:600;font-size:14px;color:var(--ink)}
+.nav button:hover{border-color:var(--line)}
+.nav .count{font-family:var(--mono);font-size:11px;background:var(--accent);color:var(--accent-ink);border-radius:999px;padding:1px 6px;margin-left:4px}
+
+/* gate */
+.gate{min-height:70vh;display:grid;align-content:center;gap:28px;max-width:640px;margin:0 auto}
+.gate h1 span{color:var(--accent)}
+.codein{font-family:var(--mono);font-size:22px;letter-spacing:.12em;text-transform:uppercase}
+.err{color:var(--bad);font-size:14px;min-height:1.4em}
+
+/* home */
+.hero{display:grid;grid-template-columns:auto 1fr;gap:28px;align-items:end;padding-block:8px 28px;border-bottom:1.5px solid var(--ink)}
+.biglv{font-family:var(--display);font-size:clamp(96px,18vw,160px);line-height:.8;color:var(--accent)}
+@media (max-width:560px){.hero{grid-template-columns:1fr;gap:12px}}
+.profile{display:grid;gap:12px}
+.prow{display:grid;grid-template-columns:170px 1fr 92px;gap:14px;align-items:center}
+.scale{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
+.scale i{height:10px;border-radius:3px;background:var(--line)}
+.scale i.on{background:var(--ink)}
+.scale i.top{background:var(--accent)}
+.scale-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-family:var(--mono);font-size:10px;color:var(--muted)}
+@media (max-width:640px){.prow{grid-template-columns:1fr 84px}.prow .scalebox{grid-column:1/-1;grid-row:2}}
+.units{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,160px),1fr));gap:12px}
+.unit{display:grid;gap:8px;align-content:start;padding:16px;border:1px solid var(--line);border-radius:14px;text-align:left;background:var(--bg);cursor:pointer;color:var(--ink);min-height:140px;min-width:0}
+.unit:hover{border-color:var(--ink)}
+.unit .num{font-family:var(--display);font-size:46px;line-height:.85;color:var(--line)}
+.unit.open .num{color:var(--ink)}
+.unit.done .num{color:var(--accent)}
+.unit.locked{cursor:default}
+.unit.locked:hover{border-color:var(--line)}
+.unit h3{font-size:22px}
+.continue{display:grid;grid-template-columns:1fr auto;gap:16px;align-items:center}
+@media (max-width:560px){.continue{grid-template-columns:1fr}}
+
+/* unit page */
+.uhero{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding-block:8px 24px;border-bottom:1.5px solid var(--ink)}
+.uhero .num{font-family:var(--display);font-size:clamp(90px,16vw,150px);line-height:.8;color:var(--accent)}
+@media (max-width:560px){.uhero{grid-template-columns:1fr;gap:6px}}
+.seclist{display:grid;border-top:1px solid var(--line)}
+.secrow{display:grid;grid-template-columns:150px 1fr auto;gap:16px;align-items:center;padding-block:16px;border-bottom:1px solid var(--line)}
+.secrow .meta{display:grid;gap:4px;min-width:0}
+@media (max-width:640px){.secrow{grid-template-columns:1fr}.secrow .act{justify-self:start}}
+
+/* choosers */
+.seg{display:flex;flex-wrap:wrap;gap:6px}
+.seg button{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 14px;cursor:pointer;text-align:left;display:grid;gap:2px;min-width:110px;color:var(--ink)}
+.seg button strong{font-family:var(--display);font-weight:400;font-size:26px;line-height:1}
+.seg button span{font-size:12px;color:var(--muted)}
+.seg button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.seg button[aria-pressed="true"] span{color:var(--bg);opacity:.8}
+
+/* quiz */
+.bar-top{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);z-index:10;background:var(--bg);border-bottom:1px solid var(--line);padding-block:10px}
+.bar-top .inner{max-width:1100px;margin:0 auto;padding-inline:18px;display:flex;gap:12px;align-items:center;flex-wrap:wrap;justify-content:space-between}
+.timer{font-family:var(--mono);font-size:20px;font-variant-numeric:tabular-nums;font-weight:500}
+.timer.low{color:var(--bad)}
+.tabs{display:none;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden;width:100%}
+.tabs button{flex:1;border:0;background:transparent;padding:8px;font-weight:600;cursor:pointer;color:var(--ink)}
+.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;align-items:start;padding-top:20px}
+.passage{position:sticky;top:130px;max-height:calc(100vh - 150px);overflow:auto;padding-right:6px}
+.passage h2{margin-bottom:6px}
+.para{display:grid;grid-template-columns:28px 1fr;gap:8px;padding:8px 6px;border-radius:8px;transition:background .6s}
+.para b{font-family:var(--display);font-size:24px;line-height:1.1;color:var(--accent);font-weight:400}
+.para p{max-width:62ch}
+.para.flash{background:var(--hl)}
+@media (prefers-reduced-motion:reduce){.para{transition:none}}
+@media (max-width:900px){
+  .tabs{display:flex}
+  .split{grid-template-columns:minmax(0,1fr);gap:20px}
+  .passage{position:static;max-height:none;overflow:visible;padding-right:0}
+  .reading[data-pane="passage"] .qcol{display:none}
+  .reading[data-pane="questions"] .passage{display:none}
+}
+.qcol{display:grid;gap:28px;min-width:0}
+.group{display:grid;gap:14px}
+.instr{font-size:14px;border-left:3px solid var(--accent);padding-left:12px}
+.headlist{font-size:14px;display:grid;gap:4px;border:1px solid var(--line);border-radius:10px;padding:10px 14px}
+.headlist div{display:grid;grid-template-columns:34px 1fr;gap:6px}
+.headlist span{font-family:var(--mono)}
+.q{display:grid;gap:10px;padding:14px;border:1px solid var(--line);border-radius:12px;min-width:0}
+.q.ok{border-color:var(--good);background:var(--good-soft)}
+.q.no{border-color:var(--bad);background:var(--bad-soft)}
+.qhead{display:flex;gap:10px;align-items:flex-start}
+.qnum{font-family:var(--display);font-size:26px;line-height:1;min-width:28px}
+.qtext{flex:1;min-width:0}
+.quote{font-size:15px;border-left:3px solid var(--line);padding-left:12px;font-style:italic}
+.opts{display:grid;gap:6px}
+.opts label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer;background:var(--bg)}
+.opts label:has(input:checked){border-color:var(--ink)}
+.opts input{margin-top:5px;accent-color:var(--accent)}
+.opts .let{font-family:var(--mono);font-weight:500}
+.tf{display:flex;flex-wrap:wrap;gap:6px}
+.tf button{border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 12px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;cursor:pointer;color:var(--ink)}
+.tf button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.q input[type=text],.q select{max-width:340px}
+.qtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
+.fb{font-size:14px;display:grid;gap:4px}
+.fb .verdict{font-weight:700}
+.q.ok .verdict{color:var(--good)}
+.q.no .verdict{color:var(--bad)}
+
+/* player */
+.player{display:grid;gap:12px;border:1.5px solid var(--ink);border-radius:14px;padding:16px}
+.prog{height:6px;background:var(--line);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .3s}
+.speaking-now{font-family:var(--mono);font-size:12px;color:var(--muted);min-height:1.4em}
+.script{display:grid;gap:8px;font-size:15px}
+.script p b{font-family:var(--mono);font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);margin-right:6px}
+
+/* vocab */
+.drill{display:grid;gap:18px;max-width:640px}
+.drill .word{font-family:var(--display);font-size:clamp(48px,10vw,72px);line-height:.9}
+.choices{display:grid;gap:8px}
+.choices button{text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:12px 14px;cursor:pointer;color:var(--ink)}
+.choices button:hover:not(:disabled){border-color:var(--ink)}
+.choices button.right{border-color:var(--good);background:var(--good-soft)}
+.choices button.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.dots{display:flex;gap:4px;flex-wrap:wrap}
+.dots i{width:10px;height:10px;border-radius:50%;background:var(--line)}
+.dots i.on{background:var(--accent)}
+.wordlist{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:12px}
+.wcard{border:1px solid var(--line);border-radius:12px;padding:14px;display:grid;gap:6px;align-content:start}
+.wcard h3{font-size:28px}
+.meter{display:flex;gap:3px}
+.meter i{flex:1;height:5px;border-radius:2px;background:var(--line)}
+.meter i.on{background:var(--good)}
+
+/* speaking */
+.cue{border:1.5px solid var(--ink);border-radius:14px;padding:18px;display:grid;gap:10px}
+.cue ul{margin:0;padding-left:20px}
+.rec{display:flex;gap:10px;align-items:center;flex-wrap:wrap}
+.recdot{width:10px;height:10px;border-radius:50%;background:var(--bad);animation:pulse 1s infinite}
+@keyframes pulse{50%{opacity:.3}}
+@media (prefers-reduced-motion:reduce){.recdot{animation:none}}
+.transcript{font-size:14px;color:var(--muted);font-style:italic}
+.sc{display:grid;gap:8px}
+.sc label{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1.5px solid var(--line);border-radius:8px;cursor:pointer}
+.sc label:has(input:checked){border-color:var(--ink)}
+.sc input{margin-top:5px;accent-color:var(--accent)}
+.phrases{display:flex;flex-wrap:wrap;gap:6px}
+.phrases span{border:1px dashed var(--line);border-radius:8px;padding:4px 10px;font-size:14px}
+
+/* writing */
+.wtask{border-left:4px solid var(--accent);padding:4px 0 4px 16px;font-size:18px;font-weight:600;max-width:70ch}
+.frame{display:grid;gap:8px}
+.frame div{border:1px dashed var(--line);border-radius:10px;padding:10px 12px;font-size:14px}
+.essay{min-height:340px;font-size:16px}
+.wstats{display:flex;gap:16px;flex-wrap:wrap;font-family:var(--mono);font-size:13px;font-variant-numeric:tabular-nums}
+.crit{display:grid;grid-template-columns:repeat(auto-fit,minmax(230px,1fr));gap:12px}
+.crit .card{display:grid;gap:8px;align-content:start}
+.crit ul,.issues ul{margin:0;padding-left:18px;display:grid;gap:4px;font-size:14px}
+.marked{white-space:pre-wrap;line-height:1.8;font-size:15px;border:1px solid var(--line);border-radius:12px;padding:16px;overflow-wrap:anywhere}
+.marked mark{background:var(--bad-soft);color:inherit;border-bottom:2px solid var(--bad);padding:0 1px;cursor:help}
+.marked mark.sp{background:var(--warn-soft);border-color:var(--warn)}
+.marked mark.st{background:transparent;border-bottom:2px dotted var(--muted)}
+.issue{display:grid;gap:2px;padding-block:8px;border-bottom:1px dotted var(--line);font-size:14px}
+.model{white-space:pre-wrap;font-size:15px;line-height:1.7;max-width:70ch}
+
+/* results */
+.score{display:grid;grid-template-columns:auto 1fr;gap:24px;align-items:end;padding-block:12px 24px;border-bottom:1.5px solid var(--ink)}
+.score .big{font-family:var(--display);font-size:clamp(84px,18vw,140px);line-height:.8;color:var(--accent)}
+.score .big small{font-size:.4em;color:var(--ink)}
+@media (max-width:560px){.score{grid-template-columns:1fr}}
+.pbar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.pbar i{display:block;height:100%;background:var(--accent)}
+.loader{min-height:50vh;display:grid;place-content:center;gap:10px;text-align:center}
+details.more{border:1px solid var(--line);border-radius:12px;padding:12px 16px}
+details.more summary{cursor:pointer;font-weight:600}
+details.more[open] summary{margin-bottom:12px}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:50}
+</style>
+</head>
+<body>
+<header class="topbar" id="topbar" hidden><div class="inner">
+  <button class="brand" id="brandBtn" type="button">IELTS <span>Ladder</span></button>
+  <nav class="nav" id="nav"></nav>
+</div></header>
+<main id="app"><div class="loader"><span class="label">Loading</span></div></main>
+<script>
+"use strict";
+/* =========================================================
+   IELTS Ladder · student site
+   Content lives in modules/*.enc.json (encrypted). A student's code opens
+   keyring.json, which holds the keys to the units their teacher opened.
+   ========================================================= */
+
+/* ---------- helpers ---------- */
+const $=(s,r=document)=>r.querySelector(s);
+const $$=(s,r=document)=>Array.from(r.querySelectorAll(s));
+const app=document.getElementById("app");
+const esc=s=>String(s??"").replace(/[&<>"']/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[c]));
+const norm=s=>String(s||"").toLowerCase().replace(/[’‘]/g,"'").replace(/[^a-z0-9'\s-]/g," ").replace(/\s+/g," ").trim();
+const wc=s=>norm(s)?norm(s).split(" ").length:0;
+const shuffle=a=>{a=a.slice();for(let i=a.length-1;i>0;i--){const j=Math.floor(Math.random()*(i+1));[a[i],a[j]]=[a[j],a[i]];}return a;};
+const LV=["A2","B1","B2","C1"], TIERS=["B1","B2","C1"];
+const li=l=>Math.max(0,LV.indexOf(l));
+const tierOf=l=>(!l||l==="A1"||l==="A2")?"B1":l;
+const upT=t=>TIERS[Math.min(2,TIERS.indexOf(t)+1)];
+const downT=t=>TIERS[Math.max(0,TIERS.indexOf(t)-1)];
+const BAND={A1:"below 4.0",A2:"below 4.0",B1:"4.0–5.0",B2:"5.5–6.5",C1:"7.0–8.0"};
+const SKILLS=[["reading","Reading"],["listening","Listening"],["writing","Writing"],["speaking","Speaking"],["language","Vocabulary & grammar"]];
+const SKILL_NAME=Object.fromEntries(SKILLS);
+const DAY=864e5;
+const ROMAN=["i","ii","iii","iv","v","vi","vii","viii","ix","x"];
+const fmtDate=t=>new Date(t).toLocaleDateString(undefined,{day:"numeric",month:"short"});
+function toast(msg){const t=document.createElement("div");t.className="toast";t.setAttribute("role","status");t.textContent=msg;document.body.appendChild(t);setTimeout(()=>t.remove(),2600);}
+function median(arr){const a=arr.slice().sort((x,y)=>x-y);return a.length?a[Math.floor((a.length-1)/2)]:0;}
+
+/* timers and cleanup tied to the current view */
+const T={ids:new Set(),every(fn,ms){const id=setInterval(fn,ms);this.ids.add(id);return id;},later(fn,ms){const id=setTimeout(fn,ms);this.ids.add(id);return id;},clear(){this.ids.forEach(id=>{clearInterval(id);clearTimeout(id);});this.ids.clear();}};
+let CLEANUP=[];
+const onLeave=fn=>CLEANUP.push(fn);
+function go(fn,...args){T.clear();CLEANUP.forEach(f=>{try{f();}catch(e){}});CLEANUP=[];TTS.stop();window.scrollTo(0,0);renderTop();return fn(...args);}
+
+/* ---------- state ---------- */
+const SKEY="ielts-ladder:v1";
+function freshState(){return {v:1,code:null,placement:null,profile:{},tier:{},support:false,results:{},words:{},qtypes:{},essays:[],speaking:[],cando:{},checks:{},drafts:{},settings:{accent:"en-GB",speed:1}};}
+let S=freshState(), PREVIEW=false;
+function loadState(){try{const r=localStorage.getItem(SKEY);if(r){const o=JSON.parse(r);if(o&&o.v===1)S=Object.assign(freshState(),o);}}catch(e){}}
+function save(){if(PREVIEW)return;try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
+
+/* ---------- crypto (AES-GCM + PBKDF2, Web Crypto) ---------- */
+const enc=new TextEncoder(), dec=new TextDecoder();
+function b64e(u8){let s="";for(let i=0;i<u8.length;i+=0x8000)s+=String.fromCharCode.apply(null,u8.subarray(i,i+0x8000));return btoa(s);}
+const b64d=s=>Uint8Array.from(atob(s),c=>c.charCodeAt(0));
+const b64url=u8=>b64e(u8).replace(/\+/g,"-").replace(/\//g,"_").replace(/=+$/,"");
+const normCode=c=>String(c||"").toUpperCase().replace(/[^0-9A-Z]/g,"").replace(/O/g,"0").replace(/[IL]/g,"1");
+const fmtCode=c=>c.replace(/(.{4})(?=.)/g,"$1-");
+async function lookupId(code){const h=await crypto.subtle.digest("SHA-256",enc.encode("ielts-ladder|"+code));return Array.from(new Uint8Array(h)).slice(0,16).map(b=>b.toString(16).padStart(2,"0")).join("");}
+async function deriveKey(code,salt,iter){const base=await crypto.subtle.importKey("raw",enc.encode(code),"PBKDF2",false,["deriveKey"]);return crypto.subtle.deriveKey({name:"PBKDF2",salt:b64d(salt),iterations:iter,hash:"SHA-256"},base,{name:"AES-GCM",length:256},false,["decrypt"]);}
+async function aesOpen(key,iv,ct){const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64d(iv)},key,b64d(ct));return JSON.parse(dec.decode(pt));}
+const rawKey=b64=>crypto.subtle.importKey("raw",b64d(b64),"AES-GCM",false,["decrypt"]);
+
+let KEYS={}, MODULES={}, CONFIG={}, UNITS=[];
+async function fetchJSON(p){const r=await fetch(p+(p.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(p+" returned "+r.status);return r.json();}
+async function openCourse(code){
+  const ring=await fetchJSON("keyring.json");
+  const id=await lookupId(code);
+  const e=ring.entries&&ring.entries[id];
+  if(!e) return {error:"unknown"};
+  const key=await deriveKey(code,e.salt,ring.iter||150000);
+  const data=await aesOpen(key,e.iv,e.ct);
+  KEYS=data.keys||{};
+  return {ok:true};
+}
+async function getModule(id){
+  if(MODULES[id]) return MODULES[id];
+  if(!KEYS[id]) throw new Error("No access to "+id);
+  const f=await fetchJSON("modules/"+id+".enc.json");
+  MODULES[id]=await aesOpen(await rawKey(KEYS[id]),f.iv,f.ct);
+  return MODULES[id];
+}
+async function preloadModules(){
+  for(const id of Object.keys(KEYS)){ if(id==="placement") continue; try{await getModule(id);}catch(e){console.warn(e);} }
+}
+const unitIds=()=>Object.keys(MODULES).filter(id=>MODULES[id]&&MODULES[id].sections);
+
+/* ---------- speech (browser text-to-speech) ---------- */
+const TTS={
+  voices:[], cur:null,
+  ok(){return "speechSynthesis" in window && typeof SpeechSynthesisUtterance!=="undefined";},
+  init(){ if(!this.ok()) return; const load=()=>{this.voices=speechSynthesis.getVoices().filter(v=>/^en/i.test(v.lang));}; load(); try{speechSynthesis.addEventListener("voiceschanged",load);}catch(e){speechSynthesis.onvoiceschanged=load;} },
+  FEM:/female|woman|samantha|karen|serena|kate|moira|tessa|fiona|victoria|susan|zira|hazel|libby|sonia|emma|amy|joanna|salli|kimberly|ivy|kendra|aria|jenny|natasha|olivia|martha|catherine|allison|ava|nicky|maisie|google us english/i,
+  MALE:/\bmale|daniel|arthur|oliver|george|ryan|thomas|alex\b|fred|rishi|aaron|gordon|guy|brian|matthew|joey|justin|david|mark|james|william|liam|google uk english male/i,
+  pick(lang,gender,avoid=[]){
+    const pref=(S.settings.accent&&S.settings.accent!=="any")?S.settings.accent:lang||"en-GB";
+    const L=this.voices; if(!L.length) return null;
+    const byLang=L.filter(v=>v.lang.replace("_","-").toLowerCase().startsWith(pref.toLowerCase()));
+    const pool=byLang.length?byLang:L;
+    const isF=v=>this.FEM.test(v.name), isM=v=>!isF(v)&&this.MALE.test(v.name);
+    const g=gender==="female"?pool.filter(isF):gender==="male"?pool.filter(isM):pool;
+    const cand=(g.length?g:pool);
+    return cand.find(v=>!avoid.includes(v))||cand[0];
+  },
+  cast(speakers){const map={},used=[];for(const [k,s] of Object.entries(speakers||{})){const v=this.pick(s.lang,s.gender,used);map[k]=v;if(v)used.push(v);}return map;},
+  split(t){return (t.match(/[^.!?]+[.!?]+["’”]?|[^.!?]+$/g)||[t]).map(s=>s.trim()).filter(Boolean);},
+  /* plays a list of {text, voice} from index `from`; returns a controller */
+  run(lines,rate,from,onLine,onDone){
+    if(!this.ok()){onDone&&onDone(false);return {stop(){}};}
+    this.stop(); let i=from||0, stopped=false;
+    const next=()=>{
+      if(stopped) return;
+      if(i>=lines.length){ this.cur=null; onDone&&onDone(true); return; }
+      const ln=lines[i]; onLine&&onLine(i,ln);
+      const u=new SpeechSynthesisUtterance(ln.text);
+      if(ln.voice){u.voice=ln.voice;u.lang=ln.voice.lang;} else u.lang="en-GB";
+      u.rate=Math.max(.5,Math.min(1.5,(rate||1)*(S.settings.speed||1)));
+      u.onend=()=>{ if(stopped) return; i++; setTimeout(next,ln.pause||250); };
+      u.onerror=()=>{ if(stopped) return; i++; setTimeout(next,100); };
+      speechSynthesis.speak(u);
+    };
+    const ctl={stop:()=>{stopped=true;try{speechSynthesis.cancel();}catch(e){}},get index(){return i;}};
+    this.cur=ctl; next(); return ctl;
+  },
+  say(text,lang,gender){ const v=this.pick(lang||"en-GB",gender||"female"); return this.run(this.split(text).map(t=>({text:t,voice:v})),1,0); },
+  stop(){ if(this.cur){this.cur.stop();this.cur=null;} if(this.ok()){try{speechSynthesis.cancel();}catch(e){}} }
+};
+
+/* ---------- top bar ---------- */
+function dueWords(){const now=Date.now();let n=0;for(const uid of unitIds()){for(const w of MODULES[uid].words||[]){const st=S.words[uid+":"+w.id];if(st&&st.due<=now)n++;}}return n;}
+function renderTop(){
+  const tb=$("#topbar");
+  const signed=!!S.code||PREVIEW;
+  tb.hidden=!signed;
+  $("#brandBtn").innerHTML=esc((CONFIG.courseName||"IELTS Ladder").replace(/\s+\S+$/,""))+" <span>"+esc((CONFIG.courseName||"IELTS Ladder").split(/\s+/).pop())+"</span>";
+  if(!signed) return;
+  const due=dueWords();
+  $("#nav").innerHTML=PREVIEW?`<button data-nav="exitpreview">Exit preview</button>`:`
+    <button data-nav="home">Course</button>
+    <button data-nav="review">Words${due?`<span class="count">${due}</span>`:""}</button>
+    <button data-nav="send">Send progress</button>
+    <button data-nav="settings">Settings</button>`;
+}
+document.addEventListener("click",e=>{
+  const b=e.target.closest("[data-nav]"); if(!b) return;
+  const n=b.dataset.nav;
+  if(n==="home") go(S.placement?viewHome:viewPlacementIntro);
+  if(n==="review") go(viewReview);
+  if(n==="send") go(viewSend);
+  if(n==="settings") go(viewSettings);
+  if(n==="exitpreview") location.reload();
+});
+$("#brandBtn").addEventListener("click",()=>{ if(PREVIEW) return; if(S.code) go(S.placement?viewHome:viewPlacementIntro); });
+
+/* ---------- boot ---------- */
+async function boot(){
+  loadState(); TTS.init();
+  const [cfg,units]=await Promise.all([fetchJSON("config.json").catch(()=>({})),fetchJSON("units.json").then(j=>j.units||[]).catch(()=>[])]);
+  CONFIG=cfg; UNITS=units; document.title=CONFIG.courseName||"IELTS Ladder";
+  if(!window.crypto||!crypto.subtle){ app.innerHTML=`<div class="wrap narrow stack"><h2>This browser can’t open the course</h2><p>Please open the link in an up-to-date browser such as Chrome, Safari, Edge or Firefox.</p></div>`; return; }
+  if(!S.code) return go(viewGate);
+  viewLoading("Opening your course");
+  try{
+    const r=await openCourse(S.code);
+    if(r.error){ S.code=null; save(); return go(viewGate,"This code is no longer active. Please check with your teacher."); }
+  }catch(e){ return go(viewProblem,e); }
+  await preloadModules();
+  go(S.placement?viewHome:viewPlacementIntro);
+}
+function viewLoading(msg){app.innerHTML=`<div class="loader"><span class="label">${esc(msg)}</span></div>`;}
+function viewProblem(e){
+  app.innerHTML=`<div class="wrap narrow stack"><span class="label">Connection problem</span><h2>The course didn’t load</h2><p>Check your internet connection and try again.</p><p class="small muted">${esc(e&&e.message||e)}</p><div class="row"><button class="btn primary" id="retry">Try again</button></div></div>`;
+  $("#retry").onclick=()=>location.reload();
+}
+
+/* ---------- gate: code entry ---------- */
+function viewGate(msg){
+  const name=CONFIG.courseName||"IELTS Ladder";
+  app.innerHTML=`<div class="wrap"><div class="gate">
+    <div class="stack tight"><span class="label">${esc(CONFIG.tagline||"Academic English")}</span><h1>${esc(name.replace(/\s+\S+$/,""))} <span>${esc(name.split(/\s+/).pop())}</span></h1></div>
+    <form id="gateForm" class="stack" novalidate>
+      <label for="codeIn" class="stack tight"><strong>Enter your access code</strong><span class="small muted">Your teacher sent it to you. It looks like K7QM-2XRP-9TDA.</span></label>
+      <input type="text" id="codeIn" class="codein" autocomplete="off" autocapitalize="characters" spellcheck="false" placeholder="XXXX-XXXX-XXXX" aria-describedby="gateErr">
+      <div class="err" id="gateErr" role="alert">${esc(msg||"")}</div>
+      <div class="row"><button class="btn primary" type="submit" id="gateBtn">Open my course</button></div>
+    </form>
+    <p class="small muted">Your progress is saved on this device only. No name or email is needed.</p>
+    <details class="more small"><summary>For teachers: preview a content file</summary>
+      <p class="muted">Open a plain unit or placement file from your source folder to check it before you encrypt it. Nothing is uploaded.</p>
+      <p style="margin-top:10px"><input type="file" id="pvFile" accept=".json,application/json"></p>
+    </details>
+  </div></div>`;
+  $("#gateForm").onsubmit=async ev=>{
+    ev.preventDefault();
+    const code=normCode($("#codeIn").value);
+    if(code.length<10){ $("#gateErr").textContent="That code is too short. Check that you copied all of it."; return; }
+    $("#gateBtn").disabled=true; $("#gateBtn").textContent="Checking…"; $("#gateErr").textContent="";
+    try{
+      const r=await openCourse(code);
+      if(r.error){ $("#gateErr").textContent="We couldn’t find that code. Check the letters and numbers, or ask your teacher."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; return; }
+      S.code=code; save();
+      viewLoading("Opening your course"); await preloadModules();
+      go(S.placement?viewHome:viewPlacementIntro);
+    }catch(e){ $("#gateErr").textContent="The course didn’t load. Check your connection and try again."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; }
+  };
+  $("#pvFile").onchange=async ev=>{
+    const f=ev.target.files[0]; if(!f) return;
+    try{
+      const data=JSON.parse(await f.text());
+      PREVIEW=true; S=freshState(); S.code="PREVIEW";
+      ["reading","listening","writing","speaking","language"].forEach(k=>{S.profile[k]="B2";S.tier[k]="B2";});
+      if(data.type==="placement"||data.id==="placement"){ MODULES.placement=data; KEYS.placement="x"; S.placement=null; return go(viewPlacementIntro); }
+      if(!data.sections) throw new Error("This file has no sections.");
+      MODULES[data.id]=data; S.placement={level:"B2",date:Date.now(),scores:{}};
+      go(viewUnit,data.id);
+    }catch(e){ alertBox("That file couldn’t be opened: "+e.message); }
+  };
+}
+function alertBox(msg){ const el=document.createElement("div"); el.className="toast"; el.textContent=msg; document.body.appendChild(el); setTimeout(()=>el.remove(),4000); }
+
+/* ---------- placement ---------- */
+async function placementData(){ if(MODULES.placement) return MODULES.placement; return getModule("placement"); }
+async function viewPlacementIntro(){
+  let P; try{ P=await placementData(); }catch(e){ app.innerHTML=`<div class="wrap narrow stack"><h2>Placement isn’t available yet</h2><p>Your code doesn’t include the placement test. Please tell your teacher.</p></div>`; return; }
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+    <span class="label">Step 1 · Placement</span>
+    <h1>Find your level</h1>
+    <p class="prose">${esc(P.intro)}</p>
+    <div class="card soft stack tight">
+      <strong>What happens next</strong>
+      <p class="small">Your result is a CEFR level (A2 to C1) with an indicative IELTS band. It sets your starting level in reading, listening, writing, speaking and vocabulary. After that, each skill moves up or down on its own as you work.</p>
+    </div>
+    <div class="row"><button class="btn primary" id="startP">Start the placement test</button>${S.placement?`<button class="btn ghost" id="backH">Back to the course</button>`:""}</div>
+  </div>`;
+  $("#startP").onclick=()=>go(runPlacement,P);
+  if($("#backH")) $("#backH").onclick=()=>go(viewHome);
+}
+function runPlacement(P){
+  const items=P.items.map(it=>Object.assign({},it,{order:shuffle(it.o.map((_,i)=>i))}));
+  const ans=new Array(items.length).fill(null); let i=0;
+  const draw=()=>{
+    const it=items[i];
+    app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
+      <div class="row between"><span class="label">Question ${i+1} of ${items.length}</span><button class="link small" id="quitP">Leave</button></div>
+      <div class="pbar"><i style="width:${Math.round(i/items.length*100)}%"></i></div>
+      <h2 style="font-family:var(--body);font-weight:600;font-size:22px;line-height:1.4;letter-spacing:0">${esc(it.p).replace(/___/g,"<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>")}</h2>
+      <div class="choices">${it.order.map(k=>`<button data-k="${k}" ${ans[i]===k?'class="right"':""}>${esc(it.o[k])}</button>`).join("")}<button data-k="-1" class="${ans[i]===-1?"right":""}" style="color:var(--muted)">I don’t know</button></div>
+      <div class="row between"><button class="btn ghost small" id="prevP" ${i===0?"disabled":""}>Back</button><span class="small muted">Choose an answer to continue.</span></div>
+    </div>`;
+    $$(".choices button").forEach(b=>b.onclick=()=>{ ans[i]=Number(b.dataset.k); if(i<items.length-1){i++;draw();} else finish(); });
+    $("#prevP").onclick=()=>{ if(i>0){i--;draw();} };
+    $("#quitP").onclick=()=>go(viewPlacementIntro);
+  };
+  const finish=()=>{
+    const scores={A2:0,B1:0,B2:0,C1:0}, totals={A2:0,B1:0,B2:0,C1:0};
+    items.forEach((it,k)=>{ totals[it.level]++; if(ans[k]===it.a) scores[it.level]++; });
+    const pass=P.pass||{A2:5,B1:5,B2:4,C1:4};
+    let level="A1"; for(const L of LV){ if(scores[L]>=pass[L]) level=L; else break; }
+    const prof=level==="A1"?"A2":level;
+    S.placement={level,scores,totals,date:Date.now()};
+    SKILLS.forEach(([k])=>{ S.profile[k]=prof; S.tier[k]=tierOf(prof); });
+    S.support=(level==="A1"||level==="A2");
+    save();
+    go(viewPlacementResult);
+  };
+  draw();
+}
+function viewPlacementResult(){
+  const p=S.placement, lvl=p.level, shown=lvl==="A1"?"A1–A2":lvl;
+  const msg={A1:"You’ll start at B1 with extra support: strategy tips, hints and fewer answer options. Take it steadily.",A2:"You’ll start at B1 with extra support. The first units will build the grammar and vocabulary IELTS needs.",B1:"You’ll start at B1. Passages are shorter and more direct, with support when you need it.",B2:"You’ll start at B2: longer texts, more paraphrase and full exam tasks.",C1:"You’ll start at C1: academic texts, the writer’s attitude and exam timing."}[lvl];
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:26px">
+    <div class="score"><div class="big">${esc(shown)}</div><div class="stack tight"><span class="label">Your placement · CEFR</span><h2>Indicative IELTS ${esc(BAND[lvl])}</h2><p class="muted">${esc(msg)}</p></div></div>
+    <div class="stack"><span class="label">Your answers by level</span>
+      ${LV.map(L=>`<div class="row"><span class="chip ${li(L)<=li(prof(lvl))?"lv":""}" style="min-width:44px;justify-content:center">${L}</span><div class="grow pbar"><i style="width:${Math.round(p.scores[L]/(p.totals[L]||7)*100)}%"></i></div><span class="small" style="font-variant-numeric:tabular-nums;min-width:40px;text-align:right">${p.scores[L]}/${p.totals[L]}</span></div>`).join("")}
+    </div>
+    <p class="small muted">This is a quick grammar and vocabulary test, so it gives a starting point, not a final score. Your writing and speaking levels will be updated by the tasks themselves.</p>
+    <div class="row"><button class="btn primary" id="toCourse">Go to the course</button></div>
+  </div>`;
+  $("#toCourse").onclick=()=>go(viewHome);
+}
+const prof=l=>l==="A1"?"A2":l;
+
+/* ---------- adaptation ---------- */
+function record(uid,sid,tier,pct,mode,lvl){
+  const k=uid+":"+sid; const r={tier,pct:Math.round(pct*100),mode:mode||"",date:Date.now()}; if(lvl) r.lvl=lvl; (S.results[k]=S.results[k]||[]).push(r);
+}
+function adapt(skill,tier,pct){
+  let msg;
+  const cur=S.profile[skill]||"A2";
+  if(pct>=0.7 && li(cur)<li(tier)) S.profile[skill]=tier;
+  if(pct>=0.85 && tier!=="C1"){ S.tier[skill]=upT(tier); msg=`Strong result. Next time, ${SKILL_NAME[skill].toLowerCase()} moves up to ${S.tier[skill]}.`; }
+  else if(pct>=0.85){ S.tier[skill]="C1"; msg="Strong result at the top level. Keep this up under exam timing."; }
+  else if(pct>=0.7){ S.tier[skill]=tier; msg=`You’re working confidently at ${tier}. Score 85% or more to move up.`; }
+  else if(pct<0.5 && tier!=="B1"){ S.tier[skill]=downT(tier); if(li(S.profile[skill])>=li(tier)) S.profile[skill]=downT(tier); msg=`This level was a stretch. Next time you’ll work at ${S.tier[skill]} first, then come back to ${tier}.`; }
+  else { S.tier[skill]=tier; msg=`Keep practising at ${tier}. Score 70% or more to confirm this level.`; }
+  save(); return msg;
+}
+function overallLevel(){ const v=SKILLS.map(([k])=>li(S.profile[k]||"A2")); return LV[median(v)]; }
+
+/* ---------- home ---------- */
+function unitState(u){
+  const has=!!KEYS[u.id]||!!MODULES[u.id];
+  if(!has) return u.ready?"locked":"soon";
+  return S.checks[u.id]?"done":"open";
+}
+function sectionDone(uid,sid){ const r=S.results[uid+":"+sid]; return r&&r.length?r[r.length-1]:null; }
+function nextStep(){
+  for(const u of UNITS){ const st=unitState(u); if(st!=="open") continue; const U=MODULES[u.id]; if(!U) continue;
+    for(const s of U.sections){ if(!sectionDone(u.id,s.id)) return {u,U,s}; } }
+  return null;
+}
+function viewHome(){
+  if(!S.placement) return go(viewPlacementIntro);
+  const ov=overallLevel(), nx=nextStep();
+  const prow=([k,label])=>{ const l=S.profile[k]||"A2", i=li(l), t=S.tier[k]||tierOf(l);
+    return `<div class="prow"><strong>${label}</strong><div class="scalebox stack tight"><div class="scale">${LV.map((L,j)=>`<i class="${j<i?"on":j===i?"top":""}"></i>`).join("")}</div><div class="scale-labels">${LV.map(L=>`<span>${L}</span>`).join("")}</div></div><span class="chip ${i>=1?"lv":""}" title="Level of your next tasks">Next: ${t}</span></div>`; };
+  const due=dueWords();
+  app.innerHTML=`<div class="wrap">
+    <section class="hero"><div class="biglv">${ov}</div><div class="stack tight"><span class="label">Your CEFR profile · overall</span><h2>Indicative IELTS ${BAND[ov]}</h2><p class="muted small">Placement ${esc(S.placement.level==="A1"?"A1–A2":S.placement.level)} on ${fmtDate(S.placement.date)}. Each skill moves on its own as you complete tasks.</p></div></section>
+    <section class="section"><span class="label">Skills</span><div class="profile">${SKILLS.map(prow).join("")}</div></section>
+    ${nx?`<section class="section"><div class="continue card soft"><div class="stack tight"><span class="label">Continue · Unit ${nx.U.number}</span><h3>${esc(nx.s.title)}</h3><p class="small muted">${esc(nx.s.summary||"")}</p></div><button class="btn primary" id="contBtn">Continue</button></div></section>`:""}
+    ${due?`<section class="section"><div class="continue"><div class="stack tight"><span class="label">Vocabulary review</span><p><strong>${due} word${due>1?"s":""}</strong> ready for review. Short, regular reviews make words stick.</p></div><button class="btn" id="revBtn">Review words</button></div></section>`:""}
+    <section class="section"><div class="row between"><span class="label">Units · ${UNITS.length}</span><span class="small muted">Your teacher opens new units for you.</span></div>
+      <div class="units">${UNITS.map(u=>{const st=unitState(u);const chip={open:`<span class="chip accent">Open</span>`,done:`<span class="chip good">Completed</span>`,locked:`<span class="chip">Locked</span>`,soon:`<span class="chip">Coming soon</span>`}[st];
+        const U=MODULES[u.id]; const prog=U?`<span class="small muted">${U.sections.filter(s=>sectionDone(u.id,s.id)).length}/${U.sections.length} parts done</span>`:`<span class="small muted">${esc(u.subtitle)}</span>`;
+        return `<button class="unit ${st}" data-u="${u.id}" ${st==="open"||st==="done"?"":`aria-disabled="true"`}><span class="num">${String(u.n).padStart(2,"0")}</span><h3>${esc(u.title)}</h3>${prog}<span>${chip}</span></button>`;}).join("")}</div>
+    </section>
+  </div>`;
+  if($("#contBtn")) $("#contBtn").onclick=()=>go(viewSectionStart,nx.u.id,nx.s.id);
+  if($("#revBtn")) $("#revBtn").onclick=()=>go(viewReview);
+  $$(".unit").forEach(b=>b.onclick=()=>{ const u=UNITS.find(x=>x.id===b.dataset.u); const st=unitState(u);
+    if(st==="open"||st==="done") go(viewUnit,u.id);
+    else toast(st==="locked"?"This unit is ready. Ask your teacher to open it for you.":"This unit is being written. It will appear here when it’s ready."); });
+}
+
+/* ---------- unit page ---------- */
+const SEC_LABEL={vocab:"Vocabulary",practice:"Grammar",reading:"Reading",listening:"Listening",speaking:"Speaking",writing:"Writing",check:"Unit check"};
+function viewUnit(uid){
+  const U=MODULES[uid]; if(!U) return go(viewHome);
+  const nextU=U.next&&UNITS.find(x=>x.id===U.next.id);
+  const nextOpen=U.next&&(KEYS[U.next.id]||MODULES[U.next.id]);
+  app.innerHTML=`<div class="wrap">
+    <section class="uhero"><div class="num">${String(U.number).padStart(2,"0")}</div><div class="stack tight"><span class="label">Unit ${U.number} · ${esc(U.subtitle||"")}</span><h1>${esc(U.title)}</h1></div></section>
+    <section class="section"><p class="prose">${esc(U.intro||"")}</p></section>
+    <section class="section"><span class="label">Parts of this unit</span><div class="seclist">${U.sections.map(s=>{
+      const d=sectionDone(uid,s.id), t=s.type==="check"?"":(S.tier[s.skill]||"B2");
+      const status=d?`<span class="chip good">${d.lvl?d.lvl+" level":d.pct+"%"+(d.tier?" · "+d.tier:"")}</span>`:`<span class="chip">Not started</span>`;
+      return `<div class="secrow"><span class="label">${SEC_LABEL[s.type]||s.type}${t?` · ${t}`:""}</span><div class="meta"><h3>${esc(s.title)}</h3><p class="small muted">${esc(s.summary||"")}</p></div><div class="act row">${status}<button class="btn small ${d?"ghost":"primary"}" data-s="${s.id}">${d?"Open again":"Start"}</button></div></div>`;}).join("")}</div></section>
+    ${U.next?`<section class="section"><div class="card soft stack tight"><span class="label">Next · Unit ${nextU?nextU.n:""}</span><h3>${esc(U.next.title)}</h3><p class="small">${esc(U.next.bridge||"")}</p><div class="row">${nextOpen?`<button class="btn" id="nextU">Go to ${esc(U.next.title)}</button>`:`<span class="chip">Opens when your teacher unlocks it</span>`}</div></div></section>`:""}
+    <div class="row"><button class="btn ghost" id="backHome">${PREVIEW?"":"Back to the course"}</button></div>
+  </div>`;
+  $$("[data-s]").forEach(b=>b.onclick=()=>go(viewSectionStart,uid,b.dataset.s));
+  if($("#nextU")) $("#nextU").onclick=()=>go(viewUnit,U.next.id);
+  if(PREVIEW) $("#backHome").remove(); else $("#backHome").onclick=()=>go(viewHome);
+}
+
+/* ---------- section start: level + mode ---------- */
+const TIER_DESC={B1:"IELTS 4.0–5.0",B2:"IELTS 5.5–6.5",C1:"IELTS 7.0–8.0"};
+function viewSectionStart(uid,sid){
+  const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
+  if(sec.type==="vocab") return go(viewVocab,uid,sid);
+  if(sec.type==="check") return go(runCheck,U,sec);
+  const rec=S.tier[sec.skill]||"B2"; let tier=rec, mode="practice";
+  const hist=(S.results[uid+":"+sid]||[]).slice(-5).reverse();
+  const modes=sec.type==="reading";
+  const draw=()=>{
+    app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+      <span class="label">Unit ${U.number} · ${esc(U.title)} · ${SEC_LABEL[sec.type]}</span>
+      <h1>${esc(sec.title)}</h1>
+      <p class="prose">${esc(sec.summary||"")}</p>
+      <div class="stack tight"><strong>Level</strong><div class="seg" role="group" aria-label="Level">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${TIER_DESC[t]}${t===rec?" · recommended":""}</span></button>`).join("")}</div></div>
+      ${modes?`<div class="stack tight"><strong>Mode</strong><div class="seg" role="group" aria-label="Mode"><button data-m="practice" aria-pressed="${mode==="practice"}"><strong>Practice</strong><span>Check as you go${tier!=="C1"?", hints":""}</span></button><button data-m="exam" aria-pressed="${mode==="exam"}"><strong>Exam</strong><span>Timer, no hints</span></button></div></div>`:""}
+      ${S.support&&tier==="B1"?`<p class="note">Extra support is on: strategy tips, hints and fewer answer options.</p>`:""}
+      <div class="row"><button class="btn primary" id="go">Start</button><button class="btn ghost" id="back">Back to the unit</button></div>
+      ${hist.length?`<div class="stack tight"><span class="label">Your attempts</span>${hist.map(h=>`<div class="row small"><span class="chip">${h.tier}</span><span>${h.lvl?h.lvl+" level":h.pct+"%"}</span><span class="muted">${fmtDate(h.date)}${h.mode?" · "+h.mode:""}</span></div>`).join("")}</div>`:""}
+    </div>`;
+    $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
+    $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw();});
+    $("#go").onclick=()=>{ const f={practice:runPractice,reading:runReading,listening:runListening,speaking:runSpeaking,writing:runWriting}[sec.type]; go(f,U,sec,tier,mode); };
+    $("#back").onclick=()=>go(viewUnit,uid);
+  };
+  draw();
+}
+
+/* =========================================================
+   QUIZ ENGINE · shared by grammar, reading, listening and the unit check
+   ========================================================= */
+const QT={
+  tfng:{label:"True / False / Not Given",opts:["TRUE","FALSE","NOT GIVEN"],tip:"FALSE means the text says the opposite. NOT GIVEN means the text doesn’t say either way. Find the exact sentence before you decide."},
+  ynng:{label:"Yes / No / Not Given",opts:["YES","NO","NOT GIVEN"],tip:"These questions are about the writer’s views. YES = the writer agrees, NO = the writer disagrees, NOT GIVEN = the writer doesn’t say."},
+  head:{label:"Matching headings",tip:"Read the first and last sentences and ask what the whole paragraph is about. Ignore headings that match only one detail."},
+  mcq:{label:"Multiple choice",tip:"Find the answer in the text first, then compare the options. Wrong options often repeat words from the text with a different meaning."},
+  gap:{label:"Completion",tip:"Copy words exactly and check the word limit. The completed sentence must be grammatical."}
+};
+const INSTR={
+  tfng:"Do the statements agree with the information in the text? Choose <b>TRUE</b>, <b>FALSE</b> or <b>NOT GIVEN</b>.",
+  ynng:"Do the statements agree with the views of the writer? Choose <b>YES</b>, <b>NO</b> or <b>NOT GIVEN</b>.",
+  head:"Choose the correct heading for each paragraph from the list below.",
+  mcq:"Choose the correct answer.",
+  gap:lim=>lim?`Complete the sentences. Write <b>${["","ONE WORD","NO MORE THAN TWO WORDS","NO MORE THAN THREE WORDS"][lim]||lim+" WORDS"}</b> for each answer.`:"Complete the sentences."
+};
+function qtAcc(type){const a=(S.qtypes[type]||[]).slice(-8);return a.length?a.reduce((x,y)=>x+y,0)/a.length:null;}
+function makeQuiz(groups,ctx){
+  let n=0; const qs=[];
+  const G=groups.map((g,gi)=>{
+    const items=(g.qs||g.items||[]).map((q,qi)=>{
+      const o=Object.assign({},q,{type:q.type||g.type,id:`q${gi}_${qi}`,n:++n,lim:q.lim??g.lim,headings:g.headings,group:gi});
+      if(o.type==="mcq"){ let idx=o.o.map((_,i)=>i); if(ctx.reduce&&idx.length>3){const wrong=shuffle(idx.filter(i=>i!==o.a));idx=idx.filter(i=>i!==wrong[0]);} o.order=ctx.shuffle?shuffle(idx):idx; }
+      if(o.type==="head"){ let idx=o.headings.map((_,i)=>i); if(ctx.reduce){const wrong=shuffle(idx.filter(i=>i!==o.a)).slice(0,2);idx=idx.filter(i=>i===o.a||wrong.includes(i));} o.order=idx; }
+      qs.push(o); return o;
+    });
+    return Object.assign({},g,{items});
+  });
+  return {groups:G,qs,ans:{},checked:{},hint:{},plays:{},ctx};
+}
+function isRight(q,v){
+  if(v===undefined||v===null||v==="") return false;
+  if(q.type==="tfng"||q.type==="ynng") return v===q.a;
+  if(q.type==="mcq"||q.type==="head") return Number(v)===q.a;
+  if(q.type==="gap") return (!q.lim||wc(v)<=q.lim) && (q.acc||[]).map(norm).includes(norm(v));
+  return false;
+}
+function answerText(q){
+  if(q.type==="tfng"||q.type==="ynng") return q.a;
+  if(q.type==="mcq") return q.o[q.a];
+  if(q.type==="head") return ROMAN[q.a]+". "+q.headings[q.a];
+  return (q.acc||[])[0]||"";
+}
+function givenText(q,v){
+  if(v===undefined||v===null||v==="") return "No answer";
+  if(q.type==="mcq") return q.o[Number(v)];
+  if(q.type==="head") return ROMAN[Number(v)]+". "+q.headings[Number(v)];
+  return String(v);
+}
+function groupHTML(Q,g,first,last){
+  const c=Q.ctx, type=g.type||g.items[0].type;
+  const acc=qtAcc(type);
+  const tip=c.mode==="practice"&&QT[type]&&(c.tier==="B1"||S.support||(acc!==null&&acc<0.6));
+  const instr=g.instr||(type==="gap"?INSTR.gap(g.lim):INSTR[type]||"");
+  let h=`<div class="group" data-group="${g.items[0]&&g.items[0].group}">`;
+  if(!c.noHeaders) h+=`<span class="label">Questions ${first}${last>first?"–"+last:""}${QT[type]?" · "+QT[type].label:""}</span>`;
+  if(instr) h+=`<p class="instr">${instr}</p>`;
+  if(tip) h+=`<p class="note"><b>Strategy:</b> ${esc(QT[type].tip)}</p>`;
+  if(type==="head"&&g.headings) h+=`<div class="headlist"><span class="label">List of headings</span>${g.headings.map((x,i)=>`<div><span>${ROMAN[i]}</span>${esc(x)}</div>`).join("")}</div>`;
+  g.items.forEach(q=>h+=qHTML(Q,q));
+  return h+`</div>`;
+}
+function qHTML(Q,q){
+  const c=Q.ctx, v=Q.ans[q.id], done=!!Q.checked[q.id];
+  let input="";
+  if(q.type==="tfng"||q.type==="ynng") input=`<div class="tf" role="group" aria-label="Answer">${QT[q.type].opts.map(o=>`<button type="button" data-tf="${q.id}" data-v="${o}" aria-pressed="${v===o}" ${done?"disabled":""}>${o}</button>`).join("")}</div>`;
+  if(q.type==="mcq") input=`<div class="opts">${q.order.map((i,k)=>`<label><input type="radio" name="${q.id}" value="${i}" ${String(v)===String(i)?"checked":""} ${done?"disabled":""}><span><span class="let">${"ABCDEFG"[k]}</span>&nbsp; ${esc(q.o[i])}</span></label>`).join("")}</div>`;
+  if(q.type==="head") input=`<select data-q="${q.id}" ${done?"disabled":""} aria-label="Heading for ${esc(q.p)}"><option value="">Choose a heading</option>${q.order.map(i=>`<option value="${i}" ${String(v)===String(i)?"selected":""}>${ROMAN[i]}. ${esc(q.headings[i])}</option>`).join("")}</select>`;
+  if(q.type==="gap") input=`<input type="text" data-q="${q.id}" value="${esc(v||"")}" autocomplete="off" autocapitalize="off" spellcheck="false" ${done?"disabled":""} aria-label="Answer to question ${q.n}">${q.lim?`<span class="label">${q.lim===1?"One word":"Max "+q.lim+" words"}</span>`:""}`;
+  const prompt=q.type==="head"?`<strong>${esc(q.p)}</strong>`:esc(q.p).replace(/___/g,"<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+  let pre="";
+  if(q.text) pre+=`<p class="quote">${esc(q.text)}</p>`;
+  if(q.listen){ const left=2-(Q.plays[q.id]||0); pre+=`<div class="row"><button type="button" class="btn small" data-listen="${q.id}" ${left<=0?"disabled":""}>Play recording</button><span class="small muted">${left} play${left===1?"":"s"} left</span></div>`; }
+  let tools="";
+  if(c.mode==="practice"&&!done){
+    if(c.hints&&q.para){ tools+=Q.hint[q.id]?`<span class="small muted">Hint: look at <button type="button" class="link" data-jump="${q.para}">paragraph ${q.para}</button>${q.type==="gap"&&q.acc?`. The answer starts with “${esc(q.acc[0][0])}”`:""}.</span>`:`<button type="button" class="btn small ghost" data-hint="${q.id}">Hint</button>`; }
+    tools+=`<button type="button" class="btn small" data-check="${q.id}">Check</button>`;
+  }
+  let fb="",cls="";
+  if(done){ const ok=isRight(q,v); cls=ok?"ok":"no"; fb=`<div class="fb"><span class="verdict">${ok?"Correct":"Not quite"}${ok&&Q.hint[q.id]?" (with a hint)":""}</span>${ok?"":`<span>Answer: <strong>${esc(answerText(q))}</strong></span>`}${q.ex?`<span>${esc(q.ex)}</span>`:""}</div>`; }
+  return `<div class="q ${cls}" id="box-${q.id}">${pre}<div class="qhead"><span class="qnum">${q.n}</span><div class="qtext">${prompt}</div></div>${input}${tools?`<div class="qtools">${tools}</div>`:""}${fb}</div>`;
+}
+function quizHTML(Q){ return Q.groups.map(g=>groupHTML(Q,g,g.items[0].n,g.items[g.items.length-1].n)).join(""); }
+function refreshQ(Q,id){ const q=Q.qs.find(x=>x.id===id); const box=document.getElementById("box-"+id); if(!box) return; const t=document.createElement("div"); t.innerHTML=qHTML(Q,q); box.replaceWith(t.firstElementChild); Q.onChange&&Q.onChange(); }
+function bindQuiz(Q,root,jump){
+  root.addEventListener("click",e=>{
+    const t=e.target.closest("button"); if(!t) return;
+    if(t.dataset.tf){ Q.ans[t.dataset.tf]=t.dataset.v; t.parentElement.querySelectorAll("button").forEach(x=>x.setAttribute("aria-pressed",x===t)); Q.onChange&&Q.onChange(); }
+    if(t.dataset.hint){ Q.hint[t.dataset.hint]=true; refreshQ(Q,t.dataset.hint); }
+    if(t.dataset.check){ const id=t.dataset.check; if(Q.ans[id]===undefined||Q.ans[id]===""){ t.textContent="Answer first"; return; } Q.checked[id]=true; refreshQ(Q,id); }
+    if(t.dataset.jump&&jump) jump(t.dataset.jump);
+    if(t.dataset.listen){ const id=t.dataset.listen, q=Q.qs.find(x=>x.id===id); Q.plays[id]=(Q.plays[id]||0)+1; TTS.say(q.listen,"en-GB","male"); refreshQ(Q,id); }
+  });
+  root.addEventListener("change",e=>{ const t=e.target; if(t.type==="radio"){Q.ans[t.name]=t.value;Q.onChange&&Q.onChange();} if(t.tagName==="SELECT"&&t.dataset.q){Q.ans[t.dataset.q]=t.value;Q.onChange&&Q.onChange();} });
+  root.addEventListener("input",e=>{ const t=e.target; if(t.type==="text"&&t.dataset.q){Q.ans[t.dataset.q]=t.value;Q.onChange&&Q.onChange();} });
+}
+function answered(Q){return Q.qs.filter(q=>Q.ans[q.id]!==undefined&&Q.ans[q.id]!=="").length;}
+function scoreQuiz(Q){
+  let correct=0; const items=Q.qs.map(q=>{const ok=isRight(q,Q.ans[q.id]); if(ok) correct++; const credit=ok?(Q.hint[q.id]?0.5:1):0; (S.qtypes[q.type]=S.qtypes[q.type]||[]).push(credit); S.qtypes[q.type]=S.qtypes[q.type].slice(-30); return {q,ok,v:Q.ans[q.id]};});
+  return {correct,total:Q.qs.length,pct:Q.qs.length?correct/Q.qs.length:0,items};
+}
+function reviewHTML(items){
+  return `<div class="stack">${items.map(it=>{const q=it.q;return `<div class="q ${it.ok?"ok":"no"}">${q.text?`<p class="quote">${esc(q.text)}</p>`:""}<div class="qhead"><span class="qnum">${q.n}</span><div class="qtext">${esc(q.type==="head"?"Heading for "+q.p:q.p)}<div class="fb" style="margin-top:6px"><span class="verdict">${it.ok?"Correct":"Not quite"}</span><span>Your answer: ${esc(givenText(q,it.v))}${q.type==="gap"&&q.lim&&it.v&&wc(it.v)>q.lim?" (over the word limit)":""}</span>${it.ok?"":`<span>Answer: <strong>${esc(answerText(q))}</strong></span>`}${q.ex?`<span class="muted">${esc(q.ex)}</span>`:""}</div></div></div></div>`;}).join("")}</div>`;
+}
+function timerStart(minutes,onEnd){
+  const deadline=Date.now()+minutes*60000;
+  const tick=()=>{const left=Math.max(0,deadline-Date.now());const el=$("#timer");if(el){const m=Math.floor(left/60000),s=Math.floor(left%60000/1000);el.textContent=`${String(m).padStart(2,"0")}:${String(s).padStart(2,"0")}`;el.classList.toggle("low",left<60000);} if(left<=0){T.clear();onEnd();}};
+  tick(); T.every(tick,1000);
+}
+
+/* ---------- result screen ---------- */
+function viewResult(o){
+  const {U,sec,tier,res,msg,extra}=o;
+  const nextTier=tier!=="C1"?upT(tier):null;
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:28px">
+    <div class="score"><div class="big">${res.correct}<small>/${res.total}</small></div><div class="stack tight"><span class="label">${esc(U.title)} · ${esc(sec.title)} · ${tier}</span><h2>${Math.round(res.pct*100)}%</h2><p class="muted">${esc(msg||"")}</p></div></div>
+    <div class="row"><button class="btn primary" id="toUnit">Back to the unit</button><button class="btn" id="again">Try again</button>${nextTier?`<button class="btn ghost" id="harder">Try it at ${nextTier}</button>`:""}</div>
+    ${extra||""}
+    <section class="stack"><span class="label">Review</span>${reviewHTML(res.items)}</section>
+  </div>`;
+  $("#toUnit").onclick=()=>go(viewUnit,U.id);
+  $("#again").onclick=()=>go(viewSectionStart,U.id,sec.id);
+  if($("#harder")) $("#harder").onclick=()=>{ const f={practice:runPractice,reading:runReading,listening:runListening}[sec.type]; go(f,U,sec,nextTier,"practice"); };
+}
+
+/* ---------- grammar practice ---------- */
+function runPractice(U,sec,tier){
+  const t=sec.tiers[tier];
+  const Q=makeQuiz([{type:"mixed",qs:t.items}],{tier,mode:"practice",shuffle:true,reduce:false,hints:false,noHeaders:true});
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+    <div class="row between"><span class="label">${esc(U.title)} · Grammar · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+    <h1>${esc(sec.title)}</h1>
+    <div class="card soft stack tight"><span class="label">Language notes</span>${(t.notes||[]).map(n=>`<p>${n}</p>`).join("")}</div>
+    <div id="qz" class="qcol">${Q.groups.map(g=>g.items.map(q=>qHTML(Q,q)).join("")).join("")}</div>
+    <div class="row between"><span class="small muted" id="cnt"></span><button class="btn primary" id="fin">Finish</button></div>
+  </div>`;
+  const upd=()=>{$("#cnt").textContent=`${answered(Q)}/${Q.qs.length} answered`;}; Q.onChange=upd; upd();
+  bindQuiz(Q,$("#qz"));
+  $("#leave").onclick=()=>go(viewUnit,U.id);
+  $("#fin").onclick=()=>{ const res=scoreQuiz(Q); record(U.id,sec.id,tier,res.pct,"practice"); const msg=adapt(sec.skill,tier,res.pct); go(viewResult,{U,sec,tier,res,msg}); };
+}
+
+/* ---------- reading ---------- */
+function runReading(U,sec,tier,mode){
+  const R=sec.tiers[tier];
+  const exam=mode==="exam";
+  const Q=makeQuiz(R.groups,{tier,mode,shuffle:false,reduce:!exam&&(tier==="B1"||S.support),hints:!exam&&tier!=="C1"});
+  let pane="passage";
+  app.innerHTML=`<div class="reading" data-pane="passage">
+    <div class="bar-top"><div class="inner">
+      <div class="stack" style="gap:0"><span class="label">${esc(U.title)} · Reading · ${tier} · ${exam?"Exam":"Practice"}</span><strong>${esc(R.title)}</strong></div>
+      <div class="row"><span class="timer" id="timer">${exam&&R.time?"":""}</span><span class="label" id="cnt"></span><button class="btn small ghost" id="leave">Leave</button><button class="btn small primary" id="fin">Finish</button></div>
+      <div class="tabs" role="group" aria-label="View"><button data-pane="passage" aria-pressed="true">Passage</button><button data-pane="questions" aria-pressed="false">Questions</button></div>
+    </div></div>
+    <div class="wrap" style="padding-top:0"><div class="split">
+      <article class="passage"><span class="label">Reading passage</span><h2>${esc(R.title)}</h2><div class="stack" style="gap:4px;margin-top:10px">${R.paras.map(p=>`<div class="para" id="p-${p.id}"><b>${p.id}</b><p>${esc(p.t)}</p></div>`).join("")}</div></article>
+      <div class="qcol" id="qz">${quizHTML(Q)}<div class="row" style="justify-content:flex-end"><button class="btn primary" id="fin2">Finish and see results</button></div></div>
+    </div></div>
+  </div>`;
+  const root=$(".reading");
+  const setPane=p=>{pane=p;root.dataset.pane=p;$$(".tabs button").forEach(b=>b.setAttribute("aria-pressed",b.dataset.pane===p));window.scrollTo(0,0);};
+  $$(".tabs button").forEach(b=>b.onclick=()=>setPane(b.dataset.pane));
+  const jump=id=>{ if(matchMedia("(max-width:900px)").matches) setPane("passage"); const el=$("#p-"+id); if(el){el.scrollIntoView({behavior:"smooth",block:"center"});el.classList.add("flash");setTimeout(()=>el.classList.remove("flash"),1800);} };
+  const upd=()=>{$("#cnt").textContent=`${answered(Q)}/${Q.qs.length}`;}; Q.onChange=upd; upd();
+  bindQuiz(Q,$("#qz"),jump);
+  const finish=()=>{ const res=scoreQuiz(Q); record(U.id,sec.id,tier,res.pct,mode); const msg=adapt("reading",tier,res.pct); go(viewResult,{U,sec,tier,res,msg}); };
+  $("#fin").onclick=finish; $("#fin2").onclick=finish;
+  $("#leave").onclick=()=>go(viewUnit,U.id);
+  if(exam&&R.time) timerStart(R.time,()=>{toast("Time is up.");finish();}); else $("#timer").textContent=exam?"":"Untimed";
+}
+
+/* ---------- listening ---------- */
+function runListening(U,sec,tier){
+  const cfg=sec.tiers[tier];
+  const tracks=cfg.tracks.map(id=>Object.assign({id},sec.tracks[id]));
+  const groups=[]; tracks.forEach(t=>t.groups.forEach(g=>groups.push(Object.assign({},g,{track:t.id}))));
+  const Q=makeQuiz(groups,{tier,mode:"exam",shuffle:false,reduce:false,hints:false});
+  const firstOf={}; Q.groups.forEach((g,i)=>{ if(firstOf[g.track]===undefined) firstOf[g.track]=i; });
+  const noVoice=!TTS.ok();
+  let body="";
+  Q.groups.forEach((g,i)=>{
+    if(firstOf[g.track]===i){ const t=tracks.find(x=>x.id===g.track);
+      body+=`<div class="player" id="pl-${t.id}"><div class="row between"><div class="stack" style="gap:2px"><span class="label">Recording</span><h3>${esc(t.title)}</h3></div><span class="chip" id="left-${t.id}">${cfg.plays} play${cfg.plays>1?"s":""}</span></div>
+        <div class="prog"><i id="bar-${t.id}"></i></div><div class="speaking-now" id="now-${t.id}">${noVoice?"Your browser can’t play speech. Use the transcript below.":"Press play when you’re ready. Read the questions first."}</div>
+        <div class="row"><button class="btn primary small" data-play="${t.id}" ${noVoice?"disabled":""}>Play</button>${cfg.pause?`<button class="btn small ghost" data-pause="${t.id}" disabled>Pause</button>`:""}</div>
+        ${noVoice?`<details class="more"><summary>Transcript</summary><div class="script">${t.segments.map(s=>`<p><b>${esc((t.speakers[s.s]||{}).name||s.s)}</b>${esc(s.t)}</p>`).join("")}</div></details>`:""}
+        ${t.audio?`<audio id="au-${t.id}" src="${esc(t.audio)}" preload="auto"></audio>`:""}</div>`; }
+    body+=groupHTML(Q,g,g.items[0].n,g.items[g.items.length-1].n);
+  });
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+    <div class="row between"><span class="label">${esc(U.title)} · Listening · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+    <h1>${esc(sec.title)}</h1>
+    <p class="small muted">${cfg.plays===1?"You can play each recording once, as in the exam.":`You can play each recording ${cfg.plays} times.`} Speed: ${Math.round(cfg.rate*100)}%. Answers are checked at the end.</p>
+    <div class="qcol" id="qz">${body}</div>
+    <div class="row between"><span class="small muted" id="cnt"></span><button class="btn primary" id="fin">Finish and see results</button></div>
+  </div>`;
+  const P={};
+  tracks.forEach(t=>{
+    const voices=TTS.cast(t.speakers);
+    const lines=[]; t.segments.forEach((s,si)=>TTS.split(s.t).forEach((x,k,arr)=>lines.push({text:x,voice:voices[s.s],seg:si,pause:k===arr.length-1?550:200})));
+    P[t.id]={left:cfg.plays,pos:0,ctl:null,playing:false,lines};
+  });
+  const ui=id=>{ const p=P[id], t=tracks.find(x=>x.id===id);
+    const pb=$(`[data-play="${id}"]`), pz=$(`[data-pause="${id}"]`);
+    $("#left-"+id).textContent=`${p.left} play${p.left===1?"":"s"} left`;
+    if(pb){ pb.disabled=p.playing||(p.left<=0&&p.pos===0); pb.textContent=p.pos>0&&!p.playing?"Resume":"Play"; }
+    if(pz) pz.disabled=!p.playing;
+  };
+  const playTrack=id=>{
+    const p=P[id], t=tracks.find(x=>x.id===id);
+    Object.keys(P).forEach(k=>{ if(k!==id&&P[k].playing){ P[k].ctl&&P[k].ctl.stop(); P[k].playing=false; ui(k);} });
+    const au=t.audio&&$("#au-"+id);
+    if(p.pos===0){ if(p.left<=0) return; p.left--; }
+    p.playing=true; ui(id);
+    if(au){ au.playbackRate=cfg.rate; au.play(); au.ontimeupdate=()=>{$("#bar-"+id).style.width=(au.currentTime/(au.duration||1)*100)+"%";}; au.onended=()=>{p.playing=false;p.pos=0;au.currentTime=0;ui(id);$("#now-"+id).textContent="Finished.";}; p.ctl={stop(){au.pause();}}; p.au=au; return; }
+    p.ctl=TTS.run(p.lines,cfg.rate,p.pos,(i,ln)=>{ p.pos=i; $("#bar-"+id).style.width=(i/p.lines.length*100)+"%"; const sp=t.speakers[t.segments[ln.seg].s]; $("#now-"+id).textContent=(sp&&sp.name&&Object.keys(t.speakers).length>1)?sp.name+" is speaking":"Playing"; },
+      ok=>{ p.playing=false; p.pos=0; $("#bar-"+id).style.width="100%"; $("#now-"+id).textContent=ok?"Finished.":"Speech stopped."; ui(id); });
+  };
+  $("#qz").addEventListener("click",e=>{
+    const b=e.target.closest("button"); if(!b) return;
+    if(b.dataset.play) playTrack(b.dataset.play);
+    if(b.dataset.pause){ const p=P[b.dataset.pause]; if(p.au){p.au.pause();} else if(p.ctl){ const i=p.ctl.index; p.ctl.stop(); p.pos=i; } p.playing=false; $("#now-"+b.dataset.pause).textContent="Paused."; ui(b.dataset.pause); }
+  });
+  tracks.forEach(t=>ui(t.id));
+  const upd=()=>{$("#cnt").textContent=`${answered(Q)}/${Q.qs.length} answered`;}; Q.onChange=upd; upd();
+  bindQuiz(Q,$("#qz"));
+  $("#leave").onclick=()=>go(viewUnit,U.id);
+  $("#fin").onclick=()=>{
+    const res=scoreQuiz(Q); record(U.id,sec.id,tier,res.pct,"exam"); const msg=adapt("listening",tier,res.pct);
+    const extra=`<details class="more"><summary>Transcripts</summary><div class="stack">${tracks.map(t=>`<div class="stack tight"><strong>${esc(t.title)}</strong><div class="script">${t.segments.map(s=>`<p><b>${esc((t.speakers[s.s]||{}).name||s.s)}</b>${esc(s.t)}</p>`).join("")}</div></div>`).join("")}</div></details>`;
+    go(viewResult,{U,sec,tier,res,msg,extra});
+  };
+}
+
+/* ---------- unit check ---------- */
+function runCheck(U,sec){
+  const Q=makeQuiz([{type:"mixed",qs:sec.items}],{tier:"B2",mode:"exam",shuffle:true,reduce:false,hints:false,noHeaders:true});
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+    <div class="row between"><span class="label">${esc(U.title)} · Unit check</span><button class="link small" id="leave">Leave</button></div>
+    <h1>${esc(sec.title)}</h1>
+    <p class="prose">${esc(sec.summary||"")} Answers are checked at the end.</p>
+    <div id="qz" class="qcol">${Q.groups.map(g=>g.items.map(q=>qHTML(Q,q)).join("")).join("")}</div>
+    <section class="stack"><span class="label">Can you do this now? Tick what is true for you.</span>
+      <div class="sc">${sec.cando.map((c,i)=>`<label><input type="checkbox" data-cd="${i}" ${S.cando[U.id+":"+i]?"checked":""}><span><span class="chip">${c.level}</span> ${esc(c.t)}</span></label>`).join("")}</div>
+    </section>
+    <div class="row between"><span class="small muted" id="cnt"></span><button class="btn primary" id="fin">Finish the unit</button></div>
+  </div>`;
+  const upd=()=>{$("#cnt").textContent=`${answered(Q)}/${Q.qs.length} answered`;}; Q.onChange=upd; upd();
+  bindQuiz(Q,$("#qz"));
+  $("#leave").onclick=()=>go(viewUnit,U.id);
+  $("#fin").onclick=()=>{
+    $$("[data-cd]").forEach(c=>{S.cando[U.id+":"+c.dataset.cd]=c.checked;});
+    const res=scoreQuiz(Q); record(U.id,sec.id,"",res.pct,"check");
+    S.checks[U.id]={pct:Math.round(res.pct*100),date:Date.now()};
+    const msg=adapt("language",S.tier.language||"B2",res.pct);
+    save();
+    const ticked=sec.cando.filter((c,i)=>S.cando[U.id+":"+i]);
+    const nextOpen=U.next&&(KEYS[U.next.id]||MODULES[U.next.id]);
+    const extra=`<div class="card soft stack tight"><span class="label">Unit ${U.number} completed</span><p>You ticked ${ticked.length} of ${sec.cando.length} can-do statements.</p>${U.next?`<p class="small"><b>Next: ${esc(U.next.title)}.</b> ${esc(U.next.bridge||"")}</p>${nextOpen?`<div class="row"><button class="btn" id="nextUnit">Go to ${esc(U.next.title)}</button></div>`:`<p class="small muted">Your teacher will open the next unit for you. Send them your progress so they can see how you did.</p><div class="row"><button class="btn" id="sendNow">Send progress</button></div>`}`:""}</div>`;
+    go(viewResult,{U,sec,tier:"Unit",res,msg,extra});
+    if($("#nextUnit")) $("#nextUnit").onclick=()=>go(viewUnit,U.next.id);
+    if($("#sendNow")) $("#sendNow").onclick=()=>go(viewSend);
+    if($("#harder")) $("#harder").remove();
+  };
+}
+
+/* =========================================================
+   VOCABULARY · spaced repetition
+   ========================================================= */
+function drillsFor(w){ return ["meaning","word","recall",w.famQ?"family":null,w.col?"partner":null,w.para?"paraphrase":null].filter(Boolean); }
+function wst(uid,w){ return S.words[uid+":"+w.id]; }
+function dueAfter(stage){ if(stage<3) return 0; return [1,3,7,21,45][Math.min(stage-3,4)]*DAY; }
+function viewVocab(uid,sid,tab){
+  const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
+  let tier=S.tier.language||"B2"; tab=tab||"train";
+  const draw=()=>{
+    const ids=sec.sets[tier]||[], words=ids.map(id=>U.words.find(w=>w.id===id)).filter(Boolean);
+    const now=Date.now(), neu=words.filter(w=>!wst(uid,w)).length, due=words.filter(w=>{const s=wst(uid,w);return s&&s.due<=now;}).length;
+    const mastered=words.filter(w=>{const s=wst(uid,w);return s&&s.stage>=drillsFor(w).length;}).length;
+    app.innerHTML=`<div class="wrap stack" style="gap:24px">
+      <div class="row between"><span class="label">Unit ${U.number} · ${esc(U.title)} · Vocabulary</span><button class="link small" id="leave">Back to the unit</button></div>
+      <h1>${esc(sec.title)}</h1>
+      <div class="seg" role="group" aria-label="Word set">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${t===(S.tier.language||"B2")?"your level":"word set"}</span></button>`).join("")}</div>
+      <div class="row"><button class="btn ${tab==="train"?"primary":"ghost"} small" data-tab="train">Train</button><button class="btn ${tab==="list"?"primary":"ghost"} small" data-tab="list">Word list</button></div>
+      ${tab==="train"?`<div class="card soft stack">
+        <div class="row" style="gap:28px"><div><span class="label">New</span><h2>${neu}</h2></div><div><span class="label">Due now</span><h2>${due}</h2></div><div><span class="label">Mastered</span><h2>${mastered}/${words.length}</h2></div></div>
+        <p class="small">Each word goes through up to six steps: meaning, recall, spelling in context, word family, word partners and paraphrase. Words come back after 1, 3, 7 and 21 days.</p>
+        <div class="row"><button class="btn primary" id="startV" ${neu+due===0?"disabled":""}>${neu+due===0?"Nothing due. Come back later":"Start a session"}</button></div>
+      </div>`:`<div class="wordlist">${words.map(w=>{const s=wst(uid,w),st=s?s.stage:0,n=drillsFor(w).length;return `<div class="wcard"><div class="row between"><h3>${esc(w.word)}</h3><span class="chip">${w.cefr}</span></div><span class="label">${esc(w.pos)}</span><p class="small">${esc(w.def)}</p><p class="small muted"><i>${esc(w.ex)}</i></p>${w.fam&&w.fam.length?`<p class="small"><b>Family:</b> ${esc(w.fam.join(", "))}</p>`:""}<div class="meter" title="${st}/${n} steps">${Array.from({length:n},(_,i)=>`<i class="${i<st?"on":""}"></i>`).join("")}</div></div>`;}).join("")}</div>`}
+    </div>`;
+    $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
+    $$("[data-tab]").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;draw();});
+    $("#leave").onclick=()=>go(viewUnit,uid);
+    if($("#startV")) $("#startV").onclick=()=>{
+      const n=(sec.newPerSession||{})[tier]||8;
+      const dueW=words.filter(w=>{const s=wst(uid,w);return s&&s.due<=Date.now();});
+      const newW=words.filter(w=>!wst(uid,w)).slice(0,n);
+      go(runVocabSession,[...dueW,...newW].map(w=>({uid,w,pool:U.words})),{done:()=>go(viewVocab,uid,sid),uid,sid,tier});
+    };
+  };
+  draw();
+}
+function viewReview(){
+  const now=Date.now(), items=[];
+  for(const uid of unitIds()){ const U=MODULES[uid]; for(const w of U.words||[]){ const s=S.words[uid+":"+w.id]; if(s&&s.due<=now) items.push({uid,w,pool:U.words}); } }
+  if(!items.length){ app.innerHTML=`<div class="wrap narrow stack" style="gap:20px"><span class="label">Vocabulary review</span><h1>All caught up</h1><p>No words are due right now. Start a vocabulary session in a unit to learn new words.</p><div class="row"><button class="btn primary" id="h">Back to the course</button></div></div>`; $("#h").onclick=()=>go(viewHome); return; }
+  go(runVocabSession,shuffle(items),{done:()=>go(viewHome),review:true});
+}
+function runVocabSession(items,opt){
+  const queue=items.slice(); let steps=0, right=0, total=0, last=null; const touched=new Set();
+  const LIMIT=40;
+  const pickOpts=(correct,all,n=4)=>shuffle([correct,...shuffle(all.filter(x=>x!==correct)).slice(0,n-1)]);
+  const next=()=>{
+    if(!queue.length||steps>=LIMIT) return end();
+    let k=0; if(queue.length>1&&queue[0]===last) k=1;
+    const it=queue.splice(k,1)[0]; last=it; steps++;
+    const key=it.uid+":"+it.w.id; const st=S.words[key]||{stage:0,due:0,right:0,wrong:0};
+    const list=drillsFor(it.w); const drill=list[Math.min(st.stage,list.length-1)];
+    touched.add(key);
+    showDrill(it,drill,ok=>{
+      total++; if(ok) right++;
+      if(ok){ st.stage=Math.min(st.stage+1,list.length); st.right++; st.due=Date.now()+(st.stage>=list.length?45*DAY:dueAfter(st.stage)); if(st.due<=Date.now()+1000) queue.push(it); }
+      else { st.stage=Math.max(0,st.stage-1); st.wrong++; st.due=Date.now(); queue.splice(Math.min(2,queue.length),0,it); }
+      S.words[key]=st; save();
+    });
+  };
+  const showDrill=(it,drill,done)=>{
+    const w=it.w; const pool=it.pool;
+    let body="", answer=null, typed=false, accept=[];
+    const sentence=s=>esc(s).replace(/___/g,"<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>");
+    if(drill==="meaning"){ const opts=pickOpts(w.def,pool.map(x=>x.def)); answer=w.def; body=`<span class="label">What does it mean?</span><div class="word">${esc(w.word)}</div><span class="small muted">${esc(w.pos)}</span><div class="choices">${opts.map(o=>`<button data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div>`; }
+    if(drill==="word"){ const opts=pickOpts(w.word,pool.map(x=>x.word)); answer=w.word; body=`<span class="label">Which word matches?</span><p style="font-size:20px;font-weight:600">${esc(w.def)}</p><div class="choices">${opts.map(o=>`<button data-o="${esc(o)}">${esc(o)}</button>`).join("")}</div>`; }
+    if(drill==="recall"){ typed=true; accept=w.gapA||[w.word]; body=`<span class="label">Write the missing word</span><p style="font-size:20px">${sentence(w.gap)}</p><p class="small muted">Starts with “${esc(accept[0][0])}” · ${accept[0].length} letters · ${esc(w.def)}</p>`; }
+    if(drill==="family"){ typed=true; accept=w.famQ.a; body=`<span class="label">Word family · use a form of <b>${esc(w.word)}</b></span><p style="font-size:20px">${sentence(w.famQ.s)}</p>`; }
+    if(drill==="partner"){ const opts=shuffle(w.col.o.map((_,i)=>i)); answer=w.col.o[w.col.a]; body=`<span class="label">Word partners</span><p style="font-size:20px">${sentence(w.col.s)}</p><div class="choices">${opts.map(i=>`<button data-o="${esc(w.col.o[i])}">${esc(w.col.o[i])}</button>`).join("")}</div>`; }
+    if(drill==="paraphrase"){ const opts=shuffle(w.para.o.map((_,i)=>i)); answer=w.para.o[w.para.a]; body=`<span class="label">Paraphrase · the IELTS skill</span><p>Which phrase means the same as <b>“${esc(w.para.s)}”</b>?</p><div class="choices">${opts.map(i=>`<button data-o="${esc(w.para.o[i])}">${esc(w.para.o[i])}</button>`).join("")}</div>`; }
+    if(typed) body+=`<form id="tf" class="row" novalidate><input type="text" id="ti" autocomplete="off" autocapitalize="off" spellcheck="false" style="max-width:320px" aria-label="Your answer"><button class="btn primary" type="submit">Check</button></form>`;
+    app.innerHTML=`<div class="wrap narrow stack" style="gap:20px">
+      <div class="row between"><span class="label">${opt.review?"Review":"Vocabulary"} · ${steps}/${Math.min(LIMIT,steps+queue.length)}</span><button class="link small" id="stop">End session</button></div>
+      <div class="pbar"><i style="width:${Math.round(steps/Math.min(LIMIT,steps+queue.length)*100)}%"></i></div>
+      <div class="drill" id="drill">${body}<div id="fb" class="stack tight" role="status"></div></div>
+    </div>`;
+    $("#stop").onclick=end;
+    const feedback=(ok,correctText)=>{
+      $("#fb").innerHTML=`<p class="${ok?"":""}" style="font-weight:700;color:var(--${ok?"good":"bad"})">${ok?"Correct":"Not quite"}</p>${ok?"":`<p>Answer: <b>${esc(correctText)}</b></p>`}<p class="small muted"><b>${esc(w.word)}</b> · ${esc(w.def)}</p><p class="small muted"><i>${esc(w.ex)}</i></p><div class="row"><button class="btn primary" id="nx">Next</button></div>`;
+      $("#nx").focus(); $("#nx").onclick=()=>{ done(ok); next(); };
+    };
+    if(typed){ $("#ti").focus(); $("#tf").onsubmit=e=>{ e.preventDefault(); const v=$("#ti").value; if(!v.trim()) return; const ok=accept.map(norm).includes(norm(v)); $("#ti").disabled=true; $("#tf button").disabled=true; feedback(ok,accept[0]); }; }
+    else $$(".choices button").forEach(b=>b.onclick=()=>{ const ok=b.dataset.o===answer; $$(".choices button").forEach(x=>{x.disabled=true;if(x.dataset.o===answer)x.classList.add("right");}); if(!ok) b.classList.add("wrong"); feedback(ok,answer); });
+  };
+  const end=()=>{
+    const pct=total?right/total:0;
+    let msg="";
+    if(!opt.review&&total){ const U=MODULES[opt.uid]; record(opt.uid,opt.sid,opt.tier,pct,"vocab"); }
+    save();
+    const words=[...touched].map(k=>{const [uid,id]=k.split(":");const w=(MODULES[uid].words||[]).find(x=>x.id===id);return {w,s:S.words[k]};});
+    app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+      <div class="score"><div class="big">${right}<small>/${total}</small></div><div class="stack tight"><span class="label">${opt.review?"Review":"Vocabulary session"} complete</span><h2>${Math.round(pct*100)}% first time</h2><p class="muted">Words you know well come back less often. Words you missed come back sooner.</p></div></div>
+      <div class="stack tight">${words.map(({w,s})=>`<div class="row between small" style="border-bottom:1px dotted var(--line);padding-block:6px"><b>${esc(w.word)}</b><span class="muted">${s.stage>=drillsFor(w).length?"Mastered":s.due<=Date.now()?"Due again soon":"Next review "+fmtDate(s.due)}</span></div>`).join("")}</div>
+      <div class="row"><button class="btn primary" id="dn">Done</button></div>
+    </div>`;
+    $("#dn").onclick=opt.done;
+  };
+  next();
+}
+
+/* =========================================================
+   SPEAKING
+   ========================================================= */
+const DEFAULT_SELFCHECK=[{"id": "fluency", "label": "Fluency", "d": {"A2": "I often stopped and found it hard to continue.", "B1": "I kept going, but paused often to find words.", "B2": "I spoke at a fairly even pace with few long pauses.", "C1": "I spoke fluently and naturally, almost without effort."}}, {"id": "range", "label": "Vocabulary range", "d": {"A2": "I only used very simple words.", "B1": "I used everyday words and a few topic words.", "B2": "I used topic words and some less common expressions.", "C1": "I used a wide range, including idiomatic language, to say exactly what I meant."}}, {"id": "accuracy", "label": "Grammar accuracy", "d": {"A2": "My errors often made my meaning unclear.", "B1": "I made errors, but my meaning was clear.", "B2": "I made few errors that caused confusion and corrected some myself.", "C1": "Errors were rare, even in complex sentences."}}, {"id": "coherence", "label": "Organisation", "d": {"A2": "My ideas were short and not really connected.", "B1": "I linked ideas with simple words like and, but, because.", "B2": "I used a variety of linking words to connect my ideas clearly.", "C1": "My answers were well organised, with clear structure and smooth links."}}, {"id": "pron", "label": "Pronunciation", "d": {"A2": "Listeners would often find me hard to understand.", "B1": "I was understandable, though my accent sometimes caused problems.", "B2": "My pronunciation was clear and generally natural.", "C1": "I varied stress and intonation to express meaning."}}];
+const DEFAULT_CHECKLIST=["My introduction makes my position clear.", "I answered every part of the question.", "Each body paragraph has one clear main idea.", "I supported my ideas with reasons or examples.", "My conclusion sums up my view without adding new ideas."];
+const REC={ ok(){return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);}, SR:window.SpeechRecognition||window.webkitSpeechRecognition };
+function runSpeaking(U,sec,tier){
+  const cfg=sec.tiers[tier]; if(!Array.isArray(sec.selfcheck)) sec=Object.assign({},sec,{selfcheck:DEFAULT_SELFCHECK});
+  const answers={}; // key -> {secs, transcript, url}
+  let useRec=false, useTr=false, part=1;
+  let active=null; // {key, stop}
+  const stopActive=()=>{ if(active){ try{active.stop();}catch(e){} active=null; } };
+  onLeave(stopActive);
+  const qlist=p=>p===1?sec.part1:sec.part3;
+  const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+  const answerBox=(key,label,limit)=>{ const a=answers[key];
+    return `<div class="q" id="ab-${key}"><div class="qhead"><span class="qnum">${label}</span><div class="qtext">${esc(key.startsWith("p2")?sec.part2.task:qlist(part)[Number(key.split("-")[1])])}</div></div>
+      <div class="rec"><button class="btn small ghost" data-hear="${key}">Hear the question</button><button class="btn small primary" data-ans="${key}" data-limit="${limit}">${a?"Answer again":"Answer"}</button><span class="timer" id="tm-${key}" style="font-size:16px">${a?fmt(a.secs):fmt(0)} / ${fmt(limit)}</span></div>
+      ${a&&a.url?`<audio controls src="${a.url}" style="width:100%;max-width:420px"></audio>`:""}
+      ${a&&a.transcript?`<p class="transcript">“${esc(a.transcript)}”</p>`:""}</div>`; };
+  const draw=()=>{
+    const phrases=(cfg.phrases||[]);
+    app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
+      <div class="row between"><span class="label">${esc(U.title)} · Speaking · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+      <h1>${esc(sec.title)}</h1>
+      <div class="row">${[1,2,3].map(p=>`<button class="btn small ${p===part?"primary":"ghost"}" data-part="${p}">Part ${p}</button>`).join("")}<button class="btn small ${part===4?"primary":"ghost"}" data-part="4">Self-check</button></div>
+      ${part<4?`<div class="card soft stack tight">
+        <div class="row"><label class="row small"><input type="checkbox" id="useRec" ${useRec?"checked":""} ${REC.ok()?"":"disabled"}> Record my answers</label>${REC.SR?`<label class="row small"><input type="checkbox" id="useTr" ${useTr?"checked":""}> Live transcript</label>`:""}</div>
+        <p class="small muted">${REC.ok()?"Recordings stay on this device and are deleted when you leave this page.":"Recording isn’t available in this browser. You can still practise with the timers."}${REC.SR?" The live transcript uses your browser’s speech service.":""}</p>
+      </div>`:""}
+      <div id="pbody" class="stack">${partBody(phrases)}</div>
+    </div>`;
+    $$("[data-part]").forEach(b=>b.onclick=()=>{stopActive();part=Number(b.dataset.part);draw();});
+    $("#leave").onclick=()=>go(viewUnit,U.id);
+    if($("#useRec")) $("#useRec").onchange=e=>{useRec=e.target.checked;};
+    if($("#useTr")) $("#useTr").onchange=e=>{useTr=e.target.checked;};
+    bindPart();
+  };
+  const partBody=phrases=>{
+    if(part===1) return `<p class="small">Short answers of 2–3 sentences. Give a reason or an example each time.</p>${phrases.length?`<div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div>`:""}${sec.part1.map((q,i)=>answerBox("p1-"+i,i+1,cfg.answer)).join("")}`;
+    if(part===2) return `<div class="cue"><span class="label">Cue card</span><h3 style="font-family:var(--body);font-weight:700;font-size:20px;letter-spacing:0;line-height:1.3">${esc(sec.part2.task)}</h3><p class="small">You should say:</p><ul>${sec.part2.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul></div>
+      <div class="card stack tight"><div class="row between"><strong>Preparation · ${cfg.prep} seconds</strong><span class="timer" id="prepT">${fmt(cfg.prep)}</span></div><textarea id="notes" rows="4" placeholder="Notes: key words only"></textarea><div class="row"><button class="btn small" id="prepGo">Start preparation</button></div></div>
+      ${phrases.length?`<div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div>`:""}
+      ${answerBox("p2-0","2",cfg.talk)}
+      <details class="more"><summary>Model answer</summary><p class="model">${esc(sec.part2.model)}</p></details>`;
+    if(part===3) return `<p class="small">Longer, more abstract answers. Give your view, explain it and consider another side.</p>${cfg.challenge?`<p class="note">${esc(cfg.challenge)}</p>`:""}${sec.part3.map((q,i)=>answerBox("p3-"+i,i+1,cfg.answer+15)).join("")}`;
+    return selfCheck();
+  };
+  const selfCheck=()=>`<p class="prose">Think about your answers, or listen to your recordings. For each area, choose the description that fits you best. Be honest: this sets your speaking level for the next unit.</p>
+    ${sec.selfcheck.map(c=>`<fieldset class="stack tight" style="border:0;padding:0;margin:0"><legend><strong>${esc(c.label)}</strong></legend><div class="sc">${LV.map(L=>`<label><input type="radio" name="sc-${c.id}" value="${L}"><span><span class="chip">${L}</span> ${esc(c.d[L])}</span></label>`).join("")}</div></fieldset>`).join("")}
+    ${metricsHTML()}
+    <div class="row"><button class="btn primary" id="scDone">Save my speaking result</button></div><p class="err" id="scErr"></p>`;
+  const metrics=()=>{
+    const all=Object.values(answers).filter(a=>a.transcript);
+    if(!all.length) return null;
+    const text=all.map(a=>a.transcript).join(" "), secs=all.reduce((x,a)=>x+a.secs,0), words=wc(text);
+    const fillers=(norm(text).match(/\b(um+|uh+|er+|erm|like|you know)\b/g)||[]).length;
+    const unitW=(U.words||[]).filter(w=>new RegExp("\\b"+w.word.slice(0,Math.max(4,w.word.length-2)),"i").test(text)).map(w=>w.word);
+    return {words,secs,wpm:secs?Math.round(words/secs*60):0,fillers,unitW};
+  };
+  const metricsHTML=()=>{ const m=metrics(); if(!m) return `<p class="small muted">Turn on the live transcript to get word counts, speaking speed and topic words.</p>`;
+    return `<div class="card soft stack tight"><span class="label">From your transcripts</span><div class="wstats"><span>${m.words} words</span><span>${m.wpm} words/min</span><span>${m.fillers} fillers</span></div><p class="small">${m.wpm<90?"Your pace is slow. Practise answering without long pauses.":m.wpm>170?"You speak fast. Make sure every word is clear.":"Your pace is in a comfortable range."} ${m.unitW.length?"Topic words you used: <b>"+esc(m.unitW.join(", "))+"</b>.":"Try to use words from this unit’s vocabulary."}</p></div>`; };
+  const bindPart=()=>{
+    $$("[data-hear]").forEach(b=>b.onclick=()=>{ const k=b.dataset.hear; const txt=k.startsWith("p2")?sec.part2.task:qlist(part)[Number(k.split("-")[1])]; TTS.say(txt,"en-GB","female"); });
+    $$("[data-ans]").forEach(b=>b.onclick=()=>startAnswer(b.dataset.ans,Number(b.dataset.limit),b));
+    if($("#prepGo")) $("#prepGo").onclick=()=>{ let left=cfg.prep; $("#prepGo").disabled=true; const id=T.every(()=>{ left--; $("#prepT").textContent=fmt(Math.max(0,left)); if(left<=0){ clearInterval(id); toast("Preparation time is over. Start speaking."); const b=$('[data-ans="p2-0"]'); if(b){ b.scrollIntoView({block:"center"}); startAnswer("p2-0",cfg.talk,b); } } },1000); };
+    if($("#scDone")) $("#scDone").onclick=()=>{
+      const sel={}; for(const c of sec.selfcheck){ const r=$(`input[name="sc-${c.id}"]:checked`); if(!r){ $("#scErr").textContent="Choose one description for each area."; return; } sel[c.id]=r.value; }
+      const lvl=LV[median(Object.values(sel).map(li))];
+      const m=metrics();
+      S.speaking.push({uid:U.id,tier,date:Date.now(),self:sel,level:lvl,metrics:m?{words:m.words,wpm:m.wpm,fillers:m.fillers}:null,answered:Object.keys(answers).length});
+      S.speaking=S.speaking.slice(-20);
+      const before=S.profile.speaking; S.profile.speaking=lvl; S.tier.speaking=tierOf(lvl);
+      record(U.id,sec.id,tier,li(lvl)/3,"self",lvl);
+      save();
+      app.innerHTML=`<div class="wrap narrow stack" style="gap:24px"><div class="score"><div class="big">${lvl}</div><div class="stack tight"><span class="label">Speaking · self-assessed</span><h2>Indicative IELTS ${BAND[lvl]}</h2><p class="muted">Your next speaking tasks will be at ${S.tier.speaking}.${before&&before!==lvl?` (Before: ${before})`:""}</p></div></div>
+        <div class="stack tight">${sec.selfcheck.map(c=>`<div class="row small"><span class="chip ${li(sel[c.id])>=2?"lv":""}">${sel[c.id]}</span><b>${esc(c.label)}</b><span class="muted">${esc(c.d[sel[c.id]])}</span></div>`).join("")}</div>
+        <p class="small muted">Self-assessment is a starting point. Send your progress to your teacher, and record yourself again next unit to compare.</p>
+        <div class="row"><button class="btn primary" id="toUnit">Back to the unit</button></div></div>`;
+      $("#toUnit").onclick=()=>go(viewUnit,U.id);
+    };
+  };
+  const startAnswer=async(key,limit,btn)=>{
+    if(active&&active.key===key){ stopActive(); return; }
+    stopActive(); TTS.stop();
+    let secs=0, transcript="", chunks=[], mr=null, stream=null, sr=null, finished=false;
+    if(useRec&&REC.ok()){ try{ stream=await navigator.mediaDevices.getUserMedia({audio:true}); mr=new MediaRecorder(stream); mr.ondataavailable=e=>e.data.size&&chunks.push(e.data); mr.start(); }catch(e){ toast("The microphone isn’t available. Practising with the timer only."); useRec=false; } }
+    if(useTr&&REC.SR){ try{ sr=new REC.SR(); sr.lang=(S.settings.accent==="en-US")?"en-US":"en-GB"; sr.continuous=true; sr.interimResults=false; sr.onresult=e=>{ for(let i=e.resultIndex;i<e.results.length;i++) if(e.results[i].isFinal) transcript+=e.results[i][0].transcript+" "; }; sr.onerror=()=>{}; sr.start(); }catch(e){ sr=null; } }
+    btn.textContent="Stop"; btn.classList.remove("primary"); btn.classList.add("danger");
+    const tm=$("#tm-"+key);
+    const head=document.createElement("span"); head.className="recdot"; btn.after(head);
+    const id=T.every(()=>{ secs++; if(tm) tm.textContent=`${fmt(secs)} / ${fmt(limit)}`; if(secs===limit) toast("Time. Finish your sentence."); if(secs>=limit+10) stop(); },1000);
+    const stop=()=>{
+      if(finished) return; finished=true; clearInterval(id); head.remove();
+      const done=()=>{ const prev=answers[key]; if(prev&&prev.url) URL.revokeObjectURL(prev.url);
+        answers[key]={secs,transcript:transcript.trim(),url:chunks.length?URL.createObjectURL(new Blob(chunks,{type:(mr&&mr.mimeType)||"audio/webm"})):null};
+        active=null; const box=$("#ab-"+key); if(box){ const t=document.createElement("div"); t.innerHTML=answerBox(key,box.querySelector(".qnum").textContent,limit); box.replaceWith(t.firstElementChild); bindPart(); } };
+      if(sr){ try{sr.stop();}catch(e){} }
+      if(mr&&mr.state!=="inactive"){ mr.onstop=()=>{ stream.getTracks().forEach(t=>t.stop()); setTimeout(done,sr?600:0); }; mr.stop(); } else { if(stream) stream.getTracks().forEach(t=>t.stop()); setTimeout(done,sr?600:0); }
+    };
+    active={key,stop};
+  };
+  onLeave(()=>Object.values(answers).forEach(a=>a.url&&URL.revokeObjectURL(a.url)));
+  draw();
+}
+
+/* =========================================================
+   WRITING · CEFR-based checker (+ LanguageTool)
+   ========================================================= */
+/*ANALYSIS-START*/
+const LINKERS={
+  B1:["because","so","but","also","firstly","secondly","finally","for example","in conclusion","in my opinion","however","then","after that","too","as well"],
+  B2:["although","whereas","while","therefore","moreover","furthermore","in addition","on the other hand","as a result","for instance","in contrast","despite","in spite of","overall","on the whole","such as","unless","consequently","even though","in fact","as long as"],
+  C1:["nevertheless","nonetheless","thus","hence","whereby","notwithstanding","conversely","by contrast","to some extent","admittedly","in light of","given that","provided that","insofar as","albeit","paradoxically","that said","having said that","not only","to a large extent","it could be argued"]
+};
+const BASIC_WORDS=["very","good","bad","thing","things","lot","big","nice","stuff","get","got","really"];
+function analyseEssay(text,opts){
+  opts=opts||{};
+  const lvl=i=>["A2","B1","B2","C1"][Math.max(0,Math.min(3,i))];
+  const raw=String(text||"");
+  const tokens=(raw.match(/[A-Za-z]+(?:['’][A-Za-z]+)?/g)||[]);
+  const words=tokens.length;
+  const lower=tokens.map(t=>t.toLowerCase().replace(/’/g,"'"));
+  const paras=raw.split(/\n+/).map(p=>p.trim()).filter(p=>(p.match(/[A-Za-z]+/g)||[]).length>=5);
+  const sentences=raw.replace(/\n+/g," ").split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(s=>(s.match(/[A-Za-z]+/g)||[]).length>=3);
+  const sl=sentences.map(s=>(s.match(/[A-Za-z]+/g)||[]).length);
+  const avgLen=sl.length?sl.reduce((a,b)=>a+b,0)/sl.length:0;
+  const sdLen=sl.length?Math.sqrt(sl.reduce((a,b)=>a+(b-avgLen)**2,0)/sl.length):0;
+  const first=lower.slice(0,150); const ttr=first.length?new Set(first).size/first.length:0;
+  const longRatio=words?lower.filter(w=>w.length>=8).length/words:0;
+  const lc=" "+lower.join(" ")+" ";
+  const count=ph=>{const m=lc.match(new RegExp("\\s"+ph.replace(/ /g,"\\s")+"\\s","g"));return m?m.length:0;};
+  const linkers={B1:[],B2:[],C1:[]}; const linkerCounts={};
+  for(const L of ["B1","B2","C1"]) for(const ph of LINKERS[L]){ const c=count(ph); if(c){ linkers[L].push(ph); linkerCounts[ph]=c; } }
+  const overusedLinkers=Object.entries(linkerCounts).filter(([k,c])=>c>=4&&!["and","but","so","also"].includes(k)).map(([k])=>k);
+  const sentText=raw.replace(/\n+/g," ");
+  const sub=(sentText.match(/\b(although|though|while|whereas|because|since|unless|if|when|whenever|once|until|so that|in order to|as long as|provided that|even if|even though)\b/gi)||[]).length;
+  const rel=(sentText.match(/\b(which|who|whom|whose)\b/gi)||[]).length;
+  const passive=(sentText.match(/\b(am|is|are|was|were|be|been|being)\s+(?:\w+ly\s+)?\w+(?:ed|en|wn|lt|pt|ght|ne)\b/gi)||[]).length;
+  const perfect=(sentText.match(/\b(has|have|had)\s+(?:\w+ly\s+)?(?:been|\w+(?:ed|en|wn|lt|pt|ght|ne|un))\b/gi)||[]).length;
+  const modal=(sentText.match(/\b(would|could|might|should|may|must)\b/gi)||[]).length;
+  const cplx=sentences.length?(sub+rel+passive+0.5*perfect+0.5*modal)/sentences.length:0;
+  const topic=[];
+  for(const w of (opts.unitWords||[])){
+    const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase());
+    const hit=forms.some(f=>{ const stem=f.length>5?f.slice(0,f.length-1):f; return lower.some(t=>t===f||t.startsWith(stem)&&t.length<=f.length+3); });
+    if(hit) topic.push(w.word);
+  }
+  const basic=lower.filter(w=>BASIC_WORDS.includes(w)).length; const basicPer100=words?basic/words*100:0;
+  // LanguageTool
+  let lt=null;
+  if(opts.lt){ const m=opts.lt; const cat=x=>{const c=(x.rule&&x.rule.category&&x.rule.category.id)||"",t=(x.rule&&x.rule.issueType)||""; if(c==="TYPOS"||t==="misspelling") return "spelling"; if(["PUNCTUATION","TYPOGRAPHY","CASING"].includes(c)||t==="typographical"||t==="whitespace") return "punctuation"; if(["STYLE","REDUNDANCY","PLAIN_ENGLISH"].includes(c)||t==="style") return "style"; return "grammar";};
+    lt={grammar:0,spelling:0,punctuation:0,style:0}; m.forEach(x=>{lt[cat(x)]++;}); lt.matches=m.map(x=>Object.assign({},x,{kind:cat(x)}));
+    lt.gPer100=words?(lt.grammar+0.5*lt.punctuation)/words*100:0; lt.sPer100=words?lt.spelling/words*100:0; }
+  const R={TR:[],CC:[],LR:[],GRA:[]}, tips={TR:[],CC:[],LR:[],GRA:[]};
+  // Task response
+  const target=opts.target||250;
+  const capW=words<120?0:words<180?1:words<250?2:3;
+  const checks=opts.checks==null?null:opts.checks;
+  const chkL=checks==null?2:checks>=5?3:checks>=4?2:checks>=3?1:0;
+  const TR=Math.min(capW,chkL);
+  R.TR.push(`${words} words (IELTS minimum 250${target!==250?`, your target ${target}`:""}).`);
+  if(words<250) tips.TR.push("Under 250 words loses marks in the exam. Develop each body paragraph with one more example or explanation.");
+  if(checks!=null) R.TR.push(`You confirmed ${checks} of 5 task checks.`);
+  if(checks!=null&&checks<5) tips.TR.push("Look again at the checks you couldn’t tick. Task response is often the quickest criterion to improve.");
+  // Coherence & cohesion
+  const pL=paras.length>=4?3:paras.length===3?2:paras.length===2?1:0;
+  const dB2=linkers.B2.length+linkers.C1.length;
+  let lkL=linkers.C1.length>=2&&dB2>=4?3:dB2>=3?2:(linkers.B1.length+dB2)>=3?1:0;
+  if(overusedLinkers.length) lkL=Math.max(0,lkL-1);
+  const CC=Math.min(pL,lkL);
+  R.CC.push(`${paras.length} paragraph${paras.length===1?"":"s"}.`);
+  R.CC.push(`Linking words: ${[...linkers.C1,...linkers.B2,...linkers.B1].slice(0,10).join(", ")||"none found"}.`);
+  if(paras.length<4) tips.CC.push("Use four or five paragraphs: introduction, two or three body paragraphs and a conclusion, separated by blank lines.");
+  if(overusedLinkers.length) tips.CC.push(`You repeat “${overusedLinkers.join("”, “")}” a lot. Vary your linking.`);
+  if(lkL<2) tips.CC.push("Add B2 linkers such as however, whereas, as a result, on the other hand.");
+  else if(lkL<3) tips.CC.push("For C1, try nevertheless, to some extent, given that, having said that.");
+  // Lexical resource
+  const ttrL=ttr>=0.64?3:ttr>=0.57?2:ttr>=0.5?1:0;
+  const longL=longRatio>=0.17?3:longRatio>=0.12?2:longRatio>=0.08?1:0;
+  const topL=topic.length>=5?3:topic.length>=3?2:topic.length>=1?1:0;
+  let rangeL=Math.round((ttrL+longL+topL)/3);
+  if(basicPer100>3) rangeL=Math.max(0,rangeL-1);
+  let LR=rangeL;
+  if(lt){ const spL=lt.sPer100<=0.5?3:lt.sPer100<=1.5?2:lt.sPer100<=3?1:0; LR=Math.floor((rangeL+spL)/2); R.LR.push(`${lt.spelling} spelling error${lt.spelling===1?"":"s"}.`); if(spL<2) tips.LR.push("Check spelling carefully. Frequent errors pull Lexical Resource down."); }
+  else R.LR.push("Spelling wasn’t checked (grammar service offline).");
+  R.LR.push(`Variety of words: ${Math.round(ttr*100)}% different in the first 150 words.`);
+  R.LR.push(topic.length?`Topic words used: ${topic.join(", ")}.`:"No words from this unit’s list.");
+  if(topL<2) tips.LR.push("Use more topic vocabulary from this unit, for example: "+(opts.unitWords||[]).slice(8,12).map(w=>w.word).join(", ")+".");
+  if(basicPer100>3) tips.LR.push("You often use very general words (very, good, bad, thing, a lot). Replace some with more precise ones.");
+  // Grammar
+  const cxL=cplx>=0.9?3:cplx>=0.55?2:cplx>=0.3?1:0;
+  let GRA=cxL;
+  R.GRA.push(`Average sentence: ${avgLen.toFixed(1)} words. Complex structures per sentence: ${cplx.toFixed(2)}.`);
+  if(lt){ const acL=lt.gPer100<=1?3:lt.gPer100<=2.5?2:lt.gPer100<=5?1:0; GRA=Math.floor((cxL+acL)/2); R.GRA.push(`${lt.grammar} grammar and ${lt.punctuation} punctuation issue${lt.grammar+lt.punctuation===1?"":"s"} found.`); if(acL<2) tips.GRA.push("Accuracy is holding your score back. Fix the highlighted errors, then check your verb forms and articles."); }
+  else R.GRA.push("Accuracy wasn’t checked (grammar service offline).");
+  if(cxL<2) tips.GRA.push("Mix in complex sentences: relative clauses (which, who), conditionals (if … would) and the passive (has been transformed).");
+  if(sdLen<4&&sentences.length>4) tips.GRA.push("Your sentences are all a similar length. Vary short and long sentences.");
+  const levels={TR,CC,LR,GRA};
+  const overall=Math.floor((TR+CC+LR+GRA)/4+0.25);
+  return {words,paras:paras.length,sentences:sentences.length,avgLen,sdLen,ttr,longRatio,linkers,topic,cplx,lt,levels:Object.fromEntries(Object.entries(levels).map(([k,v])=>[k,lvl(v)])),overall:lvl(overall),reasons:R,tips,measuredAccuracy:!!lt};
+}
+/*ANALYSIS-END*/
+async function languageTool(text){
+  const cfg=CONFIG.languageTool||{}; if(!cfg.url) throw new Error("not configured");
+  const ctl=new AbortController(); const to=setTimeout(()=>ctl.abort(),15000);
+  try{
+    const r=await fetch(cfg.url,{method:"POST",headers:{"Content-Type":"application/x-www-form-urlencoded"},body:new URLSearchParams({text,language:cfg.language||"en-GB",enabledOnly:"false"}),signal:ctl.signal});
+    if(!r.ok) throw new Error("LanguageTool returned "+r.status);
+    const j=await r.json();
+    return (j.matches||[]).filter(m=>!/QUOTES|WHITESPACE|DASH_RULE|ENGLISH_WORD_REPEAT_BEGINNING/.test((m.rule&&m.rule.id)||""));
+  } finally { clearTimeout(to); }
+}
+function runWriting(U,sec,tier){
+  if(!Array.isArray(sec.checklist)) sec=Object.assign({},sec,{checklist:DEFAULT_CHECKLIST});
+  const W=sec.tiers[tier];
+  const dkey=U.id+":"+sec.id+":"+tier;
+  let text=S.drafts[dkey]||"";
+  const draw=()=>{
+    app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
+      <div class="row between"><span class="label">${esc(U.title)} · Writing Task 2 · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+      <h1>${esc(sec.title)}</h1>
+      <p class="label">${esc(W.type||"")}</p>
+      <p class="wtask">${esc(W.task)}</p>
+      <p class="small muted">Write at least ${W.target} words.${W.time?` In the exam you have ${W.time} minutes.`:""} Separate paragraphs with a blank line.</p>
+      ${W.frame?`<div class="frame">${W.frame.map(f=>`<div><b>${esc(f.h)}</b><br>${esc(f.s)}</div>`).join("")}</div>`:""}
+      ${W.planner?`<details class="more"><summary>Plan your essay</summary><div class="stack tight">${W.planner.map((p,i)=>`<label class="stack tight small"><span>${esc(p)}</span><input type="text" id="plan${i}" value="${esc((S.drafts[dkey+":plan"]||[])[i]||"")}"></label>`).join("")}</div></details>`:""}
+      <div class="row between"><span class="timer" id="timer">${W.time?"":""}</span>${W.time?`<button class="btn small ghost" id="startTimer">Start ${W.time}-minute timer</button>`:""}</div>
+      <textarea id="essay" class="essay" placeholder="Start writing here…" aria-label="Your essay">${esc(text)}</textarea>
+      <div class="wstats" id="wstats"></div>
+      <section class="stack tight"><span class="label">Before you check: tick what is true</span>
+        <div class="sc">${sec.checklist.map((c,i)=>`<label><input type="checkbox" data-ck="${i}"><span>${esc(c)}</span></label>`).join("")}</div>
+      </section>
+      <div class="row"><button class="btn primary" id="checkBtn">Check my writing</button><span class="small muted" id="checkMsg"></span></div>
+    </div>`;
+    const ta=$("#essay");
+    const stats=()=>{ const n=(ta.value.match(/[A-Za-z]+(?:['’][A-Za-z]+)?/g)||[]).length; $("#wstats").innerHTML=`<span>${n} words</span><span>${n>=W.target?"Target reached":(W.target-n)+" to go"}</span>`; };
+    let deb; ta.addEventListener("input",()=>{ stats(); clearTimeout(deb); deb=setTimeout(()=>{S.drafts[dkey]=ta.value;save();},600); }); stats();
+    $$('[id^="plan"]').forEach(inp=>inp.addEventListener("input",()=>{S.drafts[dkey+":plan"]=$$('[id^="plan"]').map(x=>x.value);save();}));
+    $("#leave").onclick=()=>{S.drafts[dkey]=ta.value;save();go(viewUnit,U.id);};
+    if($("#startTimer")) $("#startTimer").onclick=()=>{ $("#startTimer").remove(); timerStart(W.time,()=>toast("Time is up. Finish your sentence and check your work.")); };
+    $("#checkBtn").onclick=async()=>{
+      text=ta.value; S.drafts[dkey]=text; save();
+      const n=(text.match(/[A-Za-z]+/g)||[]).length;
+      if(n<60){ $("#checkMsg").textContent="Write at least 60 words before checking."; return; }
+      const checks=$$("[data-ck]").filter(c=>c.checked).length;
+      $("#checkBtn").disabled=true; $("#checkMsg").textContent="Checking grammar and spelling…";
+      let lt=null, ltErr=null;
+      try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
+      const A=analyseEssay(text,{unitWords:U.words,lt,checks,target:W.target});
+      const before=S.profile.writing;
+      S.profile.writing=A.overall; S.tier.writing=tierOf(A.overall);
+      S.essays.push({uid:U.id,tier,task:W.task,text,date:Date.now(),overall:A.overall,levels:A.levels,words:A.words,lt:A.lt?{grammar:A.lt.grammar,spelling:A.lt.spelling,punctuation:A.lt.punctuation,style:A.lt.style}:null});
+      S.essays=S.essays.slice(-12);
+      record(U.id,sec.id,tier,li(A.overall)/3,"essay",A.overall);
+      save();
+      go(viewWritingReport,U,sec,tier,text,A,ltErr,before);
+    };
+  };
+  draw();
+}
+function markText(text,matches){
+  if(!matches||!matches.length) return esc(text);
+  const ms=matches.slice().sort((a,b)=>a.offset-b.offset); let out="",pos=0;
+  ms.forEach((m,i)=>{ if(m.offset<pos) return; out+=esc(text.slice(pos,m.offset)); const cls=m.kind==="spelling"?"sp":m.kind==="style"?"st":""; out+=`<mark class="${cls}" title="${esc(m.message)}${m.replacements&&m.replacements.length?" → "+esc(m.replacements.slice(0,3).map(r=>r.value).join(" / ")):""}">${esc(text.substr(m.offset,m.length))}</mark>`; pos=m.offset+m.length; });
+  return out+esc(text.slice(pos));
+}
+function viewWritingReport(U,sec,tier,text,A,ltErr,before){
+  const W=sec.tiers[tier];
+  const CRIT=[["TR","Task response"],["CC","Coherence & cohesion"],["LR","Lexical resource"],["GRA","Grammatical range & accuracy"]];
+  const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
+  const model=sec.models&&sec.models[W.model];
+  app.innerHTML=`<div class="wrap stack" style="gap:28px">
+    <div class="score"><div class="big">${A.overall}</div><div class="stack tight"><span class="label">${esc(U.title)} · Writing · ${tier} · CEFR estimate</span><h2>Indicative IELTS ${BAND[A.overall]}</h2><p class="muted">Your next writing tasks will be at ${S.tier.writing}.${before&&before!==A.overall?` (Before: ${before})`:""} This is an automatic estimate. Your teacher’s feedback counts more.</p></div></div>
+    ${ltErr?`<p class="note warn">The grammar and spelling service didn’t respond (${esc(ltErr.message||"offline")}), so accuracy wasn’t measured. Try again later for a full check.</p>`:""}
+    <section class="crit">${CRIT.map(([k,n])=>`<div class="card"><div class="row between"><strong>${n}</strong><span class="chip ${li(A.levels[k])>=2?"lv":""}">${A.levels[k]}</span></div><ul>${A.reasons[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul>${A.tips[k].length?`<div class="stack tight"><span class="label">To improve</span><ul>${A.tips[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>`:""}</div>`).join("")}</section>
+    <section class="stack"><div class="row between"><span class="label">Your essay${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
+    ${issues.length?`<section class="stack tight issues"><span class="label">Corrections from LanguageTool</span>${issues.slice(0,30).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</section>`:""}
+    <div class="row"><button class="btn primary" id="revise">Revise my essay</button><button class="btn" id="toUnit">Back to the unit</button></div>
+    ${model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(model)}</p></details>`:""}
+  </div>`;
+  $("#revise").onclick=()=>go(runWriting,U,sec,tier);
+  $("#toUnit").onclick=()=>go(viewUnit,U.id);
+}
+
+/* =========================================================
+   SEND PROGRESS · SETTINGS
+   ========================================================= */
+async function progressCode(){
+  const words={}; for(const [k,v] of Object.entries(S.words)) words[k]=v.stage;
+  const qt={}; for(const [k,v] of Object.entries(S.qtypes)){ const a=v.slice(-10); qt[k]=a.length?Math.round(a.reduce((x,y)=>x+y,0)/a.length*100):null; }
+  const data={v:1,code:S.code,at:Date.now(),placement:S.placement,profile:S.profile,tier:S.tier,results:S.results,checks:S.checks,cando:S.cando,essays:S.essays.slice(-6),speaking:S.speaking.slice(-6),words,qtypes:qt};
+  const json=JSON.stringify(data);
+  if(window.CompressionStream){ try{ const buf=await new Response(new Blob([json]).stream().pipeThrough(new CompressionStream("deflate-raw"))).arrayBuffer(); return "IL1."+b64url(new Uint8Array(buf)); }catch(e){} }
+  return "IL0."+b64url(enc.encode(json));
+}
+async function viewSend(){
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
+    <span class="label">Send progress</span><h1>Share your progress</h1>
+    <p class="prose">This code contains your scores, levels and essays. It doesn’t include your name. Copy it and send it to ${esc(CONFIG.teacherName||"your teacher")}${CONFIG.teacherContact?` (${esc(CONFIG.teacherContact)})`:""} in a message.</p>
+    <textarea id="pcode" rows="6" readonly style="font-family:var(--mono);font-size:12px" aria-label="Your progress code">Preparing…</textarea>
+    <div class="row"><button class="btn primary" id="copy">Copy code</button><span class="small muted" id="cmsg" role="status"></span></div>
+  </div>`;
+  const code=await progressCode(); $("#pcode").value=code;
+  $("#copy").onclick=()=>{ const ta=$("#pcode"); const fall=()=>{ta.focus();ta.select();$("#cmsg").textContent="Select all and copy.";};
+    try{ navigator.clipboard.writeText(code).then(()=>{$("#cmsg").textContent="Copied. Paste it into your message.";},fall); }catch(e){ fall(); } };
+}
+function viewSettings(){
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
+    <span class="label">Settings</span><h1>Settings</h1>
+    <div class="stack tight"><label for="acc"><strong>Voice accent for listening</strong></label><select id="acc" style="max-width:320px"><option value="en-GB">British English</option><option value="en-US">American English</option><option value="en-AU">Australian English</option><option value="any">Mixed (as written in the unit)</option></select><span class="small muted">Voices come from your device, so quality varies. Chrome and Safari usually have the best voices.</span></div>
+    <div class="stack tight"><label for="spd"><strong>Speech speed</strong> <span class="muted" id="spdv"></span></label><input type="range" id="spd" min="0.8" max="1.15" step="0.05" style="max-width:320px"><div class="row"><button class="btn small ghost" id="testV">Test voice</button></div></div>
+    <div class="stack tight"><strong>Placement</strong><p class="small muted">Retake the placement test to reset your starting levels. Your other results stay.</p><div class="row"><button class="btn small" id="retake">Retake placement</button></div></div>
+    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span></p><p class="small muted">Removing the course deletes all progress on this device. Send your progress to your teacher first.</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
+  </div>`;
+  $("#acc").value=S.settings.accent||"en-GB";
+  $("#acc").onchange=e=>{S.settings.accent=e.target.value;save();};
+  $("#spd").value=S.settings.speed||1; $("#spdv").textContent=Math.round((S.settings.speed||1)*100)+"%";
+  $("#spd").oninput=e=>{S.settings.speed=Number(e.target.value);$("#spdv").textContent=Math.round(S.settings.speed*100)+"%";save();};
+  $("#testV").onclick=()=>TTS.say("Over the last twenty years, the way we live has changed dramatically.","en-GB","female");
+  $("#retake").onclick=()=>go(viewPlacementIntro);
+  $("#out").onclick=e=>{ const b=e.currentTarget; if(b.dataset.armed){ try{localStorage.removeItem(SKEY);}catch(x){} location.reload(); } else { b.dataset.armed="1"; b.classList.add("armed"); b.textContent="Tap again to remove"; T.later(()=>{ if(b.isConnected){ delete b.dataset.armed; b.classList.remove("armed"); b.textContent="Remove course from this device"; } },3500); } };
+}
+
+boot();
+</script>
+</body>
+</html>
