@@ -428,8 +428,8 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .bank button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
 .bank button:hover{border-color:var(--ink)}
 .bank button.used{background:var(--good-soft);border-color:transparent;color:var(--good)}
-#wm{position:fixed;inset:-25%;z-index:30;pointer-events:none;user-select:none;-webkit-user-select:none;display:flex;flex-wrap:wrap;gap:90px 130px;align-content:center;justify-content:center;transform:rotate(-24deg);opacity:.065;overflow:hidden}
-#wm span{font:600 15px var(--mono);color:var(--ink);white-space:nowrap;letter-spacing:.08em}
+#wm{position:fixed;right:calc(12px + env(safe-area-inset-right,0px));bottom:calc(10px + env(safe-area-inset-bottom,0px));z-index:30;pointer-events:none;user-select:none;-webkit-user-select:none;font:500 11px var(--mono);letter-spacing:.05em;color:var(--muted);background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 10px;opacity:.9;max-width:calc(100vw - 24px);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.credit{font:500 11px var(--mono);letter-spacing:.05em;color:var(--muted);margin-top:8px;user-select:none;-webkit-user-select:none}
 .foot{max-width:1100px;margin:0 auto;padding-inline:18px;padding-block:18px 40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .foot .link{font-size:12px}
 </style>
@@ -568,11 +568,13 @@ const TTS={
 /* ---------- top bar ---------- */
 function dueWords(){const now=Date.now();let n=0;for(const uid of unitIds()){for(const w of MODULES[uid].words||[]){const st=S.words[uid+":"+w.id];if(st&&st.due<=now)n++;}}return n;}
 function watermarkText(){ if(PREVIEW) return "Teacher preview"; const c=S.code||""; return `${BUNDLE.label?"Licensed to "+BUNDLE.label:"Licensed copy"} · ${c.slice(0,4)}`; }
+const brandMark=()=>PREVIEW?"Teacher preview":`${CONFIG.watermark||CONFIG.courseName||"IELTS Ladder"} · ${(S.code||"").slice(0,4)}`;
+const credit=()=>(S.code&&Object.keys(KEYS).length)||PREVIEW?`<p class="credit">${esc(brandMark())}</p>`:"";
 function renderWatermark(){
   let w=document.getElementById("wm"); const on=(!!S.code&&!!Object.keys(KEYS).length)||PREVIEW;
   if(!on){ if(w) w.remove(); return; }
   if(!w){ w=document.createElement("div"); w.id="wm"; w.setAttribute("aria-hidden","true"); document.body.appendChild(w); }
-  const t=watermarkText(); if(w.dataset.t!==t){ w.dataset.t=t; w.innerHTML=Array.from({length:180},()=>`<span>${esc(t)}</span>`).join(""); }
+  w.textContent=brandMark();
 }
 function renderFoot(){ const f=$("#foot"); if(!f) return; f.innerHTML=`<span>${esc(CONFIG.copyright||"")}</span><span>Personal use only.</span><button class="link" data-nav="terms">Terms of use</button>`; }
 function renderTop(){
@@ -606,7 +608,7 @@ document.addEventListener("copy",e=>{
   if(!(S.code&&Object.keys(KEYS).length)&&!PREVIEW) return;
   const a=document.activeElement; if(a&&(a.tagName==="TEXTAREA"||a.tagName==="INPUT")) return;
   const sel=String(window.getSelection()||""); if(sel.replace(/\s/g,"").length<40) return;
-  const note=`\n\n— ${CONFIG.courseName||"IELTS Ladder"}${CONFIG.copyright?" · "+CONFIG.copyright:""} · ${watermarkText()} · Personal use only.`;
+  const note=`\n\n— ${CONFIG.courseName||"IELTS Ladder"} · ${CONFIG.watermark||CONFIG.copyright||""} · ${watermarkText()} · Personal use only.`;
   try{ e.clipboardData.setData("text/plain",sel+note); e.preventDefault(); }catch(x){}
 });
 const DEFAULT_TERMS=[
@@ -986,7 +988,7 @@ function runReading(U,sec,tier,mode){
       <div class="tabs" role="group" aria-label="View"><button data-pane="passage" aria-pressed="true">Passage</button><button data-pane="questions" aria-pressed="false">Questions</button></div>
     </div></div>
     <div class="wrap" style="padding-top:0"><div class="split">
-      <article class="passage"><span class="label">Reading passage</span><h2>${esc(R.title)}</h2><div class="stack" style="gap:4px;margin-top:10px">${R.paras.map(p=>`<div class="para" id="p-${p.id}"><b>${p.id}</b><p>${esc(fp(p.t))}</p></div>`).join("")}</div></article>
+      <article class="passage"><span class="label">Reading passage</span><h2>${esc(R.title)}</h2><div class="stack" style="gap:4px;margin-top:10px">${R.paras.map(p=>`<div class="para" id="p-${p.id}"><b>${p.id}</b><p>${esc(fp(p.t))}</p></div>`).join("")}</div>${credit()}</article>
       <div class="qcol" id="qz">${quizHTML(Q)}<div class="row" style="justify-content:flex-end"><button class="btn primary" id="fin2">Finish and see results</button></div></div>
     </div></div>
   </div>`;
@@ -1441,7 +1443,7 @@ function chartSVG(ch){
     ch.series.forEach((s,si)=>g+=`<rect class="b${si}" x="${L+si*96}" y="${H-16}" width="12" height="12" rx="2"/><text class="ax" x="${L+si*96+18}" y="${H-6}">${esc(s.name)}</text>`);
     if(ch.unit) g+=`<text class="ax" x="${L-8}" y="${H-6}" text-anchor="end">${esc(ch.unit)}</text>`;
   }
-  return `<figure class="chart"><figcaption class="label">${esc(ch.title)}</figcaption><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ch.title)}">${g}</svg>${ch.note?`<p class="small muted">${esc(ch.note)}</p>`:""}</figure>`;
+  return `<figure class="chart"><figcaption class="label">${esc(ch.title)}</figcaption><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ch.title)}">${g}</svg>${ch.note?`<p class="small muted">${esc(ch.note)}</p>`:""}${credit()}</figure>`;
 }
 
 /* =========================================================
@@ -1662,7 +1664,7 @@ function drillWrite(U,sec,d){
       ${d.task&&ctx.copy.phrases.length?`<p class="small">Copied from the task: ${ctx.copy.phrases.slice(0,4).map(p=>`<span class="copied">${esc(p)}</span>`).join(", ")} (${Math.round(ctx.copy.ratio*100)}% of your words)</p>`:""}
       <div class="row"><span class="label">Language level (indicative)</span><span class="chip ${li(A.levels.LR)>=2?"lv":""}">Vocabulary ${A.levels.LR}</span><span class="chip ${li(A.levels.GRA)>=2?"lv":""}">Grammar ${A.levels.GRA}</span></div>
       ${ltErr?`<p class="note warn small">The grammar service didn’t respond, so mistakes weren’t marked.</p>`:`<div class="marked">${markText(text,A.lt&&A.lt.matches)}</div>${issues.length?`<div class="stack tight">${issues.slice(0,12).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</div>`:`<p class="small" style="color:var(--good)">No grammar or spelling mistakes found.</p>`}`}
-      ${d.model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(d.model))}</p></details>`:""}</div>`;
+      ${d.model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(d.model))}</p>${credit()}</details>`:""}</div>`;
     $("#dwc").disabled=false; $("#dwc").textContent="Check again"; $("#dwm").textContent="";
     S.drafts[dk]=text; drillEnd(U,sec,d,pct,"");
   };
@@ -1688,11 +1690,11 @@ function runSpeaking(U,sec,tier){
   const phrases=cfg.phrases||[];
   const helpers=(item)=>{
     const used=usedIds();
-    return `${part===3&&item&&item.brief?`<section class="brief"><span class="label">Before you answer · read</span><h3>${esc(item.brief.title)}</h3><p>${linkWords(fp(item.brief.t),U)}</p>${item.brief.ideas?`<div class="stack tight"><span class="label">Ideas you can use</span><div class="ideas">${item.brief.ideas.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:""}</section>`:""}
+    return `${part===3&&item&&item.brief?`<section class="brief"><span class="label">Before you answer · read</span><h3>${esc(item.brief.title)}</h3><p>${linkWords(fp(item.brief.t),U)}</p>${item.brief.ideas?`<div class="stack tight"><span class="label">Ideas you can use</span><div class="ideas">${item.brief.ideas.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:""}${credit()}</section>`:""}
       ${active.length?`<section class="stack tight"><div class="row between"><span class="label" id="wcount">Words to use · ${used.length}/${active.length}</span><span class="small muted">Tap a word to see it · it’s ticked when you use it</span></div>${cloudHTML(active,used)}</section>`:""}
       ${phrases.length?`<section class="stack tight"><span class="label">Useful phrases</span><div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div></section>`:""}
       ${part===3&&cfg.challenge?`<p class="note">${esc(cfg.challenge)}</p>`:""}
-      ${item&&item.sample?`<details class="more"><summary>Sample answer</summary><p class="model">${esc(fp(item.sample))}</p><p class="small muted">Read it, close it, then answer in your own words.</p></details>`:""}`;
+      ${item&&item.sample?`<details class="more"><summary>Sample answer</summary><p class="model">${esc(fp(item.sample))}</p>${credit()}<p class="small muted">Read it, close it, then answer in your own words.</p></details>`:""}`;
   };
   const answerBits=(key,limit)=>{ const a=answers[key];
     return `<div class="tbar"><i id="tb" style="width:${a?Math.min(100,a.secs/limit*100):0}%"></i></div>
@@ -1856,7 +1858,7 @@ function viewWritingReport(U,sec,tier,text,A,ltErr,before){
     <section class="stack"><div class="row between"><span class="label">Your answer${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
     ${issues.length?`<section class="stack tight issues"><span class="label">Corrections from LanguageTool</span>${issues.slice(0,30).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</section>`:""}
     <div class="row"><button class="btn primary" id="revise">Revise my answer</button><button class="btn" id="toUnit">Back to the unit</button></div>
-    ${model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(model))}</p></details>`:""}
+    ${model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(model))}</p>${credit()}</details>`:""}
   </div>`;
   $("#revise").onclick=()=>go(runWriting,U,sec,tier);
   $("#toUnit").onclick=()=>go(viewUnit,U.id);
