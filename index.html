@@ -14,6 +14,7 @@
   --bg:#ffffff; --surface:#fbf7fa; --ink:#151217; --muted:#6c6370; --line:#ece4ea;
   --accent:#FF2E93; --accent-ink:#ffffff; --accent-soft:#ffe6f2;
   --good:#0d8458; --good-soft:#e3f5ec; --bad:#c62f2f; --bad-soft:#fdeaea; --warn:#9a6a00; --warn-soft:#fff4d6; --hl:#fff1a8;
+  --t1:#FF2E93; --t2:#2a6fd6; --t3:#0d8458; --t4:#b26b00;
   --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
@@ -22,11 +23,11 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#121014; --surface:#1b171d; --ink:#f5eff3; --muted:#a79ead; --line:#2d2730;
   --accent:#ff53a6; --accent-ink:#1c0611; --accent-soft:#3a1529;
-  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; color-scheme:dark}}
+  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; --t1:#ff53a6; --t2:#7fb0ff; --t3:#52d49d; --t4:#f0c040; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#121014; --surface:#1b171d; --ink:#f5eff3; --muted:#a79ead; --line:#2d2730;
   --accent:#ff53a6; --accent-ink:#1c0611; --accent-soft:#3a1529;
-  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; color-scheme:dark}
+  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; --t1:#ff53a6; --t2:#7fb0ff; --t3:#52d49d; --t4:#f0c040; color-scheme:dark}
 
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -254,6 +255,179 @@ details.more{border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 details.more summary{cursor:pointer;font-weight:600}
 details.more[open] summary{margin-bottom:12px}
 .toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:50}
+
+/* ---- section hub ---- */
+.steps{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
+.steps button{background:none;border:0;border-bottom:3px solid transparent;padding:10px 14px;font-weight:600;cursor:pointer;color:var(--muted);display:inline-flex;gap:8px;align-items:center;font-size:15px}
+.steps button[aria-selected="true"]{color:var(--ink);border-color:var(--accent)}
+.steps .n{font-family:var(--mono);font-size:11px;border:1px solid currentColor;border-radius:999px;padding:0 6px}
+
+/* ---- tip cards ---- */
+.tips{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,300px),1fr));gap:14px}
+.tip{border:1px solid var(--line);border-radius:16px;padding:18px;display:grid;gap:14px;align-content:start;background:var(--bg);min-width:0}
+.tip h3{font-size:26px}
+.tip-say{font-size:14px;color:var(--muted)}
+@media (min-width:700px){.tip-compare,.tip-demo,.tip-cloud{grid-column:span 2}}
+.v-flow{display:grid}
+.v-step{display:grid;grid-template-columns:30px 1fr;column-gap:10px;position:relative;padding-bottom:12px}
+.v-step:last-child{padding-bottom:0}
+.v-step .v-n{grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:13px;z-index:1}
+.v-step:not(:last-child)::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--line)}
+.v-step:last-child .v-n{background:var(--accent);color:var(--accent-ink)}
+.v-step b{grid-column:2;font-size:15px;align-self:center;padding-top:4px}
+.v-step small{grid-column:2;color:var(--muted);font-size:13px}
+.v-formula{display:flex;flex-wrap:wrap;gap:8px;align-items:stretch}
+.v-part{border:1.5px solid var(--ink);border-radius:12px;padding:8px 12px;display:grid;gap:2px;align-content:center;min-width:0}
+.v-part b{font-family:var(--display);font-size:22px;font-weight:400;line-height:1;letter-spacing:.02em}
+.v-part small{font-size:12px;color:var(--muted)}
+.v-op{font-family:var(--display);font-size:30px;color:var(--accent);align-self:center;line-height:1}
+.v-part.v-res{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.v-part.v-res small{color:var(--accent-ink);opacity:.85}
+.v-dec{display:grid;gap:6px}
+.v-q{border:1.5px solid var(--ink);border-radius:12px;padding:8px 12px;font-weight:600;font-size:14px}
+.v-br{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-left:14px}
+.v-lab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+.v-out{font-family:var(--mono);font-size:12px;letter-spacing:.05em;padding:4px 10px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.v-out.good{background:var(--good);color:var(--bg)}
+.v-out.bad{background:var(--bad);color:var(--bg)}
+.v-out.acc{background:var(--accent);color:var(--accent-ink)}
+.v-down{padding-left:14px;font-family:var(--mono);font-size:11px;color:var(--muted)}
+.v-demo{font-size:13px;line-height:1.6;border:1px solid var(--line);border-radius:10px;padding:10px 12px;display:grid;gap:8px;background:var(--surface)}
+.v-demo p{color:var(--muted)}
+.v-demo mark{background:var(--hl);color:var(--ink);border-radius:3px;padding:0 2px;transition:background .3s,color .3s}
+.v-demo.anim mark{background:transparent;color:var(--muted)}
+.v-demo.anim mark.lit{background:var(--hl);color:var(--ink)}
+@media (prefers-reduced-motion:reduce){.v-demo mark{transition:none}}
+.v-pairs{display:grid;grid-template-columns:minmax(0,1fr) auto minmax(0,1fr);gap:6px 8px;align-items:center;font-size:14px}
+.v-pairs .h{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+.v-pairs .a{background:var(--surface);border-radius:8px;padding:6px 10px}
+.v-pairs .b{background:var(--accent-soft);border-radius:8px;padding:6px 10px;font-weight:600}
+.v-pairs .ar{color:var(--accent);font-weight:700}
+.v-blocks{display:grid;gap:10px}
+.v-blk{display:grid;gap:4px}
+.v-blk .top{display:flex;justify-content:space-between;gap:8px;font-size:14px}
+.v-blk .top span{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
+.v-bar{height:14px;border-radius:4px;background:var(--ink)}
+.v-blk:nth-child(odd) .v-bar{background:var(--accent)}
+.v-blk small{font-size:12px;color:var(--muted)}
+.v-trend,.v-tl{width:100%;height:auto;display:block}
+.tr-base{fill:none;stroke:var(--line);stroke-width:2}
+.tr-seg{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
+.tr-lab{font:600 11px var(--body)}
+.t0{stroke:var(--t1)} .t1{stroke:var(--t2)} .t2{stroke:var(--t3)} .t3{stroke:var(--t4)}
+text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{fill:var(--t3);stroke:none} text.t3{fill:var(--t4);stroke:none}
+.tl-ax{stroke:var(--ink);stroke-width:2}
+.tl-t{font:500 10px var(--mono);fill:var(--muted);letter-spacing:.08em}
+.tl-now{fill:var(--ink)}
+.tl-dot{fill:var(--accent)}
+.tl-l{font:600 12px var(--body);fill:var(--ink)}
+.tl-c{font:500 10px var(--mono);fill:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tl-c.acc{fill:var(--accent)}
+.tl-span{stroke:var(--accent);stroke-width:4;stroke-linecap:round}
+.tl-arrow{fill:var(--accent)}
+.v-dd{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.v-dd ul{margin:6px 0 0;padding:0;list-style:none;display:grid;gap:8px;font-size:14px}
+.v-dd li{display:grid;grid-template-columns:18px 1fr;gap:6px}
+.v-dd .do li::before{content:"✓";color:var(--good);font-weight:700}
+.v-dd .dont li::before{content:"✕";color:var(--bad);font-weight:700}
+@media (max-width:420px){.v-dd{grid-template-columns:1fr}}
+.v-anat{display:grid;gap:10px}
+.v-anat p{font-size:15px;line-height:2}
+.seg{border-bottom:3px solid var(--t1);padding-bottom:1px}
+.seg.c1{border-color:var(--t2)} .seg.c2{border-color:var(--t3)} .seg.c3{border-color:var(--t4)}
+.legend{display:grid;gap:4px;font-size:13px}
+.legend span{display:flex;gap:8px;align-items:center}
+.legend i{width:16px;height:4px;border-radius:2px;flex:none;background:var(--t1)}
+.legend i.c1{background:var(--t2)} .legend i.c2{background:var(--t3)} .legend i.c3{background:var(--t4)}
+.v-cmp{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,240px),1fr));gap:18px}
+.v-cloud{display:flex;flex-wrap:wrap;gap:4px 14px;align-items:baseline;justify-content:center;padding:6px}
+.v-cloud button{background:none;border:0;cursor:pointer;color:var(--ink);font-family:var(--display);line-height:1.05;padding:2px;letter-spacing:.02em}
+.v-cloud button.c1x{color:var(--accent)}
+.v-cloud button.used{color:var(--good);text-decoration:line-through;text-decoration-thickness:2px}
+.v-cloud button:hover{text-decoration:underline}
+.vw{background:var(--accent-soft);border:0;border-bottom:2px solid var(--accent);padding:0 3px;border-radius:3px;font:inherit;color:inherit;cursor:pointer;line-height:inherit}
+.defpop{max-width:min(92vw,520px);border-radius:14px;text-align:left}
+
+/* ---- drills ---- */
+.dbar{position:sticky;top:calc(env(safe-area-inset-top,0px) + 54px);z-index:9;background:var(--bg);border-bottom:1.5px solid var(--ink);padding-block:12px;display:flex;gap:12px;align-items:center;justify-content:space-between;flex-wrap:wrap}
+.target{font-size:20px;font-weight:700;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.text{display:grid;gap:4px;max-width:75ch}
+.tk{cursor:pointer;border-radius:4px;padding:0 1px;transition:background .2s}
+.tk:hover{background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+.tk.hit{background:var(--good-soft);color:var(--good);font-weight:700}
+.tk.miss{background:var(--bad-soft);color:var(--bad)}
+.tk.sel{background:var(--accent);color:var(--accent-ink)}
+.tk.key{box-shadow:0 0 0 2px var(--good)}
+.skimtext p{color:var(--muted)}
+.skimtext p strong{color:var(--ink);font-weight:600}
+.ord{display:grid;gap:8px}
+.ord .zone{min-height:56px;border:1.5px dashed var(--line);border-radius:12px;padding:8px;display:grid;gap:6px}
+.ord button.part{text-align:left;border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 12px;cursor:pointer;color:var(--ink);display:flex;gap:10px;align-items:baseline;font-size:15px}
+.ord .zone:first-of-type button.part{border-color:var(--ink)}
+.ord .lab{font-family:var(--mono);font-size:11px;color:var(--accent);min-width:74px;text-transform:uppercase;letter-spacing:.05em}
+.mrow{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.3fr);gap:10px;align-items:center;padding:8px;border-bottom:1px dotted var(--line);border-radius:8px}
+.mrow.ok{background:var(--good-soft)} .mrow.no{background:var(--bad-soft)}
+@media (max-width:600px){.mrow{grid-template-columns:1fr}}
+.dsplit{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.dsplit>.dside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px)}
+@media (max-width:900px){.dsplit{grid-template-columns:1fr}.dsplit>.dside{position:static}}
+.checks{display:grid;gap:6px}
+.checks div{display:grid;grid-template-columns:22px 1fr;gap:6px;font-size:14px}
+.checks .y::before{content:"✓";color:var(--good);font-weight:700}
+.checks .n::before{content:"✕";color:var(--bad);font-weight:700}
+.copied{background:var(--warn-soft);border-bottom:2px solid var(--warn)}
+
+/* ---- charts ---- */
+.chart{margin:0;display:grid;gap:6px}
+.chart svg{width:100%;height:auto;display:block}
+.chart .gl{stroke:var(--line);stroke-width:1}
+.chart .ax{fill:var(--muted);font:11px var(--mono)}
+.chart .cat{fill:var(--ink);font:12px var(--body)}
+.chart .val{fill:var(--ink);font:11px var(--mono)}
+.chart .s0{stroke:var(--accent);fill:var(--accent)} .chart .s1{stroke:var(--ink);fill:var(--ink)} .chart .s2{stroke:var(--t2);fill:var(--t2)}
+.chart polyline.ln{fill:none;stroke-width:2.5}
+.chart .lab{font:600 12px var(--body);stroke:none}
+.chart .b0{fill:var(--muted)} .chart .b1{fill:var(--accent)}
+
+/* ---- speaking ---- */
+.spk{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:28px;align-items:start}
+.spk-main{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);display:grid;gap:14px;z-index:5}
+.qcard{border:1.5px solid var(--ink);border-radius:16px;padding:20px;display:grid;gap:14px;background:var(--bg)}
+.qbig{font-size:clamp(19px,2.4vw,26px);font-weight:700;line-height:1.3}
+.tbar{height:8px;background:var(--line);border-radius:4px;overflow:hidden}
+.tbar i{display:block;height:100%;width:0;background:var(--accent);transition:width .9s linear}
+.tbar i.over{background:var(--bad)}
+.qdots{display:flex;gap:5px;flex-wrap:wrap}
+.qdots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
+.qdots i.done{background:var(--accent)}
+.qdots i.on{background:var(--ink);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--ink)}
+.spk-help{display:grid;gap:18px;min-width:0}
+.brief{border-radius:14px;background:var(--surface);padding:18px;display:grid;gap:10px}
+.brief p{line-height:1.75}
+.ideas{display:flex;flex-wrap:wrap;gap:6px}
+.ideas span{background:var(--bg);border:1px solid var(--line);border-radius:999px;padding:4px 10px;font-size:13px}
+.notes4{display:grid;grid-template-columns:1fr 1fr;gap:8px}
+.notes4 label{display:grid;gap:4px;font-size:12px;color:var(--muted)}
+.notes4 textarea{min-height:64px;font-size:14px}
+.cue ul{margin:0;padding-left:20px}
+@media (max-width:960px){
+  .spk{grid-template-columns:1fr;gap:18px}
+  .spk-main{top:calc(env(safe-area-inset-top,0px) + 54px);background:var(--bg);padding-block:6px}
+  .qcard{padding:14px;gap:10px}
+}
+@media (max-width:420px){.notes4{grid-template-columns:1fr}}
+
+/* ---- writing ---- */
+.wlayout{display:grid;grid-template-columns:minmax(0,.95fr) minmax(0,1.05fr);gap:28px;align-items:start}
+.wside{position:sticky;top:calc(env(safe-area-inset-top,0px) + 70px);max-height:calc(100vh - 90px);overflow:auto;display:grid;gap:14px;padding-right:4px}
+.wmain{display:grid;gap:14px;min-width:0}
+@media (max-width:1000px){.wlayout{grid-template-columns:1fr}.wside{position:static;max-height:none;overflow:visible}}
+.bank{display:grid;gap:10px}
+.bank .grp{display:flex;flex-wrap:wrap;gap:5px;align-items:center}
+.bank .grp b{font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);flex-basis:100%;font-weight:500}
+.bank button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
+.bank button:hover{border-color:var(--ink)}
+.bank button.used{background:var(--good-soft);border-color:transparent;color:var(--good)}
 </style>
 </head>
 <body>
@@ -296,7 +470,7 @@ function median(arr){const a=arr.slice().sort((x,y)=>x-y);return a.length?a[Math
 const T={ids:new Set(),every(fn,ms){const id=setInterval(fn,ms);this.ids.add(id);return id;},later(fn,ms){const id=setTimeout(fn,ms);this.ids.add(id);return id;},clear(){this.ids.forEach(id=>{clearInterval(id);clearTimeout(id);});this.ids.clear();}};
 let CLEANUP=[];
 const onLeave=fn=>CLEANUP.push(fn);
-function go(fn,...args){T.clear();CLEANUP.forEach(f=>{try{f();}catch(e){}});CLEANUP=[];TTS.stop();window.scrollTo(0,0);renderTop();return fn(...args);}
+function go(fn,...args){document.querySelectorAll(".defpop").forEach(x=>x.remove());T.clear();CLEANUP.forEach(f=>{try{f();}catch(e){}});CLEANUP=[];TTS.stop();window.scrollTo(0,0);renderTop();return fn(...args);}
 
 /* ---------- state ---------- */
 const SKEY="ielts-ladder:v1";
@@ -601,7 +775,8 @@ function viewUnit(uid){
     <section class="section"><span class="label">Parts of this unit</span><div class="seclist">${U.sections.map(s=>{
       const d=sectionDone(uid,s.id), t=s.type==="check"?"":(S.tier[s.skill]||"B2");
       const status=d?`<span class="chip good">${d.lvl?d.lvl+" level":d.pct+"%"+(d.tier?" · "+d.tier:"")}</span>`:`<span class="chip">Not started</span>`;
-      return `<div class="secrow"><span class="label">${SEC_LABEL[s.type]||s.type}${t?` · ${t}`:""}</span><div class="meta"><h3>${esc(s.title)}</h3><p class="small muted">${esc(s.summary||"")}</p></div><div class="act row">${status}<button class="btn small ${d?"ghost":"primary"}" data-s="${s.id}">${d?"Open again":"Start"}</button></div></div>`;}).join("")}</div></section>
+      const tr=(s.train||[]).length, trd=(s.train||[]).filter(d=>drillBest(uid,s.id,d.id)!==null).length;
+      return `<div class="secrow"><span class="label">${s.type==="writing"&&s.task?"Writing Task "+s.task:(SEC_LABEL[s.type]||s.type)}${t?` · ${t}`:""}${s.learn||tr?`<br>${s.learn?"Tips":""}${s.learn&&tr?" · ":""}${tr?`Training ${trd}/${tr}`:""}`:""}</span><div class="meta"><h3>${esc(s.title)}</h3><p class="small muted">${esc(s.summary||"")}</p></div><div class="act row">${status}<button class="btn small ${d?"ghost":"primary"}" data-s="${s.id}">${d?"Open again":"Start"}</button></div></div>`;}).join("")}</div></section>
     ${U.next?`<section class="section"><div class="card soft stack tight"><span class="label">Next · Unit ${nextU?nextU.n:""}</span><h3>${esc(U.next.title)}</h3><p class="small">${esc(U.next.bridge||"")}</p><div class="row">${nextOpen?`<button class="btn" id="nextU">Go to ${esc(U.next.title)}</button>`:`<span class="chip">Opens when your teacher unlocks it</span>`}</div></div></section>`:""}
     <div class="row"><button class="btn ghost" id="backHome">${PREVIEW?"":"Back to the course"}</button></div>
   </div>`;
@@ -612,32 +787,6 @@ function viewUnit(uid){
 
 /* ---------- section start: level + mode ---------- */
 const TIER_DESC={B1:"IELTS 4.0–5.0",B2:"IELTS 5.5–6.5",C1:"IELTS 7.0–8.0"};
-function viewSectionStart(uid,sid){
-  const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
-  if(sec.type==="vocab") return go(viewVocab,uid,sid);
-  if(sec.type==="check") return go(runCheck,U,sec);
-  const rec=S.tier[sec.skill]||"B2"; let tier=rec, mode="practice";
-  const hist=(S.results[uid+":"+sid]||[]).slice(-5).reverse();
-  const modes=sec.type==="reading";
-  const draw=()=>{
-    app.innerHTML=`<div class="wrap narrow stack" style="gap:24px">
-      <span class="label">Unit ${U.number} · ${esc(U.title)} · ${SEC_LABEL[sec.type]}</span>
-      <h1>${esc(sec.title)}</h1>
-      <p class="prose">${esc(sec.summary||"")}</p>
-      <div class="stack tight"><strong>Level</strong><div class="seg" role="group" aria-label="Level">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${TIER_DESC[t]}${t===rec?" · recommended":""}</span></button>`).join("")}</div></div>
-      ${modes?`<div class="stack tight"><strong>Mode</strong><div class="seg" role="group" aria-label="Mode"><button data-m="practice" aria-pressed="${mode==="practice"}"><strong>Practice</strong><span>Check as you go${tier!=="C1"?", hints":""}</span></button><button data-m="exam" aria-pressed="${mode==="exam"}"><strong>Exam</strong><span>Timer, no hints</span></button></div></div>`:""}
-      ${S.support&&tier==="B1"?`<p class="note">Extra support is on: strategy tips, hints and fewer answer options.</p>`:""}
-      <div class="row"><button class="btn primary" id="go">Start</button><button class="btn ghost" id="back">Back to the unit</button></div>
-      ${hist.length?`<div class="stack tight"><span class="label">Your attempts</span>${hist.map(h=>`<div class="row small"><span class="chip">${h.tier}</span><span>${h.lvl?h.lvl+" level":h.pct+"%"}</span><span class="muted">${fmtDate(h.date)}${h.mode?" · "+h.mode:""}</span></div>`).join("")}</div>`:""}
-    </div>`;
-    $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
-    $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw();});
-    $("#go").onclick=()=>{ const f={practice:runPractice,reading:runReading,listening:runListening,speaking:runSpeaking,writing:runWriting}[sec.type]; go(f,U,sec,tier,mode); };
-    $("#back").onclick=()=>go(viewUnit,uid);
-  };
-  draw();
-}
-
 /* =========================================================
    QUIZ ENGINE · shared by grammar, reading, listening and the unit check
    ========================================================= */
@@ -913,7 +1062,7 @@ function wst(uid,w){ return S.words[uid+":"+w.id]; }
 function dueAfter(stage){ if(stage<3) return 0; return [1,3,7,21,45][Math.min(stage-3,4)]*DAY; }
 function viewVocab(uid,sid,tab){
   const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
-  let tier=S.tier.language||"B2"; tab=tab||"train";
+  let tier=S.tier.language||"B2"; tab=tab||((S.results[uid+":"+sid]||[]).length?"train":"tips");
   const draw=()=>{
     const ids=sec.sets[tier]||[], words=ids.map(id=>U.words.find(w=>w.id===id)).filter(Boolean);
     const now=Date.now(), neu=words.filter(w=>!wst(uid,w)).length, due=words.filter(w=>{const s=wst(uid,w);return s&&s.due<=now;}).length;
@@ -922,8 +1071,8 @@ function viewVocab(uid,sid,tab){
       <div class="row between"><span class="label">Unit ${U.number} · ${esc(U.title)} · Vocabulary</span><button class="link small" id="leave">Back to the unit</button></div>
       <h1>${esc(sec.title)}</h1>
       <div class="seg" role="group" aria-label="Word set">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${t===(S.tier.language||"B2")?"your level":"word set"}</span></button>`).join("")}</div>
-      <div class="row"><button class="btn ${tab==="train"?"primary":"ghost"} small" data-tab="train">Train</button><button class="btn ${tab==="list"?"primary":"ghost"} small" data-tab="list">Word list</button></div>
-      ${tab==="train"?`<div class="card soft stack">
+      <div class="steps" role="tablist"><button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips</button><button role="tab" data-tab="train" aria-selected="${tab==="train"}">Train</button><button role="tab" data-tab="list" aria-selected="${tab==="list"}">Word list</button></div>
+      ${tab==="tips"?`<div class="tips" id="tipsbox">${[{v:"cloud",title:"This unit’s words",say:"Bigger and pink = more advanced. Tap a word to see what it means.",ids:ids}].concat(sec.learn||[]).map(c=>tipHTML(c,U)).join("")}</div><div class="row"><button class="btn primary" data-tab="train">Start training</button></div>`:tab==="train"?`<div class="card soft stack">
         <div class="row" style="gap:28px"><div><span class="label">New</span><h2>${neu}</h2></div><div><span class="label">Due now</span><h2>${due}</h2></div><div><span class="label">Mastered</span><h2>${mastered}/${words.length}</h2></div></div>
         <p class="small">Each word goes through up to six steps: meaning, recall, spelling in context, word family, word partners and paraphrase. Words come back after 1, 3, 7 and 21 days.</p>
         <div class="row"><button class="btn primary" id="startV" ${neu+due===0?"disabled":""}>${neu+due===0?"Nothing due. Come back later":"Start a session"}</button></div>
@@ -931,6 +1080,7 @@ function viewVocab(uid,sid,tab){
     </div>`;
     $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
     $$("[data-tab]").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;draw();});
+    if($("#tipsbox")) bindTips($("#tipsbox"));
     $("#leave").onclick=()=>go(viewUnit,uid);
     if($("#startV")) $("#startV").onclick=()=>{
       const n=(sec.newPerSession||{})[tier]||8;
@@ -1011,122 +1161,42 @@ function runVocabSession(items,opt){
 const DEFAULT_SELFCHECK=[{"id": "fluency", "label": "Fluency", "d": {"A2": "I often stopped and found it hard to continue.", "B1": "I kept going, but paused often to find words.", "B2": "I spoke at a fairly even pace with few long pauses.", "C1": "I spoke fluently and naturally, almost without effort."}}, {"id": "range", "label": "Vocabulary range", "d": {"A2": "I only used very simple words.", "B1": "I used everyday words and a few topic words.", "B2": "I used topic words and some less common expressions.", "C1": "I used a wide range, including idiomatic language, to say exactly what I meant."}}, {"id": "accuracy", "label": "Grammar accuracy", "d": {"A2": "My errors often made my meaning unclear.", "B1": "I made errors, but my meaning was clear.", "B2": "I made few errors that caused confusion and corrected some myself.", "C1": "Errors were rare, even in complex sentences."}}, {"id": "coherence", "label": "Organisation", "d": {"A2": "My ideas were short and not really connected.", "B1": "I linked ideas with simple words like and, but, because.", "B2": "I used a variety of linking words to connect my ideas clearly.", "C1": "My answers were well organised, with clear structure and smooth links."}}, {"id": "pron", "label": "Pronunciation", "d": {"A2": "Listeners would often find me hard to understand.", "B1": "I was understandable, though my accent sometimes caused problems.", "B2": "My pronunciation was clear and generally natural.", "C1": "I varied stress and intonation to express meaning."}}];
 const DEFAULT_CHECKLIST=["My introduction makes my position clear.", "I answered every part of the question.", "Each body paragraph has one clear main idea.", "I supported my ideas with reasons or examples.", "My conclusion sums up my view without adding new ideas."];
 const REC={ ok(){return !!(navigator.mediaDevices&&navigator.mediaDevices.getUserMedia&&window.MediaRecorder);}, SR:window.SpeechRecognition||window.webkitSpeechRecognition };
-function runSpeaking(U,sec,tier){
-  const cfg=sec.tiers[tier]; if(!Array.isArray(sec.selfcheck)) sec=Object.assign({},sec,{selfcheck:DEFAULT_SELFCHECK});
-  const answers={}; // key -> {secs, transcript, url}
-  let useRec=false, useTr=false, part=1;
-  let active=null; // {key, stop}
-  const stopActive=()=>{ if(active){ try{active.stop();}catch(e){} active=null; } };
-  onLeave(stopActive);
-  const qlist=p=>p===1?sec.part1:sec.part3;
-  const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
-  const answerBox=(key,label,limit)=>{ const a=answers[key];
-    return `<div class="q" id="ab-${key}"><div class="qhead"><span class="qnum">${label}</span><div class="qtext">${esc(key.startsWith("p2")?sec.part2.task:qlist(part)[Number(key.split("-")[1])])}</div></div>
-      <div class="rec"><button class="btn small ghost" data-hear="${key}">Hear the question</button><button class="btn small primary" data-ans="${key}" data-limit="${limit}">${a?"Answer again":"Answer"}</button><span class="timer" id="tm-${key}" style="font-size:16px">${a?fmt(a.secs):fmt(0)} / ${fmt(limit)}</span></div>
-      ${a&&a.url?`<audio controls src="${a.url}" style="width:100%;max-width:420px"></audio>`:""}
-      ${a&&a.transcript?`<p class="transcript">“${esc(a.transcript)}”</p>`:""}</div>`; };
-  const draw=()=>{
-    const phrases=(cfg.phrases||[]);
-    app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
-      <div class="row between"><span class="label">${esc(U.title)} · Speaking · ${tier}</span><button class="link small" id="leave">Leave</button></div>
-      <h1>${esc(sec.title)}</h1>
-      <div class="row">${[1,2,3].map(p=>`<button class="btn small ${p===part?"primary":"ghost"}" data-part="${p}">Part ${p}</button>`).join("")}<button class="btn small ${part===4?"primary":"ghost"}" data-part="4">Self-check</button></div>
-      ${part<4?`<div class="card soft stack tight">
-        <div class="row"><label class="row small"><input type="checkbox" id="useRec" ${useRec?"checked":""} ${REC.ok()?"":"disabled"}> Record my answers</label>${REC.SR?`<label class="row small"><input type="checkbox" id="useTr" ${useTr?"checked":""}> Live transcript</label>`:""}</div>
-        <p class="small muted">${REC.ok()?"Recordings stay on this device and are deleted when you leave this page.":"Recording isn’t available in this browser. You can still practise with the timers."}${REC.SR?" The live transcript uses your browser’s speech service.":""}</p>
-      </div>`:""}
-      <div id="pbody" class="stack">${partBody(phrases)}</div>
-    </div>`;
-    $$("[data-part]").forEach(b=>b.onclick=()=>{stopActive();part=Number(b.dataset.part);draw();});
-    $("#leave").onclick=()=>go(viewUnit,U.id);
-    if($("#useRec")) $("#useRec").onchange=e=>{useRec=e.target.checked;};
-    if($("#useTr")) $("#useTr").onchange=e=>{useTr=e.target.checked;};
-    bindPart();
-  };
-  const partBody=phrases=>{
-    if(part===1) return `<p class="small">Short answers of 2–3 sentences. Give a reason or an example each time.</p>${phrases.length?`<div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div>`:""}${sec.part1.map((q,i)=>answerBox("p1-"+i,i+1,cfg.answer)).join("")}`;
-    if(part===2) return `<div class="cue"><span class="label">Cue card</span><h3 style="font-family:var(--body);font-weight:700;font-size:20px;letter-spacing:0;line-height:1.3">${esc(sec.part2.task)}</h3><p class="small">You should say:</p><ul>${sec.part2.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul></div>
-      <div class="card stack tight"><div class="row between"><strong>Preparation · ${cfg.prep} seconds</strong><span class="timer" id="prepT">${fmt(cfg.prep)}</span></div><textarea id="notes" rows="4" placeholder="Notes: key words only"></textarea><div class="row"><button class="btn small" id="prepGo">Start preparation</button></div></div>
-      ${phrases.length?`<div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div>`:""}
-      ${answerBox("p2-0","2",cfg.talk)}
-      <details class="more"><summary>Model answer</summary><p class="model">${esc(sec.part2.model)}</p></details>`;
-    if(part===3) return `<p class="small">Longer, more abstract answers. Give your view, explain it and consider another side.</p>${cfg.challenge?`<p class="note">${esc(cfg.challenge)}</p>`:""}${sec.part3.map((q,i)=>answerBox("p3-"+i,i+1,cfg.answer+15)).join("")}`;
-    return selfCheck();
-  };
-  const selfCheck=()=>`<p class="prose">Think about your answers, or listen to your recordings. For each area, choose the description that fits you best. Be honest: this sets your speaking level for the next unit.</p>
-    ${sec.selfcheck.map(c=>`<fieldset class="stack tight" style="border:0;padding:0;margin:0"><legend><strong>${esc(c.label)}</strong></legend><div class="sc">${LV.map(L=>`<label><input type="radio" name="sc-${c.id}" value="${L}"><span><span class="chip">${L}</span> ${esc(c.d[L])}</span></label>`).join("")}</div></fieldset>`).join("")}
-    ${metricsHTML()}
-    <div class="row"><button class="btn primary" id="scDone">Save my speaking result</button></div><p class="err" id="scErr"></p>`;
-  const metrics=()=>{
-    const all=Object.values(answers).filter(a=>a.transcript);
-    if(!all.length) return null;
-    const text=all.map(a=>a.transcript).join(" "), secs=all.reduce((x,a)=>x+a.secs,0), words=wc(text);
-    const fillers=(norm(text).match(/\b(um+|uh+|er+|erm|like|you know)\b/g)||[]).length;
-    const unitW=(U.words||[]).filter(w=>new RegExp("\\b"+w.word.slice(0,Math.max(4,w.word.length-2)),"i").test(text)).map(w=>w.word);
-    return {words,secs,wpm:secs?Math.round(words/secs*60):0,fillers,unitW};
-  };
-  const metricsHTML=()=>{ const m=metrics(); if(!m) return `<p class="small muted">Turn on the live transcript to get word counts, speaking speed and topic words.</p>`;
-    return `<div class="card soft stack tight"><span class="label">From your transcripts</span><div class="wstats"><span>${m.words} words</span><span>${m.wpm} words/min</span><span>${m.fillers} fillers</span></div><p class="small">${m.wpm<90?"Your pace is slow. Practise answering without long pauses.":m.wpm>170?"You speak fast. Make sure every word is clear.":"Your pace is in a comfortable range."} ${m.unitW.length?"Topic words you used: <b>"+esc(m.unitW.join(", "))+"</b>.":"Try to use words from this unit’s vocabulary."}</p></div>`; };
-  const bindPart=()=>{
-    $$("[data-hear]").forEach(b=>b.onclick=()=>{ const k=b.dataset.hear; const txt=k.startsWith("p2")?sec.part2.task:qlist(part)[Number(k.split("-")[1])]; TTS.say(txt,"en-GB","female"); });
-    $$("[data-ans]").forEach(b=>b.onclick=()=>startAnswer(b.dataset.ans,Number(b.dataset.limit),b));
-    if($("#prepGo")) $("#prepGo").onclick=()=>{ let left=cfg.prep; $("#prepGo").disabled=true; const id=T.every(()=>{ left--; $("#prepT").textContent=fmt(Math.max(0,left)); if(left<=0){ clearInterval(id); toast("Preparation time is over. Start speaking."); const b=$('[data-ans="p2-0"]'); if(b){ b.scrollIntoView({block:"center"}); startAnswer("p2-0",cfg.talk,b); } } },1000); };
-    if($("#scDone")) $("#scDone").onclick=()=>{
-      const sel={}; for(const c of sec.selfcheck){ const r=$(`input[name="sc-${c.id}"]:checked`); if(!r){ $("#scErr").textContent="Choose one description for each area."; return; } sel[c.id]=r.value; }
-      const lvl=LV[median(Object.values(sel).map(li))];
-      const m=metrics();
-      S.speaking.push({uid:U.id,tier,date:Date.now(),self:sel,level:lvl,metrics:m?{words:m.words,wpm:m.wpm,fillers:m.fillers}:null,answered:Object.keys(answers).length});
-      S.speaking=S.speaking.slice(-20);
-      const before=S.profile.speaking; S.profile.speaking=lvl; S.tier.speaking=tierOf(lvl);
-      record(U.id,sec.id,tier,li(lvl)/3,"self",lvl);
-      save();
-      app.innerHTML=`<div class="wrap narrow stack" style="gap:24px"><div class="score"><div class="big">${lvl}</div><div class="stack tight"><span class="label">Speaking · self-assessed</span><h2>Indicative IELTS ${BAND[lvl]}</h2><p class="muted">Your next speaking tasks will be at ${S.tier.speaking}.${before&&before!==lvl?` (Before: ${before})`:""}</p></div></div>
-        <div class="stack tight">${sec.selfcheck.map(c=>`<div class="row small"><span class="chip ${li(sel[c.id])>=2?"lv":""}">${sel[c.id]}</span><b>${esc(c.label)}</b><span class="muted">${esc(c.d[sel[c.id]])}</span></div>`).join("")}</div>
-        <p class="small muted">Self-assessment is a starting point. Send your progress to your teacher, and record yourself again next unit to compare.</p>
-        <div class="row"><button class="btn primary" id="toUnit">Back to the unit</button></div></div>`;
-      $("#toUnit").onclick=()=>go(viewUnit,U.id);
-    };
-  };
-  const startAnswer=async(key,limit,btn)=>{
-    if(active&&active.key===key){ stopActive(); return; }
-    stopActive(); TTS.stop();
-    let secs=0, transcript="", chunks=[], mr=null, stream=null, sr=null, finished=false;
-    if(useRec&&REC.ok()){ try{ stream=await navigator.mediaDevices.getUserMedia({audio:true}); mr=new MediaRecorder(stream); mr.ondataavailable=e=>e.data.size&&chunks.push(e.data); mr.start(); }catch(e){ toast("The microphone isn’t available. Practising with the timer only."); useRec=false; } }
-    if(useTr&&REC.SR){ try{ sr=new REC.SR(); sr.lang=(S.settings.accent==="en-US")?"en-US":"en-GB"; sr.continuous=true; sr.interimResults=false; sr.onresult=e=>{ for(let i=e.resultIndex;i<e.results.length;i++) if(e.results[i].isFinal) transcript+=e.results[i][0].transcript+" "; }; sr.onerror=()=>{}; sr.start(); }catch(e){ sr=null; } }
-    btn.textContent="Stop"; btn.classList.remove("primary"); btn.classList.add("danger");
-    const tm=$("#tm-"+key);
-    const head=document.createElement("span"); head.className="recdot"; btn.after(head);
-    const id=T.every(()=>{ secs++; if(tm) tm.textContent=`${fmt(secs)} / ${fmt(limit)}`; if(secs===limit) toast("Time. Finish your sentence."); if(secs>=limit+10) stop(); },1000);
-    const stop=()=>{
-      if(finished) return; finished=true; clearInterval(id); head.remove();
-      const done=()=>{ const prev=answers[key]; if(prev&&prev.url) URL.revokeObjectURL(prev.url);
-        answers[key]={secs,transcript:transcript.trim(),url:chunks.length?URL.createObjectURL(new Blob(chunks,{type:(mr&&mr.mimeType)||"audio/webm"})):null};
-        active=null; const box=$("#ab-"+key); if(box){ const t=document.createElement("div"); t.innerHTML=answerBox(key,box.querySelector(".qnum").textContent,limit); box.replaceWith(t.firstElementChild); bindPart(); } };
-      if(sr){ try{sr.stop();}catch(e){} }
-      if(mr&&mr.state!=="inactive"){ mr.onstop=()=>{ stream.getTracks().forEach(t=>t.stop()); setTimeout(done,sr?600:0); }; mr.stop(); } else { if(stream) stream.getTracks().forEach(t=>t.stop()); setTimeout(done,sr?600:0); }
-    };
-    active={key,stop};
-  };
-  onLeave(()=>Object.values(answers).forEach(a=>a.url&&URL.revokeObjectURL(a.url)));
-  draw();
-}
-
 /* =========================================================
    WRITING · CEFR-based checker (+ LanguageTool)
    ========================================================= */
 /*ANALYSIS-START*/
 const LINKERS={
   B1:["because","so","but","also","firstly","secondly","finally","for example","in conclusion","in my opinion","however","then","after that","too","as well"],
-  B2:["although","whereas","while","therefore","moreover","furthermore","in addition","on the other hand","as a result","for instance","in contrast","despite","in spite of","overall","on the whole","such as","unless","consequently","even though","in fact","as long as"],
-  C1:["nevertheless","nonetheless","thus","hence","whereby","notwithstanding","conversely","by contrast","to some extent","admittedly","in light of","given that","provided that","insofar as","albeit","paradoxically","that said","having said that","not only","to a large extent","it could be argued"]
+  B2:["although","whereas","while","therefore","moreover","furthermore","in addition","on the other hand","as a result","for instance","in contrast","despite","in spite of","overall","on the whole","such as","unless","consequently","even though","in fact","as long as","by contrast","compared with","similarly"],
+  C1:["nevertheless","nonetheless","thus","hence","whereby","notwithstanding","conversely","to some extent","admittedly","in light of","given that","provided that","insofar as","albeit","paradoxically","that said","having said that","not only","to a large extent","it could be argued","in other words","at the same time"]
 };
 const BASIC_WORDS=["very","good","bad","thing","things","lot","big","nice","stuff","get","got","really"];
+const THESIS_RE=/\b(I (strongly |partly |completely |firmly |largely )?(believe|agree|disagree|think|feel|would argue)|in my (view|opinion)|argue that|my view is|I am convinced)\b/i;
+const OPINION_RE=/\b(I think|I believe|in my opinion|I feel|in my view|I agree|I disagree)\b/i;
+const OVERVIEW_RE=/\b(overall|in general|it is clear|it is noticeable|generally speaking|on the whole)\b/i;
+const TREND_RE=/\b(rose|rise[sn]?|rising|increas\w*|grew|grow[sn]?|growth|climb\w*|fell|fall\w*|declin\w*|decreas\w*|drop\w*|remain\w* (stable|steady|constant)|level\w* off|peak\w*|fluctuat\w*|doubl\w*|tripl\w*|halv\w*|plateau\w*)\b/gi;
+const IRREG={rose:"rise|rises|rising|risen|rose",fell:"fall|falls|falling|fallen|fell",grew:"grow|grows|growing|grown|grew",rise:"rise|rises|rising|risen|rose",fall:"fall|falls|falling|fallen|fell",grow:"grow|grows|growing|grown|grew"};
+function bankRe(ph){
+  const ws=String(ph).toLowerCase().replace(/[,.]/g,"").trim().split(/\s+/);
+  const q=w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
+  const part=w=>{ if(IRREG[w]) return `(?:${IRREG[w]})`; if(w.length<=4||/ly$/.test(w)) return q(w); return q(w.slice(0,Math.max(4,w.length-3)))+"\\w*"; };
+  return new RegExp("\\b"+ws.map(part).join("\\s+")+"\\b","i");
+}
+function copyInfo(task,text){
+  const tw=norm(task).split(" ").filter(Boolean), xw=norm(text).split(" ").filter(Boolean);
+  const tri=new Set(); for(let i=0;i+2<tw.length;i++) tri.add(tw.slice(i,i+3).join(" "));
+  const cp=new Array(xw.length).fill(false);
+  for(let i=0;i+2<xw.length;i++){ const g=xw.slice(i,i+3).join(" "); if(tri.has(g)&&!/\d/.test(g)) cp[i]=cp[i+1]=cp[i+2]=true; }
+  const phrases=[]; let cur=[]; xw.forEach((w,i)=>{ if(cp[i]) cur.push(w); else { if(cur.length) phrases.push(cur.join(" ")); cur=[]; } }); if(cur.length) phrases.push(cur.join(" "));
+  return {ratio:xw.length?cp.filter(Boolean).length/xw.length:0,phrases};
+}
 function analyseEssay(text,opts){
   opts=opts||{};
+  const task1=opts.task===1;
   const lvl=i=>["A2","B1","B2","C1"][Math.max(0,Math.min(3,i))];
   const raw=String(text||"");
   const tokens=(raw.match(/[A-Za-z]+(?:['’][A-Za-z]+)?/g)||[]);
-  const words=tokens.length;
+  const words=(raw.match(/[A-Za-z0-9]+(?:['’][A-Za-z]+)?/g)||[]).length;
   const lower=tokens.map(t=>t.toLowerCase().replace(/’/g,"'"));
   const paras=raw.split(/\n+/).map(p=>p.trim()).filter(p=>(p.match(/[A-Za-z]+/g)||[]).length>=5);
   const sentences=raw.replace(/\n+/g," ").split(/(?<=[.!?])\s+/).map(s=>s.trim()).filter(s=>(s.match(/[A-Za-z]+/g)||[]).length>=3);
@@ -1146,30 +1216,45 @@ function analyseEssay(text,opts){
   const passive=(sentText.match(/\b(am|is|are|was|were|be|been|being)\s+(?:\w+ly\s+)?\w+(?:ed|en|wn|lt|pt|ght|ne)\b/gi)||[]).length;
   const perfect=(sentText.match(/\b(has|have|had)\s+(?:\w+ly\s+)?(?:been|\w+(?:ed|en|wn|lt|pt|ght|ne|un))\b/gi)||[]).length;
   const modal=(sentText.match(/\b(would|could|might|should|may|must)\b/gi)||[]).length;
-  const cplx=sentences.length?(sub+rel+passive+0.5*perfect+0.5*modal)/sentences.length:0;
-  const topic=[];
-  for(const w of (opts.unitWords||[])){
+  const partic=(sentText.match(/,\s+(?:\w+ly\s+)?\w+ing\b/gi)||[]).length;
+  const cplx=sentences.length?(sub+rel+passive+0.5*perfect+0.5*modal+partic)/sentences.length:0;
+  let topic=[];
+  if(opts.bank){ for(const ph of opts.bank){ if(bankRe(ph).test(raw)) topic.push(ph.replace(/,$/,"")); } topic=[...new Set(topic)]; }
+  else for(const w of (opts.unitWords||[])){
     const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase());
     const hit=forms.some(f=>{ const stem=f.length>5?f.slice(0,f.length-1):f; return lower.some(t=>t===f||t.startsWith(stem)&&t.length<=f.length+3); });
     if(hit) topic.push(w.word);
   }
   const basic=lower.filter(w=>BASIC_WORDS.includes(w)).length; const basicPer100=words?basic/words*100:0;
-  // LanguageTool
   let lt=null;
   if(opts.lt){ const m=opts.lt; const cat=x=>{const c=(x.rule&&x.rule.category&&x.rule.category.id)||"",t=(x.rule&&x.rule.issueType)||""; if(c==="TYPOS"||t==="misspelling") return "spelling"; if(["PUNCTUATION","TYPOGRAPHY","CASING"].includes(c)||t==="typographical"||t==="whitespace") return "punctuation"; if(["STYLE","REDUNDANCY","PLAIN_ENGLISH"].includes(c)||t==="style") return "style"; return "grammar";};
     lt={grammar:0,spelling:0,punctuation:0,style:0}; m.forEach(x=>{lt[cat(x)]++;}); lt.matches=m.map(x=>Object.assign({},x,{kind:cat(x)}));
     lt.gPer100=words?(lt.grammar+0.5*lt.punctuation)/words*100:0; lt.sPer100=words?lt.spelling/words*100:0; }
   const R={TR:[],CC:[],LR:[],GRA:[]}, tips={TR:[],CC:[],LR:[],GRA:[]};
-  // Task response
-  const target=opts.target||250;
-  const capW=words<120?0:words<180?1:words<250?2:3;
+  // Task response / achievement
+  const min=task1?150:250, target=opts.target||min;
+  const capW=task1?(words<80?0:words<120?1:words<150?2:3):(words<120?0:words<180?1:words<250?2:3);
   const checks=opts.checks==null?null:opts.checks;
   const chkL=checks==null?2:checks>=5?3:checks>=4?2:checks>=3?1:0;
-  const TR=Math.min(capW,chkL);
-  R.TR.push(`${words} words (IELTS minimum 250${target!==250?`, your target ${target}`:""}).`);
-  if(words<250) tips.TR.push("Under 250 words loses marks in the exam. Develop each body paragraph with one more example or explanation.");
+  let TR=Math.min(capW,chkL);
+  R.TR.push(`${words} words (IELTS minimum ${min}${target!==min?`, your target ${target}`:""}).`);
+  if(words<min) tips.TR.push(task1?"Under 150 words loses marks. Add one more comparison with figures.":"Under 250 words loses marks. Develop each body paragraph with one more example or explanation.");
   if(checks!=null) R.TR.push(`You confirmed ${checks} of 5 task checks.`);
-  if(checks!=null&&checks<5) tips.TR.push("Look again at the checks you couldn’t tick. Task response is often the quickest criterion to improve.");
+  if(checks!=null&&checks<5) tips.TR.push("Look again at the checks you couldn’t tick. This is often the quickest criterion to improve.");
+  const cp=opts.prompt&&paras[0]?copyInfo(opts.prompt,paras[0]):null;
+  if(cp){ R.TR.push(`Introduction: ${Math.round(cp.ratio*100)}% repeats the task wording.`);
+    if(cp.ratio>0.5){ TR=Math.max(0,TR-1); tips.TR.push("Your introduction copies the task. Paraphrase it: change the words and the word order."); }
+    else if(cp.ratio>0.3) tips.TR.push("Part of your introduction repeats the task (“"+cp.phrases.slice(0,2).join("”, “")+"”). Paraphrase it."); }
+  const overview=OVERVIEW_RE.test(raw), nums=(raw.match(/\b\d+(?:\.\d+)?\b/g)||[]).length, opinion=OPINION_RE.test(raw);
+  if(task1){
+    R.TR.push(overview?"Overview found.":"No overview found."); R.TR.push(`${nums} figure${nums===1?"":"s"} reported.`);
+    if(!overview){ TR=Math.min(TR,1); tips.TR.push("Add an overview: Overall, + the main trend + the biggest change. Without it, the score is limited."); }
+    if(nums<4) tips.TR.push("Support the main features with key figures.");
+    if(opinion){ TR=Math.min(TR,1); R.TR.push("Personal opinion found."); tips.TR.push("Task 1 is a report: remove opinions such as I think or in my opinion."); }
+  } else {
+    const th=THESIS_RE.test(raw); R.TR.push(th?"Clear position found.":"No clear position found.");
+    if(!th) tips.TR.push("State your position in the introduction and repeat it in the conclusion.");
+  }
   // Coherence & cohesion
   const pL=paras.length>=4?3:paras.length===3?2:paras.length===2?1:0;
   const dB2=linkers.B2.length+linkers.C1.length;
@@ -1178,34 +1263,34 @@ function analyseEssay(text,opts){
   const CC=Math.min(pL,lkL);
   R.CC.push(`${paras.length} paragraph${paras.length===1?"":"s"}.`);
   R.CC.push(`Linking words: ${[...linkers.C1,...linkers.B2,...linkers.B1].slice(0,10).join(", ")||"none found"}.`);
-  if(paras.length<4) tips.CC.push("Use four or five paragraphs: introduction, two or three body paragraphs and a conclusion, separated by blank lines.");
+  if(paras.length<4) tips.CC.push(task1?"Use four paragraphs: introduction, overview and two detail paragraphs.":"Use four or five paragraphs: introduction, two or three body paragraphs and a conclusion.");
   if(overusedLinkers.length) tips.CC.push(`You repeat “${overusedLinkers.join("”, “")}” a lot. Vary your linking.`);
-  if(lkL<2) tips.CC.push("Add B2 linkers such as however, whereas, as a result, on the other hand.");
-  else if(lkL<3) tips.CC.push("For C1, try nevertheless, to some extent, given that, having said that.");
+  if(lkL<2) tips.CC.push(task1?"Compare with whereas, while, by contrast, compared with.":"Add B2 linkers such as however, whereas, as a result, on the other hand.");
+  else if(lkL<3) tips.CC.push("For C1, try nevertheless, in other words, given that, having said that.");
   // Lexical resource
   const ttrL=ttr>=0.64?3:ttr>=0.57?2:ttr>=0.5?1:0;
   const longL=longRatio>=0.17?3:longRatio>=0.12?2:longRatio>=0.08?1:0;
-  const topL=topic.length>=5?3:topic.length>=3?2:topic.length>=1?1:0;
+  const topL=opts.bank?(topic.length>=7?3:topic.length>=4?2:topic.length>=2?1:0):(topic.length>=5?3:topic.length>=3?2:topic.length>=1?1:0);
   let rangeL=Math.round((ttrL+longL+topL)/3);
   if(basicPer100>3) rangeL=Math.max(0,rangeL-1);
   let LR=rangeL;
   if(lt){ const spL=lt.sPer100<=0.5?3:lt.sPer100<=1.5?2:lt.sPer100<=3?1:0; LR=Math.floor((rangeL+spL)/2); R.LR.push(`${lt.spelling} spelling error${lt.spelling===1?"":"s"}.`); if(spL<2) tips.LR.push("Check spelling carefully. Frequent errors pull Lexical Resource down."); }
   else R.LR.push("Spelling wasn’t checked (grammar service offline).");
   R.LR.push(`Variety of words: ${Math.round(ttr*100)}% different in the first 150 words.`);
-  R.LR.push(topic.length?`Topic words used: ${topic.join(", ")}.`:"No words from this unit’s list.");
-  if(topL<2) tips.LR.push("Use more topic vocabulary from this unit, for example: "+(opts.unitWords||[]).slice(8,12).map(w=>w.word).join(", ")+".");
+  R.LR.push(topic.length?`${opts.bank?"Task 1 vocabulary":"Topic words"} used: ${topic.slice(0,12).join(", ")}.`:`No ${opts.bank?"Task 1 vocabulary":"words from this unit’s list"}.`);
+  if(topL<2) tips.LR.push(opts.bank?"Use more trend language from the word bank: rose steadily, levelled off, a sharp rise in…":"Use more topic vocabulary from this unit, for example: "+(opts.unitWords||[]).slice(8,12).map(w=>w.word).join(", ")+".");
   if(basicPer100>3) tips.LR.push("You often use very general words (very, good, bad, thing, a lot). Replace some with more precise ones.");
   // Grammar
-  const cxL=cplx>=0.9?3:cplx>=0.55?2:cplx>=0.3?1:0;
+  const cxL=task1?(cplx>=0.65?3:cplx>=0.4?2:cplx>=0.2?1:0):(cplx>=0.9?3:cplx>=0.55?2:cplx>=0.3?1:0);
   let GRA=cxL;
   R.GRA.push(`Average sentence: ${avgLen.toFixed(1)} words. Complex structures per sentence: ${cplx.toFixed(2)}.`);
-  if(lt){ const acL=lt.gPer100<=1?3:lt.gPer100<=2.5?2:lt.gPer100<=5?1:0; GRA=Math.floor((cxL+acL)/2); R.GRA.push(`${lt.grammar} grammar and ${lt.punctuation} punctuation issue${lt.grammar+lt.punctuation===1?"":"s"} found.`); if(acL<2) tips.GRA.push("Accuracy is holding your score back. Fix the highlighted errors, then check your verb forms and articles."); }
+  if(lt){ const acL=lt.gPer100<=1?3:lt.gPer100<=2.5?2:lt.gPer100<=5?1:0; GRA=Math.floor((cxL+acL)/2); R.GRA.push(`${lt.grammar} grammar and ${lt.punctuation} punctuation issue${lt.grammar+lt.punctuation===1?"":"s"} found.`); if(acL<2) tips.GRA.push("Accuracy is holding your score back. Fix the highlighted errors, then check verb forms and articles."); }
   else R.GRA.push("Accuracy wasn’t checked (grammar service offline).");
-  if(cxL<2) tips.GRA.push("Mix in complex sentences: relative clauses (which, who), conditionals (if … would) and the passive (has been transformed).");
+  if(cxL<2) tips.GRA.push(task1?"Combine data in complex sentences: …, which…, while…, reaching…":"Mix in complex sentences: relative clauses (which, who), conditionals (if … would) and the passive (has been transformed).");
   if(sdLen<4&&sentences.length>4) tips.GRA.push("Your sentences are all a similar length. Vary short and long sentences.");
   const levels={TR,CC,LR,GRA};
   const overall=Math.floor((TR+CC+LR+GRA)/4+0.25);
-  return {words,paras:paras.length,sentences:sentences.length,avgLen,sdLen,ttr,longRatio,linkers,topic,cplx,lt,levels:Object.fromEntries(Object.entries(levels).map(([k,v])=>[k,lvl(v)])),overall:lvl(overall),reasons:R,tips,measuredAccuracy:!!lt};
+  return {words,paras:paras.length,sentences:sentences.length,avgLen,sdLen,ttr,longRatio,linkers,topic,cplx,lt,copy:cp,overview,levels:Object.fromEntries(Object.entries(levels).map(([k,v])=>[k,lvl(v)])),overall:lvl(overall),reasons:R,tips,measuredAccuracy:!!lt};
 }
 /*ANALYSIS-END*/
 async function languageTool(text){
@@ -1218,72 +1303,516 @@ async function languageTool(text){
     return (j.matches||[]).filter(m=>!/QUOTES|WHITESPACE|DASH_RULE|ENGLISH_WORD_REPEAT_BEGINNING/.test((m.rule&&m.rule.id)||""));
   } finally { clearTimeout(to); }
 }
-function runWriting(U,sec,tier){
-  if(!Array.isArray(sec.checklist)) sec=Object.assign({},sec,{checklist:DEFAULT_CHECKLIST});
-  const W=sec.tiers[tier];
-  const dkey=U.id+":"+sec.id+":"+tier;
-  let text=S.drafts[dkey]||"";
+/* =========================================================
+   VISUAL TIPS
+   ========================================================= */
+function findWord(id){ for(const k of Object.keys(MODULES)){ const w=(MODULES[k].words||[]).find(x=>x.id===id); if(w) return w; } return null; }
+function showDef(id){
+  const w=findWord(id); if(!w) return;
+  $$(".defpop").forEach(x=>x.remove());
+  const t=document.createElement("div"); t.className="toast defpop"; t.setAttribute("role","status");
+  t.innerHTML=`<b>${esc(w.word)}</b> <span style="opacity:.75">${esc(w.pos||"")}</span><br>${esc(w.def)}`;
+  document.body.appendChild(t); setTimeout(()=>t.remove(),4500);
+}
+document.addEventListener("click",e=>{ const b=e.target.closest("[data-w]"); if(b) showDef(b.dataset.w); });
+function linkWords(text,U){
+  return esc(text).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,a,b)=>{ const id=(b||a).trim(); return `<button type="button" class="vw" data-w="${esc(id)}">${a}</button>`; });
+}
+function cloudHTML(words,used){
+  used=used||[]; const size={B1:19,B2:25,C1:31};
+  return `<div class="v-cloud">${words.map((w,i)=>`<button type="button" data-w="${esc(w.id)}" class="${w.cefr==="C1"?"c1x ":""}${used.includes(w.id)?"used":""}" style="font-size:${(size[w.cefr]||24)+((i*7)%3)*3}px" aria-label="${esc(w.word)}: ${esc(w.def)}">${esc(w.word)}</button>`).join("")}</div>`;
+}
+function anatomyHTML(parts){
+  return `<div class="v-anat"><p>${parts.map((p,i)=>`<span class="seg c${i%4}">${esc(p.t)}</span>`).join(" ")}</p><div class="legend">${parts.map((p,i)=>`<span><i class="c${i%4}"></i>${esc(p.l)}</span>`).join("")}</div></div>`;
+}
+function trendSVG(c){
+  const W=320,H=150,L=12,R=12,T=26,B=14, n=c.points.length;
+  const max=Math.max(...c.points), min=Math.min(...c.points);
+  const x=i=>L+i*(W-L-R)/(n-1), y=v=>T+(H-T-B)*(1-(v-min)/((max-min)||1));
+  const cl=(v,a,b)=>Math.max(a,Math.min(b,v));
+  let g=`<polyline class="tr-base" points="${c.points.map((v,i)=>x(i)+","+y(v)).join(" ")}"/>`;
+  c.segs.forEach((s,k)=>{
+    const pts=c.points.slice(s.from,s.to+1).map((v,j)=>x(s.from+j)+","+y(v)).join(" ");
+    g+=`<polyline class="tr-seg t${k%4}" points="${pts}"/>`;
+    const y1=y(c.points[s.from]), y2=y(c.points[s.to]);
+    const mx=cl((x(s.from)+x(s.to))/2,48,W-48), above=k%2===0;
+    const ly=cl(above?Math.min(y1,y2)-8:Math.max(y1,y2)+15,11,H-2);
+    g+=`<text class="tr-lab t${k%4}" x="${mx}" y="${ly}" text-anchor="middle">${esc(s.t)}</text>`;
+  });
+  return `<svg class="v-trend" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.segs.map(s=>s.t).join(", "))}">${g}</svg>`;
+}
+function timelineSVG(c){
+  const W=320,H=122,L=16,R=40, x=f=>L+f*(W-L-R);
+  let g=`<line class="tl-ax" x1="${L}" x2="${W-R}" y1="56" y2="56"/><text class="tl-t" x="${L}" y="74">PAST</text><circle class="tl-now" cx="${W-R}" cy="56" r="6"/><text class="tl-t" x="${W-R}" y="76" text-anchor="middle">NOW</text>`;
+  c.marks.forEach(m=>{
+    if(m.kind==="dot") g+=`<circle class="tl-dot" cx="${x(m.x)}" cy="56" r="7"/><text class="tl-l" x="${x(m.x)}" y="40" text-anchor="middle">${esc(m.t)}</text><text class="tl-c" x="${x(m.x)}" y="22" text-anchor="middle">${esc(m.c||"")}</text>`;
+    else g+=`<line class="tl-span" x1="${x(m.from)}" x2="${W-R-10}" y1="94" y2="94"/><path class="tl-arrow" d="M${W-R-12},87 L${W-R},94 L${W-R-12},101 Z"/><text class="tl-c acc" x="${x(m.from)}" y="86">${esc(m.c||"")}</text><text class="tl-l" x="${(x(m.from)+W-R)/2}" y="116" text-anchor="middle">${esc(m.t)}</text>`;
+  });
+  return `<svg class="v-tl" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.marks.map(m=>m.t).join("; "))}">${g}</svg>`;
+}
+const TIPV={
+  flow:c=>`<div class="v-flow">${c.steps.map((s,i)=>`<div class="v-step"><span class="v-n">${i+1}</span><b>${esc(s.t)}</b>${s.s?`<small>${esc(s.s)}</small>`:""}</div>`).join("")}</div>`,
+  formula:c=>`<div class="v-formula">${c.parts.map(p=>`<div class="v-part"><b>${esc(p.t)}</b>${p.s?`<small>${esc(p.s)}</small>`:""}</div>`).join(`<span class="v-op" aria-hidden="true">+</span>`)}${c.result?`<span class="v-op" aria-hidden="true">=</span><div class="v-part v-res"><b>${esc(c.result)}</b>${c.resultS?`<small>${esc(c.resultS)}</small>`:""}</div>`:""}</div>`,
+  decision:c=>{ let h=`<div class="v-dec">`; c.steps.forEach((s,i)=>{ h+=`<div class="v-q">${esc(s.q)}</div>`; const o=[]; if(s.yes) o.push(`<span class="v-lab">yes</span><span class="v-out ${s.yesC||""}">${esc(s.yes)}</span>`); if(s.no) o.push(`<span class="v-lab">no</span><span class="v-out ${s.noC||""}">${esc(s.no)}</span>`); if(o.length) h+=`<div class="v-br">${o.join("")}</div>`; if(i<c.steps.length-1) h+=`<div class="v-down">${s.yes?"no":"yes"} ↓</div>`; }); return h+`</div>`; },
+  demo:c=>{ const ps=c.paras.map(p=>{ let h=esc(p); if(c.mode==="skim"){ const m=p.match(/^.*?[.!?](?=\s|$)/); if(m) h=`<mark>${esc(m[0])}</mark>${esc(p.slice(m[0].length))}`; } else (c.marks||[]).forEach(t=>{ const e=esc(t), k=h.indexOf(e); if(k>=0) h=h.slice(0,k)+`<mark>${e}</mark>`+h.slice(k+e.length); }); return `<p>${h}</p>`; }).join(""); return `<div class="v-demo ${esc(c.mode)}">${ps}</div><div><button type="button" class="btn small ghost" data-demo>Show me how</button></div>`; },
+  pairs:c=>`<div class="v-pairs">${c.head?`<span class="h">${esc(c.head[0])}</span><span></span><span class="h">${esc(c.head[1])}</span>`:""}${c.rows.map(r=>`<span class="a">${esc(r[0])}</span><span class="ar" aria-hidden="true">→</span><span class="b">${esc(r[1])}</span>`).join("")}</div>`,
+  blocks:c=>{ const max=Math.max(...c.items.map(x=>x.w)); return `<div class="v-blocks">${c.items.map(x=>`<div class="v-blk"><div class="top"><b>${esc(x.t)}</b><span>${x.w} ${esc(c.unit||"words")}</span></div><div class="v-bar" style="width:${Math.max(8,x.w/max*100)}%"></div>${x.s?`<small>${esc(x.s)}</small>`:""}</div>`).join("")}</div>`; },
+  trend:c=>trendSVG(c),
+  dodont:c=>`<div class="v-dd"><div class="do"><span class="label">Do</span><ul>${c.do.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div><div class="dont"><span class="label">Don’t</span><ul>${c.dont.map(x=>`<li>${esc(x)}</li>`).join("")}</ul></div></div>`,
+  timeline:c=>timelineSVG(c),
+  anatomy:c=>anatomyHTML(c.parts),
+  compare:c=>`<div class="v-cmp">${c.cols.map(col=>`<div class="stack tight"><strong>${esc(col.h)}</strong>${col.sub?`<span class="small muted"><i>${esc(col.sub)}</i></span>`:""}${col.parts?anatomyHTML(col.parts):`<ul class="small">${(col.items||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}</div>`).join("")}</div>`,
+  cloud:(c,U)=>cloudHTML(c.ids?c.ids.map(id=>U.words.find(w=>w.id===id)).filter(Boolean):(U.words||[]))
+};
+function tipHTML(c,U){ const f=TIPV[c.v]; return `<article class="tip tip-${esc(c.v)}"><div class="stack tight"><h3>${esc(c.title)}</h3>${c.say?`<p class="tip-say">${esc(c.say)}</p>`:""}</div>${f?f(c,U):""}</article>`; }
+function bindTips(root){
+  $$("[data-demo]",root).forEach(b=>b.onclick=()=>{
+    const d=b.closest(".tip").querySelector(".v-demo"), ms=$$("mark",d);
+    d.classList.add("anim"); ms.forEach(m=>m.classList.remove("lit"));
+    ms.forEach((m,i)=>T.later(()=>m.classList.add("lit"),500+i*800));
+    T.later(()=>d.classList.remove("anim"),900+ms.length*800);
+  });
+}
+
+/* ---------- charts for Writing Task 1 ---------- */
+function chartSVG(ch){
+  if(!ch) return "";
+  let g="", W=560, H;
+  if(ch.type==="line"){
+    H=300; const L=44,R=92,T=16,B=40, pw=W-L-R, ph=H-T-B;
+    const max=Math.max(...ch.series.flatMap(s=>s.v)), top=Math.ceil(max/10)*10||10, step=top/5;
+    const x=i=>L+(ch.x.length>1?i*pw/(ch.x.length-1):pw/2), y=v=>T+ph-(v/top)*ph;
+    for(let k=0;k<=5;k++){ const v=k*step, yy=y(v); g+=`<line class="gl" x1="${L}" x2="${L+pw}" y1="${yy}" y2="${yy}"/><text class="ax" x="${L-6}" y="${yy+4}" text-anchor="end">${v}${ch.unit==="%"?"%":""}</text>`; }
+    ch.x.forEach((t,i)=>g+=`<text class="ax" x="${x(i)}" y="${T+ph+20}" text-anchor="middle">${esc(t)}</text>`);
+    const dash=["","7 5","2 5"];
+    ch.series.forEach((s,i)=>{ g+=`<polyline class="ln s${i}" points="${s.v.map((v,j)=>x(j)+","+y(v)).join(" ")}" stroke-dasharray="${dash[i%3]}"/>`; s.v.forEach((v,j)=>g+=`<circle class="s${i}" cx="${x(j)}" cy="${y(v)}" r="3.5"/>`); });
+    const ends=ch.series.map((s,i)=>({i,y:y(s.v[s.v.length-1]),name:s.name})).sort((a,b)=>a.y-b.y);
+    for(let k=1;k<ends.length;k++) if(ends[k].y-ends[k-1].y<15) ends[k].y=ends[k-1].y+15;
+    ends.forEach(e=>g+=`<text class="lab s${e.i}" x="${L+pw+10}" y="${e.y+4}">${esc(e.name)}</text>`);
+  } else {
+    const rowH=46, L=158, R=40, T=8, n=ch.cats.length; H=T+n*rowH+44; const pw=W-L-R;
+    const max=Math.max(...ch.series.flatMap(s=>s.v)), top=Math.ceil(max/5)*5, xs=v=>L+v/top*pw;
+    for(let k=0;k<=top;k+=5) g+=`<line class="gl" x1="${xs(k)}" x2="${xs(k)}" y1="${T}" y2="${T+n*rowH}"/><text class="ax" x="${xs(k)}" y="${T+n*rowH+14}" text-anchor="middle">${k}</text>`;
+    ch.cats.forEach((c,ci)=>{ const y0=T+ci*rowH, bh=(rowH-14)/ch.series.length; g+=`<text class="cat" x="${L-8}" y="${y0+rowH/2+4}" text-anchor="end">${esc(c)}</text>`;
+      ch.series.forEach((s,si)=>{ const yy=y0+7+si*bh; g+=`<rect class="b${si}" x="${L}" y="${yy}" width="${Math.max(1,xs(s.v[ci])-L)}" height="${bh-3}" rx="2"/><text class="val" x="${xs(s.v[ci])+5}" y="${yy+bh/2+2}">${s.v[ci]}</text>`; }); });
+    ch.series.forEach((s,si)=>g+=`<rect class="b${si}" x="${L+si*96}" y="${H-16}" width="12" height="12" rx="2"/><text class="ax" x="${L+si*96+18}" y="${H-6}">${esc(s.name)}</text>`);
+    if(ch.unit) g+=`<text class="ax" x="${L-8}" y="${H-6}" text-anchor="end">${esc(ch.unit)}</text>`;
+  }
+  return `<figure class="chart"><figcaption class="label">${esc(ch.title)}</figcaption><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(ch.title)}">${g}</svg>${ch.note?`<p class="small muted">${esc(ch.note)}</p>`:""}</figure>`;
+}
+
+/* =========================================================
+   SECTION HUB · Tips / Training / Task
+   ========================================================= */
+const DRILL_KIND={skim:"Skimming",scan:"Scanning race",find:"Word hunt",keywords:"Keywords",order:"Build it",quiz:"Practice",match:"Match",write:"Write & check"};
+function drillBest(uid,sid,did){ const r=S.results[uid+":"+sid+":"+did]; return r&&r.length?Math.max(...r.map(x=>x.pct)):null; }
+const taskWord=sec=>sec.type==="speaking"?"speaking practice":"exam task";
+function viewSectionStart(uid,sid,tab){
+  const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
+  if(sec.type==="vocab") return go(viewVocab,uid,sid);
+  if(sec.type==="check") return go(runCheck,U,sec);
+  const learn=sec.learn||[], train=sec.train||[];
+  const tried=!!(S.results[uid+":"+sid]||[]).length;
+  tab=tab||(learn.length&&!tried?"tips":"task");
+  const rec=S.tier[sec.skill]||"B2"; let tier=rec, mode="practice";
+  const hist=(S.results[uid+":"+sid]||[]).slice(-5).reverse();
+  const done=train.filter(d=>drillBest(uid,sid,d.id)!==null).length;
   const draw=()=>{
-    app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
-      <div class="row between"><span class="label">${esc(U.title)} · Writing Task 2 · ${tier}</span><button class="link small" id="leave">Leave</button></div>
-      <h1>${esc(sec.title)}</h1>
-      <p class="label">${esc(W.type||"")}</p>
-      <p class="wtask">${esc(W.task)}</p>
-      <p class="small muted">Write at least ${W.target} words.${W.time?` In the exam you have ${W.time} minutes.`:""} Separate paragraphs with a blank line.</p>
-      ${W.frame?`<div class="frame">${W.frame.map(f=>`<div><b>${esc(f.h)}</b><br>${esc(f.s)}</div>`).join("")}</div>`:""}
-      ${W.planner?`<details class="more"><summary>Plan your essay</summary><div class="stack tight">${W.planner.map((p,i)=>`<label class="stack tight small"><span>${esc(p)}</span><input type="text" id="plan${i}" value="${esc((S.drafts[dkey+":plan"]||[])[i]||"")}"></label>`).join("")}</div></details>`:""}
-      <div class="row between"><span class="timer" id="timer">${W.time?"":""}</span>${W.time?`<button class="btn small ghost" id="startTimer">Start ${W.time}-minute timer</button>`:""}</div>
-      <textarea id="essay" class="essay" placeholder="Start writing here…" aria-label="Your essay">${esc(text)}</textarea>
-      <div class="wstats" id="wstats"></div>
-      <section class="stack tight"><span class="label">Before you check: tick what is true</span>
-        <div class="sc">${sec.checklist.map((c,i)=>`<label><input type="checkbox" data-ck="${i}"><span>${esc(c)}</span></label>`).join("")}</div>
-      </section>
-      <div class="row"><button class="btn primary" id="checkBtn">Check my writing</button><span class="small muted" id="checkMsg"></span></div>
-    </div>`;
-    const ta=$("#essay");
-    const stats=()=>{ const n=(ta.value.match(/[A-Za-z]+(?:['’][A-Za-z]+)?/g)||[]).length; $("#wstats").innerHTML=`<span>${n} words</span><span>${n>=W.target?"Target reached":(W.target-n)+" to go"}</span>`; };
-    let deb; ta.addEventListener("input",()=>{ stats(); clearTimeout(deb); deb=setTimeout(()=>{S.drafts[dkey]=ta.value;save();},600); }); stats();
-    $$('[id^="plan"]').forEach(inp=>inp.addEventListener("input",()=>{S.drafts[dkey+":plan"]=$$('[id^="plan"]').map(x=>x.value);save();}));
-    $("#leave").onclick=()=>{S.drafts[dkey]=ta.value;save();go(viewUnit,U.id);};
-    if($("#startTimer")) $("#startTimer").onclick=()=>{ $("#startTimer").remove(); timerStart(W.time,()=>toast("Time is up. Finish your sentence and check your work.")); };
-    $("#checkBtn").onclick=async()=>{
-      text=ta.value; S.drafts[dkey]=text; save();
-      const n=(text.match(/[A-Za-z]+/g)||[]).length;
-      if(n<60){ $("#checkMsg").textContent="Write at least 60 words before checking."; return; }
-      const checks=$$("[data-ck]").filter(c=>c.checked).length;
-      $("#checkBtn").disabled=true; $("#checkMsg").textContent="Checking grammar and spelling…";
-      let lt=null, ltErr=null;
-      try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
-      const A=analyseEssay(text,{unitWords:U.words,lt,checks,target:W.target});
-      const before=S.profile.writing;
-      S.profile.writing=A.overall; S.tier.writing=tierOf(A.overall);
-      S.essays.push({uid:U.id,tier,task:W.task,text,date:Date.now(),overall:A.overall,levels:A.levels,words:A.words,lt:A.lt?{grammar:A.lt.grammar,spelling:A.lt.spelling,punctuation:A.lt.punctuation,style:A.lt.style}:null});
-      S.essays=S.essays.slice(-12);
-      record(U.id,sec.id,tier,li(A.overall)/3,"essay",A.overall);
-      save();
-      go(viewWritingReport,U,sec,tier,text,A,ltErr,before);
-    };
+    const tabs=(learn.length||train.length)?`<div class="steps" role="tablist">${learn.length?`<button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips <span class="n">${learn.length}</span></button>`:""}${train.length?`<button role="tab" data-tab="train" aria-selected="${tab==="train"}">Training <span class="n">${done}/${train.length}</span></button>`:""}<button role="tab" data-tab="task" aria-selected="${tab==="task"}">${sec.type==="speaking"?"Speaking practice":"Exam task"}</button></div>`:"";
+    let body="";
+    if(tab==="tips") body=`<div class="tips" id="tipsbox">${learn.map(c=>tipHTML(c,U)).join("")}</div><div class="row">${train.length?`<button class="btn primary" data-tab="train">Go to training</button>`:`<button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button>`}</div>`;
+    else if(tab==="train") body=`<div class="seclist">${train.map(d=>{const b=drillBest(uid,sid,d.id);return `<div class="secrow"><span class="label">${esc(DRILL_KIND[d.kind]||d.kind)}</span><div class="meta"><h3>${esc(d.title)}</h3><p class="small muted">${esc(d.goal||"")}</p></div><div class="act row">${b!==null?`<span class="chip good">Best ${b}%</span>`:""}<button class="btn small ${b!==null?"ghost":"primary"}" data-drill="${esc(d.id)}">${b!==null?"Again":"Start"}</button></div></div>`;}).join("")}</div><div class="row"><button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button></div>`;
+    else {
+      const modes=sec.type==="reading";
+      body=`<div class="stack" style="gap:22px;max-width:760px">
+        <div class="stack tight"><strong>Level</strong><div class="seg" role="group" aria-label="Level">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${TIER_DESC[t]}${t===rec?" · recommended":""}</span></button>`).join("")}</div></div>
+        ${modes?`<div class="stack tight"><strong>Mode</strong><div class="seg" role="group" aria-label="Mode"><button data-m="practice" aria-pressed="${mode==="practice"}"><strong>Practice</strong><span>Check as you go${tier!=="C1"?", hints":""}</span></button><button data-m="exam" aria-pressed="${mode==="exam"}"><strong>Exam</strong><span>Timer, no hints</span></button></div></div>`:""}
+        ${S.support&&tier==="B1"?`<p class="note">Extra support is on: strategy tips, hints and fewer answer options.</p>`:""}
+        <div class="row"><button class="btn primary" id="go">Start</button></div>
+        ${hist.length?`<div class="stack tight"><span class="label">Your attempts</span>${hist.map(h=>`<div class="row small"><span class="chip">${h.tier}</span><span>${h.lvl?h.lvl+" level":h.pct+"%"}</span><span class="muted">${fmtDate(h.date)}${h.mode?" · "+h.mode:""}</span></div>`).join("")}</div>`:""}
+      </div>`;
+    }
+    app.innerHTML=`<div class="wrap stack" style="gap:22px">
+      <div class="row between"><span class="label">Unit ${U.number} · ${esc(U.title)} · ${esc(sec.type==="writing"&&sec.task?"Writing Task "+sec.task:(SEC_LABEL[sec.type]||""))}</span><button class="link small" id="back">Back to the unit</button></div>
+      <h1>${esc(sec.title)}</h1><p class="prose">${esc(sec.summary||"")}</p>${tabs}${body}</div>`;
+    $$("[data-tab]").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;draw();window.scrollTo(0,0);});
+    $$("[data-drill]").forEach(b=>b.onclick=()=>go(runDrill,U,sec,train.find(d=>d.id===b.dataset.drill)));
+    $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
+    $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw();});
+    if($("#go")) $("#go").onclick=()=>{ const f={practice:runPractice,reading:runReading,listening:runListening,speaking:runSpeaking,writing:runWriting}[sec.type]; go(f,U,sec,tier,mode); };
+    $("#back").onclick=()=>go(viewUnit,uid);
+    if($("#tipsbox")) bindTips($("#tipsbox"));
   };
   draw();
 }
+
+/* =========================================================
+   TRAINING DRILLS
+   ========================================================= */
+function drillFrame(U,sec,d,inner){
+  app.innerHTML=`<div class="wrap stack" style="gap:18px">
+    <div class="row between"><span class="label">${esc(sec.title)} · Training · ${esc(DRILL_KIND[d.kind]||"")}</span><button class="link small" id="dleave">All training</button></div>
+    <h2>${esc(d.title)}</h2>${d.goal?`<p class="prose">${esc(d.goal)}</p>`:""}
+    <div id="dbody" class="stack">${inner||""}</div><div id="dfoot"></div></div>`;
+  $("#dleave").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
+}
+function drillEnd(U,sec,d,pct,msg){
+  const key=U.id+":"+sec.id+":"+d.id; (S.results[key]=S.results[key]||[]).push({pct:Math.round(pct*100),date:Date.now(),mode:"train"}); save();
+  const list=sec.train||[], nx=list[list.findIndex(x=>x.id===d.id)+1];
+  $("#dfoot").innerHTML=`<div class="card soft stack tight" id="dres"><span class="label">Training result</span><h2>${Math.round(pct*100)}%</h2>${msg?`<p class="small">${esc(msg)}</p>`:""}
+    <div class="row">${nx?`<button class="btn primary" id="dnext">Next: ${esc(nx.title)}</button>`:`<button class="btn primary" id="dtask">Go to the ${taskWord(sec)}</button>`}<button class="btn" id="dagain">Do it again</button><button class="btn ghost" id="dback">All training</button></div></div>`;
+  $("#dres").scrollIntoView({behavior:"smooth",block:"nearest"});
+  if(nx) $("#dnext").onclick=()=>go(runDrill,U,sec,nx); else $("#dtask").onclick=()=>go(viewSectionStart,U.id,sec.id,"task");
+  $("#dagain").onclick=()=>go(runDrill,U,sec,d); $("#dback").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
+}
+function resolveParas(sec,d){ if(typeof d.paras==="string"&&d.paras.startsWith("tier:")){ const t=d.paras.slice(5); return (sec.tiers&&sec.tiers[t]&&sec.tiers[t].paras)||[]; } return d.paras||[]; }
+const resolveChart=(sec,d)=>d.chart&&sec.charts?sec.charts[d.chart]:null;
+function runDrill(U,sec,d){
+  const f={skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,write:drillWrite}[d&&d.kind];
+  if(!f){ toast("This training type isn’t available."); return go(viewSectionStart,U.id,sec.id,"train"); }
+  f(U,sec,d);
+}
+/* tappable text */
+const normTok=s=>String(s).toLowerCase().replace(/[’‘]/g,"'");
+const TOKRE=/^([^A-Za-z0-9]*)(.*?)([^A-Za-z0-9]*)$/;
+const paraTexts=paras=>paras.map(p=>typeof p==="string"?{id:"",t:p}:p);
+function tokenize(t){ const out=[]; String(t).split(/\s+/).forEach(ch=>{ if(!ch) return; const m=ch.match(TOKRE); if(m&&m[2]) out.push(normTok(m[2])); }); return out; }
+function tokLine(t,pi){ let k=0; return String(t).split(/(\s+)/).map(ch=>{ if(!ch||/^\s+$/.test(ch)) return ch; const m=ch.match(TOKRE); if(!m||!m[2]) return esc(ch); return esc(m[1])+`<span class="tk" data-p="${pi}" data-i="${k++}">${esc(m[2])}</span>`+esc(m[3]); }).join(""); }
+function tokHTML(paras){ return paraTexts(paras).map((p,pi)=>`<div class="para"><b>${esc(p.id||"")}</b><p>${tokLine(p.t,pi)}</p></div>`).join(""); }
+function phraseHits(paras,phrases){
+  const arrs=paraTexts(paras).map(p=>tokenize(p.t)), hits=[];
+  phrases.forEach(ph=>{ const pt=tokenize(ph); arrs.forEach((arr,pi)=>{ for(let i=0;i+pt.length<=arr.length;i++) if(pt.every((w,j)=>arr[i+j]===w)) hits.push({p:pi,idx:pt.map((_,j)=>i+j)}); }); });
+  return hits;
+}
+function drillHunt(U,sec,d){
+  const paras=resolveParas(sec,d), scan=d.kind==="scan", items=(scan?d.targets:d.items)||[];
+  let i=0, first=0, wrong=0, hits=[]; const start=Date.now();
+  drillFrame(U,sec,d,`<div class="dbar"><div class="stack" style="gap:2px"><span class="label" id="hcount"></span><div class="target" id="htarget"></div></div><div class="row"><span class="timer" id="htime">${scan?"0:00":""}</span><button class="btn small ghost" id="hshow">Show me</button></div></div><div class="text" id="htext">${tokHTML(paras)}</div>`);
+  if(scan) T.every(()=>{ const s=Math.floor((Date.now()-start)/1000), el=$("#htime"); if(el) el.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`; },500);
+  const mark=(h,cls)=>h.idx.forEach(k=>{ const el=$(`.tk[data-p="${h.p}"][data-i="${k}"]`); if(el) el.classList.add(cls); });
+  const show=()=>{
+    if(i>=items.length) return finish();
+    const it=items[i]; hits=phraseHits(paras,it.a); wrong=0;
+    $("#hcount").textContent=`${scan?"Scan for":"Find in the text"} · ${i+1} of ${items.length}`;
+    $("#htarget").innerHTML=scan?esc(it.p):`<span class="chip ${it.rel==="antonym"?"bad":"good"}">${it.rel==="antonym"?"Opposite of":"Same as"}</span><span>“${esc(it.cue)}”</span>`;
+  };
+  const advance=ok=>{ if(ok&&wrong===0) first++; i++; hits=[]; T.later(show,450); };
+  $("#htext").addEventListener("click",e=>{
+    const t=e.target.closest(".tk"); if(!t||!hits.length) return;
+    const p=+t.dataset.p, k=+t.dataset.i, h=hits.find(h=>h.p===p&&h.idx.includes(k));
+    if(h){ mark(h,"hit"); advance(true); } else { wrong++; t.classList.add("miss"); setTimeout(()=>t.classList.remove("miss"),700); }
+  });
+  $("#hshow").onclick=()=>{ if(!hits.length) return; mark(hits[0],"hit"); const el=$(`.tk[data-p="${hits[0].p}"][data-i="${hits[0].idx[0]}"]`); if(el) el.scrollIntoView({block:"center",behavior:"smooth"}); wrong++; advance(false); };
+  const finish=()=>{
+    T.clear(); const secs=Math.round((Date.now()-start)/1000);
+    $("#hcount").textContent="Finished"; $("#htarget").textContent=`${first} of ${items.length} first time${scan?` · ${secs} seconds`:""}`; const sb=$("#hshow"); if(sb) sb.remove();
+    drillEnd(U,sec,d,items.length?first/items.length:0,d.end||(scan?(secs<=60?"Fast scanning. In the exam this saves you minutes.":"Aim for under a minute: let your eyes jump, don’t read every word."):"IELTS answers hide behind paraphrase. Spotting synonyms and opposites is the core reading skill."));
+  };
+  show();
+}
+function drillKeywords(U,sec,d){
+  let i=0, ok=0; drillFrame(U,sec,d,`<div id="kw" class="stack"></div>`);
+  const show=()=>{
+    if(i>=d.items.length) return drillEnd(U,sec,d,ok/d.items.length,d.end||"Keywords are names, numbers, content words and small but powerful words like all, only, never.");
+    const it=d.items[i], want=it.a.map(normTok);
+    $("#kw").innerHTML=`<span class="label">${i+1} of ${d.items.length} · tap the keywords</span><div class="card"><p class="kwline" style="font-size:20px;line-height:1.9">${tokLine(it.q,0)}</p></div><div class="row"><button class="btn primary" id="kcheck">Check</button></div><div id="kfb"></div>`;
+    $(".kwline").onclick=e=>{ const t=e.target.closest(".tk"); if(t&&!$("#kcheck").disabled) t.classList.toggle("sel"); };
+    $("#kcheck").onclick=()=>{
+      const sel=$$(".kwline .tk.sel").map(x=>normTok(x.textContent));
+      const miss=want.filter(w=>!sel.includes(w)), extra=sel.filter(w=>!want.includes(w)), good=miss.length===0&&extra.length<=2;
+      if(good) ok++;
+      $$(".kwline .tk").forEach(x=>{ if(want.includes(normTok(x.textContent))) x.classList.add("key"); });
+      $("#kcheck").disabled=true;
+      $("#kfb").innerHTML=`<div class="stack tight"><p style="font-weight:700;color:var(--${good?"good":"bad"})">${good?"Good choice":"Not quite"}</p><p class="small">Best keywords (outlined): <b>${esc(it.a.join(", "))}</b>${miss.length?` · you missed: ${esc(miss.join(", "))}`:""}</p>${it.ex?`<p class="small muted">${esc(it.ex)}</p>`:""}<div class="row"><button class="btn primary" id="knext">Next</button></div></div>`;
+      $("#knext").onclick=()=>{i++;show();};
+    };
+  };
+  show();
+}
+function drillOrder(U,sec,d){
+  let i=0, ok=0; drillFrame(U,sec,d,`<div id="ord" class="stack"></div>`);
+  const show=()=>{
+    if(i>=d.items.length) return drillEnd(U,sec,d,ok/d.items.length,d.end||"");
+    const it=d.items[i], pool=shuffle(it.parts.map((_,k)=>k)); let ans=[], checked=false;
+    const draw=()=>{
+      $("#ord").innerHTML=`<span class="label">${i+1} of ${d.items.length}</span><p class="wtask">${esc(it.prompt)}</p>
+        <div class="ord"><span class="label">Your answer${checked?"":" · tap to remove"}</span><div class="zone">${ans.map((k,j)=>`<button type="button" class="part" data-rm="${j}" ${checked?"disabled":""}><span class="lab">${esc(it.labels?(it.labels[j]||""):String(j+1))}</span><span>${esc(it.parts[k])}</span></button>`).join("")||`<span class="small muted">Tap the sentences below in the right order.</span>`}</div>
+        ${checked?"":`<span class="label">Sentences</span><div class="zone">${pool.filter(k=>!ans.includes(k)).map(k=>`<button type="button" class="part" data-add="${k}"><span>${esc(it.parts[k])}</span></button>`).join("")||`<span class="small muted">All placed.</span>`}</div>`}</div>
+        <div class="row"><button class="btn primary" id="ocheck" ${ans.length<it.parts.length||checked?"disabled":""}>Check</button></div><div id="ofb"></div>`;
+      $$("[data-add]").forEach(b=>b.onclick=()=>{ans.push(+b.dataset.add);draw();});
+      $$("[data-rm]").forEach(b=>b.onclick=()=>{ans.splice(+b.dataset.rm,1);draw();});
+      $("#ocheck").onclick=()=>{
+        const good=ans.every((k,j)=>k===j); if(good) ok++; checked=true; draw();
+        $("#ofb").innerHTML=`<div class="stack tight"><p style="font-weight:700;color:var(--${good?"good":"bad"})">${good?"Correct order":"Not quite. Here is the order:"}</p>${good?"":`<ol class="small">${it.parts.map((p,j)=>`<li>${it.labels?`<b>${esc(it.labels[j])}:</b> `:""}${esc(p)}</li>`).join("")}</ol>`}${it.ex?`<p class="small muted">${esc(it.ex)}</p>`:""}<div class="row"><button class="btn primary" id="onext">Next</button></div></div>`;
+        $("#onext").onclick=()=>{i++;show();};
+      };
+    };
+    draw();
+  };
+  show();
+}
+function drillMatch(U,sec,d){
+  const opts=shuffle(d.right.map((_,k)=>k));
+  drillFrame(U,sec,d,`<div class="stack tight" id="mt">${d.head?`<div class="mrow"><span class="label">${esc(d.head[0])}</span><span class="label">${esc(d.head[1])}</span></div>`:""}${d.left.map((l,i)=>`<div class="mrow" id="mr${i}"><strong>${esc(l)}</strong><div class="stack tight"><select data-m="${i}" aria-label="Match for ${esc(l)}"><option value="">Choose…</option>${opts.map(k=>`<option value="${k}">${esc(d.right[k])}</option>`).join("")}</select><span class="small" id="mf${i}"></span></div></div>`).join("")}</div><div class="row"><button class="btn primary" id="mcheck">Check</button></div>`);
+  $("#mcheck").onclick=()=>{
+    let ok=0;
+    d.left.forEach((_,i)=>{ const v=$(`[data-m="${i}"]`).value, good=v!==""&&+v===d.a[i]; if(good) ok++; $("#mr"+i).classList.add(good?"ok":"no"); $(`[data-m="${i}"]`).disabled=true; if(!good) $("#mf"+i).innerHTML=`Answer: <b>${esc(d.right[d.a[i]])}</b>`; });
+    $("#mcheck").remove(); drillEnd(U,sec,d,ok/d.left.length,d.end||"");
+  };
+}
+function drillQuiz(U,sec,d){
+  const groups=d.groups||[{type:"mixed",qs:d.qs,instr:d.instr}];
+  const Q=makeQuiz(groups,{tier:"B2",mode:"practice",shuffle:d.shuffle!==false,hints:false,noHeaders:!d.groups});
+  const ch=resolveChart(sec,d);
+  const qhtml=()=>d.groups?quizHTML(Q):Q.groups.map(g=>(g.instr?`<p class="instr">${g.instr}</p>`:"")+g.items.map(q=>qHTML(Q,q)).join("")).join("");
+  const side=ch?`<div class="card">${chartSVG(ch)}</div>`:d.tip?tipHTML(d.tip,U):"";
+  drillFrame(U,sec,d,`${side?`<div class="dsplit"><div class="dside">${side}</div><div class="stack">`:""}<div class="qcol" id="qz">${qhtml()}</div><div class="row between"><span class="small muted" id="cnt"></span><button class="btn primary" id="qfin">Finish</button></div>${side?`</div></div>`:""}`);
+  Q.onChange=()=>{ const c=$("#cnt"); if(c) c.textContent=`${answered(Q)}/${Q.qs.length} answered`; }; Q.onChange();
+  bindQuiz(Q,$("#qz")); bindTips($("#dbody"));
+  $("#qfin").onclick=()=>{ const res=scoreQuiz(Q); Q.qs.forEach(q=>{Q.checked[q.id]=true;}); $("#qz").innerHTML=qhtml(); $("#qfin").remove(); drillEnd(U,sec,d,res.pct,d.end||""); };
+}
+function drillSkim(U,sec,d){
+  const paras=paraTexts(resolveParas(sec,d)); let left=d.seconds||60;
+  const strong=t=>{ const m=t.match(/^.*?[.!?](?=\s|$)/); return m?`<strong>${esc(m[0])}</strong>${esc(t.slice(m[0].length))}`:esc(t); };
+  drillFrame(U,sec,d,`<div class="dbar"><div class="stack" style="gap:2px"><span class="label">Skim · first sentences only</span><div class="target">Get the gist</div></div><div class="row"><span class="timer" id="stime"></span><button class="btn small primary" id="sdone">I’m ready</button></div></div><div class="text skimtext" id="stext">${paras.map(p=>`<div class="para"><b>${esc(p.id||"")}</b><p>${strong(p.t)}</p></div>`).join("")}</div><div id="sq" class="stack"></div>`);
+  const fmt=s=>`0:${String(Math.max(0,s)).padStart(2,"0")}`; $("#stime").textContent=fmt(left);
+  const id=T.every(()=>{ left--; const el=$("#stime"); if(el) el.textContent=fmt(left); if(left<=0) quiz(); },1000);
+  let started=false;
+  const quiz=()=>{
+    if(started) return; started=true; clearInterval(id);
+    $("#stext").innerHTML=`<p class="note">Time’s up. The text is hidden: answer from the gist.</p>`; $("#sdone").remove(); $("#stime").textContent="";
+    const Q=makeQuiz([{type:"mixed",qs:d.qs}],{tier:"B2",mode:"practice",shuffle:true,hints:false,noHeaders:true});
+    const html=()=>Q.qs.map(q=>qHTML(Q,q)).join("");
+    $("#sq").innerHTML=`<div class="qcol" id="qz">${html()}</div><div class="row"><button class="btn primary" id="qfin">Finish</button></div>`;
+    bindQuiz(Q,$("#qz"));
+    $("#qfin").onclick=()=>{ const res=scoreQuiz(Q); Q.qs.forEach(q=>{Q.checked[q.id]=true;}); $("#qz").innerHTML=html(); $("#qfin").remove(); drillEnd(U,sec,d,res.pct,d.end||"Skimming gives you a map of the text, so you know where to scan later."); };
+  };
+  $("#sdone").onclick=quiz;
+}
+const AUTO={
+  paraphrase:{l:"Paraphrased, not copied",f:(t,c)=>c.copy.ratio<=0.35,tip:"Change the words and the order: shows → illustrates, between 1980 and 2020 → over a forty-year period."},
+  overview:{l:"Has an overview (Overall, …)",f:t=>OVERVIEW_RE.test(t),tip:"Start the overview with Overall, and give the main trend and the biggest change."},
+  noOpinion:{l:"No personal opinion",f:t=>!OPINION_RE.test(t),tip:"Task 1 is a report: remove I think / in my opinion."},
+  thesis:{l:"Clear position (thesis)",f:t=>THESIS_RE.test(t),tip:"Say what you think: I believe… / I partly agree… / This essay will argue that…"},
+  outline:{l:"Says what the essay will do",f:t=>/\b(this essay will|will (examine|discuss|explain|consider|look at)|will be discussed)\b/i.test(t),tip:"Add an outline: This essay will examine…"},
+  words:{l:"Right length",f:(t,c)=>c.words>=c.min&&c.words<=c.max,tip:"Check the word range for this task."},
+  trend:{l:"Uses trend language",f:t=>(t.match(TREND_RE)||[]).length>=2,tip:"Use at least two trend phrases: rose steadily, levelled off…"},
+  data:{l:"Includes key figures",f:t=>(t.match(/\d+/g)||[]).length>=2,tip:"Support the main features with numbers."}
+};
+function drillWrite(U,sec,d){
+  const ch=resolveChart(sec,d), [mn,mx]=d.target||[40,80], dk=`${U.id}:${sec.id}:${d.id}`;
+  drillFrame(U,sec,d,`<div class="wlayout"><aside class="wside">${d.task?`<div class="card stack tight"><span class="label">The task</span><p style="font-weight:600">${esc(d.task)}</p></div>`:""}${ch?`<div class="card">${chartSVG(ch)}</div>`:""}${d.tip?tipHTML(d.tip,U):""}</aside>
+    <section class="wmain"><label for="dw" class="label">Your answer · ${mn}–${mx} words</label><textarea id="dw" class="essay" style="min-height:200px" placeholder="Write here…">${esc(S.drafts[dk]||"")}</textarea><div class="wstats" id="dws"></div><div class="row"><button class="btn primary" id="dwc">Check</button><span class="small muted" id="dwm"></span></div><div id="dwr" class="stack"></div></section></div>`);
+  const ta=$("#dw"), stats=()=>{ $("#dws").innerHTML=`<span>${wc(ta.value)} words</span><span>target ${mn}–${mx}</span>`; };
+  let deb; ta.addEventListener("input",()=>{ stats(); clearTimeout(deb); deb=setTimeout(()=>{S.drafts[dk]=ta.value;save();},600); }); stats();
+  $("#dwc").onclick=async()=>{
+    const text=ta.value.trim(); if(wc(text)<8){ $("#dwm").textContent="Write a little more first."; return; }
+    $("#dwc").disabled=true; $("#dwm").textContent="Checking…";
+    let lt=null, ltErr=null; try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
+    const ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx};
+    const res=(d.checks||[]).filter(k=>AUTO[k]).map(k=>({k,ok:AUTO[k].f(text,ctx)}));
+    const A=analyseEssay(text,{unitWords:U.words,lt,checks:null,task:sec.task,bank:sec.bank?sec.bank.flatMap(g=>g.w):null});
+    const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
+    const pct=res.length?res.filter(r=>r.ok).length/res.length:1;
+    $("#dwr").innerHTML=`<div class="card stack">
+      <span class="label">Checks</span><div class="checks">${res.map(r=>`<div class="${r.ok?"y":"n"}"><span><b>${esc(AUTO[r.k].l)}</b>${r.ok?"":` · <span class="muted">${esc(AUTO[r.k].tip)}</span>`}</span></div>`).join("")}</div>
+      ${d.task&&ctx.copy.phrases.length?`<p class="small">Copied from the task: ${ctx.copy.phrases.slice(0,4).map(p=>`<span class="copied">${esc(p)}</span>`).join(", ")} (${Math.round(ctx.copy.ratio*100)}% of your words)</p>`:""}
+      <div class="row"><span class="label">Language level (indicative)</span><span class="chip ${li(A.levels.LR)>=2?"lv":""}">Vocabulary ${A.levels.LR}</span><span class="chip ${li(A.levels.GRA)>=2?"lv":""}">Grammar ${A.levels.GRA}</span></div>
+      ${ltErr?`<p class="note warn small">The grammar service didn’t respond, so mistakes weren’t marked.</p>`:`<div class="marked">${markText(text,A.lt&&A.lt.matches)}</div>${issues.length?`<div class="stack tight">${issues.slice(0,12).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</div>`:`<p class="small" style="color:var(--good)">No grammar or spelling mistakes found.</p>`}`}
+      ${d.model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(d.model)}</p></details>`:""}</div>`;
+    $("#dwc").disabled=false; $("#dwc").textContent="Check again"; $("#dwm").textContent="";
+    S.drafts[dk]=text; drillEnd(U,sec,d,pct,"");
+  };
+}
+
+/* =========================================================
+   SPEAKING · one question at a time, everything on screen
+   ========================================================= */
+function wordUsed(w,lower){
+  const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase());
+  return forms.some(f=>{ const stem=f.length>5?f.slice(0,f.length-1):f; return lower.some(t=>t===f||(t.startsWith(stem)&&t.length<=f.length+3)); });
+}
+function runSpeaking(U,sec,tier){
+  const cfg=sec.tiers[tier];
+  if(!Array.isArray(sec.selfcheck)) sec=Object.assign({},sec,{selfcheck:DEFAULT_SELFCHECK});
+  const P1=(sec.part1||[]).map(q=>typeof q==="string"?{q}:q), P3=(sec.part3||[]).map(q=>typeof q==="string"?{q}:q);
+  const active=(sec.words||[]).map(id=>U.words.find(w=>w.id===id)).filter(Boolean);
+  const answers={}, ticked=new Set(), idx={1:0,3:0}; let useRec=false, useTr=false, part=1, active_=null, notes={};
+  const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
+  const stopActive=()=>{ if(active_){ try{active_.stop();}catch(e){} active_=null; } };
+  onLeave(()=>{ stopActive(); Object.values(answers).forEach(a=>a.url&&URL.revokeObjectURL(a.url)); });
+  const usedIds=()=>{ const lower=tokenize(Object.values(answers).map(a=>a.transcript||"").join(" ")); return active.filter(w=>ticked.has(w.id)||wordUsed(w,lower)).map(w=>w.id); };
+  const phrases=cfg.phrases||[];
+  const helpers=(item)=>{
+    const used=usedIds();
+    return `${part===3&&item&&item.brief?`<section class="brief"><span class="label">Before you answer · read</span><h3>${esc(item.brief.title)}</h3><p>${linkWords(item.brief.t,U)}</p>${item.brief.ideas?`<div class="stack tight"><span class="label">Ideas you can use</span><div class="ideas">${item.brief.ideas.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:""}</section>`:""}
+      ${active.length?`<section class="stack tight"><div class="row between"><span class="label" id="wcount">Words to use · ${used.length}/${active.length}</span><span class="small muted">Tap a word to see it · it’s ticked when you use it</span></div>${cloudHTML(active,used)}</section>`:""}
+      ${phrases.length?`<section class="stack tight"><span class="label">Useful phrases</span><div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div></section>`:""}
+      ${part===3&&cfg.challenge?`<p class="note">${esc(cfg.challenge)}</p>`:""}
+      ${item&&item.sample?`<details class="more"><summary>Sample answer</summary><p class="model">${esc(item.sample)}</p><p class="small muted">Read it, close it, then answer in your own words.</p></details>`:""}`;
+  };
+  const answerBits=(key,limit)=>{ const a=answers[key];
+    return `<div class="tbar"><i id="tb" style="width:${a?Math.min(100,a.secs/limit*100):0}%"></i></div>
+      <div class="row between"><span class="timer" id="tm">${fmt(a?a.secs:0)} / ${fmt(limit)}</span><div class="row"><button class="btn small ghost" id="hear">Hear it</button><button class="btn primary" id="ans">${a?"Answer again":"Answer"}</button></div></div>
+      ${a&&a.url?`<audio controls src="${a.url}" style="width:100%"></audio>`:""}${a&&a.transcript?`<p class="transcript">“${esc(a.transcript)}”</p>`:""}`; };
+  const draw=()=>{
+    app.innerHTML=`<div class="wrap stack" style="gap:16px">
+      <div class="row between"><span class="label">${esc(U.title)} · Speaking · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+      <div class="row between"><div class="row">${[1,2,3].map(p=>`<button class="btn small ${p===part?"primary":"ghost"}" data-part="${p}">Part ${p}</button>`).join("")}<button class="btn small ${part===4?"primary":"ghost"}" data-part="4">Self-check</button></div>
+        ${part<4?`<div class="row small"><label class="row"><input type="checkbox" id="useRec" ${useRec?"checked":""} ${REC.ok()?"":"disabled"}> Record</label>${REC.SR?`<label class="row"><input type="checkbox" id="useTr" ${useTr?"checked":""}> Live transcript</label>`:""}</div>`:""}</div>
+      <div id="pbody"></div></div>`;
+    $$("[data-part]").forEach(b=>b.onclick=()=>{ stopActive(); part=+b.dataset.part; draw(); window.scrollTo(0,0); });
+    $("#leave").onclick=()=>go(viewUnit,U.id);
+    if($("#useRec")) $("#useRec").onchange=e=>{useRec=e.target.checked;};
+    if($("#useTr")) $("#useTr").onchange=e=>{useTr=e.target.checked;};
+    if(part===1||part===3) drawQ(); else if(part===2) drawP2(); else drawSelf();
+  };
+  const drawQ=()=>{
+    const list=part===1?P1:P3, i=idx[part], item=list[i], key=`p${part}-${i}`, limit=part===1?cfg.answer:cfg.answer+15;
+    $("#pbody").innerHTML=`<div class="spk"><div class="spk-main"><div class="qcard">
+        <div class="row between"><span class="label">Part ${part} · Question ${i+1} of ${list.length}</span><div class="qdots">${list.map((_,k)=>`<i class="${k===i?"on":answers[`p${part}-${k}`]?"done":""}"></i>`).join("")}</div></div>
+        <p class="qbig">${esc(item.q)}</p>
+        ${answerBits(key,limit)}
+        <div class="row between"><button class="btn small ghost" id="prev" ${i===0?"disabled":""}>Previous</button><button class="btn small" id="next">${i<list.length-1?"Next question":part===1?"Go to Part 2":"Go to self-check"}</button></div>
+      </div>${part===1?`<p class="small muted">${esc("Answer + reason + example. 2–3 sentences, about "+cfg.answer+" seconds.")}</p>`:`<p class="small muted">Opinion + explain + example + other side. About ${cfg.answer+15} seconds.</p>`}</div>
+      <div class="spk-help">${helpers(item)}</div></div>`;
+    $("#prev").onclick=()=>{ stopActive(); idx[part]--; drawQ(); };
+    $("#next").onclick=()=>{ stopActive(); if(i<list.length-1){ idx[part]++; drawQ(); } else { part=part===1?2:4; draw(); } window.scrollTo(0,0); };
+    $("#hear").onclick=()=>TTS.say(item.q,"en-GB","female");
+    $("#ans").onclick=()=>startAnswer(key,limit,drawQ);
+    bindCloud();
+  };
+  const drawP2=()=>{
+    const p2=sec.part2, key="p2-0", limit=cfg.talk;
+    $("#pbody").innerHTML=`<div class="spk"><div class="spk-main"><div class="qcard cue">
+        <span class="label">Part 2 · Cue card</span><p class="qbig">${esc(p2.task)}</p><p class="small">You should say:</p><ul>${p2.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+        <div class="row between"><span class="small"><b>Prepare</b> <span class="timer" id="prepT" style="font-size:16px">${fmt(cfg.prep)}</span></span><button class="btn small" id="prepGo">Start preparing</button></div>
+        ${answerBits(key,limit)}
+        <div class="row between"><button class="btn small ghost" id="prev">Part 1</button><button class="btn small" id="next">Go to Part 3</button></div>
+      </div></div>
+      <div class="spk-help"><section class="stack tight"><span class="label">Your notes · key words only</span><div class="notes4">${p2.points.map((p,k)=>`<label>${esc(p)}<textarea data-note="${k}">${esc(notes[k]||"")}</textarea></label>`).join("")}</div>${p2.notes?`<details class="more"><summary>Example notes</summary><div class="ideas">${p2.notes.map(x=>`<span>${esc(x)}</span>`).join("")}</div></details>`:""}</section>
+        ${helpers({sample:p2.model})}</div></div>`;
+    $$("[data-note]").forEach(t=>t.oninput=()=>{notes[t.dataset.note]=t.value;});
+    $("#prev").onclick=()=>{ stopActive(); part=1; draw(); };
+    $("#next").onclick=()=>{ stopActive(); part=3; draw(); window.scrollTo(0,0); };
+    $("#hear").onclick=()=>TTS.say(p2.task,"en-GB","female");
+    $("#ans").onclick=()=>startAnswer(key,limit,drawP2);
+    $("#prepGo").onclick=()=>{ let left=cfg.prep; $("#prepGo").disabled=true; const id=T.every(()=>{ left--; const el=$("#prepT"); if(el) el.textContent=fmt(Math.max(0,left)); if(left<=0){ clearInterval(id); toast("Preparation time is over. Start speaking."); startAnswer(key,limit,drawP2); } },1000); };
+    bindCloud();
+  };
+  const bindCloud=()=>{ $$(".spk-help .v-cloud [data-w]").forEach(b=>b.addEventListener("click",()=>{ const id=b.dataset.w; if(ticked.has(id)) ticked.delete(id); else ticked.add(id); const u=usedIds(); b.classList.toggle("used",u.includes(id)); const c=$("#wcount"); if(c) c.textContent=`Words to use · ${u.length}/${active.length}`; })); };
+  const metrics=()=>{
+    const all=Object.values(answers).filter(a=>a.transcript); if(!all.length) return null;
+    const text=all.map(a=>a.transcript).join(" "), secs=all.reduce((x,a)=>x+a.secs,0), words=wc(text);
+    const fillers=(norm(text).match(/\b(um+|uh+|er+|erm|like|you know)\b/g)||[]).length;
+    return {words,secs,wpm:secs?Math.round(words/secs*60):0,fillers};
+  };
+  const drawSelf=()=>{
+    const m=metrics(), used=usedIds();
+    $("#pbody").innerHTML=`<div class="stack" style="gap:18px;max-width:820px">
+      <p class="prose">Listen to your recordings or think about your answers. For each area, choose the description that fits you best. This sets your speaking level for the next unit.</p>
+      ${sec.selfcheck.map(c=>`<fieldset class="stack tight" style="border:0;padding:0;margin:0"><legend><strong>${esc(c.label)}</strong></legend><div class="sc">${LV.map(L=>`<label><input type="radio" name="sc-${c.id}" value="${L}"><span><span class="chip">${L}</span> ${esc(c.d[L])}</span></label>`).join("")}</div></fieldset>`).join("")}
+      <div class="card soft stack tight"><span class="label">This session</span><div class="wstats"><span>${Object.keys(answers).length} answers</span><span>${used.length}/${active.length} topic words</span>${m?`<span>${m.wpm} words/min</span><span>${m.fillers} fillers</span>`:""}</div>${m?"":`<p class="small muted">Turn on the live transcript to measure speed and fillers.</p>`}</div>
+      <div class="row"><button class="btn primary" id="scDone">Save my speaking result</button></div><p class="err" id="scErr"></p></div>`;
+    $("#scDone").onclick=()=>{
+      const sel={}; for(const c of sec.selfcheck){ const r=$(`input[name="sc-${c.id}"]:checked`); if(!r){ $("#scErr").textContent="Choose one description for each area."; return; } sel[c.id]=r.value; }
+      const lvl=LV[median(Object.values(sel).map(li))], before=S.profile.speaking;
+      S.speaking.push({uid:U.id,tier,date:Date.now(),self:sel,level:lvl,metrics:m?{words:m.words,wpm:m.wpm,fillers:m.fillers}:null,answered:Object.keys(answers).length,words:used.length});
+      S.speaking=S.speaking.slice(-20); S.profile.speaking=lvl; S.tier.speaking=tierOf(lvl);
+      record(U.id,sec.id,tier,li(lvl)/3,"self",lvl); save();
+      app.innerHTML=`<div class="wrap narrow stack" style="gap:24px"><div class="score"><div class="big">${lvl}</div><div class="stack tight"><span class="label">Speaking · self-assessed</span><h2>Indicative IELTS ${BAND[lvl]}</h2><p class="muted">Your next speaking tasks will be at ${S.tier.speaking}.${before&&before!==lvl?` (Before: ${before})`:""}</p></div></div>
+        <div class="stack tight">${sec.selfcheck.map(c=>`<div class="row small"><span class="chip ${li(sel[c.id])>=2?"lv":""}">${sel[c.id]}</span><b>${esc(c.label)}</b><span class="muted">${esc(c.d[sel[c.id]])}</span></div>`).join("")}</div>
+        <p class="small muted">Self-assessment is a starting point. Send your progress to your teacher and record yourself again next unit to compare.</p>
+        <div class="row"><button class="btn primary" id="toUnit">Back to the unit</button></div></div>`;
+      $("#toUnit").onclick=()=>go(viewUnit,U.id);
+    };
+  };
+  const startAnswer=async(key,limit,redraw)=>{
+    if(active_&&active_.key===key){ stopActive(); return; }
+    stopActive(); TTS.stop();
+    let secs=0, transcript="", chunks=[], mr=null, stream=null, sr=null, finished=false;
+    if(useRec&&REC.ok()){ try{ stream=await navigator.mediaDevices.getUserMedia({audio:true}); mr=new MediaRecorder(stream); mr.ondataavailable=e=>e.data.size&&chunks.push(e.data); mr.start(); }catch(e){ toast("The microphone isn’t available. Practising with the timer only."); useRec=false; } }
+    if(useTr&&REC.SR){ try{ sr=new REC.SR(); sr.lang=(S.settings.accent==="en-US")?"en-US":"en-GB"; sr.continuous=true; sr.interimResults=false; sr.onresult=e=>{ for(let k=e.resultIndex;k<e.results.length;k++) if(e.results[k].isFinal) transcript+=e.results[k][0].transcript+" "; }; sr.onerror=()=>{}; sr.start(); }catch(e){ sr=null; } }
+    const btn=$("#ans"); btn.textContent="Stop"; btn.classList.remove("primary"); btn.classList.add("danger");
+    const dot=document.createElement("span"); dot.className="recdot"; btn.before(dot);
+    const id=T.every(()=>{ secs++; const tm=$("#tm"), tb=$("#tb"); if(tm) tm.textContent=`${fmt(secs)} / ${fmt(limit)}`; if(tb){ tb.style.width=Math.min(100,secs/limit*100)+"%"; tb.classList.toggle("over",secs>limit); } if(secs===limit) toast("Time. Finish your sentence."); if(secs>=limit+10) stop(); },1000);
+    const stop=()=>{
+      if(finished) return; finished=true; clearInterval(id); dot.remove();
+      const done=()=>{ const prev=answers[key]; if(prev&&prev.url) URL.revokeObjectURL(prev.url);
+        answers[key]={secs,transcript:transcript.trim(),url:chunks.length?URL.createObjectURL(new Blob(chunks,{type:(mr&&mr.mimeType)||"audio/webm"})):null};
+        active_=null; if(document.body.contains(btn)) redraw(); };
+      if(sr){ try{sr.stop();}catch(e){} }
+      if(mr&&mr.state!=="inactive"){ mr.onstop=()=>{ stream.getTracks().forEach(t=>t.stop()); setTimeout(done,sr?600:0); }; mr.stop(); } else { if(stream) stream.getTracks().forEach(t=>t.stop()); setTimeout(done,sr?600:0); }
+    };
+    active_={key,stop};
+  };
+  draw();
+}
+
+/* =========================================================
+   WRITING · Task 1 and Task 2
+   ========================================================= */
 function markText(text,matches){
   if(!matches||!matches.length) return esc(text);
   const ms=matches.slice().sort((a,b)=>a.offset-b.offset); let out="",pos=0;
-  ms.forEach((m,i)=>{ if(m.offset<pos) return; out+=esc(text.slice(pos,m.offset)); const cls=m.kind==="spelling"?"sp":m.kind==="style"?"st":""; out+=`<mark class="${cls}" title="${esc(m.message)}${m.replacements&&m.replacements.length?" → "+esc(m.replacements.slice(0,3).map(r=>r.value).join(" / ")):""}">${esc(text.substr(m.offset,m.length))}</mark>`; pos=m.offset+m.length; });
+  ms.forEach(m=>{ if(m.offset<pos) return; out+=esc(text.slice(pos,m.offset)); const cls=m.kind==="spelling"?"sp":m.kind==="style"?"st":""; out+=`<mark class="${cls}" title="${esc(m.message)}${m.replacements&&m.replacements.length?" → "+esc(m.replacements.slice(0,3).map(r=>r.value).join(" / ")):""}">${esc(text.substr(m.offset,m.length))}</mark>`; pos=m.offset+m.length; });
   return out+esc(text.slice(pos));
 }
+function runWriting(U,sec,tier){
+  if(!Array.isArray(sec.checklist)) sec=Object.assign({},sec,{checklist:DEFAULT_CHECKLIST});
+  const W=sec.tiers[tier], task1=sec.task===1, ch=W.chart&&sec.charts?sec.charts[W.chart]:null;
+  const dkey=U.id+":"+sec.id+":"+tier, bank=sec.bank||null, structure=(sec.learn||[]).find(c=>c.v==="blocks");
+  app.innerHTML=`<div class="wrap stack" style="gap:16px">
+    <div class="row between"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+    <div class="wlayout">
+      <aside class="wside">
+        <div class="card stack tight"><span class="label">${esc(W.type||"")}${W.time?` · ${W.time} min`:""} · ${W.target}+ words</span><p class="wtask" style="font-size:16px">${esc(W.task)}</p></div>
+        ${ch?`<div class="card">${chartSVG(ch)}</div>`:""}
+        ${bank?`<details class="more" ${tier!=="C1"?"open":""}><summary>Word bank · tap to insert</summary><div class="bank">${bank.map(g=>`<div class="grp"><b>${esc(g.h)}</b>${g.w.map(w=>`<button type="button" data-ins="${esc(w)}">${esc(w)}</button>`).join("")}</div>`).join("")}</div></details>`:""}
+      </aside>
+      <section class="wmain">
+        ${W.frame?`<details class="more" open><summary>Paragraph frame</summary><div class="frame">${W.frame.map(f=>`<div><b>${esc(f.h)}</b><br>${esc(f.s)}</div>`).join("")}</div></details>`:""}
+        ${W.planner?`<details class="more"><summary>Plan</summary><div class="stack tight">${W.planner.map((p,i)=>`<label class="stack tight small"><span>${esc(p)}</span><input type="text" id="plan${i}" value="${esc((S.drafts[dkey+":plan"]||[])[i]||"")}"></label>`).join("")}</div></details>`:""}
+        ${structure?`<details class="more"><summary>Structure</summary>${TIPV.blocks(structure)}</details>`:""}
+        <div class="row between"><span class="timer" id="timer"></span>${W.time?`<button class="btn small ghost" id="startTimer">Start ${W.time}-minute timer</button>`:""}</div>
+        <textarea id="essay" class="essay" placeholder="Start writing here… Leave a blank line between paragraphs." aria-label="Your answer">${esc(S.drafts[dkey]||"")}</textarea>
+        <div class="wstats" id="wstats"></div>
+        <section class="stack tight"><span class="label">Before you check: tick what is true</span><div class="sc">${sec.checklist.map((c,i)=>`<label><input type="checkbox" data-ck="${i}"><span>${esc(c)}</span></label>`).join("")}</div></section>
+        <div class="row"><button class="btn primary" id="checkBtn">Check my writing</button><span class="small muted" id="checkMsg"></span></div>
+      </section>
+    </div></div>`;
+  const ta=$("#essay");
+  const markBank=()=>{ if(!bank) return; $$("[data-ins]").forEach(b=>b.classList.toggle("used",bankRe(b.dataset.ins).test(ta.value))); };
+  const stats=()=>{ const n=wc(ta.value); $("#wstats").innerHTML=`<span>${n} words</span><span>${n>=W.target?"Target reached":(W.target-n)+" to go"}</span>`; markBank(); };
+  let deb; ta.addEventListener("input",()=>{ stats(); clearTimeout(deb); deb=setTimeout(()=>{S.drafts[dkey]=ta.value;save();},600); }); stats();
+  $$('[id^="plan"]').forEach(inp=>inp.addEventListener("input",()=>{S.drafts[dkey+":plan"]=$$('[id^="plan"]').map(x=>x.value);save();}));
+  $$("[data-ins]").forEach(b=>b.onclick=()=>{ const s=ta.selectionStart??ta.value.length, e=ta.selectionEnd??s, before=ta.value.slice(0,s); const ins=(before&&!/\s$/.test(before)?" ":"")+b.dataset.ins+" "; ta.value=before+ins+ta.value.slice(e); ta.focus(); const p=s+ins.length; ta.setSelectionRange(p,p); ta.dispatchEvent(new Event("input")); });
+  $("#leave").onclick=()=>{S.drafts[dkey]=ta.value;save();go(viewUnit,U.id);};
+  if($("#startTimer")) $("#startTimer").onclick=()=>{ $("#startTimer").remove(); timerStart(W.time,()=>toast("Time is up. Finish your sentence and check your work.")); };
+  $("#checkBtn").onclick=async()=>{
+    const text=ta.value; S.drafts[dkey]=text; save();
+    if(wc(text)<40){ $("#checkMsg").textContent="Write at least 40 words before checking."; return; }
+    const checks=$$("[data-ck]").filter(c=>c.checked).length;
+    $("#checkBtn").disabled=true; $("#checkMsg").textContent="Checking grammar and spelling…";
+    let lt=null, ltErr=null; try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
+    const A=analyseEssay(text,{unitWords:U.words,lt,checks,target:W.target,task:task1?1:2,bank:bank?bank.flatMap(g=>g.w):null,prompt:W.task});
+    const before=S.profile.writing; S.profile.writing=A.overall; S.tier.writing=tierOf(A.overall);
+    S.essays.push({uid:U.id,taskNo:task1?1:2,tier,task:W.task,text,date:Date.now(),overall:A.overall,levels:A.levels,words:A.words,lt:A.lt?{grammar:A.lt.grammar,spelling:A.lt.spelling,punctuation:A.lt.punctuation,style:A.lt.style}:null});
+    S.essays=S.essays.slice(-12); record(U.id,sec.id,tier,li(A.overall)/3,"essay",A.overall); save();
+    go(viewWritingReport,U,sec,tier,text,A,ltErr,before);
+  };
+}
 function viewWritingReport(U,sec,tier,text,A,ltErr,before){
-  const W=sec.tiers[tier];
-  const CRIT=[["TR","Task response"],["CC","Coherence & cohesion"],["LR","Lexical resource"],["GRA","Grammatical range & accuracy"]];
-  const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
-  const model=sec.models&&sec.models[W.model];
+  const W=sec.tiers[tier], task1=sec.task===1;
+  const CRIT=[["TR",task1?"Task achievement":"Task response"],["CC","Coherence & cohesion"],["LR","Lexical resource"],["GRA","Grammatical range & accuracy"]];
+  const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[], model=sec.models&&sec.models[W.model];
   app.innerHTML=`<div class="wrap stack" style="gap:28px">
-    <div class="score"><div class="big">${A.overall}</div><div class="stack tight"><span class="label">${esc(U.title)} · Writing · ${tier} · CEFR estimate</span><h2>Indicative IELTS ${BAND[A.overall]}</h2><p class="muted">Your next writing tasks will be at ${S.tier.writing}.${before&&before!==A.overall?` (Before: ${before})`:""} This is an automatic estimate. Your teacher’s feedback counts more.</p></div></div>
+    <div class="score"><div class="big">${A.overall}</div><div class="stack tight"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier} · CEFR estimate</span><h2>Indicative IELTS ${BAND[A.overall]}</h2><p class="muted">Your next writing tasks will be at ${S.tier.writing}.${before&&before!==A.overall?` (Before: ${before})`:""} This is an automatic estimate. Your teacher’s feedback counts more.</p></div></div>
     ${ltErr?`<p class="note warn">The grammar and spelling service didn’t respond (${esc(ltErr.message||"offline")}), so accuracy wasn’t measured. Try again later for a full check.</p>`:""}
     <section class="crit">${CRIT.map(([k,n])=>`<div class="card"><div class="row between"><strong>${n}</strong><span class="chip ${li(A.levels[k])>=2?"lv":""}">${A.levels[k]}</span></div><ul>${A.reasons[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul>${A.tips[k].length?`<div class="stack tight"><span class="label">To improve</span><ul>${A.tips[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>`:""}</div>`).join("")}</section>
-    <section class="stack"><div class="row between"><span class="label">Your essay${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
+    <section class="stack"><div class="row between"><span class="label">Your answer${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
     ${issues.length?`<section class="stack tight issues"><span class="label">Corrections from LanguageTool</span>${issues.slice(0,30).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</section>`:""}
-    <div class="row"><button class="btn primary" id="revise">Revise my essay</button><button class="btn" id="toUnit">Back to the unit</button></div>
+    <div class="row"><button class="btn primary" id="revise">Revise my answer</button><button class="btn" id="toUnit">Back to the unit</button></div>
     ${model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(model)}</p></details>`:""}
   </div>`;
   $("#revise").onclick=()=>go(runWriting,U,sec,tier);
