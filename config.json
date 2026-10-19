@@ -6,5 +6,6 @@
   "languageTool": {
     "url": "https://api.languagetool.org/v2/check",
     "language": "en-GB"
-  }
+  },
+  "copyright": "© 2026 От зайца (From the Hare)"
 }

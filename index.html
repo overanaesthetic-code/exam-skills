@@ -428,6 +428,10 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .bank button{border:1px solid var(--line);background:var(--bg);border-radius:999px;padding:3px 10px;font-size:13px;cursor:pointer;color:var(--ink)}
 .bank button:hover{border-color:var(--ink)}
 .bank button.used{background:var(--good-soft);border-color:transparent;color:var(--good)}
+#wm{position:fixed;inset:-25%;z-index:30;pointer-events:none;user-select:none;-webkit-user-select:none;display:flex;flex-wrap:wrap;gap:90px 130px;align-content:center;justify-content:center;transform:rotate(-24deg);opacity:.065;overflow:hidden}
+#wm span{font:600 15px var(--mono);color:var(--ink);white-space:nowrap;letter-spacing:.08em}
+.foot{max-width:1100px;margin:0 auto;padding-inline:18px;padding-block:18px 40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.foot .link{font-size:12px}
 </style>
 </head>
 <body>
@@ -436,6 +440,7 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
   <nav class="nav" id="nav"></nav>
 </div></header>
 <main id="app"><div class="loader"><span class="label">Loading</span></div></main>
+<footer class="foot" id="foot"></footer>
 <script>
 "use strict";
 /* =========================================================
@@ -491,7 +496,10 @@ async function deriveKey(code,salt,iter){const base=await crypto.subtle.importKe
 async function aesOpen(key,iv,ct){const pt=await crypto.subtle.decrypt({name:"AES-GCM",iv:b64d(iv)},key,b64d(ct));return JSON.parse(dec.decode(pt));}
 const rawKey=b64=>crypto.subtle.importKey("raw",b64d(b64),"AES-GCM",false,["decrypt"]);
 
-let KEYS={}, MODULES={}, CONFIG={}, UNITS=[];
+let KEYS={}, MODULES={}, CONFIG={}, UNITS=[], BUNDLE={}, FPMARK="";
+async function fingerprint(code){ const h=new Uint8Array(await crypto.subtle.digest("SHA-256",enc.encode("ielts-ladder-fp|"+code))); const bits=h[0].toString(2).padStart(8,"0")+h[1].toString(2).padStart(8,"0"); return "\u2060"+bits.replace(/0/g,"\u200B").replace(/1/g,"\u200C")+"\u2060"; }
+function fp(t){ t=String(t||""); if(!FPMARK||!t) return t; const m=t.match(/^[\s\S]*?[.!?](?=\s)/); return m?m[0]+FPMARK+t.slice(m[0].length):t+FPMARK; }
+const fmtLong=d=>new Date(d+"T12:00:00").toLocaleDateString(undefined,{day:"numeric",month:"long",year:"numeric"});
 async function fetchJSON(p){const r=await fetch(p+(p.includes("?")?"&":"?")+"t="+Date.now(),{cache:"no-store"});if(!r.ok)throw new Error(p+" returned "+r.status);return r.json();}
 async function openCourse(code){
   const ring=await fetchJSON("keyring.json");
@@ -500,7 +508,8 @@ async function openCourse(code){
   if(!e) return {error:"unknown"};
   const key=await deriveKey(code,e.salt,ring.iter||150000);
   const data=await aesOpen(key,e.iv,e.ct);
-  KEYS=data.keys||{};
+  if(data.exp&&Date.now()>new Date(data.exp+"T23:59:59").getTime()) return {error:"expired",exp:data.exp};
+  KEYS=data.keys||{}; BUNDLE=data; FPMARK=await fingerprint(code);
   return {ok:true};
 }
 async function getModule(id){
@@ -558,7 +567,16 @@ const TTS={
 
 /* ---------- top bar ---------- */
 function dueWords(){const now=Date.now();let n=0;for(const uid of unitIds()){for(const w of MODULES[uid].words||[]){const st=S.words[uid+":"+w.id];if(st&&st.due<=now)n++;}}return n;}
+function watermarkText(){ if(PREVIEW) return "Teacher preview"; const c=S.code||""; return `${BUNDLE.label?"Licensed to "+BUNDLE.label:"Licensed copy"} · ${c.slice(0,4)}`; }
+function renderWatermark(){
+  let w=document.getElementById("wm"); const on=(!!S.code&&!!Object.keys(KEYS).length)||PREVIEW;
+  if(!on){ if(w) w.remove(); return; }
+  if(!w){ w=document.createElement("div"); w.id="wm"; w.setAttribute("aria-hidden","true"); document.body.appendChild(w); }
+  const t=watermarkText(); if(w.dataset.t!==t){ w.dataset.t=t; w.innerHTML=Array.from({length:180},()=>`<span>${esc(t)}</span>`).join(""); }
+}
+function renderFoot(){ const f=$("#foot"); if(!f) return; f.innerHTML=`<span>${esc(CONFIG.copyright||"")}</span><span>Personal use only.</span><button class="link" data-nav="terms">Terms of use</button>`; }
 function renderTop(){
+  renderWatermark(); renderFoot();
   const tb=$("#topbar");
   const signed=!!S.code||PREVIEW;
   tb.hidden=!signed;
@@ -579,8 +597,33 @@ document.addEventListener("click",e=>{
   if(n==="send") go(viewSend);
   if(n==="settings") go(viewSettings);
   if(n==="exitpreview") location.reload();
+  if(n==="terms") go(viewTerms);
 });
 $("#brandBtn").addEventListener("click",()=>{ if(PREVIEW) return; if(S.code) go(S.placement?viewHome:viewPlacementIntro); });
+
+/* ---------- copy notice ---------- */
+document.addEventListener("copy",e=>{
+  if(!(S.code&&Object.keys(KEYS).length)&&!PREVIEW) return;
+  const a=document.activeElement; if(a&&(a.tagName==="TEXTAREA"||a.tagName==="INPUT")) return;
+  const sel=String(window.getSelection()||""); if(sel.replace(/\s/g,"").length<40) return;
+  const note=`\n\n— ${CONFIG.courseName||"IELTS Ladder"}${CONFIG.copyright?" · "+CONFIG.copyright:""} · ${watermarkText()} · Personal use only.`;
+  try{ e.clipboardData.setData("text/plain",sel+note); e.preventDefault(); }catch(x){}
+});
+const DEFAULT_TERMS=[
+  "This course is for your personal study only.",
+  "Your access code is personal. Please don’t share it.",
+  "You may not copy, publish, sell or teach with the materials without a licence. Teachers can ask about a teacher licence.",
+  "Every copy is marked with the licence holder’s details, visibly and invisibly, so shared copies can be traced to the code they came from.",
+  "Access can have an end date. Your teacher can renew it.",
+  "Your progress is stored only on your device. When you check your writing, the text (without your name) is sent to LanguageTool to find grammar and spelling mistakes."
+];
+function viewTerms(){
+  app.innerHTML=`<div class="wrap narrow stack" style="gap:20px"><span class="label">${esc(CONFIG.courseName||"IELTS Ladder")}</span><h1>Terms of use</h1>
+    <ol class="stack tight" style="padding-left:20px;margin:0">${(CONFIG.terms||DEFAULT_TERMS).map(t=>`<li>${esc(t)}</li>`).join("")}</ol>
+    <p class="small muted">${esc(CONFIG.copyright||"")}</p>
+    <div class="row"><button class="btn primary" id="tback">Back</button></div></div>`;
+  $("#tback").onclick=()=>go(S.code&&Object.keys(KEYS).length?(S.placement?viewHome:viewPlacementIntro):viewGate);
+}
 
 /* ---------- boot ---------- */
 async function boot(){
@@ -592,7 +635,7 @@ async function boot(){
   viewLoading("Opening your course");
   try{
     const r=await openCourse(S.code);
-    if(r.error){ S.code=null; save(); return go(viewGate,"This code is no longer active. Please check with your teacher."); }
+    if(r.error){ S.code=null; save(); return go(viewGate,r.error==="expired"?`Your access ended on ${fmtLong(r.exp)}. Ask your teacher to renew it, then enter your code again.`:"This code is no longer active. Please check with your teacher."); }
   }catch(e){ return go(viewProblem,e); }
   await preloadModules();
   go(S.placement?viewHome:viewPlacementIntro);
@@ -627,7 +670,7 @@ function viewGate(msg){
     $("#gateBtn").disabled=true; $("#gateBtn").textContent="Checking…"; $("#gateErr").textContent="";
     try{
       const r=await openCourse(code);
-      if(r.error){ $("#gateErr").textContent="We couldn’t find that code. Check the letters and numbers, or ask your teacher."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; return; }
+      if(r.error){ $("#gateErr").textContent=r.error==="expired"?`This code’s access ended on ${fmtLong(r.exp)}. Ask your teacher to renew it.`:"We couldn’t find that code. Check the letters and numbers, or ask your teacher."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; return; }
       S.code=code; save();
       viewLoading("Opening your course"); await preloadModules();
       go(S.placement?viewHome:viewPlacementIntro);
@@ -943,7 +986,7 @@ function runReading(U,sec,tier,mode){
       <div class="tabs" role="group" aria-label="View"><button data-pane="passage" aria-pressed="true">Passage</button><button data-pane="questions" aria-pressed="false">Questions</button></div>
     </div></div>
     <div class="wrap" style="padding-top:0"><div class="split">
-      <article class="passage"><span class="label">Reading passage</span><h2>${esc(R.title)}</h2><div class="stack" style="gap:4px;margin-top:10px">${R.paras.map(p=>`<div class="para" id="p-${p.id}"><b>${p.id}</b><p>${esc(p.t)}</p></div>`).join("")}</div></article>
+      <article class="passage"><span class="label">Reading passage</span><h2>${esc(R.title)}</h2><div class="stack" style="gap:4px;margin-top:10px">${R.paras.map(p=>`<div class="para" id="p-${p.id}"><b>${p.id}</b><p>${esc(fp(p.t))}</p></div>`).join("")}</div></article>
       <div class="qcol" id="qz">${quizHTML(Q)}<div class="row" style="justify-content:flex-end"><button class="btn primary" id="fin2">Finish and see results</button></div></div>
     </div></div>
   </div>`;
@@ -1619,7 +1662,7 @@ function drillWrite(U,sec,d){
       ${d.task&&ctx.copy.phrases.length?`<p class="small">Copied from the task: ${ctx.copy.phrases.slice(0,4).map(p=>`<span class="copied">${esc(p)}</span>`).join(", ")} (${Math.round(ctx.copy.ratio*100)}% of your words)</p>`:""}
       <div class="row"><span class="label">Language level (indicative)</span><span class="chip ${li(A.levels.LR)>=2?"lv":""}">Vocabulary ${A.levels.LR}</span><span class="chip ${li(A.levels.GRA)>=2?"lv":""}">Grammar ${A.levels.GRA}</span></div>
       ${ltErr?`<p class="note warn small">The grammar service didn’t respond, so mistakes weren’t marked.</p>`:`<div class="marked">${markText(text,A.lt&&A.lt.matches)}</div>${issues.length?`<div class="stack tight">${issues.slice(0,12).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</div>`:`<p class="small" style="color:var(--good)">No grammar or spelling mistakes found.</p>`}`}
-      ${d.model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(d.model)}</p></details>`:""}</div>`;
+      ${d.model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(d.model))}</p></details>`:""}</div>`;
     $("#dwc").disabled=false; $("#dwc").textContent="Check again"; $("#dwm").textContent="";
     S.drafts[dk]=text; drillEnd(U,sec,d,pct,"");
   };
@@ -1645,11 +1688,11 @@ function runSpeaking(U,sec,tier){
   const phrases=cfg.phrases||[];
   const helpers=(item)=>{
     const used=usedIds();
-    return `${part===3&&item&&item.brief?`<section class="brief"><span class="label">Before you answer · read</span><h3>${esc(item.brief.title)}</h3><p>${linkWords(item.brief.t,U)}</p>${item.brief.ideas?`<div class="stack tight"><span class="label">Ideas you can use</span><div class="ideas">${item.brief.ideas.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:""}</section>`:""}
+    return `${part===3&&item&&item.brief?`<section class="brief"><span class="label">Before you answer · read</span><h3>${esc(item.brief.title)}</h3><p>${linkWords(fp(item.brief.t),U)}</p>${item.brief.ideas?`<div class="stack tight"><span class="label">Ideas you can use</span><div class="ideas">${item.brief.ideas.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:""}</section>`:""}
       ${active.length?`<section class="stack tight"><div class="row between"><span class="label" id="wcount">Words to use · ${used.length}/${active.length}</span><span class="small muted">Tap a word to see it · it’s ticked when you use it</span></div>${cloudHTML(active,used)}</section>`:""}
       ${phrases.length?`<section class="stack tight"><span class="label">Useful phrases</span><div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div></section>`:""}
       ${part===3&&cfg.challenge?`<p class="note">${esc(cfg.challenge)}</p>`:""}
-      ${item&&item.sample?`<details class="more"><summary>Sample answer</summary><p class="model">${esc(item.sample)}</p><p class="small muted">Read it, close it, then answer in your own words.</p></details>`:""}`;
+      ${item&&item.sample?`<details class="more"><summary>Sample answer</summary><p class="model">${esc(fp(item.sample))}</p><p class="small muted">Read it, close it, then answer in your own words.</p></details>`:""}`;
   };
   const answerBits=(key,limit)=>{ const a=answers[key];
     return `<div class="tbar"><i id="tb" style="width:${a?Math.min(100,a.secs/limit*100):0}%"></i></div>
@@ -1813,7 +1856,7 @@ function viewWritingReport(U,sec,tier,text,A,ltErr,before){
     <section class="stack"><div class="row between"><span class="label">Your answer${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
     ${issues.length?`<section class="stack tight issues"><span class="label">Corrections from LanguageTool</span>${issues.slice(0,30).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</section>`:""}
     <div class="row"><button class="btn primary" id="revise">Revise my answer</button><button class="btn" id="toUnit">Back to the unit</button></div>
-    ${model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(model)}</p></details>`:""}
+    ${model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(model))}</p></details>`:""}
   </div>`;
   $("#revise").onclick=()=>go(runWriting,U,sec,tier);
   $("#toUnit").onclick=()=>go(viewUnit,U.id);
@@ -1847,7 +1890,7 @@ function viewSettings(){
     <div class="stack tight"><label for="acc"><strong>Voice accent for listening</strong></label><select id="acc" style="max-width:320px"><option value="en-GB">British English</option><option value="en-US">American English</option><option value="en-AU">Australian English</option><option value="any">Mixed (as written in the unit)</option></select><span class="small muted">Voices come from your device, so quality varies. Chrome and Safari usually have the best voices.</span></div>
     <div class="stack tight"><label for="spd"><strong>Speech speed</strong> <span class="muted" id="spdv"></span></label><input type="range" id="spd" min="0.8" max="1.15" step="0.05" style="max-width:320px"><div class="row"><button class="btn small ghost" id="testV">Test voice</button></div></div>
     <div class="stack tight"><strong>Placement</strong><p class="small muted">Retake the placement test to reset your starting levels. Your other results stay.</p><div class="row"><button class="btn small" id="retake">Retake placement</button></div></div>
-    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span></p><p class="small muted">Removing the course deletes all progress on this device. Send your progress to your teacher first.</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
+    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span>${BUNDLE.label?` · licensed to ${esc(BUNDLE.label)}`:""}${BUNDLE.exp?` · access until <b>${esc(fmtLong(BUNDLE.exp))}</b>`:""}</p><p class="small muted">Removing the course deletes all progress on this device. Send your progress to your teacher first.</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
   </div>`;
   $("#acc").value=S.settings.accent||"en-GB";
   $("#acc").onchange=e=>{S.settings.accent=e.target.value;save();};
