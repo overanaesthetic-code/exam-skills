@@ -489,7 +489,7 @@ function save(){if(PREVIEW)return;S.at=Date.now();store();SYNC.soon();}
    Sends this code's progress to the teacher's Apps Script web app and restores it on a new device.
    Only the access code and the teacher's own label travel; no name or email is asked for. */
 const SYNC={
-  timer:null, busy:false, again:false,
+  timer:null, busy:false, again:false, err:"",
   url(){ return (CONFIG.sync&&String(CONFIG.sync.url||"").trim())||""; },
   on(){ return !!this.url() && !PREVIEW && !!S.code && S.code!=="PREVIEW"; },
   body(){
@@ -510,9 +510,11 @@ const SYNC={
     this.busy=true; let ok=false;
     try{
       const r=await fetch(this.url(),{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:this.body()});
-      const j=await r.json(); ok=!!(j&&j.ok);
-      if(ok){ S.synced=Date.now(); store(); }
-    }catch(e){ console.warn("Sync failed",e); }
+      const txt=await r.text(); let j=null; try{ j=JSON.parse(txt); }catch(e){}
+      if(!j) this.err=`The sheet answered with a web page instead of data (HTTP ${r.status}). Usually the web app isn’t set to “Who has access: Anyone”, or the code was changed without deploying a new version.`;
+      else if(!j.ok) this.err="The sheet script reported: "+(j.error||"unknown error");
+      else { ok=true; this.err=""; S.synced=Date.now(); store(); }
+    }catch(e){ this.err="Couldn’t reach the sheet: "+(e&&e.message||e)+". Check the connection, or that the web app URL in config.json is right."; console.warn("Sync failed",e); }
     this.busy=false;
     if(this.again){ this.again=false; this.soon(); }
     else if(!ok){ clearTimeout(this.timer); this.timer=setTimeout(()=>{this.timer=null;this.push();},60000); }
@@ -1949,6 +1951,7 @@ function viewSettings(){
     <div class="stack tight"><label for="acc"><strong>Voice accent for listening</strong></label><select id="acc" style="max-width:320px"><option value="en-GB">British English</option><option value="en-US">American English</option><option value="en-AU">Australian English</option><option value="any">Mixed (as written in the unit)</option></select><span class="small muted">Voices come from your device, so quality varies. Chrome and Safari usually have the best voices.</span></div>
     <div class="stack tight"><label for="spd"><strong>Speech speed</strong> <span class="muted" id="spdv"></span></label><input type="range" id="spd" min="0.8" max="1.15" step="0.05" style="max-width:320px"><div class="row"><button class="btn small ghost" id="testV">Test voice</button></div></div>
     <div class="stack tight"><strong>Placement</strong><p class="small muted">Retake the placement test to reset your starting levels. Your other results stay.</p><div class="row"><button class="btn small" id="retake">Retake placement</button></div></div>
+    ${SYNC.on()?`<div class="stack tight"><strong>Sync with your teacher</strong><p class="small" id="syncMsg" role="status">${SYNC.err?esc(SYNC.err):S.synced?`Last sent ${esc(fmtDate(S.synced))}, ${esc(new Date(S.synced).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}))}.`:"Not sent yet."}</p><div class="row"><button class="btn small" id="syncNow">Send now</button></div></div>`:""}
     <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span>${BUNDLE.label?` · licensed to ${esc(BUNDLE.label)}`:""}${BUNDLE.exp?` · access until <b>${esc(fmtLong(BUNDLE.exp))}</b>`:""}</p><p class="small muted">${SYNC.url()?`Your progress is sent to your teacher automatically${S.synced?` (last sent ${esc(fmtDate(S.synced))}, ${esc(new Date(S.synced).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}))})`:""}. Removing the course clears it from this device only; enter the same code again to bring it back.`:"Removing the course deletes all progress on this device. Send your progress to your teacher first."}</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
   </div>`;
   $("#acc").value=S.settings.accent||"en-GB";
@@ -1957,6 +1960,7 @@ function viewSettings(){
   $("#spd").oninput=e=>{S.settings.speed=Number(e.target.value);$("#spdv").textContent=Math.round(S.settings.speed*100)+"%";save();};
   $("#testV").onclick=()=>TTS.say("Over the last twenty years, the way we live has changed dramatically.","en-GB","female");
   $("#retake").onclick=()=>go(viewPlacementIntro);
+  if($("#syncNow")) $("#syncNow").onclick=async e=>{ const b=e.currentTarget; b.disabled=true; b.textContent="Sending…"; clearTimeout(SYNC.timer); SYNC.timer=null; while(SYNC.busy) await new Promise(r=>setTimeout(r,200)); const ok=await SYNC.push(); if(!b.isConnected) return; b.disabled=false; b.textContent="Send now"; $("#syncMsg").textContent=ok?"Sent just now. Check your sheet.":SYNC.err; };
   $("#out").onclick=e=>{ const b=e.currentTarget; if(b.dataset.armed){ try{localStorage.removeItem(SKEY);}catch(x){} location.reload(); } else { b.dataset.armed="1"; b.classList.add("armed"); b.textContent="Tap again to remove"; T.later(()=>{ if(b.isConnected){ delete b.dataset.armed; b.classList.remove("armed"); b.textContent="Remove course from this device"; } },3500); } };
 }
 
