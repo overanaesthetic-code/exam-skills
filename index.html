@@ -14,7 +14,7 @@
   --bg:#ffffff; --surface:#fbf7fa; --ink:#151217; --muted:#6c6370; --line:#ece4ea;
   --accent:#FF2E93; --accent-ink:#ffffff; --accent-soft:#ffe6f2;
   --good:#0d8458; --good-soft:#e3f5ec; --bad:#c62f2f; --bad-soft:#fdeaea; --warn:#9a6a00; --warn-soft:#fff4d6; --hl:#fff1a8;
-  --t1:#FF2E93; --t2:#2a6fd6; --t3:#0d8458; --t4:#b26b00;
+  --t1:#FF2E93; --t2:#2a6fd6; --t3:#0d8458; --t4:#b26b00; --warm:#b3aaa1;
   --display:"Bebas Neue","Oswald","Arial Narrow",Impact,sans-serif;
   --body:"Manrope",system-ui,-apple-system,"Segoe UI",sans-serif;
   --mono:"IBM Plex Mono",ui-monospace,"SFMono-Regular",Menlo,monospace;
@@ -23,11 +23,11 @@
 @media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
   --bg:#121014; --surface:#1b171d; --ink:#f5eff3; --muted:#a79ead; --line:#2d2730;
   --accent:#ff53a6; --accent-ink:#1c0611; --accent-soft:#3a1529;
-  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; --t1:#ff53a6; --t2:#7fb0ff; --t3:#52d49d; --t4:#f0c040; color-scheme:dark}}
+  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; --t1:#ff53a6; --t2:#7fb0ff; --t3:#52d49d; --t4:#f0c040; --warm:#6f665e; color-scheme:dark}}
 :root[data-theme="dark"]{
   --bg:#121014; --surface:#1b171d; --ink:#f5eff3; --muted:#a79ead; --line:#2d2730;
   --accent:#ff53a6; --accent-ink:#1c0611; --accent-soft:#3a1529;
-  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; --t1:#ff53a6; --t2:#7fb0ff; --t3:#52d49d; --t4:#f0c040; color-scheme:dark}
+  --good:#52d49d; --good-soft:#123024; --bad:#ff8080; --bad-soft:#3b1718; --warn:#f0c040; --warn-soft:#3a2f10; --hl:#5a4a12; --t1:#ff53a6; --t2:#7fb0ff; --t3:#52d49d; --t4:#f0c040; --warm:#6f665e; color-scheme:dark}
 
 *{box-sizing:border-box}
 html,body{margin:0}
@@ -511,6 +511,28 @@ ins{color:var(--good);text-decoration:none;font-weight:700;background:var(--good
 .hare .h-line.thin{stroke-width:1.2}
 .hare .h-arm{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
 @media (max-width:420px){.meme-row{grid-template-columns:64px 1fr}.hare{width:64px;height:64px}}
+
+/* ---- tip deck: one idea per screen ---- */
+.deck{max-width:780px;display:grid;gap:16px;outline:none}
+.deck-top{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap}
+.dots{display:flex;gap:6px;flex-wrap:wrap}
+.dot{width:10px;height:10px;border-radius:50%;border:0;padding:0;background:var(--line);cursor:pointer}
+.dot.on{background:var(--accent);width:26px;border-radius:5px}
+.deck .tip{border:1.5px solid var(--ink);border-radius:20px;padding:clamp(20px,4vw,36px);min-height:min(56vh,480px);align-content:center;gap:22px}
+.deck .tip h3{font-size:clamp(30px,5vw,44px)}
+.deck .tip-say{font-size:17px}
+.deck .v-pairs,.deck .v-step b,.deck .v-dd ul,.deck .legend{font-size:16px}
+.deck .v-anat p{font-size:17px}
+.deck-nav{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap}
+/* ---- task navigation ---- */
+.dnav{display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.dnav select{flex:1;min-width:0;max-width:480px;padding:6px 10px;font-size:14px}
+/* ---- memory card back ---- */
+.mem{background:var(--warm);border:0;color:var(--ink)}
+.mem .haremark{width:44%;max-width:64px;fill:#fff}
+.mem.flip{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
+.mem.flip.s1{background:var(--accent-soft)}
+.mem.done{background:var(--good-soft);color:var(--good);border:1.5px solid var(--good)}
 </style>
 </head>
 <body>
@@ -1196,7 +1218,7 @@ function viewVocab(uid,sid,tab){
       <h1>${esc(sec.title)}</h1>
       <div class="seg" role="group" aria-label="Word set">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${t===(S.tier.language||"B2")?"your level":"word set"}</span></button>`).join("")}</div>
       <div class="steps" role="tablist"><button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips</button><button role="tab" data-tab="train" aria-selected="${tab==="train"}">Train</button><button role="tab" data-tab="list" aria-selected="${tab==="list"}">Word list</button></div>
-      ${tab==="tips"?`<div class="tips" id="tipsbox">${[{v:"cloud",title:"This unit’s words",say:"Bigger and pink = more advanced. Tap a word to see what it means.",ids:ids}].concat(sec.learn||[]).map(c=>tipHTML(c,U)).join("")}</div><div class="row"><button class="btn primary" data-tab="train">Start training</button></div>`:tab==="train"?`<div class="card soft stack">
+      ${tab==="tips"?`<div id="tipsbox">${deckHTML([{v:"cloud",title:"This unit’s words",say:"Bigger and pink = more advanced. Tap a word to see what it means.",ids:ids}].concat(sec.learn||[]),U,"Start training →")}</div>`:tab==="train"?`<div class="card soft stack">
         <div class="row" style="gap:28px"><div><span class="label">New</span><h2>${neu}</h2></div><div><span class="label">Due now</span><h2>${due}</h2></div><div><span class="label">Mastered</span><h2>${mastered}/${words.length}</h2></div></div>
         <p class="small">Each word goes through up to six steps: meaning, recall, spelling in context, word family, word partners and paraphrase. Words come back after 1, 3, 7 and 21 days.</p>
         <div class="row"><button class="btn primary" id="startV" ${neu+due===0?"disabled":""}>${neu+due===0?"Nothing due. Come back later":"Start a session"}</button></div>
@@ -1204,7 +1226,7 @@ function viewVocab(uid,sid,tab){
     </div>`;
     $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
     $$("[data-tab]").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;draw();});
-    if($("#tipsbox")) bindTips($("#tipsbox"));
+    if($("#tipsbox")) bindDeck($("#tipsbox"),1+(sec.learn||[]).length,"Start training →",()=>{tab="train";draw();});
     $("#leave").onclick=()=>go(viewUnit,uid);
     if($("#startV")) $("#startV").onclick=()=>{
       const n=(sec.newPerSession||{})[tier]||8;
@@ -1299,7 +1321,7 @@ const THESIS_RE=/\b(I (strongly |partly |completely |firmly |largely )?(believe|
 const OPINION_RE=/\b(I think|I believe|in my opinion|I feel|in my view|I agree|I disagree)\b/i;
 const OVERVIEW_RE=/\b(overall|in general|it is clear|it is noticeable|generally speaking|on the whole)\b/i;
 const TREND_RE=/\b(rose|rise[sn]?|rising|increas\w*|grew|grow[sn]?|growth|climb\w*|fell|fall\w*|declin\w*|decreas\w*|drop\w*|remain\w* (stable|steady|constant)|level\w* off|peak\w*|fluctuat\w*|doubl\w*|tripl\w*|halv\w*|plateau\w*)\b/gi;
-const IRREG={rose:"rise|rises|rising|risen|rose",fell:"fall|falls|falling|fallen|fell",grew:"grow|grows|growing|grown|grew",rise:"rise|rises|rising|risen|rose",fall:"fall|falls|falling|fallen|fell",grow:"grow|grows|growing|grown|grew"};
+const IRREG={give:"give|gives|giving|gave|given",pose:"pose|poses|posed|posing",be:"be|is|are|was|were|been|being",rose:"rise|rises|rising|risen|rose",fell:"fall|falls|falling|fallen|fell",grew:"grow|grows|growing|grown|grew",rise:"rise|rises|rising|risen|rose",fall:"fall|falls|falling|fallen|fell",grow:"grow|grows|growing|grown|grew"};
 function bankRe(ph){
   const ws=String(ph).toLowerCase().replace(/[,.]/g,"").trim().split(/\s+/);
   const q=w=>w.replace(/[.*+?^${}()|[\]\\]/g,"\\$&");
@@ -1430,7 +1452,10 @@ async function languageTool(text){
 /* =========================================================
    VISUAL TIPS
    ========================================================= */
-function findWord(id){ for(const k of Object.keys(MODULES)){ const w=(MODULES[k].words||[]).find(x=>x.id===id); if(w) return w; } return null; }
+const PHRASES={};
+function activeList(U,ids){ return (ids||[]).map(x=>{ if(typeof x==="string") return U.words.find(w=>w.id===x); const w={id:"ph:"+x.t,word:x.t,def:x.d||"",pos:"phrase",cefr:x.cefr||"C1",phrase:true}; PHRASES[w.id]=w; return w; }).filter(Boolean); }
+function activeUsed(list,text){ const low=tokenize(text); return list.filter(w=>w.phrase?bankRe(w.word).test(text):wordUsed(w,low)).map(w=>w.id); }
+function findWord(id){ if(PHRASES[id]) return PHRASES[id]; for(const k of Object.keys(MODULES)){ const w=(MODULES[k].words||[]).find(x=>x.id===id); if(w) return w; } return null; }
 function showDef(id){
   const w=findWord(id); if(!w) return;
   $$(".defpop").forEach(x=>x.remove());
@@ -1486,9 +1511,24 @@ const TIPV={
   timeline:c=>timelineSVG(c),
   anatomy:c=>anatomyHTML(c.parts),
   compare:c=>`<div class="v-cmp">${c.cols.map(col=>`<div class="stack tight"><strong>${esc(col.h)}</strong>${col.sub?`<span class="small muted"><i>${esc(col.sub)}</i></span>`:""}${col.parts?anatomyHTML(col.parts):`<ul class="small">${(col.items||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}</div>`).join("")}</div>`,
-  cloud:(c,U)=>cloudHTML(c.ids?c.ids.map(id=>U.words.find(w=>w.id===id)).filter(Boolean):(U.words||[]))
+  cloud:(c,U)=>cloudHTML(c.ids?activeList(U,c.ids):(U.words||[]))
 };
 function tipHTML(c,U){ const f=TIPV[c.v]; return `<article class="tip tip-${esc(c.v)}"><div class="stack tight"><h3>${esc(c.title)}</h3>${c.say?`<p class="tip-say">${esc(c.say)}</p>`:""}</div>${f?f(c,U):""}</article>`; }
+function deckHTML(cards,U,doneLabel){
+  return `<div class="deck" tabindex="-1"><div class="deck-top"><span class="label">Tip <b class="dk-n">1</b> of ${cards.length}</span><div class="dots" role="tablist">${cards.map((c,i)=>`<button type="button" class="dot ${i?"":"on"}" data-dot="${i}" aria-label="${esc(c.title)}" title="${esc(c.title)}"></button>`).join("")}</div></div>
+    <div class="deck-stage">${cards.map((c,i)=>`<div class="deck-card" data-k="${i}" ${i?"hidden":""}>${tipHTML(c,U)}</div>`).join("")}</div>
+    <div class="deck-nav"><button type="button" class="btn ghost dk-prev" disabled>← Previous</button><button type="button" class="btn primary dk-next">${cards.length>1?"Next tip →":esc(doneLabel)}</button></div></div>`;
+}
+function bindDeck(root,n,doneLabel,onDone){
+  const deck=$(".deck",root); if(!deck) return; let i=0;
+  const show=k=>{ i=Math.max(0,Math.min(n-1,k)); $$(".deck-card",deck).forEach(c=>c.hidden=+c.dataset.k!==i); $$(".dot",deck).forEach(d=>d.classList.toggle("on",+d.dataset.dot===i)); $(".dk-n",deck).textContent=i+1; $(".dk-prev",deck).disabled=i===0; $(".dk-next",deck).textContent=i===n-1?doneLabel:"Next tip →"; };
+  $(".dk-prev",deck).onclick=()=>show(i-1);
+  $(".dk-next",deck).onclick=()=>{ if(i===n-1) onDone(); else { show(i+1); deck.scrollIntoView({block:"nearest",behavior:"smooth"}); } };
+  $$(".dot",deck).forEach(d=>d.onclick=()=>show(+d.dataset.dot));
+  deck.addEventListener("keydown",e=>{ if(e.key==="ArrowRight") show(i+1); if(e.key==="ArrowLeft") show(i-1); });
+  let x0=null; deck.addEventListener("touchstart",e=>{x0=e.touches[0].clientX;},{passive:true}); deck.addEventListener("touchend",e=>{ if(x0===null) return; const dx=e.changedTouches[0].clientX-x0; if(Math.abs(dx)>60&&!e.target.closest("button,input,select,textarea")) show(i+(dx<0?1:-1)); x0=null; });
+  bindTips(deck);
+}
 function bindTips(root){
   $$("[data-demo]",root).forEach(b=>b.onclick=()=>{
     const d=b.closest(".tip").querySelector(".v-demo"), ms=$$("mark",d);
@@ -1544,7 +1584,7 @@ function viewSectionStart(uid,sid,tab){
   const draw=()=>{
     const tabs=(learn.length||train.length)?`<div class="steps" role="tablist">${learn.length?`<button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips <span class="n">${learn.length}</span></button>`:""}${train.length?`<button role="tab" data-tab="train" aria-selected="${tab==="train"}">Training <span class="n">${done}/${train.length}</span></button>`:""}<button role="tab" data-tab="task" aria-selected="${tab==="task"}">${sec.type==="speaking"?"Speaking practice":"Exam task"}</button></div>`:"";
     let body="";
-    if(tab==="tips") body=`<div class="tips" id="tipsbox">${learn.map(c=>tipHTML(c,U)).join("")}</div><div class="row">${train.length?`<button class="btn primary" data-tab="train">Go to training</button>`:`<button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button>`}</div>`;
+    if(tab==="tips") body=`<div id="tipsbox">${deckHTML(learn,U,train.length?"Go to training →":"Go to the task →")}</div>`;
     else if(tab==="train") body=`<div class="seclist">${train.map((d,ti)=>{const b=drillBest(uid,sid,d.id);return `${d.group&&(ti===0||train[ti-1].group!==d.group)?`<div class="tgroup"><span class="label">${esc(d.group)}</span></div>`:""}<div class="secrow"><span class="label">${esc(DRILL_KIND[d.kind]||d.kind)}</span><div class="meta"><h3>${esc(d.title)}</h3><p class="small muted">${esc(d.goal||"")}</p></div><div class="act row">${b!==null?`<span class="chip good">Best ${b}%</span>`:""}<button class="btn small ${b!==null?"ghost":"primary"}" data-drill="${esc(d.id)}">${b!==null?"Again":"Start"}</button></div></div>`;}).join("")}</div><div class="row"><button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button></div>`;
     else {
       const modes=sec.type==="reading";
@@ -1565,7 +1605,7 @@ function viewSectionStart(uid,sid,tab){
     $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw();});
     if($("#go")) $("#go").onclick=()=>{ const f={practice:runPractice,reading:runReading,listening:runListening,speaking:runSpeaking,writing:runWriting}[sec.type]; go(f,U,sec,tier,mode); };
     $("#back").onclick=()=>go(viewUnit,uid);
-    if($("#tipsbox")) bindTips($("#tipsbox"));
+    if($("#tipsbox")) bindDeck($("#tipsbox"),learn.length,train.length?"Go to training →":"Go to the task →",()=>{tab=train.length?"train":"task";draw();window.scrollTo(0,0);});
   };
   draw();
 }
@@ -1574,11 +1614,15 @@ function viewSectionStart(uid,sid,tab){
    TRAINING DRILLS
    ========================================================= */
 function drillFrame(U,sec,d,inner){
+  const list=sec.train||[], k=list.findIndex(x=>x.id===d.id), prev=list[k-1], next=list[k+1];
   app.innerHTML=`<div class="wrap stack" style="gap:18px">
-    <div class="row between"><span class="label">${esc(sec.title)} · Training · ${esc(DRILL_KIND[d.kind]||"")}</span><button class="link small" id="dleave">All training</button></div>
+    <div class="row between"><span class="label">${esc(sec.title)} · Training ${k+1} of ${list.length} · ${esc(DRILL_KIND[d.kind]||"")}</span><button class="link small" id="dleave">All training</button></div>
+    <nav class="dnav" aria-label="Training tasks"><button type="button" class="btn small ghost" id="dprev" ${prev?"":"disabled"}>‹ Previous</button><select id="djump" aria-label="Go to a task">${list.map((x,i)=>`<option value="${i}" ${i===k?"selected":""}>${i+1}. ${esc(x.title)}</option>`).join("")}</select><button type="button" class="btn small" id="dnextt" ${next?"":"disabled"}>Next ›</button></nav>
     <h2>${esc(d.title)}</h2>${d.goal?`<p class="prose">${esc(d.goal)}</p>`:""}
     <div id="dbody" class="stack">${inner||""}</div><div id="dfoot"></div></div>`;
   $("#dleave").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
+  $("#dprev").onclick=()=>prev&&go(runDrill,U,sec,prev); $("#dnextt").onclick=()=>next&&go(runDrill,U,sec,next);
+  $("#djump").onchange=e=>go(runDrill,U,sec,list[+e.target.value]);
 }
 function drillEnd(U,sec,d,pct,msg){
   const key=U.id+":"+sec.id+":"+d.id; (S.results[key]=S.results[key]||[]).push({pct:Math.round(pct*100),date:Date.now(),mode:"train"}); save();
@@ -1736,7 +1780,7 @@ function drillWrite(U,sec,d){
     const ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx};
     const res=(d.checks||[]).filter(k=>AUTO[k]).map(k=>({k,ok:AUTO[k].f(text,ctx)}));
     const A=analyseEssay(text,{unitWords:U.words,lt,checks:null,task:sec.task,bank:sec.bank?sec.bank.flatMap(g=>g.w):null});
-    const act=(sec.active||[]).map(id=>U.words.find(w=>w.id===id)).filter(Boolean), low=tokenize(text), uw=act.filter(w=>wordUsed(w,low)), al=alertsIn(text);
+    const act=activeList(U,sec.active), uids=activeUsed(act,text), uw=act.filter(w=>uids.includes(w.id)), al=alertsIn(text);
     const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
     const pct=res.length?res.filter(r=>r.ok).length/res.length:1;
     $("#dwr").innerHTML=`<div class="card stack">
@@ -1875,11 +1919,12 @@ function drillUpgrade(U,sec,d){
   draw();
 }
 /* ---- memory (flip pairs) ---- */
+const hareMark=()=>`<svg class="haremark" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="25" cy="16" rx="4.6" ry="14" transform="rotate(-12 25 30)"/><ellipse cx="36" cy="15" rx="4.6" ry="14" transform="rotate(10 36 30)"/><circle cx="31" cy="33" r="10.5"/><ellipse cx="31" cy="50" rx="15.5" ry="11"/><circle cx="46" cy="53" r="4"/></svg>`;
 function drillMemory(U,sec,d){
   const cards=shuffle(d.pairs.flatMap(([a,b],i)=>[{t:a,p:i,s:0},{t:b,p:i,s:1}])); let open=[], matched=new Set(), moves=0, lock=false;
   drillFrame(U,sec,d,`<div class="row between"><span class="label">Find the pairs</span><span class="label" id="mv">0 moves</span></div><div class="memgrid" id="mg"></div>`);
   const draw=()=>{
-    $("#mg").innerHTML=cards.map((c,k)=>{ const show=open.includes(k)||matched.has(c.p); return `<button type="button" class="mem ${show?"flip":""} ${matched.has(c.p)?"done":""} s${c.s}" data-m="${k}" aria-label="${show?esc(c.t):"Hidden card"}">${show?esc(c.t):`<span class="memback">От зайца</span>`}</button>`; }).join("");
+    $("#mg").innerHTML=cards.map((c,k)=>{ const show=open.includes(k)||matched.has(c.p); return `<button type="button" class="mem ${show?"flip":""} ${matched.has(c.p)?"done":""} s${c.s}" data-m="${k}" aria-label="${show?esc(c.t):"Hidden card"}">${show?esc(c.t):hareMark()}</button>`; }).join("");
     $("#mv").textContent=`${moves} move${moves===1?"":"s"} · ${matched.size}/${d.pairs.length} pairs`;
     $$("[data-m]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.m; if(lock||open.includes(k)||matched.has(cards[k].p)) return; open.push(k);
       if(open.length===2){ moves++; const [a,b2]=open; if(cards[a].p===cards[b2].p&&a!==b2){ matched.add(cards[a].p); open=[]; draw(); if(matched.size===d.pairs.length) drillEnd(U,sec,d,Math.min(1,d.pairs.length/moves),`${moves} moves. A perfect game takes ${d.pairs.length}.`); return; }
@@ -1935,7 +1980,7 @@ function drillSentpick(U,sec,d){
    STYLE ALERTS · the hare meme
    ========================================================= */
 const ALERTS=[
-  {k:"ithink",re:/\bI think\b/gi,nope:"I think…",yes:["It could be argued that…","I would argue that…","From my perspective,…","It seems clear to me that…"],note:"Fine when you speak. In an essay it sounds too casual."},
+  {k:"ithink",re:/\bI think\b/gi,nope:"I think…",yes:["I would contend that…","It could be argued that…","There is a compelling case for…","It is my firm conviction that…"],note:"Fine when you speak. In an essay it sounds too casual."},
   {k:"alot",re:/\b(a lot of|lots of)\b/gi,nope:"a lot of…",yes:["a great deal of (+ uncountable)","a large number of (+ plural)","a significant proportion of"],note:"Too informal for academic writing."},
   {k:"very",re:/\bvery (important|big|bad|good|small|difficult|interesting|hard|happy)\b/gi,nope:"very + adjective",yes:["very important → crucial, vital","very big → substantial, considerable","very bad → detrimental, severe","very good → highly beneficial","very difficult → challenging"],note:"One precise word beats two weak ones."},
   {k:"goodbad",re:/\b(good|bad)\b/gi,min:2,nope:"good / bad",yes:["beneficial, advantageous","harmful, detrimental","a positive / negative development"],note:"Use precise words to evaluate."},
@@ -2100,15 +2145,15 @@ function runWriting(U,sec,tier){
   if(!Array.isArray(sec.checklist)) sec=Object.assign({},sec,{checklist:DEFAULT_CHECKLIST});
   const W=sec.tiers[tier], task1=sec.task===1, ch=W.chart&&sec.charts?sec.charts[W.chart]:null;
   const dkey=U.id+":"+sec.id+":"+tier, bank=sec.bank||null, structure=(sec.learn||[]).find(c=>c.v==="blocks");
-  const active=(sec.active||[]).map(id=>U.words.find(w=>w.id===id)).filter(Boolean), dismissed=new Set();
-  const usedNow=t=>{ const low=tokenize(t); return active.filter(w=>wordUsed(w,low)).map(w=>w.id); };
+  const active=activeList(U,sec.active), dismissed=new Set();
+  const usedNow=t=>activeUsed(active,t);
   app.innerHTML=`<div class="wrap stack" style="gap:16px">
     <div class="row between"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier}</span><button class="link small" id="leave">Leave</button></div>
     <div class="wlayout">
       <aside class="wside">
         <div class="card stack tight"><span class="label">${esc(W.type||"")}${W.time?` · ${W.time} min`:""} · ${W.target}+ words</span><p class="wtask" style="font-size:16px">${esc(W.task)}</p></div>
         ${ch?`<div class="card">${chartSVG(ch)}</div>`:""}
-        ${active.length?`<details class="more" open><summary>Unit words · <span id="avc">0/${active.length}</span> used</summary><div id="avcloud">${cloudHTML(active,[])}</div><p class="small muted">Words turn green as you use them in your essay. Tap one to see its meaning.</p></details>`:""}
+        ${active.length?`<details class="more" open><summary>Words to use · <span id="avc">0/${active.length}</span> used</summary><div id="avcloud">${cloudHTML(active,[])}</div><p class="small muted">Words turn green as you use them in your essay. Tap one to see its meaning.</p></details>`:""}
         ${bank?`<details class="more" ${tier!=="C1"?"open":""}><summary>Word bank · tap to insert</summary><div class="bank">${bank.map(g=>`<div class="grp"><b>${esc(g.h)}</b>${g.w.map(w=>`<button type="button" data-ins="${esc(w)}">${esc(w)}</button>`).join("")}</div>`).join("")}</div></details>`:""}
       </aside>
       <section class="wmain">
@@ -2155,7 +2200,7 @@ function viewWritingReport(U,sec,tier,text,A,ltErr,before){
     <div class="score"><div class="big">${A.overall}</div><div class="stack tight"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier} · CEFR estimate</span><h2>Indicative IELTS ${BAND[A.overall]}</h2><p class="muted">Your next writing tasks will be at ${S.tier.writing}.${before&&before!==A.overall?` (Before: ${before})`:""} This is an automatic estimate. Your teacher’s feedback counts more.</p></div></div>
     ${ltErr?`<p class="note warn">The grammar and spelling service didn’t respond (${esc(ltErr.message||"offline")}), so accuracy wasn’t measured. Try again later for a full check.</p>`:""}
     <section class="crit">${CRIT.map(([k,n])=>`<div class="card"><div class="row between"><strong>${n}</strong><span class="chip ${li(A.levels[k])>=2?"lv":""}">${A.levels[k]}</span></div><ul>${A.reasons[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul>${A.tips[k].length?`<div class="stack tight"><span class="label">To improve</span><ul>${A.tips[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>`:""}</div>`).join("")}</section>
-    ${A.vocab&&(A.vocab.used.length+A.vocab.unused.length)?`<section class="card stack tight"><div class="row between"><strong>Active vocabulary from this unit</strong><span class="chip ${A.vocab.used.length>=5?"good":A.vocab.used.length>=3?"lv":"warn"}">${A.vocab.used.length}/${A.vocab.used.length+A.vocab.unused.length} used</span></div>${A.vocab.used.length?`<div class="ideas">${A.vocab.used.map(w=>`<span style="border-color:var(--good);color:var(--good)">✓ ${esc(w.word)}</span>`).join("")}</div>`:""}${A.vocab.unused.length?`<p class="small muted">Try next time: ${A.vocab.unused.slice(0,8).map(w=>esc(w.word)).join(", ")}</p>`:""}</section>`:""}
+    ${A.vocab&&(A.vocab.used.length+A.vocab.unused.length)?`<section class="card stack tight"><div class="row between"><strong>Active vocabulary</strong><span class="chip ${A.vocab.used.length>=5?"good":A.vocab.used.length>=3?"lv":"warn"}">${A.vocab.used.length}/${A.vocab.used.length+A.vocab.unused.length} used</span></div>${A.vocab.used.length?`<div class="ideas">${A.vocab.used.map(w=>`<span style="border-color:var(--good);color:var(--good)">✓ ${esc(w.word)}</span>`).join("")}</div>`:""}${A.vocab.unused.length?`<p class="small muted">Try next time: ${A.vocab.unused.slice(0,8).map(w=>esc(w.word)).join(", ")}</p>`:""}</section>`:""}
     ${A.alerts&&A.alerts.length?`<section class="stack tight"><span class="label">Style alerts</span>${A.alerts.map(x=>`<details class="more"><summary>“${esc(x.a.nope)}” · ${x.n} time${x.n>1?"s":""}</summary>${memeHTML(x.a,false)}</details>`).join("")}</section>`:""}
     <section class="stack"><div class="row between"><span class="label">Your answer${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
     ${issues.length?`<section class="stack tight issues"><span class="label">Corrections from LanguageTool</span>${issues.slice(0,30).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</section>`:""}
