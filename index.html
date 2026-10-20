@@ -735,7 +735,63 @@ const SKEY="ielts-ladder:v1";
 function freshState(){return {v:1,code:null,placement:null,profile:{},tier:{},support:false,results:{},words:{},qtypes:{},essays:[],speaking:[],cando:{},checks:{},drafts:{},settings:{accent:"en-GB",speed:1}};}
 let S=freshState(), PREVIEW=false;
 function loadState(){try{const r=localStorage.getItem(SKEY);if(r){const o=JSON.parse(r);if(o&&o.v===1)S=Object.assign(freshState(),o);}}catch(e){}}
-function save(){if(PREVIEW)return;try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
+function store(){if(PREVIEW)return;try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
+function save(){if(PREVIEW)return;S.at=Date.now();store();SYNC.soon();}
+
+/* ---------- teacher sync: Google Sheets (optional, off when config.sync.url is empty) ----------
+   Sends this code's progress to the teacher's Apps Script web app and restores it on a new device.
+   Only the access code and the teacher's own label travel; no name or email is asked for. */
+const SYNC={
+  timer:null, busy:false, again:false, err:"",
+  url(){ return (CONFIG.sync&&String(CONFIG.sync.url||"").trim())||""; },
+  on(){ return !!this.url() && !PREVIEW && !!S.code && S.code!=="PREVIEW"; },
+  body(){
+    const units={}; UNITS.forEach(u=>{units[u.id]=u.title;});
+    const sections={}; for(const [id,M] of Object.entries(MODULES)){ if(M&&M.sections) M.sections.forEach(x=>{sections[id+":"+x.id]=x.title||x.id;}); }
+    return JSON.stringify({v:1,code:fmtCode(S.code),label:BUNDLE.label||"",at:S.at||Date.now(),units,sections,state:S});
+  },
+  soon(){ if(!this.on()) return; clearTimeout(this.timer); this.timer=setTimeout(()=>{this.timer=null;this.push();},5000); },
+  flush(){ /* page is being hidden: send what is pending without waiting for an answer */
+    if(!this.on()||!this.timer) return; clearTimeout(this.timer); this.timer=null;
+    const b=this.body();
+    if(navigator.sendBeacon && b.length<60000){ try{ if(navigator.sendBeacon(this.url(),new Blob([b],{type:"text/plain;charset=utf-8"}))) return; }catch(e){} }
+    try{ fetch(this.url(),{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b,keepalive:b.length<60000}); }catch(e){}
+  },
+  async push(){
+    if(!this.on()) return false;
+    if(this.busy){ this.again=true; return false; }
+    this.busy=true; let ok=false;
+    try{
+      const r=await fetch(this.url(),{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:this.body()});
+      const txt=await r.text(); let j=null; try{ j=JSON.parse(txt); }catch(e){}
+      if(!j) this.err=`The sheet answered with a web page instead of data (HTTP ${r.status}). Usually the web app isn’t set to “Who has access: Anyone”, or the code was changed without deploying a new version.`;
+      else if(!j.ok) this.err="The sheet script reported: "+(j.error||"unknown error");
+      else { ok=true; this.err=""; S.synced=Date.now(); store(); }
+    }catch(e){ this.err="Couldn’t reach the sheet: "+(e&&e.message||e)+". Check the connection, or that the web app URL in config.json is right."; console.warn("Sync failed",e); }
+    this.busy=false;
+    if(this.again){ this.again=false; this.soon(); }
+    else if(!ok){ clearTimeout(this.timer); this.timer=setTimeout(()=>{this.timer=null;this.push();},60000); }
+    return ok;
+  },
+  /* fetch the saved copy; adopt it if this device has nothing yet or the saved copy is newer */
+  async pull(){
+    if(!this.on()) return false;
+    const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),6000);
+    try{
+      const u=this.url(); const r=await fetch(u+(u.includes("?")?"&":"?")+"code="+encodeURIComponent(fmtCode(S.code)),{signal:ctl.signal});
+      const j=await r.json(); clearTimeout(t);
+      if(!j||!j.ok||!j.state||typeof j.state!=="object") return false;
+      const blank=!S.placement && !Object.keys(S.results||{}).length && !(S.essays||[]).length;
+      if(blank || (j.state.at||0)>(S.at||0)){
+        const keep=blank?{code:S.code}:{code:S.code,settings:S.settings};
+        S=Object.assign(freshState(),j.state,keep); store(); return true;
+      }
+    }catch(e){ clearTimeout(t); console.warn("Restore skipped",e); }
+    return false;
+  }
+};
+document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") SYNC.flush(); });
+window.addEventListener("pagehide",()=>SYNC.flush());
 
 /* ---------- crypto (AES-GCM + PBKDF2, Web Crypto) ---------- */
 const enc=new TextEncoder(), dec=new TextDecoder();
@@ -893,6 +949,7 @@ async function boot(){
     if(r.error){ S.code=null; save(); return go(viewGate,r.error==="expired"?`Your access ended on ${fmtLong(r.exp)}. Ask your teacher to renew it, then enter your code again.`:"This code is no longer active. Please check with your teacher."); }
   }catch(e){ return go(viewProblem,e); }
   await preloadModules();
+  await SYNC.pull();
   go(S.placement?viewHome:viewPlacementIntro);
 }
 function viewLoading(msg){app.innerHTML=`<div class="loader"><span class="label">${esc(msg)}</span></div>`;}
@@ -912,7 +969,7 @@ function viewGate(msg){
       <div class="err" id="gateErr" role="alert">${esc(msg||"")}</div>
       <div class="row"><button class="btn primary" type="submit" id="gateBtn">Open my course</button></div>
     </form>
-    <p class="small muted">Your progress is saved on this device only. No name or email is needed.</p>
+    <p class="small muted">${CONFIG.sync&&CONFIG.sync.url?"Your progress is saved on this device and sent to your teacher, so you can continue on another device with the same code.":"Your progress is saved on this device only."} No name or email is needed.</p>
     <details class="more small"><summary>For teachers: preview a content file</summary>
       <p class="muted">Open a plain unit or placement file from your source folder to check it before you encrypt it. Nothing is uploaded.</p>
       <p style="margin-top:10px"><input type="file" id="pvFile" accept=".json,application/json"></p>
@@ -926,8 +983,10 @@ function viewGate(msg){
     try{
       const r=await openCourse(code);
       if(r.error){ $("#gateErr").textContent=r.error==="expired"?`This code’s access ended on ${fmtLong(r.exp)}. Ask your teacher to renew it.`:"We couldn’t find that code. Check the letters and numbers, or ask your teacher."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; return; }
-      S.code=code; save();
+      S.code=code; store();
       viewLoading("Opening your course"); await preloadModules();
+      if(await SYNC.pull()) toast("Welcome back. Your progress was restored.");
+      else save();
       go(S.placement?viewHome:viewPlacementIntro);
     }catch(e){ $("#gateErr").textContent="The course didn’t load. Check your connection and try again."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; }
   };
@@ -2587,7 +2646,7 @@ async function progressCode(){
 async function viewSend(){
   app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
     <span class="label">Send progress</span><h1>Share your progress</h1>
-    <p class="prose">This code contains your scores, levels and essays. It doesn’t include your name. Copy it and send it to ${esc(CONFIG.teacherName||"your teacher")}${CONFIG.teacherContact?` (${esc(CONFIG.teacherContact)})`:""} in a message.</p>
+    <p class="prose">This code contains your scores, levels and essays. It doesn’t include your name. Copy it and send it to ${esc(CONFIG.teacherName||"your teacher")}${CONFIG.teacherContact?` (${esc(CONFIG.teacherContact)})`:""} in a message.${SYNC.url()?" Your teacher also receives your progress automatically, so this is only a backup.":""}</p>
     <textarea id="pcode" rows="6" readonly style="font-family:var(--mono);font-size:12px" aria-label="Your progress code">Preparing…</textarea>
     <div class="row"><button class="btn primary" id="copy">Copy code</button><span class="small muted" id="cmsg" role="status"></span></div>
   </div>`;
@@ -2601,7 +2660,8 @@ function viewSettings(){
     <div class="stack tight"><label for="acc"><strong>Voice accent for listening</strong></label><select id="acc" style="max-width:320px"><option value="en-GB">British English</option><option value="en-US">American English</option><option value="en-AU">Australian English</option><option value="any">Mixed (as written in the unit)</option></select><span class="small muted">Voices come from your device, so quality varies. Chrome and Safari usually have the best voices.</span></div>
     <div class="stack tight"><label for="spd"><strong>Speech speed</strong> <span class="muted" id="spdv"></span></label><input type="range" id="spd" min="0.8" max="1.15" step="0.05" style="max-width:320px"><div class="row"><button class="btn small ghost" id="testV">Test voice</button></div></div>
     <div class="stack tight"><strong>Placement</strong><p class="small muted">Retake the placement test to reset your starting levels. Your other results stay.</p><div class="row"><button class="btn small" id="retake">Retake placement</button></div></div>
-    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span>${BUNDLE.label?` · licensed to ${esc(BUNDLE.label)}`:""}${BUNDLE.exp?` · access until <b>${esc(fmtLong(BUNDLE.exp))}</b>`:""}</p><p class="small muted">Removing the course deletes all progress on this device. Send your progress to your teacher first.</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
+    ${SYNC.on()?`<div class="stack tight"><strong>Sync with your teacher</strong><p class="small" id="syncMsg" role="status">${SYNC.err?esc(SYNC.err):S.synced?`Last sent ${esc(fmtDate(S.synced))}, ${esc(new Date(S.synced).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}))}.`:"Not sent yet."}</p><div class="row"><button class="btn small" id="syncNow">Send now</button></div></div>`:""}
+    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span>${BUNDLE.label?` · licensed to ${esc(BUNDLE.label)}`:""}${BUNDLE.exp?` · access until <b>${esc(fmtLong(BUNDLE.exp))}</b>`:""}</p><p class="small muted">${SYNC.url()?`Your progress is sent to your teacher automatically${S.synced?` (last sent ${esc(fmtDate(S.synced))}, ${esc(new Date(S.synced).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}))})`:""}. Removing the course clears it from this device only; enter the same code again to bring it back.`:"Removing the course deletes all progress on this device. Send your progress to your teacher first."}</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
   </div>`;
   $("#acc").value=S.settings.accent||"en-GB";
   $("#acc").onchange=e=>{S.settings.accent=e.target.value;save();};
@@ -2609,6 +2669,7 @@ function viewSettings(){
   $("#spd").oninput=e=>{S.settings.speed=Number(e.target.value);$("#spdv").textContent=Math.round(S.settings.speed*100)+"%";save();};
   $("#testV").onclick=()=>TTS.say("Over the last twenty years, the way we live has changed dramatically.","en-GB","female");
   $("#retake").onclick=()=>go(viewPlacementIntro);
+  if($("#syncNow")) $("#syncNow").onclick=async e=>{ const b=e.currentTarget; b.disabled=true; b.textContent="Sending…"; clearTimeout(SYNC.timer); SYNC.timer=null; while(SYNC.busy) await new Promise(r=>setTimeout(r,200)); const ok=await SYNC.push(); if(!b.isConnected) return; b.disabled=false; b.textContent="Send now"; $("#syncMsg").textContent=ok?"Sent just now. Check your sheet.":SYNC.err; };
   $("#out").onclick=e=>{ const b=e.currentTarget; if(b.dataset.armed){ try{localStorage.removeItem(SKEY);}catch(x){} location.reload(); } else { b.dataset.armed="1"; b.classList.add("armed"); b.textContent="Tap again to remove"; T.later(()=>{ if(b.isConnected){ delete b.dataset.armed; b.classList.remove("armed"); b.textContent="Remove course from this device"; } },3500); } };
 }
 
