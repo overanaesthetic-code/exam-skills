@@ -432,6 +432,85 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .credit{font:500 11px var(--mono);letter-spacing:.05em;color:var(--muted);margin-top:8px;user-select:none;-webkit-user-select:none}
 .foot{max-width:1100px;margin:0 auto;padding-inline:18px;padding-block:18px 40px;font-size:12px;color:var(--muted);border-top:1px solid var(--line);display:flex;gap:12px;flex-wrap:wrap;align-items:center}
 .foot .link{font-size:12px}
+
+/* ---- new task types ---- */
+.tgroup{padding-top:22px;padding-bottom:4px;border-bottom:1px solid var(--line)}
+.dpass{max-height:calc(100vh - 110px);overflow:auto;display:grid;gap:8px}
+.dpass .para p{font-size:15px}
+@media (max-width:900px){.dpass{max-height:45vh;box-shadow:inset 0 -12px 12px -12px var(--line)}}
+.cards{display:flex;flex-wrap:wrap;gap:8px}
+.ccard{border:1.5px solid var(--line);background:var(--bg);border-radius:12px;padding:10px 12px;cursor:pointer;color:var(--ink);text-align:left;font-size:15px;line-height:1.35;display:inline-flex;gap:8px;align-items:baseline;flex-direction:row;flex-wrap:wrap}
+.ccard:hover:not(:disabled){border-color:var(--ink)}
+.ccard.sel{border-color:var(--accent);background:var(--accent-soft);box-shadow:0 0 0 2px var(--accent)}
+.ccard.paired{border-color:var(--ink)}
+.ccard.ok{border-color:var(--good);background:var(--good-soft)}
+.ccard.no{border-color:var(--bad);background:var(--bad-soft)}
+.ccard small{flex-basis:100%;font-size:12px;color:var(--muted)}
+.ccard.word{font-weight:600;padding:8px 12px}
+.pn{font-family:var(--mono);font-size:11px;background:var(--ink);color:var(--bg);border-radius:999px;padding:1px 7px;flex:none}
+.buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
+.bucket{border:1.5px dashed var(--line);border-radius:14px;padding:12px;min-height:120px;display:grid;gap:8px;align-content:start;cursor:pointer}
+.bucket.ready{border-color:var(--accent);background:var(--accent-soft)}
+.bucket .label{color:var(--ink);font-weight:500}
+.gaptext{font-size:17px;line-height:2.3}
+.gap{min-width:90px;border:0;border-bottom:2px solid var(--ink);background:var(--surface);border-radius:6px 6px 0 0;padding:2px 10px;font:inherit;color:var(--ink);cursor:pointer;margin:0 2px}
+.gap .gn{font-family:var(--mono);font-size:12px;color:var(--muted)}
+.gap.act{border-color:var(--accent);background:var(--accent-soft)}
+.gap.filled{font-weight:600}
+.gap.ok{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+.gap.no{border-color:var(--bad);background:var(--bad-soft);color:var(--bad);text-decoration:line-through}
+.gapfix{font-weight:700;color:var(--good);margin-right:4px}
+.pairs{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:10px 14px}
+.pairs .ccard{width:100%}
+.zone.build{min-height:58px;border:1.5px dashed var(--line);border-radius:12px;padding:8px;display:flex;flex-wrap:wrap;gap:6px;align-items:center}
+del{color:var(--bad);text-decoration-thickness:2px}
+ins{color:var(--good);text-decoration:none;font-weight:700;background:var(--good-soft);border-radius:4px;padding:0 4px}
+.up{border:0;border-bottom:2px dashed var(--accent);background:var(--accent-soft);color:var(--ink);font:inherit;padding:0 6px;border-radius:4px;cursor:pointer}
+.up.act{background:var(--accent);color:var(--accent-ink)}
+.up.ok{border-bottom:2px solid var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
+.up.no{border-bottom:2px solid var(--bad);background:var(--warn-soft);font-weight:600}
+.memgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(46%,150px),1fr));gap:10px}
+.mem{aspect-ratio:4/3;max-width:100%;border:1.5px solid var(--ink);border-radius:14px;background:var(--ink);color:var(--bg);cursor:pointer;font:600 15px var(--body);padding:8px;display:grid;place-items:center;text-align:center;transition:transform .2s}
+.mem .memback{font-family:var(--display);font-size:20px;letter-spacing:.04em;color:var(--accent)}
+.mem.flip{background:var(--bg);color:var(--ink)}
+.mem.flip.s1{background:var(--accent-soft)}
+.mem.done{border-color:var(--good);background:var(--good-soft);color:var(--good)}
+@media (prefers-reduced-motion:no-preference){.mem:not(.flip):hover{transform:translateY(-2px)}}
+.sprint{max-width:640px;display:grid;gap:16px;transition:background .2s}
+.sprint.flash-ok{background:var(--good-soft)} .sprint.flash-no{background:var(--bad-soft)}
+.spq{font-size:22px;font-weight:700;line-height:1.35}
+.tiles{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,180px),1fr));gap:10px}
+.tiles.truths{grid-template-columns:1fr}
+.tile{border:1.5px solid var(--line);background:var(--bg);border-radius:14px;padding:16px;font-size:16px;cursor:pointer;color:var(--ink);text-align:left}
+.tiles.odd .tile{font-family:var(--display);font-size:26px;letter-spacing:.02em;text-align:center}
+.tile:hover:not(:disabled){border-color:var(--ink)}
+.tile.right{border-color:var(--good);background:var(--good-soft)}
+.tile.wrong{border-color:var(--bad);background:var(--bad-soft)}
+.sn{cursor:pointer;border-radius:4px;padding:1px 0;transition:background .2s}
+.sn:hover{background:var(--surface);box-shadow:0 0 0 1px var(--line)}
+.sn.hit,.para.pick.hit{background:var(--good-soft)}
+.sn.miss,.para.pick.miss{background:var(--bad-soft)}
+.para.pick{cursor:pointer;border:1.5px solid transparent}
+.para.pick:hover{border-color:var(--line)}
+/* ---- the hare meme ---- */
+.meme{border:1.5px solid var(--ink);border-radius:16px;overflow:hidden;display:grid;background:var(--bg);max-width:560px}
+.meme-row{display:grid;grid-template-columns:96px 1fr;gap:14px;align-items:center;padding:12px 16px}
+.meme-row.no{background:var(--surface);border-bottom:1.5px solid var(--ink)}
+.meme-row.yes{background:var(--accent-soft)}
+.meme-row ul{margin:0;padding-left:18px;display:grid;gap:3px;font-weight:600;font-size:15px}
+.meme-t{font-size:20px;font-weight:700}
+.meme-t s{text-decoration-color:var(--bad);text-decoration-thickness:3px}
+.meme>.row{padding:8px 16px 12px}
+.hare{width:96px;height:96px}
+.hare .h-body{fill:var(--bg);stroke:var(--ink);stroke-width:2.5}
+.hare .h-ear{fill:var(--bg);stroke:var(--ink);stroke-width:2.5}
+.hare .h-in{fill:var(--accent);opacity:.55}
+.hare .h-eye{fill:var(--ink)}
+.hare .h-nose{fill:var(--accent)}
+.hare .h-line{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
+.hare .h-line.thin{stroke-width:1.2}
+.hare .h-arm{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
+@media (max-width:420px){.meme-row{grid-template-columns:64px 1fr}.hare{width:64px;height:64px}}
 </style>
 </head>
 <body>
@@ -482,63 +561,7 @@ const SKEY="ielts-ladder:v1";
 function freshState(){return {v:1,code:null,placement:null,profile:{},tier:{},support:false,results:{},words:{},qtypes:{},essays:[],speaking:[],cando:{},checks:{},drafts:{},settings:{accent:"en-GB",speed:1}};}
 let S=freshState(), PREVIEW=false;
 function loadState(){try{const r=localStorage.getItem(SKEY);if(r){const o=JSON.parse(r);if(o&&o.v===1)S=Object.assign(freshState(),o);}}catch(e){}}
-function store(){if(PREVIEW)return;try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
-function save(){if(PREVIEW)return;S.at=Date.now();store();SYNC.soon();}
-
-/* ---------- teacher sync: Google Sheets (optional, off when config.sync.url is empty) ----------
-   Sends this code's progress to the teacher's Apps Script web app and restores it on a new device.
-   Only the access code and the teacher's own label travel; no name or email is asked for. */
-const SYNC={
-  timer:null, busy:false, again:false, err:"",
-  url(){ return (CONFIG.sync&&String(CONFIG.sync.url||"").trim())||""; },
-  on(){ return !!this.url() && !PREVIEW && !!S.code && S.code!=="PREVIEW"; },
-  body(){
-    const units={}; UNITS.forEach(u=>{units[u.id]=u.title;});
-    const sections={}; for(const [id,M] of Object.entries(MODULES)){ if(M&&M.sections) M.sections.forEach(x=>{sections[id+":"+x.id]=x.title||x.id;}); }
-    return JSON.stringify({v:1,code:fmtCode(S.code),label:BUNDLE.label||"",at:S.at||Date.now(),units,sections,state:S});
-  },
-  soon(){ if(!this.on()) return; clearTimeout(this.timer); this.timer=setTimeout(()=>{this.timer=null;this.push();},5000); },
-  flush(){ /* page is being hidden: send what is pending without waiting for an answer */
-    if(!this.on()||!this.timer) return; clearTimeout(this.timer); this.timer=null;
-    const b=this.body();
-    if(navigator.sendBeacon && b.length<60000){ try{ if(navigator.sendBeacon(this.url(),new Blob([b],{type:"text/plain;charset=utf-8"}))) return; }catch(e){} }
-    try{ fetch(this.url(),{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:b,keepalive:b.length<60000}); }catch(e){}
-  },
-  async push(){
-    if(!this.on()) return false;
-    if(this.busy){ this.again=true; return false; }
-    this.busy=true; let ok=false;
-    try{
-      const r=await fetch(this.url(),{method:"POST",headers:{"Content-Type":"text/plain;charset=utf-8"},body:this.body()});
-      const txt=await r.text(); let j=null; try{ j=JSON.parse(txt); }catch(e){}
-      if(!j) this.err=`The sheet answered with a web page instead of data (HTTP ${r.status}). Usually the web app isn’t set to “Who has access: Anyone”, or the code was changed without deploying a new version.`;
-      else if(!j.ok) this.err="The sheet script reported: "+(j.error||"unknown error");
-      else { ok=true; this.err=""; S.synced=Date.now(); store(); }
-    }catch(e){ this.err="Couldn’t reach the sheet: "+(e&&e.message||e)+". Check the connection, or that the web app URL in config.json is right."; console.warn("Sync failed",e); }
-    this.busy=false;
-    if(this.again){ this.again=false; this.soon(); }
-    else if(!ok){ clearTimeout(this.timer); this.timer=setTimeout(()=>{this.timer=null;this.push();},60000); }
-    return ok;
-  },
-  /* fetch the saved copy; adopt it if this device has nothing yet or the saved copy is newer */
-  async pull(){
-    if(!this.on()) return false;
-    const ctl=new AbortController(), t=setTimeout(()=>ctl.abort(),6000);
-    try{
-      const u=this.url(); const r=await fetch(u+(u.includes("?")?"&":"?")+"code="+encodeURIComponent(fmtCode(S.code)),{signal:ctl.signal});
-      const j=await r.json(); clearTimeout(t);
-      if(!j||!j.ok||!j.state||typeof j.state!=="object") return false;
-      const blank=!S.placement && !Object.keys(S.results||{}).length && !(S.essays||[]).length;
-      if(blank || (j.state.at||0)>(S.at||0)){
-        const keep=blank?{code:S.code}:{code:S.code,settings:S.settings};
-        S=Object.assign(freshState(),j.state,keep); store(); return true;
-      }
-    }catch(e){ clearTimeout(t); console.warn("Restore skipped",e); }
-    return false;
-  }
-};
-document.addEventListener("visibilitychange",()=>{ if(document.visibilityState==="hidden") SYNC.flush(); });
-window.addEventListener("pagehide",()=>SYNC.flush());
+function save(){if(PREVIEW)return;try{localStorage.setItem(SKEY,JSON.stringify(S));}catch(e){}}
 
 /* ---------- crypto (AES-GCM + PBKDF2, Web Crypto) ---------- */
 const enc=new TextEncoder(), dec=new TextDecoder();
@@ -696,7 +719,6 @@ async function boot(){
     if(r.error){ S.code=null; save(); return go(viewGate,r.error==="expired"?`Your access ended on ${fmtLong(r.exp)}. Ask your teacher to renew it, then enter your code again.`:"This code is no longer active. Please check with your teacher."); }
   }catch(e){ return go(viewProblem,e); }
   await preloadModules();
-  await SYNC.pull();
   go(S.placement?viewHome:viewPlacementIntro);
 }
 function viewLoading(msg){app.innerHTML=`<div class="loader"><span class="label">${esc(msg)}</span></div>`;}
@@ -716,7 +738,7 @@ function viewGate(msg){
       <div class="err" id="gateErr" role="alert">${esc(msg||"")}</div>
       <div class="row"><button class="btn primary" type="submit" id="gateBtn">Open my course</button></div>
     </form>
-    <p class="small muted">${CONFIG.sync&&CONFIG.sync.url?"Your progress is saved on this device and sent to your teacher, so you can continue on another device with the same code.":"Your progress is saved on this device only."} No name or email is needed.</p>
+    <p class="small muted">Your progress is saved on this device only. No name or email is needed.</p>
     <details class="more small"><summary>For teachers: preview a content file</summary>
       <p class="muted">Open a plain unit or placement file from your source folder to check it before you encrypt it. Nothing is uploaded.</p>
       <p style="margin-top:10px"><input type="file" id="pvFile" accept=".json,application/json"></p>
@@ -730,10 +752,8 @@ function viewGate(msg){
     try{
       const r=await openCourse(code);
       if(r.error){ $("#gateErr").textContent=r.error==="expired"?`This code’s access ended on ${fmtLong(r.exp)}. Ask your teacher to renew it.`:"We couldn’t find that code. Check the letters and numbers, or ask your teacher."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; return; }
-      S.code=code; store();
+      S.code=code; save();
       viewLoading("Opening your course"); await preloadModules();
-      if(await SYNC.pull()) toast("Welcome back. Your progress was restored.");
-      else save();
       go(S.placement?viewHome:viewPlacementIntro);
     }catch(e){ $("#gateErr").textContent="The course didn’t load. Check your connection and try again."; $("#gateBtn").disabled=false; $("#gateBtn").textContent="Open my course"; }
   };
@@ -1525,7 +1545,7 @@ function viewSectionStart(uid,sid,tab){
     const tabs=(learn.length||train.length)?`<div class="steps" role="tablist">${learn.length?`<button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips <span class="n">${learn.length}</span></button>`:""}${train.length?`<button role="tab" data-tab="train" aria-selected="${tab==="train"}">Training <span class="n">${done}/${train.length}</span></button>`:""}<button role="tab" data-tab="task" aria-selected="${tab==="task"}">${sec.type==="speaking"?"Speaking practice":"Exam task"}</button></div>`:"";
     let body="";
     if(tab==="tips") body=`<div class="tips" id="tipsbox">${learn.map(c=>tipHTML(c,U)).join("")}</div><div class="row">${train.length?`<button class="btn primary" data-tab="train">Go to training</button>`:`<button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button>`}</div>`;
-    else if(tab==="train") body=`<div class="seclist">${train.map(d=>{const b=drillBest(uid,sid,d.id);return `<div class="secrow"><span class="label">${esc(DRILL_KIND[d.kind]||d.kind)}</span><div class="meta"><h3>${esc(d.title)}</h3><p class="small muted">${esc(d.goal||"")}</p></div><div class="act row">${b!==null?`<span class="chip good">Best ${b}%</span>`:""}<button class="btn small ${b!==null?"ghost":"primary"}" data-drill="${esc(d.id)}">${b!==null?"Again":"Start"}</button></div></div>`;}).join("")}</div><div class="row"><button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button></div>`;
+    else if(tab==="train") body=`<div class="seclist">${train.map((d,ti)=>{const b=drillBest(uid,sid,d.id);return `${d.group&&(ti===0||train[ti-1].group!==d.group)?`<div class="tgroup"><span class="label">${esc(d.group)}</span></div>`:""}<div class="secrow"><span class="label">${esc(DRILL_KIND[d.kind]||d.kind)}</span><div class="meta"><h3>${esc(d.title)}</h3><p class="small muted">${esc(d.goal||"")}</p></div><div class="act row">${b!==null?`<span class="chip good">Best ${b}%</span>`:""}<button class="btn small ${b!==null?"ghost":"primary"}" data-drill="${esc(d.id)}">${b!==null?"Again":"Start"}</button></div></div>`;}).join("")}</div><div class="row"><button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button></div>`;
     else {
       const modes=sec.type==="reading";
       body=`<div class="stack" style="gap:22px;max-width:760px">
@@ -1572,7 +1592,7 @@ function drillEnd(U,sec,d,pct,msg){
 function resolveParas(sec,d){ if(typeof d.paras==="string"&&d.paras.startsWith("tier:")){ const t=d.paras.slice(5); return (sec.tiers&&sec.tiers[t]&&sec.tiers[t].paras)||[]; } return d.paras||[]; }
 const resolveChart=(sec,d)=>d.chart&&sec.charts?sec.charts[d.chart]:null;
 function runDrill(U,sec,d){
-  const f={skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,write:drillWrite}[d&&d.kind];
+  const f={skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick}[d&&d.kind];
   if(!f){ toast("This training type isn’t available."); return go(viewSectionStart,U.id,sec.id,"train"); }
   f(U,sec,d);
 }
@@ -1656,8 +1676,8 @@ function drillOrder(U,sec,d){
   show();
 }
 function drillMatch(U,sec,d){
-  const opts=shuffle(d.right.map((_,k)=>k));
-  drillFrame(U,sec,d,`<div class="stack tight" id="mt">${d.head?`<div class="mrow"><span class="label">${esc(d.head[0])}</span><span class="label">${esc(d.head[1])}</span></div>`:""}${d.left.map((l,i)=>`<div class="mrow" id="mr${i}"><strong>${esc(l)}</strong><div class="stack tight"><select data-m="${i}" aria-label="Match for ${esc(l)}"><option value="">Choose…</option>${opts.map(k=>`<option value="${k}">${esc(d.right[k])}</option>`).join("")}</select><span class="small" id="mf${i}"></span></div></div>`).join("")}</div><div class="row"><button class="btn primary" id="mcheck">Check</button></div>`);
+  const opts=d.kind==="label"||d.fixed?d.right.map((_,k)=>k):shuffle(d.right.map((_,k)=>k));
+  drillFrame(U,sec,d,framed(sec,d,`<div class="stack tight" id="mt">${d.head?`<div class="mrow"><span class="label">${esc(d.head[0])}</span><span class="label">${esc(d.head[1])}</span></div>`:""}${d.left.map((l,i)=>`<div class="mrow" id="mr${i}"><strong>${esc(l)}</strong><div class="stack tight"><select data-m="${i}" aria-label="Match for ${esc(l)}"><option value="">Choose…</option>${opts.map(k=>`<option value="${k}">${esc(d.right[k])}</option>`).join("")}</select><span class="small" id="mf${i}"></span></div></div>`).join("")}</div><div class="row"><button class="btn primary" id="mcheck">Check</button></div>`));
   $("#mcheck").onclick=()=>{
     let ok=0;
     d.left.forEach((_,i)=>{ const v=$(`[data-m="${i}"]`).value, good=v!==""&&+v===d.a[i]; if(good) ok++; $("#mr"+i).classList.add(good?"ok":"no"); $(`[data-m="${i}"]`).disabled=true; if(!good) $("#mf"+i).innerHTML=`Answer: <b>${esc(d.right[d.a[i]])}</b>`; });
@@ -1716,11 +1736,14 @@ function drillWrite(U,sec,d){
     const ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx};
     const res=(d.checks||[]).filter(k=>AUTO[k]).map(k=>({k,ok:AUTO[k].f(text,ctx)}));
     const A=analyseEssay(text,{unitWords:U.words,lt,checks:null,task:sec.task,bank:sec.bank?sec.bank.flatMap(g=>g.w):null});
+    const act=(sec.active||[]).map(id=>U.words.find(w=>w.id===id)).filter(Boolean), low=tokenize(text), uw=act.filter(w=>wordUsed(w,low)), al=alertsIn(text);
     const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
     const pct=res.length?res.filter(r=>r.ok).length/res.length:1;
     $("#dwr").innerHTML=`<div class="card stack">
       <span class="label">Checks</span><div class="checks">${res.map(r=>`<div class="${r.ok?"y":"n"}"><span><b>${esc(AUTO[r.k].l)}</b>${r.ok?"":` · <span class="muted">${esc(AUTO[r.k].tip)}</span>`}</span></div>`).join("")}</div>
       ${d.task&&ctx.copy.phrases.length?`<p class="small">Copied from the task: ${ctx.copy.phrases.slice(0,4).map(p=>`<span class="copied">${esc(p)}</span>`).join(", ")} (${Math.round(ctx.copy.ratio*100)}% of your words)</p>`:""}
+      ${act.length?`<p class="small"><b>Unit words used:</b> ${uw.length?uw.map(w=>esc(w.word)).join(", "):"none yet"} <span class="muted">(${uw.length}/${act.length})</span></p>`:""}
+      ${al.length?memeHTML(al[0].a,false):""}
       <div class="row"><span class="label">Language level (indicative)</span><span class="chip ${li(A.levels.LR)>=2?"lv":""}">Vocabulary ${A.levels.LR}</span><span class="chip ${li(A.levels.GRA)>=2?"lv":""}">Grammar ${A.levels.GRA}</span></div>
       ${ltErr?`<p class="note warn small">The grammar service didn’t respond, so mistakes weren’t marked.</p>`:`<div class="marked">${markText(text,A.lt&&A.lt.matches)}</div>${issues.length?`<div class="stack tight">${issues.slice(0,12).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</div>`:`<p class="small" style="color:var(--good)">No grammar or spelling mistakes found.</p>`}`}
       ${d.model?`<details class="more"><summary>Model answer</summary><p class="model">${esc(fp(d.model))}</p>${credit()}</details>`:""}</div>`;
@@ -1728,6 +1751,217 @@ function drillWrite(U,sec,d){
     S.drafts[dk]=text; drillEnd(U,sec,d,pct,"");
   };
 }
+
+/* =========================================================
+   MORE TASK TYPES · sort, gaps, pairs, mistakes, builders, games
+   ========================================================= */
+Object.assign(DRILL_KIND,{sort:"Sort it",gapbank:"Fill the gaps",pairs:"Match up",fix:"Find the mistake",unscramble:"Sentence builder",upgrade:"Level up",memory:"Memory game",sprint:"Sprint game",odd:"Odd one out",truths:"Two truths, one lie",label:"Label it",sentpick:"Find it in the text"});
+function passageHTML(sec,d){
+  const paras=paraTexts(resolveParas(sec,d)); if(!paras.length) return "";
+  const t=typeof d.paras==="string"&&d.paras.startsWith("tier:")&&sec.tiers[d.paras.slice(5)]?sec.tiers[d.paras.slice(5)].title:"";
+  return `<article class="card dpass">${t?`<span class="label">Reading passage</span><h3>${esc(t)}</h3>`:""}<div class="stack" style="gap:2px">${paras.map(p=>`<div class="para"><b>${esc(p.id||"")}</b><p>${esc(fp(p.t))}</p></div>`).join("")}</div>${credit()}</article>`;
+}
+function framed(sec,d,inner){
+  const ch=resolveChart(sec,d), side=ch?`<div class="card">${chartSVG(ch)}</div>`:d.paras?passageHTML(sec,d):"";
+  return side?`<div class="dsplit"><div class="dside">${side}</div><div class="stack">${inner}</div></div>`:inner;
+}
+const okMsg=(ok,txt)=>`<p style="font-weight:700;color:var(--${ok?"good":"bad"})">${ok?"Correct":"Not quite"}</p>${txt?`<p class="small muted">${esc(txt)}</p>`:""}`;
+
+/* ---- sort into boxes ---- */
+function drillSort(U,sec,d){
+  const items=shuffle(d.items.map((x,i)=>Object.assign({i},x))), place={}; let sel=null, checked=false;
+  drillFrame(U,sec,d,framed(sec,d,`<div id="srt" class="stack"></div>`));
+  const draw=()=>{
+    const pool=items.filter(x=>place[x.i]===undefined);
+    $("#srt").innerHTML=`${checked?"":`<span class="label">${pool.length?"Tap a card, then tap a box":"All placed. Tap a card in a box to move it back."}</span><div class="cards">${pool.map(x=>`<button type="button" class="ccard ${sel===x.i?"sel":""}" data-c="${x.i}">${esc(x.t)}</button>`).join("")}</div>`}
+      <div class="buckets">${d.buckets.map((b,bi)=>`<div class="bucket ${sel!==null?"ready":""}" data-b="${bi}"><span class="label">${esc(b)}</span><div class="cards">${items.filter(x=>place[x.i]===bi).map(x=>{const st=checked?(x.b===bi?"ok":"no"):"";return `<button type="button" class="ccard in ${st}" data-back="${x.i}" ${checked?"disabled":""}>${esc(x.t)}${checked&&x.b!==bi?`<small>→ ${esc(d.buckets[x.b])}${x.ex?" · "+esc(x.ex):""}</small>`:""}</button>`;}).join("")}</div></div>`).join("")}</div>
+      ${checked?"":`<div class="row"><button class="btn primary" id="scheck" ${pool.length?"disabled":""}>Check</button></div>`}`;
+    $$("[data-c]").forEach(b=>b.onclick=()=>{ sel=+b.dataset.c===sel?null:+b.dataset.c; draw(); });
+    $$("[data-b]").forEach(bx=>bx.onclick=e=>{ if(sel!==null){ place[sel]=+bx.dataset.b; const nx=items.find(x=>place[x.i]===undefined&&x.i!==sel); sel=null; draw(); return; } const back=e.target.closest("[data-back]"); if(back){ delete place[+back.dataset.back]; draw(); } });
+    if($("#scheck")) $("#scheck").onclick=()=>{ checked=true; draw(); drillEnd(U,sec,d,items.filter(x=>place[x.i]===x.b).length/items.length,d.end||""); };
+  };
+  draw();
+}
+/* ---- gap fill with a word box ---- */
+function drillGapbank(U,sec,d){
+  const parts=d.text.split(/\{(\d+)\}/), n=d.answers.length, fill=new Array(n).fill(null);
+  const bank=shuffle(d.bank.map((w,i)=>({w,i}))); let active=0, checked=false;
+  drillFrame(U,sec,d,framed(sec,d,`<div id="gb" class="stack"></div>`));
+  const draw=()=>{
+    const used=new Set(fill.filter(x=>x!==null));
+    const text=parts.map((p,k)=>{ if(k%2===0) return esc(p); const g=+p-1, f=fill[g], ok=f!==null&&norm(d.bank[f])===norm(d.answers[g]);
+      return `<button type="button" class="gap ${active===g&&!checked?"act":""} ${checked?(ok?"ok":"no"):""} ${f!==null?"filled":""}" data-g="${g}" ${checked?"disabled":""}>${f!==null?esc(d.bank[f]):`<span class="gn">${g+1}</span>`}</button>${checked&&!ok?`<span class="gapfix">${esc(d.answers[g])}</span>`:""}`; }).join("");
+    $("#gb").innerHTML=`<div class="card gaptext">${text}</div>${checked?"":`<span class="label">Word box · tap a word to put it in gap ${active+1}${d.bank.length>n?` · ${d.bank.length-n} extra words`:""}</span><div class="cards">${bank.filter(b=>!used.has(b.i)).map(b=>`<button type="button" class="ccard" data-bw="${b.i}">${esc(b.w)}</button>`).join("")}</div><div class="row"><button class="btn primary" id="gcheck" ${fill.includes(null)?"disabled":""}>Check</button></div>`}`;
+    $$("[data-bw]").forEach(b=>b.onclick=()=>{ fill[active]=+b.dataset.bw; const nx=fill.indexOf(null); active=nx<0?active:nx; draw(); });
+    $$("[data-g]").forEach(b=>b.onclick=()=>{ const g=+b.dataset.g; if(fill[g]!==null) fill[g]=null; active=g; draw(); });
+    if($("#gcheck")) $("#gcheck").onclick=()=>{ checked=true; draw(); const ok=fill.filter((f,g)=>norm(d.bank[f])===norm(d.answers[g])).length; drillEnd(U,sec,d,ok/n,d.end||""); };
+  };
+  draw();
+}
+/* ---- tap-to-pair columns ---- */
+function drillPairs(U,sec,d){
+  const R=d.fixed?d.right.map((_,k)=>k):shuffle(d.right.map((_,k)=>k)), match={}; let sel=null, checked=false;
+  drillFrame(U,sec,d,framed(sec,d,`<div id="pr" class="stack"></div>`));
+  const ownerOf=r=>Object.keys(match).find(l=>match[l]===r);
+  const draw=()=>{
+    $("#pr").innerHTML=`<span class="label">${checked?"Results":"Tap on the left, then its partner on the right"}</span>
+      <div class="pairs">${d.head?`<span class="label">${esc(d.head[0])}</span><span class="label">${esc(d.head[1])}</span>`:""}
+        <div class="stack tight">${d.left.map((l,i)=>{ const m=match[i]; const st=checked?(m===d.a[i]?"ok":"no"):""; return `<button type="button" class="ccard ${sel===i?"sel":""} ${m!==undefined?"paired":""} ${st}" data-l="${i}" ${checked?"disabled":""}><span class="pn">${i+1}</span>${esc(l)}${checked&&m!==d.a[i]?`<small>→ ${esc(d.right[d.a[i]])}</small>`:""}</button>`; }).join("")}</div>
+        <div class="stack tight">${R.map(r=>{ const o=ownerOf(r); return `<button type="button" class="ccard ${o!==undefined?"paired":""}" data-r="${r}" ${checked?"disabled":""}>${o!==undefined?`<span class="pn">${+o+1}</span>`:""}${esc(d.right[r])}</button>`; }).join("")}</div>
+      </div>${checked?"":`<div class="row"><button class="btn primary" id="pcheck" ${Object.keys(match).length<d.left.length?"disabled":""}>Check</button></div>`}`;
+    $$("[data-l]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.l; if(match[i]!==undefined&&sel===i){ delete match[i]; sel=null; } else sel=i; draw(); });
+    $$("[data-r]").forEach(b=>b.onclick=()=>{ if(sel===null) return; const r=+b.dataset.r, o=ownerOf(r); if(o!==undefined) delete match[o]; match[sel]=r; const nx=d.left.findIndex((_,i)=>match[i]===undefined); sel=nx<0?null:nx; draw(); });
+    if($("#pcheck")) $("#pcheck").onclick=()=>{ checked=true; draw(); drillEnd(U,sec,d,d.left.filter((_,i)=>match[i]===d.a[i]).length/d.left.length,d.end||""); };
+  };
+  sel=0; draw();
+}
+/* ---- find the mistake ---- */
+function drillFix(U,sec,d){
+  const st=d.items.map(()=>({done:false,tries:0}));
+  drillFrame(U,sec,d,framed(sec,d,`<span class="label">Tap the wrong word in each sentence</span><div id="fx" class="stack"></div>`));
+  const draw=()=>{
+    $("#fx").innerHTML=d.items.map((it,k)=>{ const s=st[k];
+      if(s.done){ const i=it.s.indexOf(it.wrong); const fixed=i<0?esc(it.s):esc(it.s.slice(0,i))+`<del>${esc(it.wrong)}</del> <ins>${esc(it.right||"(delete)")}</ins>`+esc(it.s.slice(i+it.wrong.length));
+        return `<div class="q ${s.tries===0?"ok":"no"}"><p style="font-size:17px;line-height:1.8">${fixed}</p>${it.ex?`<p class="small muted">${esc(it.ex)}</p>`:""}</div>`; }
+      return `<div class="q"><p class="fxline" data-k="${k}" style="font-size:17px;line-height:1.9">${tokLine(it.s,k)}</p><div class="row"><button type="button" class="btn small ghost" data-show="${k}">Show me</button>${s.tries?`<span class="small muted">${s.tries} wrong tap${s.tries>1?"s":""}</span>`:""}</div></div>`; }).join("");
+    $$(".fxline").forEach(p=>p.onclick=e=>{ const t=e.target.closest(".tk"); if(!t) return; const k=+p.dataset.k, it=d.items[k];
+      const hits=phraseHits([it.s],[it.wrong]); if(hits.some(h=>h.idx.includes(+t.dataset.i))){ st[k].done=true; draw(); check(); } else { st[k].tries++; t.classList.add("miss"); setTimeout(()=>{ draw(); },650); } });
+    $$("[data-show]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.show; st[k].tries++; st[k].done=true; draw(); check(); });
+  };
+  const check=()=>{ if(st.every(s=>s.done)) drillEnd(U,sec,d,st.filter(s=>s.tries===0).length/st.length,d.end||""); };
+  draw();
+}
+/* ---- word-order sentence builder ---- */
+function drillUnscramble(U,sec,d){
+  let i=0, ok=0; drillFrame(U,sec,d,framed(sec,d,`<div id="us" class="stack"></div>`));
+  const show=()=>{
+    if(i>=d.items.length) return drillEnd(U,sec,d,ok/d.items.length,d.end||"");
+    const it=d.items[i], words=it.s.split(/\s+/); let pool=shuffle(words.map((_,k)=>k)); let tries=0;
+    if(pool.every((k,j)=>k===j)&&words.length>1) pool=pool.reverse();
+    let ans=[], checked=false;
+    const draw=()=>{
+      $("#us").innerHTML=`<span class="label">${i+1} of ${d.items.length}${it.hint?" · "+esc(it.hint):""}</span>
+        <div class="zone build">${ans.map((k,j)=>`<button type="button" class="ccard word" data-rm="${j}" ${checked?"disabled":""}>${esc(words[k])}</button>`).join("")||`<span class="small muted">Tap the words in the right order.</span>`}</div>
+        ${checked?"":`<div class="cards">${pool.filter(k=>!ans.includes(k)).map(k=>`<button type="button" class="ccard word" data-add="${k}">${esc(words[k])}</button>`).join("")}</div>`}
+        <div class="row"><button class="btn primary" id="ucheck" ${ans.length<words.length||checked?"disabled":""}>Check</button></div><div id="ufb"></div>`;
+      $$("[data-add]").forEach(b=>b.onclick=()=>{ans.push(+b.dataset.add);draw();});
+      $$("[data-rm]").forEach(b=>b.onclick=()=>{ans.splice(+b.dataset.rm,1);draw();});
+      $("#ucheck").onclick=()=>{ const got=ans.map(k=>words[k]).join(" "); const good=[it.s,...(it.alt||[])].some(a=>a===got); if(good) ok++; checked=true; draw();
+        $("#ufb").innerHTML=`${okMsg(good,"")}${good?"":`<p>Answer: <b>${esc(it.s)}</b></p>`}${it.ex?`<p class="small muted">${esc(it.ex)}</p>`:""}<div class="row"><button class="btn primary" id="unext">Next</button></div>`; $("#unext").onclick=()=>{i++;show();}; };
+    };
+    draw();
+  };
+  show();
+}
+/* ---- level up: replace basic words ---- */
+function drillUpgrade(U,sec,d){
+  const slots=d.parts.map((p,k)=>typeof p==="string"?null:Object.assign({k,order:shuffle(p.o.map((_,j)=>j)),pick:null},p)).filter(Boolean);
+  let cur=0;
+  drillFrame(U,sec,d,framed(sec,d,`<span class="label">Tap a highlighted word, then choose a better option</span><div id="ug" class="stack"></div>`));
+  const draw=()=>{
+    const para=d.parts.map((p,k)=>{ if(typeof p==="string") return esc(p); const s=slots.find(x=>x.k===k), si=slots.indexOf(s);
+      if(s.pick===null) return `<button type="button" class="up ${si===cur?"act":""}" data-s="${si}">${esc(s.w)}</button>`;
+      return `<span class="up ${s.pick===s.a?"ok":"no"}">${esc(s.o[s.a])}</span>`; }).join("");
+    const s=slots[cur];
+    $("#ug").innerHTML=`<div class="card" style="font-size:18px;line-height:2">${para}</div>
+      ${s&&s.pick===null?`<div class="stack tight"><span class="label">Instead of “${esc(s.w)}”</span><div class="cards">${s.order.map(j=>`<button type="button" class="ccard" data-o="${j}">${esc(s.o[j])}</button>`).join("")}</div></div>`:""}
+      <div id="ugfb"></div>`;
+    $$("[data-s]").forEach(b=>b.onclick=()=>{cur=+b.dataset.s;draw();});
+    $$("[data-o]").forEach(b=>b.onclick=()=>{ const s=slots[cur]; s.pick=+b.dataset.o; const good=s.pick===s.a;
+      const nx=slots.findIndex(x=>x.pick===null); const fb=`${okMsg(good,s.ex||"")}${good?"":`<p class="small">Better: <b>${esc(s.o[s.a])}</b></p>`}`;
+      if(nx>=0) cur=nx; draw(); $("#ugfb").innerHTML=fb;
+      if(nx<0) drillEnd(U,sec,d,slots.filter(x=>x.pick===x.a).length/slots.length,d.end||"Read your upgraded paragraph aloud. Same ideas, a higher band."); });
+  };
+  draw();
+}
+/* ---- memory (flip pairs) ---- */
+function drillMemory(U,sec,d){
+  const cards=shuffle(d.pairs.flatMap(([a,b],i)=>[{t:a,p:i,s:0},{t:b,p:i,s:1}])); let open=[], matched=new Set(), moves=0, lock=false;
+  drillFrame(U,sec,d,`<div class="row between"><span class="label">Find the pairs</span><span class="label" id="mv">0 moves</span></div><div class="memgrid" id="mg"></div>`);
+  const draw=()=>{
+    $("#mg").innerHTML=cards.map((c,k)=>{ const show=open.includes(k)||matched.has(c.p); return `<button type="button" class="mem ${show?"flip":""} ${matched.has(c.p)?"done":""} s${c.s}" data-m="${k}" aria-label="${show?esc(c.t):"Hidden card"}">${show?esc(c.t):`<span class="memback">От зайца</span>`}</button>`; }).join("");
+    $("#mv").textContent=`${moves} move${moves===1?"":"s"} · ${matched.size}/${d.pairs.length} pairs`;
+    $$("[data-m]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.m; if(lock||open.includes(k)||matched.has(cards[k].p)) return; open.push(k);
+      if(open.length===2){ moves++; const [a,b2]=open; if(cards[a].p===cards[b2].p&&a!==b2){ matched.add(cards[a].p); open=[]; draw(); if(matched.size===d.pairs.length) drillEnd(U,sec,d,Math.min(1,d.pairs.length/moves),`${moves} moves. A perfect game takes ${d.pairs.length}.`); return; }
+        lock=true; draw(); T.later(()=>{ open=[]; lock=false; draw(); },950); return; }
+      draw(); });
+  };
+  draw();
+}
+/* ---- sprint game ---- */
+function drillSprint(U,sec,d){
+  const secs=d.seconds||60; let pool=[], correct=0, att=0, streak=0, best=0, left=secs, running=false, q=null;
+  drillFrame(U,sec,d,`<div class="sprint card" id="sp"><div class="stack" style="text-align:center;gap:14px"><span class="label">${secs} seconds · as many as you can</span><h2>Ready?</h2><div><button class="btn primary" id="spgo">Start</button></div></div></div>`);
+  const next=()=>{ if(!pool.length) pool=shuffle(d.qs.slice()); q=pool.pop(); q._o=shuffle(q.o.map((_,j)=>j));
+    $("#sp").innerHTML=`<div class="row between"><span class="timer" id="spt">${left}s</span><span class="label">${correct} correct · streak ${streak}</span></div><p class="spq">${esc(q.p).replace(/___/g,"<u>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;</u>")}</p><div class="choices">${q._o.map(j=>`<button data-j="${j}">${esc(q.o[j])}</button>`).join("")}</div>`;
+    $$("#sp [data-j]").forEach(b=>b.onclick=()=>{ if(!running) return; att++; const good=+b.dataset.j===q.a; if(good){correct++;streak++;best=Math.max(best,streak);} else streak=0;
+      $("#sp").classList.add(good?"flash-ok":"flash-no"); setTimeout(()=>{ const e=$("#sp"); if(e) e.classList.remove("flash-ok","flash-no"); },220); next(); }); };
+  $("#spgo").onclick=()=>{ running=true; next(); const id=T.every(()=>{ left--; const t=$("#spt"); if(t) t.textContent=left+"s"; if(left<=0){ clearInterval(id); running=false;
+    $("#sp").innerHTML=`<div class="stack" style="text-align:center;gap:10px"><span class="label">Time!</span><h2>${correct} correct</h2><p class="muted">${att} answered · best streak ${best}</p></div>`;
+    drillEnd(U,sec,d,att?correct/att:0,`${correct} correct in ${secs} seconds, best streak ${best}. Play again to beat it.`); } },1000); };
+}
+/* ---- tiles: odd one out / two truths and a lie ---- */
+function drillTiles(U,sec,d){
+  let i=0, ok=0; drillFrame(U,sec,d,framed(sec,d,`<div id="tl" class="stack"></div>`));
+  const ask=d.kind==="truths"?"Which one is the lie?":"Which is the odd one out?";
+  const show=()=>{
+    if(i>=d.items.length) return drillEnd(U,sec,d,ok/d.items.length,d.end||"");
+    const it=d.items[i], order=shuffle(it.o.map((_,j)=>j));
+    $("#tl").innerHTML=`<span class="label">${i+1} of ${d.items.length}</span><p class="wtask">${esc(it.p||ask)}</p><div class="tiles ${d.kind}">${order.map(j=>`<button type="button" class="tile" data-t="${j}">${esc(it.o[j])}</button>`).join("")}</div><div id="tfb"></div>`;
+    $$(".tile").forEach(b=>b.onclick=()=>{ const good=+b.dataset.t===it.a; if(good) ok++;
+      $$(".tile").forEach(x=>{ x.disabled=true; if(+x.dataset.t===it.a) x.classList.add("right"); }); if(!good) b.classList.add("wrong");
+      $("#tfb").innerHTML=`${okMsg(good,it.ex||"")}<div class="row"><button class="btn primary" id="tnext">Next</button></div>`; $("#tnext").onclick=()=>{i++;show();}; });
+  };
+  show();
+}
+/* ---- find it in the text: sentence or paragraph ---- */
+function drillSentpick(U,sec,d){
+  const paras=paraTexts(resolveParas(sec,d)), para=d.mode==="para"; let i=0, first=0, wrong=0;
+  const sents=t=>t.match(/[^.!?]+[.!?]+["’”]?|[^.!?]+$/g)||[t];
+  drillFrame(U,sec,d,`<div class="dbar"><div class="stack" style="gap:2px"><span class="label" id="spc"></span><div class="target" id="spt"></div></div><button class="btn small ghost" id="spshow">Show me</button></div>
+    <div class="text pickable ${para?"bypara":""}" id="sptext">${paras.map((p,pi)=>para?`<div class="para pick" data-pp="${esc(p.id)}" role="button" tabindex="0"><b>${esc(p.id)}</b><p>${esc(fp(p.t))}</p></div>`:`<div class="para"><b>${esc(p.id)}</b><p>${sents(p.t).map((s,si)=>`<span class="sn" data-pi="${pi}" data-si="${si}">${esc(s)}</span>`).join(" ")}</p></div>`).join("")}</div>`);
+  const right=el=>{ const it=d.items[i]; if(para) return el.dataset.pp===it.a; return el.textContent.includes(it.a); };
+  const show=()=>{ if(i>=d.items.length){ $("#spc").textContent="Finished"; $("#spt").textContent=`${first} of ${d.items.length} first time`; $("#spshow").remove(); return drillEnd(U,sec,d,first/d.items.length,d.end||""); }
+    $$(".hit").forEach(x=>x.classList.remove("hit")); wrong=0;
+    $("#spc").textContent=`${para?"Which paragraph contains…":"Tap the sentence that shows…"} · ${i+1} of ${d.items.length}`; $("#spt").textContent=d.items[i].p; };
+  const done=(el,ok)=>{ el.classList.add("hit"); if(ok&&wrong===0) first++; const ex=d.items[i].ex; if(ex) toast(ex); i++; T.later(show,900); };
+  $("#sptext").addEventListener("click",e=>{ if(i>=d.items.length) return; const el=e.target.closest(para?"[data-pp]":".sn"); if(!el||el.classList.contains("hit")) return;
+    if(right(el)) done(el,true); else { wrong++; el.classList.add("miss"); setTimeout(()=>el.classList.remove("miss"),700); } });
+  $("#spshow").onclick=()=>{ if(i>=d.items.length) return; const el=$$(para?"[data-pp]":".sn").find(right); if(el){ el.scrollIntoView({block:"center",behavior:"smooth"}); wrong++; done(el,false); } };
+  show();
+}
+
+/* =========================================================
+   STYLE ALERTS · the hare meme
+   ========================================================= */
+const ALERTS=[
+  {k:"ithink",re:/\bI think\b/gi,nope:"I think…",yes:["It could be argued that…","I would argue that…","From my perspective,…","It seems clear to me that…"],note:"Fine when you speak. In an essay it sounds too casual."},
+  {k:"alot",re:/\b(a lot of|lots of)\b/gi,nope:"a lot of…",yes:["a great deal of (+ uncountable)","a large number of (+ plural)","a significant proportion of"],note:"Too informal for academic writing."},
+  {k:"very",re:/\bvery (important|big|bad|good|small|difficult|interesting|hard|happy)\b/gi,nope:"very + adjective",yes:["very important → crucial, vital","very big → substantial, considerable","very bad → detrimental, severe","very good → highly beneficial","very difficult → challenging"],note:"One precise word beats two weak ones."},
+  {k:"goodbad",re:/\b(good|bad)\b/gi,min:2,nope:"good / bad",yes:["beneficial, advantageous","harmful, detrimental","a positive / negative development"],note:"Use precise words to evaluate."},
+  {k:"thing",re:/\bthings?\b/gi,min:2,nope:"thing / things",yes:["factor","aspect","issue","development"],note:"Name it precisely."}
+];
+function alertsIn(text){ return ALERTS.map(a=>({a,n:(String(text).match(a.re)||[]).length})).filter(x=>x.n>=(x.a.min||1)); }
+function hareSVG(mood){
+  const yes=mood==="yes";
+  return `<svg class="hare" viewBox="0 0 120 120" aria-hidden="true">
+    <g transform="${yes?"":"translate(120,0) scale(-1,1)"}">
+      <ellipse class="h-ear" cx="48" cy="26" rx="7" ry="22" transform="rotate(${yes?-10:-24} 48 46)"/><ellipse class="h-in" cx="48" cy="28" rx="3" ry="15" transform="rotate(${yes?-10:-24} 48 46)"/>
+      <ellipse class="h-ear" cx="66" cy="24" rx="7" ry="22" transform="rotate(${yes?14:-4} 66 46)"/><ellipse class="h-in" cx="66" cy="26" rx="3" ry="15" transform="rotate(${yes?14:-4} 66 46)"/>
+      <ellipse class="h-body" cx="58" cy="92" rx="30" ry="22"/>
+      <circle class="h-body" cx="58" cy="58" r="21"/>
+      ${yes?`<circle class="h-eye" cx="65" cy="54" r="3.2"/><circle cx="66.2" cy="52.8" r="1" fill="#fff"/><path class="h-line" d="M60 66 q6 6 12 0"/>`:`<path class="h-line" d="M60 54 h9"/><path class="h-line" d="M61 67 h9"/>`}
+      <circle class="h-nose" cx="77" cy="60" r="2.6"/>
+      <path class="h-line thin" d="M78 63 l12 -2 M78 65 l12 3"/>
+      ${yes?`<path class="h-arm" d="M76 86 q14 -6 26 -16"/><circle class="h-body" cx="103" cy="69" r="4.5"/>`:`<path class="h-arm" d="M70 84 q8 -14 4 -30"/><circle class="h-body" cx="74" cy="52" r="5"/>`}
+    </g></svg>`;
+}
+function memeHTML(a,dismiss){
+  return `<div class="meme" role="status"><div class="meme-row no">${hareSVG("no")}<div class="stack tight"><span class="label">Nope</span><p class="meme-t"><s>${esc(a.nope)}</s></p></div></div>
+    <div class="meme-row yes">${hareSVG("yes")}<div class="stack tight"><span class="label">Yes, please</span><ul>${a.yes.map(y=>`<li>${esc(y)}</li>`).join("")}</ul></div></div>
+    <div class="row between"><p class="small muted">${esc(a.note||"")}</p>${dismiss?`<button type="button" class="btn small ghost" data-meme-ok="${esc(a.k)}">Got it</button>`:""}</div></div>`;
+}
+TIPV.meme=c=>memeHTML(c,false);
 
 /* =========================================================
    SPEAKING · one question at a time, everything on screen
@@ -1866,12 +2100,15 @@ function runWriting(U,sec,tier){
   if(!Array.isArray(sec.checklist)) sec=Object.assign({},sec,{checklist:DEFAULT_CHECKLIST});
   const W=sec.tiers[tier], task1=sec.task===1, ch=W.chart&&sec.charts?sec.charts[W.chart]:null;
   const dkey=U.id+":"+sec.id+":"+tier, bank=sec.bank||null, structure=(sec.learn||[]).find(c=>c.v==="blocks");
+  const active=(sec.active||[]).map(id=>U.words.find(w=>w.id===id)).filter(Boolean), dismissed=new Set();
+  const usedNow=t=>{ const low=tokenize(t); return active.filter(w=>wordUsed(w,low)).map(w=>w.id); };
   app.innerHTML=`<div class="wrap stack" style="gap:16px">
     <div class="row between"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier}</span><button class="link small" id="leave">Leave</button></div>
     <div class="wlayout">
       <aside class="wside">
         <div class="card stack tight"><span class="label">${esc(W.type||"")}${W.time?` · ${W.time} min`:""} · ${W.target}+ words</span><p class="wtask" style="font-size:16px">${esc(W.task)}</p></div>
         ${ch?`<div class="card">${chartSVG(ch)}</div>`:""}
+        ${active.length?`<details class="more" open><summary>Unit words · <span id="avc">0/${active.length}</span> used</summary><div id="avcloud">${cloudHTML(active,[])}</div><p class="small muted">Words turn green as you use them in your essay. Tap one to see its meaning.</p></details>`:""}
         ${bank?`<details class="more" ${tier!=="C1"?"open":""}><summary>Word bank · tap to insert</summary><div class="bank">${bank.map(g=>`<div class="grp"><b>${esc(g.h)}</b>${g.w.map(w=>`<button type="button" data-ins="${esc(w)}">${esc(w)}</button>`).join("")}</div>`).join("")}</div></details>`:""}
       </aside>
       <section class="wmain">
@@ -1881,13 +2118,16 @@ function runWriting(U,sec,tier){
         <div class="row between"><span class="timer" id="timer"></span>${W.time?`<button class="btn small ghost" id="startTimer">Start ${W.time}-minute timer</button>`:""}</div>
         <textarea id="essay" class="essay" placeholder="Start writing here… Leave a blank line between paragraphs." aria-label="Your answer">${esc(S.drafts[dkey]||"")}</textarea>
         <div class="wstats" id="wstats"></div>
+        <div id="memebox"></div>
         <section class="stack tight"><span class="label">Before you check: tick what is true</span><div class="sc">${sec.checklist.map((c,i)=>`<label><input type="checkbox" data-ck="${i}"><span>${esc(c)}</span></label>`).join("")}</div></section>
         <div class="row"><button class="btn primary" id="checkBtn">Check my writing</button><span class="small muted" id="checkMsg"></span></div>
       </section>
     </div></div>`;
   const ta=$("#essay");
   const markBank=()=>{ if(!bank) return; $$("[data-ins]").forEach(b=>b.classList.toggle("used",bankRe(b.dataset.ins).test(ta.value))); };
-  const stats=()=>{ const n=wc(ta.value); $("#wstats").innerHTML=`<span>${n} words</span><span>${n>=W.target?"Target reached":(W.target-n)+" to go"}</span>`; markBank(); };
+  const markActive=()=>{ if(!active.length) return; const u=usedNow(ta.value); $$("#avcloud [data-w]").forEach(b=>b.classList.toggle("used",u.includes(b.dataset.w))); const c=$("#avc"); if(c) c.textContent=`${u.length}/${active.length}`; };
+  const memes=()=>{ const box=$("#memebox"); if(!box) return; const hit=alertsIn(ta.value).find(x=>!dismissed.has(x.a.k)); box.innerHTML=hit?memeHTML(hit.a,true):""; const b=$("[data-meme-ok]",box); if(b) b.onclick=()=>{ dismissed.add(b.dataset.memeOk); memes(); }; };
+  let mdeb; const stats=()=>{ const n=wc(ta.value); $("#wstats").innerHTML=`<span>${n} words</span><span>${n>=W.target?"Target reached":(W.target-n)+" to go"}</span>`; markBank(); markActive(); clearTimeout(mdeb); mdeb=setTimeout(memes,700); };
   let deb; ta.addEventListener("input",()=>{ stats(); clearTimeout(deb); deb=setTimeout(()=>{S.drafts[dkey]=ta.value;save();},600); }); stats();
   $$('[id^="plan"]').forEach(inp=>inp.addEventListener("input",()=>{S.drafts[dkey+":plan"]=$$('[id^="plan"]').map(x=>x.value);save();}));
   $$("[data-ins]").forEach(b=>b.onclick=()=>{ const s=ta.selectionStart??ta.value.length, e=ta.selectionEnd??s, before=ta.value.slice(0,s); const ins=(before&&!/\s$/.test(before)?" ":"")+b.dataset.ins+" "; ta.value=before+ins+ta.value.slice(e); ta.focus(); const p=s+ins.length; ta.setSelectionRange(p,p); ta.dispatchEvent(new Event("input")); });
@@ -1900,8 +2140,9 @@ function runWriting(U,sec,tier){
     $("#checkBtn").disabled=true; $("#checkMsg").textContent="Checking grammar and spelling…";
     let lt=null, ltErr=null; try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
     const A=analyseEssay(text,{unitWords:U.words,lt,checks,target:W.target,task:task1?1:2,bank:bank?bank.flatMap(g=>g.w):null,prompt:W.task});
+    const vu=usedNow(text); A.vocab={used:active.filter(w=>vu.includes(w.id)),unused:active.filter(w=>!vu.includes(w.id))}; A.alerts=alertsIn(text);
     const before=S.profile.writing; S.profile.writing=A.overall; S.tier.writing=tierOf(A.overall);
-    S.essays.push({uid:U.id,taskNo:task1?1:2,tier,task:W.task,text,date:Date.now(),overall:A.overall,levels:A.levels,words:A.words,lt:A.lt?{grammar:A.lt.grammar,spelling:A.lt.spelling,punctuation:A.lt.punctuation,style:A.lt.style}:null});
+    S.essays.push({uid:U.id,taskNo:task1?1:2,tier,task:W.task,text,date:Date.now(),overall:A.overall,levels:A.levels,words:A.words,vocab:active.length?{used:A.vocab.used.map(w=>w.word),total:active.length}:null,alerts:Object.fromEntries(A.alerts.map(x=>[x.a.k,x.n])),lt:A.lt?{grammar:A.lt.grammar,spelling:A.lt.spelling,punctuation:A.lt.punctuation,style:A.lt.style}:null});
     S.essays=S.essays.slice(-12); record(U.id,sec.id,tier,li(A.overall)/3,"essay",A.overall); save();
     go(viewWritingReport,U,sec,tier,text,A,ltErr,before);
   };
@@ -1914,6 +2155,8 @@ function viewWritingReport(U,sec,tier,text,A,ltErr,before){
     <div class="score"><div class="big">${A.overall}</div><div class="stack tight"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier} · CEFR estimate</span><h2>Indicative IELTS ${BAND[A.overall]}</h2><p class="muted">Your next writing tasks will be at ${S.tier.writing}.${before&&before!==A.overall?` (Before: ${before})`:""} This is an automatic estimate. Your teacher’s feedback counts more.</p></div></div>
     ${ltErr?`<p class="note warn">The grammar and spelling service didn’t respond (${esc(ltErr.message||"offline")}), so accuracy wasn’t measured. Try again later for a full check.</p>`:""}
     <section class="crit">${CRIT.map(([k,n])=>`<div class="card"><div class="row between"><strong>${n}</strong><span class="chip ${li(A.levels[k])>=2?"lv":""}">${A.levels[k]}</span></div><ul>${A.reasons[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul>${A.tips[k].length?`<div class="stack tight"><span class="label">To improve</span><ul>${A.tips[k].map(r=>`<li>${esc(r)}</li>`).join("")}</ul></div>`:""}</div>`).join("")}</section>
+    ${A.vocab&&(A.vocab.used.length+A.vocab.unused.length)?`<section class="card stack tight"><div class="row between"><strong>Active vocabulary from this unit</strong><span class="chip ${A.vocab.used.length>=5?"good":A.vocab.used.length>=3?"lv":"warn"}">${A.vocab.used.length}/${A.vocab.used.length+A.vocab.unused.length} used</span></div>${A.vocab.used.length?`<div class="ideas">${A.vocab.used.map(w=>`<span style="border-color:var(--good);color:var(--good)">✓ ${esc(w.word)}</span>`).join("")}</div>`:""}${A.vocab.unused.length?`<p class="small muted">Try next time: ${A.vocab.unused.slice(0,8).map(w=>esc(w.word)).join(", ")}</p>`:""}</section>`:""}
+    ${A.alerts&&A.alerts.length?`<section class="stack tight"><span class="label">Style alerts</span>${A.alerts.map(x=>`<details class="more"><summary>“${esc(x.a.nope)}” · ${x.n} time${x.n>1?"s":""}</summary>${memeHTML(x.a,false)}</details>`).join("")}</section>`:""}
     <section class="stack"><div class="row between"><span class="label">Your answer${A.lt?` · ${issues.length} issue${issues.length===1?"":"s"} marked`:""}</span>${A.lt?`<span class="small muted"><mark style="background:var(--bad-soft);border-bottom:2px solid var(--bad)">grammar</mark> <mark style="background:var(--warn-soft);border-bottom:2px solid var(--warn)">spelling</mark> <span style="border-bottom:2px dotted var(--muted)">style</span></span>`:""}</div><div class="marked">${markText(text,A.lt&&A.lt.matches)}</div></section>
     ${issues.length?`<section class="stack tight issues"><span class="label">Corrections from LanguageTool</span>${issues.slice(0,30).map(m=>`<div class="issue"><span><b>${esc(text.substr(m.offset,m.length))}</b>${m.replacements&&m.replacements.length?` → <b style="color:var(--good)">${esc(m.replacements.slice(0,3).map(r=>r.value).join(" / "))}</b>`:""}</span><span class="muted">${esc(m.message)}</span></div>`).join("")}</section>`:""}
     <div class="row"><button class="btn primary" id="revise">Revise my answer</button><button class="btn" id="toUnit">Back to the unit</button></div>
@@ -1937,7 +2180,7 @@ async function progressCode(){
 async function viewSend(){
   app.innerHTML=`<div class="wrap narrow stack" style="gap:22px">
     <span class="label">Send progress</span><h1>Share your progress</h1>
-    <p class="prose">This code contains your scores, levels and essays. It doesn’t include your name. Copy it and send it to ${esc(CONFIG.teacherName||"your teacher")}${CONFIG.teacherContact?` (${esc(CONFIG.teacherContact)})`:""} in a message.${SYNC.url()?" Your teacher also receives your progress automatically, so this is only a backup.":""}</p>
+    <p class="prose">This code contains your scores, levels and essays. It doesn’t include your name. Copy it and send it to ${esc(CONFIG.teacherName||"your teacher")}${CONFIG.teacherContact?` (${esc(CONFIG.teacherContact)})`:""} in a message.</p>
     <textarea id="pcode" rows="6" readonly style="font-family:var(--mono);font-size:12px" aria-label="Your progress code">Preparing…</textarea>
     <div class="row"><button class="btn primary" id="copy">Copy code</button><span class="small muted" id="cmsg" role="status"></span></div>
   </div>`;
@@ -1951,8 +2194,7 @@ function viewSettings(){
     <div class="stack tight"><label for="acc"><strong>Voice accent for listening</strong></label><select id="acc" style="max-width:320px"><option value="en-GB">British English</option><option value="en-US">American English</option><option value="en-AU">Australian English</option><option value="any">Mixed (as written in the unit)</option></select><span class="small muted">Voices come from your device, so quality varies. Chrome and Safari usually have the best voices.</span></div>
     <div class="stack tight"><label for="spd"><strong>Speech speed</strong> <span class="muted" id="spdv"></span></label><input type="range" id="spd" min="0.8" max="1.15" step="0.05" style="max-width:320px"><div class="row"><button class="btn small ghost" id="testV">Test voice</button></div></div>
     <div class="stack tight"><strong>Placement</strong><p class="small muted">Retake the placement test to reset your starting levels. Your other results stay.</p><div class="row"><button class="btn small" id="retake">Retake placement</button></div></div>
-    ${SYNC.on()?`<div class="stack tight"><strong>Sync with your teacher</strong><p class="small" id="syncMsg" role="status">${SYNC.err?esc(SYNC.err):S.synced?`Last sent ${esc(fmtDate(S.synced))}, ${esc(new Date(S.synced).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}))}.`:"Not sent yet."}</p><div class="row"><button class="btn small" id="syncNow">Send now</button></div></div>`:""}
-    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span>${BUNDLE.label?` · licensed to ${esc(BUNDLE.label)}`:""}${BUNDLE.exp?` · access until <b>${esc(fmtLong(BUNDLE.exp))}</b>`:""}</p><p class="small muted">${SYNC.url()?`Your progress is sent to your teacher automatically${S.synced?` (last sent ${esc(fmtDate(S.synced))}, ${esc(new Date(S.synced).toLocaleTimeString(undefined,{hour:"2-digit",minute:"2-digit"}))})`:""}. Removing the course clears it from this device only; enter the same code again to bring it back.`:"Removing the course deletes all progress on this device. Send your progress to your teacher first."}</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
+    <div class="stack tight"><strong>Access code</strong><p class="small">Signed in with <span style="font-family:var(--mono)">${esc(fmtCode(S.code||""))}</span>${BUNDLE.label?` · licensed to ${esc(BUNDLE.label)}`:""}${BUNDLE.exp?` · access until <b>${esc(fmtLong(BUNDLE.exp))}</b>`:""}</p><p class="small muted">Removing the course deletes all progress on this device. Send your progress to your teacher first.</p><div class="row"><button class="btn small danger" id="out">Remove course from this device</button></div></div>
   </div>`;
   $("#acc").value=S.settings.accent||"en-GB";
   $("#acc").onchange=e=>{S.settings.accent=e.target.value;save();};
@@ -1960,7 +2202,6 @@ function viewSettings(){
   $("#spd").oninput=e=>{S.settings.speed=Number(e.target.value);$("#spdv").textContent=Math.round(S.settings.speed*100)+"%";save();};
   $("#testV").onclick=()=>TTS.say("Over the last twenty years, the way we live has changed dramatically.","en-GB","female");
   $("#retake").onclick=()=>go(viewPlacementIntro);
-  if($("#syncNow")) $("#syncNow").onclick=async e=>{ const b=e.currentTarget; b.disabled=true; b.textContent="Sending…"; clearTimeout(SYNC.timer); SYNC.timer=null; while(SYNC.busy) await new Promise(r=>setTimeout(r,200)); const ok=await SYNC.push(); if(!b.isConnected) return; b.disabled=false; b.textContent="Send now"; $("#syncMsg").textContent=ok?"Sent just now. Check your sheet.":SYNC.err; };
   $("#out").onclick=e=>{ const b=e.currentTarget; if(b.dataset.armed){ try{localStorage.removeItem(SKEY);}catch(x){} location.reload(); } else { b.dataset.armed="1"; b.classList.add("armed"); b.textContent="Tap again to remove"; T.later(()=>{ if(b.isConnected){ delete b.dataset.armed; b.classList.remove("armed"); b.textContent="Remove course from this device"; } },3500); } };
 }
 
