@@ -831,6 +831,68 @@ input[type=text]:focus,select:focus,textarea:focus{border-color:var(--act);backg
 .v-cloud button.c1x{color:var(--cloud-strong)}
 .v-cloud button.used{color:var(--good)}
 .v-cloud{justify-content:flex-start;padding:2px 0}
+
+/* panel closed by default */
+.lgrid{grid-template-columns:minmax(0,1fr)}
+.lgrid.side-open{grid-template-columns:minmax(0,1fr) min(400px,34vw)}
+.lgrid:not(.side-open) .lmain{max-width:980px;width:100%;margin:0 auto}
+@media (min-width:1000px){.lgrid:not(.side-open) .lside{display:none}}
+.lh-pans{display:inline-flex;gap:6px}
+.lh-pan[aria-pressed="true"]{background:var(--act);color:var(--act-ink)}
+@media (max-width:999px){.lh-pans{display:none}.lgrid.side-open{grid-template-columns:1fr}}
+.ls-close{display:inline-grid;place-items:center}
+@media (min-width:1000px){.lfab{display:none!important}}
+/* clouds: pink on hover */
+.v-cloud button:hover,.v-cloud button:focus-visible{color:var(--accent);text-decoration:none}
+/* photo inside a task */
+.timg{display:grid;grid-template-columns:minmax(0,.8fr) minmax(0,1.2fr);gap:22px;align-items:start}
+.timg figure{margin:0;position:sticky;top:calc(var(--toph,110px) + 12px)}
+.timg img{width:100%;height:auto;border-radius:16px;display:block;max-height:78vh;object-fit:cover}
+.timg-main{display:grid;gap:14px;min-width:0}
+@container (max-width:640px){.timg{grid-template-columns:1fr}.timg figure{position:static}.timg img{max-height:52vh}}
+/* picture dictionary and drawn icons */
+.v-pics,.v-icons{display:grid;gap:16px}
+.vp-g{display:grid;gap:8px}
+.vp-row,.vi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.ls-pane .vp-row,.ls-pane .vi-row,.tref .vp-row,.tref .vi-row{grid-template-columns:repeat(2,minmax(0,1fr))}
+.vp,.vi{display:grid;gap:4px;align-content:start;text-align:left;border:0;border-radius:14px;padding:8px;background:var(--field);color:var(--ink);font:inherit;cursor:pointer}
+.vp:hover,.vi:hover{background:var(--field-hover)}
+.vp:hover b,.vi:hover b{color:var(--accent)}
+.vp img{width:100%;aspect-ratio:1;object-fit:cover;border-radius:10px;display:block}
+.vp b,.vi b{font-size:16px;line-height:1.15}
+.vp small,.vi small{font-size:12.5px;color:var(--muted);line-height:1.3}
+.vi .ic{width:64px;height:64px}
+.ic-l,.ic-a,.ic-d{fill:none;stroke-width:3.5;stroke-linecap:round;stroke-linejoin:round}
+.ic-l{stroke:var(--ink)} .ic-a{stroke:var(--accent)} .ic-d{stroke:var(--muted);stroke-dasharray:4 5}
+.ic-f{fill:var(--ink)} .ic-af,.ic-af circle{fill:var(--accent)}
+/* research card, brain network, mind map */
+.v-res{display:grid;gap:10px}
+.vr-big{font-family:var(--display);font-size:clamp(64px,10vw,110px);line-height:.85;color:var(--accent)}
+.vr-bars{display:grid;gap:8px}
+.vr-b{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;font-size:14px}
+.vr-b i{height:14px;border-radius:7px;background:var(--cloud)}
+.vr-b i.hi{background:var(--accent)}
+.vr-src{font-family:var(--mono);font-size:11.5px;letter-spacing:.02em;color:var(--muted);line-height:1.5}
+.v-net{display:grid;gap:12px}
+.v-net svg{width:100%;max-width:340px;height:auto;justify-self:center}
+.nw-l{stroke:var(--frame);stroke-width:3;stroke:var(--cloud)}
+.nw-c{fill:var(--accent)} .nw-ct{fill:#fff;font:700 15px var(--body)}
+.nw-n{fill:var(--bg);stroke-width:3} .nw-n.t1{stroke:var(--t2)} .nw-n.t2{stroke:var(--t3)} .nw-n.t3{stroke:var(--t4)}
+.nw-t{fill:var(--ink);font:600 11.5px var(--body)}
+.nw-keys{display:grid;gap:6px}
+.nw-keys div{display:grid;grid-template-columns:14px auto 1fr;gap:8px;align-items:baseline;font-size:14px}
+.nw-keys i{width:12px;height:12px;border-radius:50%;display:inline-block}
+.nw-keys i.t1{background:var(--t2)} .nw-keys i.t2{background:var(--t3)} .nw-keys i.t3{background:var(--t4)}
+.nw-keys span{color:var(--muted)}
+.v-mm{width:100%;height:auto}
+.mm-c ellipse{fill:var(--field);stroke:var(--ink);stroke-width:2}
+.mm-c text{font:700 15px var(--body);fill:var(--ink)}
+.mm-doodle{fill:none;stroke:var(--accent);stroke-width:2.5;stroke-linejoin:round}
+.mm-b{fill:none;stroke-width:5;stroke-linecap:round}
+.mm-b.t1{stroke:var(--t1)} .mm-b.t2{stroke:var(--t2)} .mm-b.t3{stroke:var(--t3)} .mm-b.t4{stroke:var(--t4)}
+.mm-h{font:700 16px var(--body)} .mm-h.t1{fill:var(--t1)} .mm-h.t2{fill:var(--t2)} .mm-h.t3{fill:var(--t3)} .mm-h.t4{fill:var(--t4)}
+.mm-w{font:500 14px var(--body);fill:var(--ink)}
+.deck .v-res .vr-big{font-size:clamp(80px,14vw,140px)}
 </style>
 </head>
 <body>
@@ -2030,6 +2092,7 @@ function runStage(U,sec,k,focus){
           <button type="button" class="lh-tool lh-timer" id="ltimer" aria-label="Lesson timer: tap to start or pause"><span id="ltime">0:00</span></button>
           <button type="button" class="lh-tool" id="zout" aria-label="Smaller text">A−</button><button type="button" class="lh-tool" id="zin" aria-label="Bigger text">A+</button>
           <button type="button" class="lh-tool" id="ltheme" aria-label="Switch light or dark">${isDark()?"Light":"Dark"}</button>
+          <span class="lh-pans">${tabs.map(([id,l])=>`<button type="button" class="lh-tool lh-pan" data-open="${id}" aria-pressed="false">${esc(l)}</button>`).join("")}</span>
           <span class="lh-score" id="lscore" role="status"></span>
         </div>
       </div>
@@ -2062,9 +2125,10 @@ function runStage(U,sec,k,focus){
     P.body.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-pp]")&&P.owner&&P.opt.onTap){ e.preventDefault(); P.opt.onTap(e); } });
   }
   bindNotepad($(".np",$("#lside")),U.id);
-  $$("[data-pane]").forEach(b=>b.onclick=()=>showPane(b.dataset.pane));
+  $$("[data-pane]").forEach(b=>b.onclick=()=>openPanel(b.dataset.pane));
+  $$("[data-open]").forEach(b=>b.onclick=()=>openPanel(b.dataset.open));
   showPane(mat&&mat.kind!=="img"?"mat":"ref");
-  $("#lfab").onclick=()=>sheet(true); $("#lsclose").onclick=()=>sheet(false);
+  $("#lfab").onclick=()=>openPanel(STAGE.pane||"ref"); $("#lsclose").onclick=()=>closePanel();
   $("#sleave").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
   $("#sprev").onclick=()=>prev&&go(runStage,U,sec,k-1); $("#snext").onclick=()=>next&&go(runStage,U,sec,k+1);
   $$("#lchips [data-goto]").forEach(b=>b.onclick=()=>scrollToTask(+b.dataset.goto));
@@ -2101,8 +2165,8 @@ function setCurrent(i){
   box.innerHTML=refs.length?`<span class="label">${src===d?esc(d.title):`From “${esc(src.title)}”`}</span>${refs.map(c=>tipHTML(c,U)).join("")}`:`<p class="small muted">No reference card for this task. Use Notes to write down anything you want to remember.</p>`;
   bindTips(box);
 }
-function showPane(id){ $$("[data-pane]").forEach(b=>b.setAttribute("aria-selected",b.dataset.pane===id)); $$(".ls-pane").forEach(p=>p.hidden=p.dataset.panel!==id); if(STAGE) STAGE.pane=id; }
-function sheet(on){ const s=$("#lside"); if(!s) return; s.classList.toggle("open",!!on); document.body.classList.toggle("sheet-open",!!on&&isNarrow()); }
+function showPane(id){ $$("[data-pane]").forEach(b=>b.setAttribute("aria-selected",b.dataset.pane===id)); $$(".ls-pane").forEach(p=>p.hidden=p.dataset.panel!==id); if(STAGE) STAGE.pane=id; const g=$(".lgrid"); if(g&&g.classList.contains("side-open")) $$("[data-open]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.open===id)); }
+function sheet(on){ const P=STAGE&&STAGE.panel; if(on){ if(P&&!$(".lgrid").classList.contains("side-open")) P.auto=true; openPanel("mat",true); } else if(P&&P.auto) closePanel(); }
 function scrollToTask(i,behavior){ const st=STAGE&&STAGE.st; if(!st||!st.tasks[i]) return; const el=document.getElementById("t-"+st.tasks[i].id); if(el) el.scrollIntoView({behavior:behavior||"smooth",block:"start"}); }
 function stageBar(){
   if(!STAGE) return; const {U,sec,st,k,stages}=STAGE, s=stageStats(U.id,sec.id,st), next=stages[k+1];
@@ -2126,6 +2190,7 @@ function mkCtx(U,sec,st,d,root,i){
     clear(){ ids.forEach(id=>{ clearInterval(id); clearTimeout(id); }); ids.clear(); },
     framed(inner){
       if(covers(st,d)) return inner;
+      if(d.img&&!(st.material&&st.material.img===d.img)&&imgSrc(U,d.img)) return `<div class="timg"><figure><img src="${imgSrc(U,d.img)}" alt="${esc(d.alt||"")}"></figure><div class="timg-main">${inner}</div></div>`;
       const ch=resolveChart(sec,d); if(ch) return `<div class="tchart">${chartSVG(ch)}</div>${inner}`;
       if(d.paras) return `<details class="tpass" open><summary>The text</summary>${passageHTML(sec,d)}</details>${inner}`;
       return inner;
@@ -2152,7 +2217,7 @@ function mountTask(i){
   if(TIMED[d.kind]||(TAPK[d.kind]&&cx.usesPanel)){
     const secs=d.kind==="skim"?(d.seconds||60):0;
     const msg=d.kind==="skim"?`You will have ${secs} seconds to read the first sentences, then the text disappears.`:d.kind==="scan"?"A timed race: the clock starts when you press Start.":"";
-    const where=cx.usesPanel?(isNarrow()?"The text opens at the bottom of the screen and becomes tappable.":"The text on the right becomes tappable."):"";
+    const where=cx.usesPanel?(isNarrow()?"The text opens at the bottom of the screen and becomes tappable.":"The text opens on the right and becomes tappable."):"";
     cx.frame(`<div class="tgate"><p class="small">${esc([msg,where].filter(Boolean).join(" "))}</p><button type="button" class="btn primary" data-go>Start${secs?` · ${secs} s`:""}</button></div>`);
     cx.$("[data-go]").onclick=()=>f(cx);
   } else f(cx);
@@ -2217,6 +2282,55 @@ function mountNoteFab(uid){
   bindNotepad($(".np",w),uid);
 }
 
+/* ---- drawn icons for abstract words (64×64, ink lines + one pink accent) ---- */
+const ICONS={
+  surge:`<path class="ic-l" d="M8 52H58"/><path class="ic-l" d="M8 44H26"/><path class="ic-a" d="M26 44L40 14"/><path class="ic-a" d="M33 15L40 13L42 21"/>`,
+  proliferate:`<circle class="ic-f" cx="12" cy="32" r="4"/><circle class="ic-f" cx="28" cy="24" r="4"/><circle class="ic-f" cx="28" cy="40" r="4"/><g class="ic-af"><circle cx="46" cy="14" r="4"/><circle cx="46" cy="28" r="4"/><circle cx="46" cy="42" r="4"/><circle cx="56" cy="21" r="4"/><circle cx="56" cy="35" r="4"/><circle cx="56" cy="50" r="4"/></g>`,
+  dwindle:`<path class="ic-l" d="M6 56H58"/><rect class="ic-f" x="9" y="14" width="9" height="42" rx="2"/><rect class="ic-f" x="22" y="24" width="9" height="32" rx="2"/><rect class="ic-f" x="35" y="34" width="9" height="22" rx="2"/><rect class="ic-af" x="48" y="44" width="9" height="12" rx="2"/>`,
+  plummet:`<path class="ic-l" d="M8 56H58"/><path class="ic-l" d="M8 14H30"/><path class="ic-a" d="M30 14L44 50"/><path class="ic-a" d="M37 46L44 51L48 43"/>`,
+  supplant:`<rect class="ic-d" x="30" y="18" width="24" height="24" rx="4"/><rect class="ic-af" x="8" y="22" width="24" height="24" rx="4"/><path class="ic-l" d="M36 54H56"/><path class="ic-l" d="M50 49L56 54L50 59"/>`,
+  obsolete:`<rect class="ic-l" x="14" y="12" width="22" height="40" rx="3"/><path class="ic-l" d="M20 18H30M20 24H30"/><circle class="ic-l" cx="25" cy="42" r="4"/><path class="ic-a" d="M8 8L56 56M56 8L8 56"/>`,
+  undergo:`<rect class="ic-l" x="6" y="22" width="18" height="18" rx="2"/><path class="ic-l" d="M28 31H38"/><path class="ic-l" d="M34 26L39 31L34 36"/><circle class="ic-af" cx="51" cy="31" r="9"/><path class="ic-a" d="M51 12V16M51 46V50M60 22L57 25M42 22L45 25"/>`,
+  "paradigm-shift":`<rect class="ic-l" x="8" y="14" width="30" height="30" rx="2"/><path class="ic-l" d="M8 24H38M8 34H38M18 14V44M28 14V44"/><g transform="rotate(18 40 36)"><rect class="ic-a" x="26" y="22" width="30" height="30" rx="2"/></g>`,
+  "in-flux":`<path class="ic-l" d="M6 20C14 12 22 28 30 20S46 12 54 20"/><path class="ic-a" d="M6 34C14 26 22 42 30 34S46 26 54 34"/><path class="ic-l" d="M6 48C14 40 22 56 30 48S46 40 54 48"/><path class="ic-a" d="M50 30L55 34L50 38"/>`,
+  irreversible:`<path class="ic-l" d="M8 24H52"/><path class="ic-l" d="M46 18L53 24L46 30"/><path class="ic-d" d="M56 42H12"/><path class="ic-d" d="M18 36L11 42L18 48"/><path class="ic-a" d="M24 34L40 50M40 34L24 50"/>`
+};
+const iconSVG=k=>ICONS[k]?`<svg class="ic" viewBox="0 0 64 64" aria-hidden="true">${ICONS[k]}</svg>`:"";
+function mindmapSVG(c){
+  const W=660,H=430,cx=W/2,cy=205, pos=[[150,56],[510,56],[150,300],[510,300]];
+  let g=`<g class="mm-c"><ellipse cx="${cx}" cy="${cy}" rx="92" ry="54"/><path class="mm-doodle" d="M${cx-46} ${cy+18}V${cy-4}H${cx-34}V${cy-20}H${cx-22}V${cy+18}M${cx-16} ${cy+18}V${cy-30}H${cx-4}V${cy+18}M${cx+2} ${cy+18}V${cy-10}H${cx+16}V${cy+18}M${cx+22} ${cy+18}V${cy-24}H${cx+34}V${cy+18}"/><text x="${cx}" y="${cy+40}" text-anchor="middle">${esc(c.center)}</text></g>`;
+  c.branches.forEach((b,i)=>{ const [x,y]=pos[i%4], k=i%4+1, up=y<cy, dir=x<cx?-1:1;
+    g=`<path class="mm-b t${k}" d="M${cx+dir*60} ${cy+(up?-30:30)} C ${cx+dir*90} ${y}, ${x-dir*60} ${y}, ${x} ${y}"/>`+g;
+    const hy=up?y-12:y+28; g+=`<text class="mm-h t${k}" x="${x}" y="${hy}" text-anchor="middle">${esc(b.h)}</text>`;
+    b.words.forEach((w,j)=>{ const yy=(up?y+26:y+54)+j*24; g+=`<text class="mm-w" x="${x}" y="${yy}" text-anchor="middle">${esc(w)}</text>`; });
+  });
+  return `<svg class="v-mm" viewBox="0 18 ${W} ${H}" role="img" aria-label="${esc(c.center)}: ${esc(c.branches.map(b=>b.h+": "+b.words.join(", ")).join("; "))}">${g}</svg>`;
+}
+function networkSVG(c){
+  const W=360,H=270,cx=180,cy=140, P=[[180,40],[62,226],[298,226]];
+  let g=""; c.nodes.forEach((n,i)=>{ const [x,y]=P[i%3]; g+=`<path class="nw-l" d="M${cx} ${cy}L${x} ${y}"/>`; });
+  g+=`<circle class="nw-c" cx="${cx}" cy="${cy}" r="42"/><text class="nw-ct" x="${cx}" y="${cy+5}" text-anchor="middle">${esc(c.center)}</text>`;
+  c.nodes.forEach((n,i)=>{ const [x,y]=P[i%3]; g+=`<circle class="nw-n t${i+1}" cx="${x}" cy="${y}" r="30"/><text class="nw-t" x="${x}" y="${y+4}" text-anchor="middle">${esc(n.t)}</text>`; });
+  return `<div class="v-net"><svg viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.center)} linked to ${esc(c.nodes.map(n=>n.t).join(", "))}">${g}</svg><div class="nw-keys">${c.nodes.map((n,i)=>`<div><i class="t${i+1}"></i><b>${esc(n.t)}</b><span>${esc(n.s||"")}</span></div>`).join("")}</div></div>`;
+}
+Object.assign(TIPV,{
+  pics:(c,U)=>`<div class="v-pics">${c.groups.map(g=>`<div class="vp-g"><span class="label">${esc(g.h)}</span><div class="vp-row">${g.items.map(x=>{ const w=findWord(x.w)||{word:x.w,def:""}; const src=imgSrc(U,x.img); return `<button type="button" class="vp" data-w="${esc(x.w)}" aria-label="${esc(w.word)}: ${esc(w.def)}">${src?`<img src="${src}" alt="" loading="lazy">`:""}<b>${esc(w.word)}</b><small>${esc(x.s||w.def)}</small></button>`; }).join("")}</div></div>`).join("")}</div>`,
+  icons:c=>`<div class="v-icons">${c.groups.map(g=>`<div class="vp-g"><span class="label">${esc(g.h)}</span><div class="vi-row">${g.items.map(x=>`<button type="button" class="vi" data-w="${esc(x.w)}">${iconSVG(x.icon||x.w)}<b>${esc(x.t||((findWord(x.w)||{}).word)||x.w)}</b><small>${esc(x.s||"")}</small></button>`).join("")}</div></div>`).join("")}</div>`,
+  research:c=>{ const max=Math.max(...(c.bars||[{w:1}]).map(b=>b.w)); return `<div class="v-res"><div class="vr-big">${esc(c.big)}</div>${c.bars?`<div class="vr-bars">${c.bars.map((b,i)=>`<div class="vr-b"><span>${esc(b.t)}</span><i class="${i===c.bars.length-1?"hi":""}" style="width:${Math.max(6,b.w/max*100)}%"></i></div>`).join("")}</div>`:""}${c.body?`<p class="small">${esc(c.body)}</p>`:""}${c.src?`<p class="vr-src">${esc(c.src)}</p>`:""}</div>`; },
+  network:c=>networkSVG(c)+(c.src?`<p class="vr-src">${esc(c.src)}</p>`:""),
+  mindmap:c=>mindmapSVG(c)
+});
+/* ---- side panel: closed until you open it, closes on a second click ---- */
+function openPanel(id,force){
+  const g=$(".lgrid"); if(!g) return;
+  const open=g.classList.contains("side-open"), same=STAGE&&STAGE.pane===id;
+  if(open&&same&&!force){ closePanel(); return; }
+  showPane(id); g.classList.add("side-open"); const s=$("#lside"); if(s) s.classList.add("open");
+  document.body.classList.toggle("sheet-open",isNarrow());
+  $$("[data-open]").forEach(b=>b.setAttribute("aria-pressed",b.dataset.open===id));
+}
+function closePanel(){ const g=$(".lgrid"); if(g) g.classList.remove("side-open"); const s=$("#lside"); if(s) s.classList.remove("open"); document.body.classList.remove("sheet-open"); $$("[data-open]").forEach(b=>b.setAttribute("aria-pressed","false")); if(STAGE&&STAGE.panel) STAGE.panel.auto=false; }
+
 /* ---- read-first tips, talk cards, picture hotspots ---- */
 function drillTip(cx){ const {U,sec,d}=cx; cx.frame(`<div class="tipflow">${refList(sec,d).map(c=>tipHTML(c,U)).join("")}</div>`); }
 function drillTalk(cx){ const {U,d}=cx; const L=["Short","Full","Extended"];
@@ -2278,7 +2392,7 @@ function panelRender(){
   P.el.classList.toggle("claimed",!!o);
   if(!o){ P.bar.hidden=true; P.body.innerHTML=P.mat.html; sheet(false); return; }
   P.body.innerHTML=textHTML(STAGE.sec,STAGE.st.material,o.mode); panelBar();
-  showPane("mat"); if(isNarrow()) sheet(true); else { const sd=$("#lside"); if(sd) sd.scrollTop=0; }
+  sheet(true); const sd=$("#lside"); if(sd&&!isNarrow()) sd.scrollTop=0;
 }
 function panelBar(){ const P=STAGE&&STAGE.panel; if(!P||!P.opt) return; const o=P.opt; P.bar.hidden=false; P.bar.innerHTML=`<span class="label">Task ${o.n} · ${esc(o.label||"tap in the text")}</span>${o.target?`<div class="target">${o.target}</div>`:""}`; }
 /* returns a host for the task's text: the pinned panel when the stage pins the same text, otherwise an inline copy */
