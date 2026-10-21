@@ -402,6 +402,8 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .qdots i.done{background:var(--accent)}
 .qdots i.on{background:var(--ink);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--ink)}
 .spk-help{display:grid;gap:18px;min-width:0}
+.wcloudbar{display:grid;gap:6px;padding-bottom:6px}
+.wcloudbar .v-cloud{zoom:.78}
 .brief{border-radius:14px;background:var(--surface);padding:18px;display:grid;gap:10px}
 .brief p{line-height:1.75}
 .ideas{display:flex;flex-wrap:wrap;gap:6px}
@@ -533,77 +535,179 @@ ins{color:var(--good);text-decoration:none;font-weight:700;background:var(--good
 .mem.flip{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
 .mem.flip.s1{background:var(--accent-soft)}
 .mem.done{background:var(--good-soft);color:var(--good);border:1.5px solid var(--good)}
-/* ---------- training stages ---------- */
+/* ---------- training stages: module list ---------- */
 .wrap.wide{max-width:1280px}
-.stagelist{display:grid;gap:12px}
-.stagecard{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;text-align:left;border:1.5px solid var(--line);border-radius:18px;padding:16px 18px;background:var(--bg);cursor:pointer;color:var(--ink);font:inherit}
-.stagecard:hover{border-color:var(--ink)}
+.stagelist{display:grid;gap:10px}
+.stagecard{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;text-align:left;border:0;border-radius:18px;padding:16px 18px;background:var(--field);cursor:pointer;color:var(--ink);font:inherit}
+.stagecard:hover{background:var(--field-hover)}
 .snum{font-family:var(--display);color:var(--accent);line-height:.8;font-size:64px;min-width:.6em}
 .snum.big{font-size:clamp(76px,12vw,124px)}
 .stagecard.done .snum{color:var(--good)}
 .smeta{display:grid;gap:6px;min-width:0}
 .stitle{font-size:21px;font-weight:700;line-height:1.2}
 .kinds{display:flex;flex-wrap:wrap;gap:6px}
-.kinds i{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border:1px solid var(--line);border-radius:999px;padding:2px 8px;color:var(--muted)}
+.kinds i{font-style:normal;font-family:var(--mono);font-size:10.5px;letter-spacing:.05em;text-transform:uppercase;border-radius:999px;padding:2px 8px;color:var(--muted);background:var(--bg)}
 .sprog{display:grid;gap:6px;justify-items:end;min-width:120px}
 .sprog .prog{width:120px}
 @media (max-width:640px){.stagecard{grid-template-columns:auto minmax(0,1fr);gap:12px;padding:14px}.stagecard .snum{font-size:52px}.sprog{grid-column:1/-1;justify-items:start;grid-template-columns:auto 1fr auto;align-items:center;width:100%}.sprog .prog{width:100%}}
-.stagehead{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:end;padding-bottom:16px;border-bottom:1.5px solid var(--ink)}
-@media (max-width:560px){.stagehead{grid-template-columns:1fr;gap:6px}}
-.stbar{position:sticky;top:var(--toph,54px);z-index:11;background:var(--bg);display:flex;flex-wrap:wrap;gap:8px 14px;align-items:center;justify-content:space-between;padding-block:8px;border-bottom:1px solid var(--line)}
-.stchips{display:flex;gap:6px;flex-wrap:wrap}
-.stchip{width:34px;height:34px;border-radius:50%;border:1.5px solid var(--line);background:var(--bg);font-family:var(--mono);font-size:13px;font-weight:600;cursor:pointer;color:var(--ink);padding:0}
-.stchip:hover{border-color:var(--ink)}
-.stchip.ok{background:var(--good);border-color:var(--good);color:var(--bg)}
-.stchip.mid{background:var(--warn-soft);border-color:var(--warn)}
-.stgrid{display:grid;grid-template-columns:minmax(0,.92fr) minmax(0,1.08fr);gap:26px;align-items:start}
-.stmat{position:sticky;top:calc(var(--toph,54px) + 58px);max-height:calc(100vh - var(--toph,54px) - 74px);overflow:auto;display:grid;gap:10px;align-content:start;overscroll-behavior:contain;padding:2px 4px 2px 2px}
-.stmat .dpass{max-height:none;overflow:visible}
-.stmat .text{max-width:none}
-.stmat.claimed .matbody{border:1.5px solid var(--accent);border-radius:14px;padding:6px}
-.mathead{display:none;align-items:center;justify-content:space-between;gap:10px}
+/* ---------- the lesson page: its own header, tasks left, tools right ---------- */
+body.in-lesson #topbar{display:none}
+body.in-lesson #foot{display:none}
+.lesson{min-height:100vh}
+.lhead{position:sticky;top:0;z-index:30;background:var(--bg);border-bottom:1px solid var(--frame);padding:10px clamp(12px,2.5vw,28px) 0}
+.lh-row{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:center}
+.lh-back{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:8px 14px;font:inherit;font-weight:600;font-size:14px;cursor:pointer;display:inline-flex;gap:8px;align-items:center;max-width:220px}
+.lh-back span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.lh-title{display:grid;min-width:0}
+.lh-title b{font-family:var(--display);font-weight:400;font-size:26px;line-height:1;letter-spacing:.02em;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lh-tools{display:flex;gap:6px;align-items:center}
+.lh-tool{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:7px 12px;font-family:var(--mono);font-size:13px;cursor:pointer;min-width:40px}
+.lh-tool:hover{background:var(--field-hover)}
+.lh-timer.on{background:var(--act);color:var(--act-ink)}
+.lh-score{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);padding-left:6px;white-space:nowrap}
+.lh-bar{display:flex;gap:8px;align-items:center;padding-block:10px}
+.lh-chips{display:flex;gap:6px;overflow-x:auto;scrollbar-width:none;flex:1;min-width:0;scroll-behavior:smooth}
+.lh-chips::-webkit-scrollbar{display:none}
+.lh-chip{flex:none;display:inline-flex;gap:7px;align-items:center;border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:6px 12px 6px 6px;font:inherit;font-size:13px;cursor:pointer;white-space:nowrap}
+.lh-chip b{font-family:var(--mono);font-size:12px;min-width:24px;height:24px;border-radius:999px;display:grid;place-items:center;background:var(--bg);font-weight:600;padding:0 6px}
+.lh-chip.tipc b{background:transparent;color:var(--muted)}
+.lh-chip.cur{background:var(--act);color:var(--act-ink)}
+.lh-chip.cur b{background:rgba(255,255,255,.16);color:var(--act-ink)}
+.lh-chip.ok b{background:var(--good);color:#fff}
+.lh-chip.mid b{background:var(--warn-soft);color:var(--ink)}
+.lh-nav{border:0;background:none;color:var(--ink);font-size:22px;line-height:1;padding:4px 8px;cursor:pointer;border-radius:8px}
+.lh-nav:disabled{opacity:.25;cursor:default}
+.lh-reset{border:0;background:none;color:var(--muted);font:inherit;font-size:13px;cursor:pointer;text-decoration:underline;white-space:nowrap}
+@media (max-width:760px){.lh-row{grid-template-columns:auto minmax(0,1fr)}.lh-tools{grid-column:1/-1;justify-content:flex-start;flex-wrap:wrap}.lh-back span{display:none}.lh-title b{font-size:22px}}
+.lgrid{display:grid;grid-template-columns:minmax(0,1fr) min(400px,34vw);gap:clamp(20px,3vw,44px);max-width:1360px;margin:0 auto;padding:0 clamp(14px,2.5vw,28px)}
+.lmain{min-width:0;padding-block:28px 120px;display:grid;gap:0;align-content:start}
+.lintro{display:grid;grid-template-columns:auto minmax(0,1fr);gap:18px;align-items:end;padding-bottom:22px}
+@media (max-width:560px){.lintro{grid-template-columns:1fr;gap:6px}}
+.lcloud{display:grid;gap:8px;padding-block:6px 26px}
+.lside{position:sticky;top:var(--toph,110px);height:calc(100vh - var(--toph,110px));overflow:auto;overscroll-behavior:contain;padding:18px 0 40px 22px;border-left:1px solid var(--frame);display:grid;gap:14px;align-content:start}
+.ls-head{display:flex;gap:8px;align-items:center;justify-content:space-between;position:sticky;top:-18px;background:var(--bg);padding-block:6px;z-index:2}
+.ls-tabs{display:flex;gap:4px;background:var(--field);border-radius:999px;padding:3px}
+.ls-tabs button{border:0;background:transparent;color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-weight:600;font-size:13px;cursor:pointer}
+.ls-tabs button[aria-selected="true"]{background:var(--act);color:var(--act-ink)}
+.ls-close{display:none;border:0;background:var(--field);color:var(--ink);border-radius:999px;width:34px;height:34px;cursor:pointer;font-size:14px}
+.ls-pane{display:grid;gap:12px;align-content:start;min-width:0}
+.ls-pane[hidden]{display:none}
+.lintro h1{font-size:clamp(40px,5.2vw,76px);line-height:.95}
+.ls-pane .tip{padding:4px 0;border:0;background:none;gap:10px}
+.ls-pane .tip h3{font-size:21px}
+.ls-pane .tip+.tip{border-top:1px solid var(--frame);padding-top:16px}
+.matimg{width:100%;height:auto;border-radius:12px;display:block}
 .matbar[hidden]{display:none}
-.matbar{position:sticky;top:0;z-index:2;background:var(--accent-soft);border-radius:12px;padding:10px 12px;display:grid;gap:4px}
+.matbar{position:sticky;top:30px;z-index:1;background:var(--act);color:var(--act-ink);border-radius:12px;padding:10px 12px;display:grid;gap:4px}
+.matbar .label{color:inherit;opacity:.8}
 .matbar .target{font-size:16px}
-.matfab{display:none}
-.sttasks{display:grid;gap:24px;min-width:0;align-content:start}
+#stmat.claimed .matbody .para p{cursor:pointer}
+.lfab{display:none}
 @media (max-width:999px){
-  .stgrid{grid-template-columns:1fr;gap:18px}
-  .stmat{position:static;max-height:44vh;border:1px solid var(--line);border-radius:14px;padding:10px}
-  .stmat.sheet{position:fixed;left:0;right:0;bottom:0;top:auto;max-height:64vh;z-index:40;background:var(--bg);border-radius:18px 18px 0 0;border:1.5px solid var(--ink);box-shadow:0 -12px 32px rgba(0,0,0,.2);padding:12px 14px calc(14px + env(safe-area-inset-bottom,0px))}
-  .stmat.sheet .mathead{display:flex;position:sticky;top:-12px;z-index:3;background:var(--bg);padding-block:4px}
-  .matfab{display:inline-flex;align-items:center;gap:8px;position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;border:0;border-radius:999px;padding:12px 18px;background:var(--ink);color:var(--bg);font-weight:700;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}
-  body.sheet-open .matfab{display:none}
-  body.sheet-open{padding-bottom:64vh}
+  .lgrid{grid-template-columns:1fr}
+  .lside{position:fixed;left:0;right:0;bottom:0;top:auto;height:auto;max-height:70vh;z-index:45;background:var(--bg);border:0;border-radius:20px 20px 0 0;box-shadow:0 -14px 40px rgba(0,0,0,.22);padding:12px 16px calc(18px + env(safe-area-inset-bottom,0px));transform:translateY(105%);transition:transform .25s ease;visibility:hidden}
+  .lside.open{transform:none;visibility:visible}
+  .ls-head{top:-12px}
+  .ls-close{display:inline-grid;place-items:center}
+  .lfab{display:inline-flex;position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;border:0;border-radius:999px;padding:12px 18px;background:var(--act);color:var(--act-ink);font:inherit;font-weight:700;font-size:14px;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}
+  body.sheet-open .lfab{display:none}
 }
-.task{border:1.5px solid var(--ink);border-radius:20px;padding:clamp(14px,2.4vw,22px);display:grid;gap:14px;scroll-margin-top:calc(var(--toph,54px) + 64px);container-type:inline-size;min-width:0;background:var(--bg)}
+@media (prefers-reduced-motion:reduce){.lside{transition:none}}
+/* tasks: no frames, space and a hairline between them */
+.task{display:grid;gap:16px;padding-block:34px;border-top:1px solid var(--frame);scroll-margin-top:calc(var(--toph,110px) + 8px);container-type:inline-size;min-width:0}
 .thead{display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:14px;align-items:start}
-.tnum{font-family:var(--display);font-size:48px;line-height:.82;color:var(--accent);min-width:34px}
-.thead h2{font-size:clamp(22px,3vw,28px);line-height:1.15}
-.tbody,.tmain{display:grid;gap:14px;min-width:0}
-.tref{border:1px solid var(--line);border-radius:14px;background:var(--surface);min-width:0}
+.tnum{font-family:var(--display);font-size:46px;line-height:.82;color:var(--accent);min-width:34px}
+.task.is-tip .tnum{font-size:30px;color:var(--muted);padding-top:6px}
+.thead h2{font-size:clamp(22px,3vw,30px);line-height:1.12}
+.tgoal{font-size:15px;color:var(--muted);max-width:68ch}
+.tmain{display:grid;gap:14px;min-width:0}
+.tcloud{display:grid;gap:6px;padding:8px 0 2px}
+.tref{border-radius:14px;background:var(--surface)}
 .tref>summary{cursor:pointer;padding:10px 14px;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;color:var(--ink);list-style:none;display:flex;justify-content:space-between;gap:10px}
 .tref>summary::-webkit-details-marker{display:none}
-.tref>summary::after{content:"Hide";color:var(--muted)}
-.tref:not([open])>summary::after{content:"Show"}
-.tref-in{display:grid;gap:10px;padding:0 10px 10px}
-.tref .tip{padding:14px;gap:10px;border-radius:12px}
+.tref>summary::after{content:"Show"}
+.tref[open]>summary::after{content:"Hide"}
+.tref-in{display:grid;gap:10px;padding:0 12px 12px;max-height:50vh;overflow:auto}
+.tref .tip{padding:10px 0;border:0;background:none}
 .tref .tip h3{font-size:19px}
-.tref .tip-say{font-size:14px}
-@container (min-width:840px){
-  .tbody.hasref{grid-template-columns:minmax(0,1fr) 310px;align-items:start}
-  .tbody.hasref .tref{order:2;position:sticky;top:calc(var(--toph,54px) + 62px);max-height:calc(100vh - var(--toph,54px) - 82px);overflow:auto}
-}
-@container (max-width:839px){.tref-in{max-height:46vh;overflow:auto;overscroll-behavior:contain}}
-.tgate{display:grid;gap:10px;justify-items:start;padding:14px;border:1.5px dashed var(--line);border-radius:14px}
+@media (min-width:1000px){.tref{display:none}}
+.tipflow{display:grid;gap:20px}
+.task.is-tip .tipflow>.tip:first-child>.stack>h3{display:none}
+.tipflow .tip{border:0;padding:0;background:none;gap:14px}
+.tipflow .tip h3{font-size:clamp(24px,3vw,32px)}
+.tgate{display:grid;gap:10px;justify-items:start;padding:16px;border-radius:14px;background:var(--surface)}
 .tres{display:grid;grid-template-columns:auto minmax(0,1fr);gap:16px;align-items:center;border-radius:14px;padding:12px 16px;background:var(--surface)}
 .tres .tscore{font-family:var(--display);font-size:48px;line-height:.9}
 .tres.ok .tscore{color:var(--good)} .tres.mid .tscore{color:var(--warn)} .tres.low .tscore{color:var(--bad)}
-.tchart{padding:12px}
+.tchart{padding:4px 0}
 .tpass>summary{cursor:pointer;font-family:var(--mono);font-size:12px;letter-spacing:.08em;text-transform:uppercase;padding:6px 0}
 .tpass .dpass{max-height:50vh}
-.stagepage .dbar{top:calc(var(--toph,54px) + 50px);z-index:8}
-.stdone.all{border-color:var(--good);border-width:1.5px}
+.lesson .dbar{top:var(--toph,110px);z-index:8;border-bottom:1px solid var(--frame)}
+.stdone{display:grid;gap:10px;padding:28px 0;border-top:1px solid var(--frame)}
+.stdone.all h2{color:var(--good)}
+/* talk cards */
+.talk{display:grid;gap:22px}
+.tq{display:grid;gap:10px;padding:16px 18px;border-radius:16px;background:var(--surface)}
+.ladder:empty{display:none}
+.ladder .model{margin:0}
+/* picture hotspots */
+.hs{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}
+@container (max-width:640px){.hs{grid-template-columns:1fr}}
+.hs-stage{position:relative;border-radius:16px;overflow:hidden;line-height:0;user-select:none;-webkit-user-select:none}
+.hs-stage img{width:100%;height:auto;display:block}
+.hs-stage.game{cursor:crosshair}
+.hs-dot{position:absolute;transform:translate(-50%,-50%);width:34px;height:34px;border:0;background:none;padding:0;cursor:pointer;display:grid;place-items:center}
+.hs-dot i{width:16px;height:16px;border-radius:50%;background:#fff;box-shadow:0 0 0 4px rgba(255,255,255,.35),0 0 18px 4px rgba(255,255,255,.55);animation:hsPulse 2.2s ease-in-out infinite}
+.hs-dot.seen i{background:var(--good);box-shadow:0 0 0 4px rgba(13,132,88,.35)}
+.hs-dot.act i{background:var(--accent);box-shadow:0 0 0 5px rgba(255,46,147,.4)}
+.hs-stage.game .hs-dot{display:none}
+@keyframes hsPulse{50%{box-shadow:0 0 0 9px rgba(255,255,255,.12),0 0 24px 6px rgba(255,255,255,.5)}}
+@media (prefers-reduced-motion:reduce){.hs-dot i{animation:none}}
+.hs-bubble{position:absolute;z-index:2;transform:translate(-50%,calc(-100% - 20px));background:var(--act);color:#fff;font:600 15px/1.2 var(--body);padding:7px 11px;border-radius:10px;white-space:nowrap;pointer-events:none;box-shadow:0 6px 16px rgba(0,0,0,.35)}
+.hs-bubble[hidden]{display:none}
+.hs-bubble[data-edge="l"]{transform:translate(-14%,calc(-100% - 20px))}
+.hs-bubble[data-edge="r"]{transform:translate(-86%,calc(-100% - 20px))}
+.hs-game:empty{display:none}
+.hs-game{margin-bottom:12px;scroll-margin-top:calc(var(--toph,110px) + 8px)}
+.hs-ask{padding:10px 14px}
+.hs-ring{position:absolute;width:64px;height:64px;transform:translate(-50%,-50%);border-radius:50%;border:4px solid #fff;pointer-events:none}
+.hs-ring.ok{border-color:#52d49d;box-shadow:0 0 0 4px rgba(82,212,157,.35)}
+.hs-ring.no{border-color:#ff8080;width:40px;height:40px}
+.hs-ring.show{border-color:#fff1a8;box-shadow:0 0 0 6px rgba(255,241,168,.35)}
+.hs-side{display:grid;gap:18px;align-content:start;position:sticky;top:calc(var(--toph,110px) + 16px)}
+.hs-card{display:grid;gap:8px;padding:16px 18px;border-radius:16px;background:var(--surface);min-height:150px;align-content:start}
+.hs-word{font-family:var(--display);font-weight:400;font-size:40px;line-height:1;letter-spacing:.02em}
+.hs-say{font-style:italic;color:var(--muted)}
+.hs-words{display:flex;flex-wrap:wrap;gap:6px}
+.hs-w{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:4px 12px;font:inherit;font-size:14px;cursor:pointer}
+.hs-w.off{color:var(--muted);cursor:default;min-width:34px;text-align:center}
+.hs-ask{display:grid;gap:6px;padding:14px 16px;border-radius:14px;background:var(--act);color:var(--act-ink)}
+.hs-ask .label{color:inherit;opacity:.75}
+.hs-ask .btn{justify-self:start;color:var(--act-ink);background:rgba(255,255,255,.12)}
+/* notepad */
+.np{display:grid;gap:8px;min-width:0}
+.np.full{position:fixed;inset:0;z-index:70;background:var(--bg);padding:16px;grid-template-rows:auto 1fr}
+.np-bar{display:flex;flex-wrap:wrap;gap:4px;align-items:center}
+.np-bar>button,.np-pens>button,.np-bar select{border:0;background:var(--field);color:var(--ink);border-radius:8px;min-width:32px;height:32px;padding:0 8px;font:inherit;font-size:13px;cursor:pointer;width:auto}
+.np-bar select{padding:0 6px}
+.np-bar button[aria-pressed="true"]{background:var(--act);color:var(--act-ink)}
+.np-hl{background:#fff1a8!important;color:#18181a!important}
+.np-col{width:26px!important;min-width:26px!important;height:26px!important;border-radius:50%!important;background:var(--c)!important;padding:0!important;box-shadow:inset 0 0 0 2px rgba(255,255,255,.4)}
+.np-col.on{outline:2px solid var(--ink);outline-offset:2px}
+.np-pens{display:inline-flex;gap:4px;align-items:center}
+.np-pens[hidden]{display:none}
+.np-pens i{display:block;width:16px;height:var(--w);border-radius:4px;background:currentColor}
+.np-page{position:relative;min-height:46vh;border-radius:14px;background:var(--surface)}
+.np.full .np-page{min-height:0;overflow:auto}
+.np-text{min-height:46vh;padding:14px 16px;outline:none;font-size:16px;line-height:1.5;overflow-wrap:anywhere}
+.np-text:empty::before{content:attr(data-ph);color:var(--muted)}
+.np-canvas{position:absolute;inset:0;width:100%;height:100%;pointer-events:none;touch-action:none}
+.np.drawing .np-canvas{pointer-events:auto;cursor:crosshair}
+.notedrawer{position:fixed;top:0;right:0;bottom:0;width:min(420px,100vw);z-index:60;background:var(--bg);box-shadow:-14px 0 40px rgba(0,0,0,.18);padding:14px 16px;display:grid;gap:10px;align-content:start;overflow:auto}
+.notedrawer[hidden]{display:none}
+.notedrawer .ls-close{display:inline-grid;place-items:center}
+.lfab.show{display:inline-flex;position:fixed;right:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:35;border:0;border-radius:999px;padding:12px 18px;background:var(--act);color:var(--act-ink);font:inherit;font-weight:700;font-size:14px;box-shadow:0 6px 18px rgba(0,0,0,.25);cursor:pointer}
+.lfab[hidden]{display:none!important}
 /* plans (structure diagrams) */
 .plans{display:grid;gap:10px}
 .plan,.chopt,.abcard{font:inherit;color:var(--ink);background:var(--bg);border:1.5px solid var(--line);border-radius:14px;cursor:pointer;text-align:left}
@@ -685,6 +789,48 @@ mark.mb{background:var(--bad-soft);color:var(--bad);border-radius:3px;padding:0 
 .vs-row small{font-size:11px;color:var(--muted)}
 .vs-bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--accent-soft),var(--accent))}
 .vs-ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
+/* ---------- calm layer: barely-visible frames, soft fills for things you can tap, one dark grey for "active" ---------- */
+:root{--frame:rgba(21,18,23,.10);--line:rgba(21,18,23,.10);--field:#f3f3f4;--field-hover:#e9e9eb;--surface:#f7f7f8;--act:#18181a;--act-ink:#ffffff;--cloud:#6b6b72;--cloud-strong:#18181a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--frame:rgba(245,239,243,.10);--line:rgba(245,239,243,.10);--field:#1f1f22;--field-hover:#29292d;--surface:#19191c;--act:#3a3a40;--act-ink:#ffffff;--cloud:#9c9ca4;--cloud-strong:#f2f2f4}}
+:root[data-theme="dark"]{--frame:rgba(245,239,243,.10);--line:rgba(245,239,243,.10);--field:#1f1f22;--field-hover:#29292d;--surface:#19191c;--act:#3a3a40;--act-ink:#ffffff;--cloud:#9c9ca4;--cloud-strong:#f2f2f4}
+.topbar{border-bottom:1px solid var(--frame)}
+.hero,.uhero,.score,.stagehead{border-bottom:1px solid var(--frame)}
+.card,.q,.tip,.player,.cue,.qcard,.meme,.deck .tip{border-color:var(--frame);border-width:1px}
+.dbar{border-bottom:1px solid var(--frame)}
+.v-part,.v-q{border:0;background:var(--field)}
+.meme-row.no{border-bottom:1px solid var(--frame)}
+/* things you can tap: a soft fill instead of an outline */
+.ccard,.tile,.opts label,.choices button,.ord button.part,.plan,.chopt,.abcard,.pen,.seg button,.tf button,.bank button,.unit,.cl-slot.filled,.part{border-color:transparent;background:var(--field)}
+.ccard:hover:not(:disabled),.tile:hover:not(:disabled),.opts label:hover,.choices button:hover:not(:disabled),.plan:hover:not(:disabled),.chopt:hover:not(:disabled),.abcard:hover:not(:disabled),.bank button:hover,.unit:hover,.seg button:hover{border-color:transparent;background:var(--field-hover)}
+.ccard.paired,.ord .zone:first-of-type button.part{border-color:transparent;box-shadow:inset 0 0 0 1.5px var(--act)}
+.ccard.ok,.plan.right,.chopt.right,.abcard.right,.tile.right,.cl-slot.ok{background:var(--good-soft);border-color:var(--good)}
+.ccard.no,.plan.wrong,.chopt.wrong,.abcard.wrong,.tile.wrong,.cl-slot.no{background:var(--bad-soft);border-color:var(--bad)}
+.opts label:has(input:checked),.sc label:has(input:checked){border-color:transparent;background:var(--act);color:var(--act-ink)}
+.opts label:has(input:checked) .let{color:inherit}
+input[type=text],input[type=search],select,textarea{border-color:transparent;background:var(--field)}
+input[type=text]:focus,select:focus,textarea:focus{border-color:var(--act);background:var(--bg)}
+.bucket{border:1.5px dashed var(--frame);background:transparent}
+.zone,.ord .zone,.zone.build{border-color:var(--frame)}
+.btn{border-color:transparent;background:var(--field)}
+.btn:hover:not(:disabled){background:var(--field-hover)}
+.btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
+.btn.ghost{background:transparent;border-color:var(--frame)}
+.mem.flip{border-color:var(--frame)}
+/* active states: #18181a with white text */
+.seg button[aria-pressed="true"],.tabs button[aria-pressed="true"],.tf button[aria-pressed="true"],.chip.lv{background:var(--act);border-color:var(--act);color:var(--act-ink)}
+.seg button[aria-pressed="true"] span{color:rgba(255,255,255,.75)}
+.tabs{border:0;background:var(--field)}
+.steps{border-bottom:0;gap:6px;background:var(--field);border-radius:999px;padding:4px;width:max-content;max-width:100%}
+.steps button{border:0;border-radius:999px;padding:8px 16px;color:var(--ink)}
+.steps button[aria-selected="true"]{background:var(--act);color:var(--act-ink)}
+.pen[aria-pressed="true"]{border-color:transparent;background:var(--bg);box-shadow:0 0 0 2px var(--pc)}
+.qdots i.on{background:var(--act);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--act)}
+.pn{background:var(--act);color:var(--act-ink)}
+/* word clouds: dark grey, never pink */
+.v-cloud button{color:var(--cloud)}
+.v-cloud button.c1x{color:var(--cloud-strong)}
+.v-cloud button.used{color:var(--good)}
+.v-cloud{justify-content:flex-start;padding:2px 0}
 </style>
 </head>
 <body>
@@ -887,7 +1033,7 @@ function renderWatermark(){
 }
 function renderFoot(){ const f=$("#foot"); if(!f) return; f.innerHTML=`<span>${esc(CONFIG.copyright||"")}</span><span>Personal use only.</span><button class="link" data-nav="terms">Terms of use</button>`; }
 function renderTop(){
-  renderWatermark(); renderFoot();
+  renderWatermark(); renderFoot(); applyTheme();
   const tb=$("#topbar");
   const signed=!!S.code||PREVIEW;
   tb.hidden=!signed;
@@ -1312,6 +1458,7 @@ function runReading(U,sec,tier,mode){
   bindQuiz(Q,$("#qz"),jump);
   const finish=()=>{ const res=scoreQuiz(Q); record(U.id,sec.id,tier,res.pct,mode); const msg=adapt("reading",tier,res.pct); go(viewResult,{U,sec,tier,res,msg}); };
   $("#fin").onclick=finish; $("#fin2").onclick=finish;
+  mountNoteFab(U.id);
   $("#leave").onclick=()=>go(viewUnit,U.id);
   if(exam&&R.time) timerStart(R.time,()=>{toast("Time is up.");finish();}); else $("#timer").textContent=exam?"":"Untimed";
 }
@@ -1429,7 +1576,7 @@ function viewVocab(uid,sid,tab){
       <h1>${esc(sec.title)}</h1>
       <div class="seg" role="group" aria-label="Word set">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${t===(S.tier.language||"B2")?"your level":"word set"}</span></button>`).join("")}</div>
       <div class="steps" role="tablist"><button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips</button><button role="tab" data-tab="train" aria-selected="${tab==="train"}">Train</button><button role="tab" data-tab="list" aria-selected="${tab==="list"}">Word list</button></div>
-      ${tab==="tips"?`<div id="tipsbox">${deckHTML([{v:"cloud",title:"This unit’s words",say:"Bigger and pink = more advanced. Tap a word to see what it means.",ids:ids}].concat(sec.learn||[]),U,"Start training →")}</div>`:tab==="train"?`<div class="card soft stack">
+      ${tab==="tips"?`<div id="tipsbox">${deckHTML([{v:"cloud",title:"This unit’s words",say:"Bigger and darker = more advanced. Tap a word to see what it means.",ids:ids}].concat(sec.learn||[]),U,"Start training →")}</div>`:tab==="train"?`<div class="card soft stack">
         <div class="row" style="gap:28px"><div><span class="label">New</span><h2>${neu}</h2></div><div><span class="label">Due now</span><h2>${due}</h2></div><div><span class="label">Mastered</span><h2>${mastered}/${words.length}</h2></div></div>
         <p class="small">Each word goes through up to six steps: meaning, recall, spelling in context, word family, word partners and paraphrase. Words come back after 1, 3, 7 and 21 days.</p>
         <div class="row"><button class="btn primary" id="startV" ${neu+due===0?"disabled":""}>${neu+due===0?"Nothing due. Come back later":"Start a session"}</button></div>
@@ -1679,8 +1826,8 @@ function linkWords(text,U){
   return esc(text).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,a,b)=>{ const id=(b||a).trim(); return `<button type="button" class="vw" data-w="${esc(id)}">${a}</button>`; });
 }
 function cloudHTML(words,used){
-  used=used||[]; const size={B1:19,B2:25,C1:31};
-  return `<div class="v-cloud">${words.map((w,i)=>`<button type="button" data-w="${esc(w.id)}" class="${w.cefr==="C1"?"c1x ":""}${used.includes(w.id)?"used":""}" style="font-size:${(size[w.cefr]||24)+((i*7)%3)*3}px" aria-label="${esc(w.word)}: ${esc(w.def)}">${esc(w.word)}</button>`).join("")}</div>`;
+  used=used||[]; const size={B1:19,B2:25,C1:31,C2:34};
+  return `<div class="v-cloud">${words.map((w,i)=>`<button type="button" data-w="${esc(w.id)}" class="${w.cefr==="C1"||w.cefr==="C2"?"c1x ":""}${used.includes(w.id)?"used":""}" style="font-size:${(size[w.cefr]||24)+((i*7)%3)*3}px" aria-label="${esc(w.word)}: ${esc(w.def)}">${esc(w.word)}</button>`).join("")}</div>`;
 }
 function anatomyHTML(parts){
   return `<div class="v-anat"><p>${parts.map((p,i)=>`<span class="seg c${i%4}">${esc(p.t)}</span>`).join(" ")}</p><div class="legend">${parts.map((p,i)=>`<span><i class="c${i%4}"></i>${esc(p.l)}</span>`).join("")}</div></div>`;
@@ -1781,30 +1928,30 @@ function chartSVG(ch){
    ========================================================= */
 const DRILL_KIND={skim:"Skimming",scan:"Scanning race",find:"Word hunt",keywords:"Keywords",order:"Build it",quiz:"Practice",match:"Match",write:"Write & check"};
 function drillBest(uid,sid,did){ const r=S.results[uid+":"+sid+":"+did]; return r&&r.length?Math.max(...r.map(x=>x.pct)):null; }
-const taskWord=sec=>sec.type==="speaking"?"speaking practice":"exam task";
+const taskWord=sec=>sec.type==="speaking"?"speaking practice":sec.type==="vocab"?"flashcards":"exam task";
 /* stages: sec.stages = [{id,title,goal,material:{paras|chart},tasks:[…]}]; old units with a flat sec.train are grouped by d.group */
 function stagesOf(sec){
   if(Array.isArray(sec.stages)&&sec.stages.length) return sec.stages.filter(s=>(s.tasks||[]).length);
   const out=[]; (sec.train||[]).forEach(d=>{ const g=d.group||"Training"; let s=out.find(x=>x.title===g); if(!s){ s={id:"g"+out.length,title:g,tasks:[]}; out.push(s); } s.tasks.push(d); });
   return out;
 }
-function stageStats(uid,sid,st){ const b=st.tasks.map(d=>drillBest(uid,sid,d.id)).filter(x=>x!==null); return {done:b.length,n:st.tasks.length,avg:b.length?Math.round(b.reduce((a,x)=>a+x,0)/b.length):null}; }
-function trainCount(uid,s){ const t=stagesOf(s).flatMap(x=>x.tasks); return {n:t.length,done:t.filter(d=>drillBest(uid,s.id,d.id)!==null).length}; }
-function matLabel(sec,st){ const m=st.material; if(!m) return ""; if(m.chart) return "graph pinned"; const t=typeof m.paras==="string"&&m.paras.startsWith("tier:")&&sec.tiers&&sec.tiers[m.paras.slice(5)]; return t&&t.title?`text: ${t.title}`:"text pinned"; }
+function stageStats(uid,sid,st){ const b=st.tasks.filter(d=>!UNSCORED[d.kind]).map(d=>drillBest(uid,sid,d.id)).filter(x=>x!==null); return {done:b.length,n:st.tasks.filter(d=>!UNSCORED[d.kind]).length,avg:b.length?Math.round(b.reduce((a,x)=>a+x,0)/b.length):null}; }
+function trainCount(uid,s){ const t=stagesOf(s).flatMap(x=>x.tasks).filter(d=>!UNSCORED[d.kind]); return {n:t.length,done:t.filter(d=>drillBest(uid,s.id,d.id)!==null).length}; }
+function matLabel(sec,st){ const m=st.material; if(!m) return ""; if(m.chart) return "graph pinned"; if(m.img) return "picture pinned"; const t=typeof m.paras==="string"&&m.paras.startsWith("tier:")&&sec.tiers&&sec.tiers[m.paras.slice(5)]; return t&&t.title?`text: ${t.title}`:"text pinned"; }
 function viewSectionStart(uid,sid,tab){
   const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
-  if(sec.type==="vocab") return go(viewVocab,uid,sid);
+  if(sec.type==="vocab"&&!stagesOf(sec).length) return go(viewVocab,uid,sid);
   if(sec.type==="check") return go(runCheck,U,sec);
   const learn=sec.learn||[], stages=stagesOf(sec), tc=trainCount(uid,sec);
   const tried=!!(S.results[uid+":"+sid]||[]).length;
-  tab=tab||(learn.length&&!tried?"tips":"task");
+  tab=tab||(sec.type==="vocab"?"train":learn.length&&!tried?"tips":"task");
   const rec=S.tier[sec.skill]||"B2"; let tier=rec, mode="practice";
   const hist=(S.results[uid+":"+sid]||[]).slice(-5).reverse();
   const draw=()=>{
-    const tabs=(learn.length||stages.length)?`<div class="steps" role="tablist">${learn.length?`<button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips <span class="n">${learn.length}</span></button>`:""}${stages.length?`<button role="tab" data-tab="train" aria-selected="${tab==="train"}">Training <span class="n">${tc.done}/${tc.n}</span></button>`:""}<button role="tab" data-tab="task" aria-selected="${tab==="task"}">${sec.type==="speaking"?"Speaking practice":"Exam task"}</button></div>`:"";
+    const tabs=(learn.length||stages.length)?`<div class="steps" role="tablist">${learn.length?`<button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips <span class="n">${learn.length}</span></button>`:""}${stages.length?`<button role="tab" data-tab="train" aria-selected="${tab==="train"}">Training <span class="n">${tc.done}/${tc.n}</span></button>`:""}<button role="tab" data-tab="task" aria-selected="${tab==="task"}">${sec.type==="speaking"?"Speaking practice":sec.type==="vocab"?"Flashcards":"Exam task"}</button></div>`:"";
     let body="";
     if(tab==="tips") body=`<div id="tipsbox">${deckHTML(learn,U,stages.length?"Go to training →":"Go to the task →")}</div>`;
-    else if(tab==="train") body=`<p class="small muted">Each stage is one page: all its tasks are stacked, each with a reference card you can keep open while you work.</p><div class="stagelist">${stages.map((st,k)=>{ const s=stageStats(uid,sid,st), kinds=[...new Set(st.tasks.map(d=>DRILL_KIND[d.kind]||d.kind))];
+    else if(tab==="train") body=`<p class="small muted">Each stage is one page, like a lesson: the tasks scroll on the left, while the reference, the text and your notes stay on the right.</p><div class="stagelist">${stages.map((st,k)=>{ const s=stageStats(uid,sid,st), kinds=[...new Set(st.tasks.filter(d=>d.kind!=="tip").map(d=>DRILL_KIND[d.kind]||d.kind))];
       return `<button type="button" class="stagecard ${s.done===s.n?"done":""}" data-stage="${k}"><span class="snum">${k+1}</span><span class="smeta"><span class="label">Stage ${k+1} · ${s.n} tasks${st.material?" · "+esc(matLabel(sec,st)):""}</span><strong class="stitle">${esc(st.title)}</strong>${st.goal?`<span class="small muted">${esc(st.goal)}</span>`:""}<span class="kinds">${kinds.map(x=>`<i>${esc(x)}</i>`).join("")}</span></span><span class="sprog"><span class="label">${s.done}/${s.n} done</span><span class="prog"><i style="width:${Math.round(s.done/s.n*100)}%"></i></span>${s.avg!==null?`<span class="chip ${s.avg>=70?"good":""}">${s.avg}%</span>`:""}</span></button>`; }).join("")}</div><div class="row"><button class="btn primary" data-tab="task">Go to the ${taskWord(sec)}</button></div>`;
     else {
       const modes=sec.type==="reading";
@@ -1819,7 +1966,7 @@ function viewSectionStart(uid,sid,tab){
     app.innerHTML=`<div class="wrap stack" style="gap:22px">
       <div class="row between"><span class="label">Unit ${U.number} · ${esc(U.title)} · ${esc(sec.type==="writing"&&sec.task?"Writing Task "+sec.task:(SEC_LABEL[sec.type]||""))}</span><button class="link small" id="back">Back to the unit</button></div>
       <h1>${esc(sec.title)}</h1><p class="prose">${esc(sec.summary||"")}</p>${tabs}${body}</div>`;
-    $$("[data-tab]").forEach(b=>b.onclick=()=>{tab=b.dataset.tab;draw();window.scrollTo(0,0);});
+    $$("[data-tab]").forEach(b=>b.onclick=()=>{ if(b.dataset.tab==="task"&&sec.type==="vocab") return go(viewVocab,uid,sid,"train"); tab=b.dataset.tab;draw();window.scrollTo(0,0);});
     $$("[data-stage]").forEach(b=>b.onclick=()=>go(runStage,U,sec,+b.dataset.stage));
     $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
     $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw();});
@@ -1844,54 +1991,128 @@ function stageMat(sec,st){
   const m=st&&st.material; if(!m) return null;
   if(m.chart){ const ch=sec.charts&&sec.charts[m.chart]; return ch?{kind:"chart",html:`<div class="card">${chartSVG(ch)}</div>`,label:"Graph"}:null; }
   if(m.paras){ const h=passageHTML(sec,{paras:m.paras}); return h?{kind:"text",html:h,label:"Text"}:null; }
+  if(m.img){ const src=imgSrc(STAGE?STAGE.U:{},m.img)||(Object.values(MODULES).map(M=>(M.images||{})[m.img]).find(Boolean)); return src?{kind:"img",html:`<img class="matimg" src="${src}" alt="">`,label:"Picture"}:null; }
   return null;
 }
 function refList(sec,d){ return [].concat(d.ref||[],d.tip?[d.tip]:[]).map(r=>{ if(typeof r==="string"){ if(r.startsWith("learn:")) return (sec.learn||[])[+r.slice(6)]; return (sec.refs||{})[r]; } return r; }).filter(Boolean); }
-function taskShell(U,sec,d,i){
-  const b=drillBest(U.id,sec.id,d.id), refs=refList(sec,d);
-  return `<section class="task" id="t-${esc(d.id)}" data-i="${i}" aria-labelledby="th-${esc(d.id)}">
-    <header class="thead"><span class="tnum">${i+1}</span><div class="stack tight" style="min-width:0"><span class="label">${esc(DRILL_KIND[d.kind]||d.kind)}</span><h2 id="th-${esc(d.id)}">${esc(d.title)}</h2>${d.goal?`<p class="small">${esc(d.goal)}</p>`:""}</div><span data-best>${b!==null?`<span class="chip ${b>=70?"good":""}">Best ${b}%</span>`:""}</span></header>
-    <div class="tbody ${refs.length?"hasref":""}">${refs.length?`<details class="tref" open><summary>Reference</summary><div class="tref-in">${refs.map(c=>tipHTML(c,U)).join("")}</div></details>`:""}<div class="tmain"></div></div>
+const UNSCORED={tip:1,talk:1};
+const scoredTasks=st=>st.tasks.filter(d=>!UNSCORED[d.kind]);
+function taskShell(U,sec,d,i,num){
+  const b=drillBest(U.id,sec.id,d.id), refs=d.kind==="tip"?[]:refList(sec,d), tip=d.kind==="tip";
+  const cloudW=(d.words||[]).map(id=>findWord(id)).filter(Boolean);
+  return `<section class="task ${tip?"is-tip":""} ${d.kind==="talk"?"is-talk":""}" id="t-${esc(d.id)}" data-i="${i}" aria-labelledby="th-${esc(d.id)}">
+    <header class="thead"><span class="tnum">${tip?"Tip":num}</span><div class="stack tight" style="min-width:0"><span class="label">${esc(tip?"Read first":(DRILL_KIND[d.kind]||d.kind))}</span><h2 id="th-${esc(d.id)}">${esc(d.title)}</h2>${d.goal?`<p class="tgoal">${esc(d.goal)}</p>`:""}</div><span data-best>${b!==null&&!UNSCORED[d.kind]?`<span class="chip ${b>=70?"good":""}">Best ${b}%</span>`:""}</span></header>
+    ${cloudW.length?`<div class="tcloud"><span class="label">Words to use · tap one to see it</span>${cloudHTML(cloudW,[])}</div>`:""}
+    ${refs.length?`<details class="tref"><summary>Reference</summary><div class="tref-in">${refs.map(c=>tipHTML(c,U)).join("")}</div></details>`:""}
+    <div class="tmain"></div>
     <div class="tfoot"></div></section>`;
 }
+/* ---- lesson tools: timer, zoom, theme ---- */
+const LT={acc:0,start:0,on:false};
+const ltElapsed=()=>Math.floor((LT.acc+(LT.on?Date.now()-LT.start:0))/1000);
+function applyTheme(){ const t=S.settings&&S.settings.theme; if(t==="dark"||t==="light") document.documentElement.dataset.theme=t; else delete document.documentElement.dataset.theme; }
+function isDark(){ const t=document.documentElement.dataset.theme; return t?t==="dark":window.matchMedia("(prefers-color-scheme: dark)").matches; }
+const ZOOMS=[0.85,1,1.15,1.3,1.45];
 function runStage(U,sec,k,focus){
   const stages=stagesOf(sec); if(!stages.length) return go(viewSectionStart,U.id,sec.id,"task");
   k=Math.max(0,Math.min(stages.length-1,k|0)); const st=stages[k], prev=stages[k-1], next=stages[k+1], mat=stageMat(sec,st);
-  STAGE={U,sec,st,k,stages,ctx:{},panel:null};
-  app.innerHTML=`<div class="wrap wide stagepage stack" style="gap:18px">
-    <div class="row between"><span class="label">Unit ${U.number} · ${esc(sec.title)} · Stage ${k+1} of ${stages.length}</span><button class="link small" id="sleave">All stages</button></div>
-    ${stages.length>1?`<nav class="dnav" aria-label="Stages"><button type="button" class="btn small ghost" id="sprev" ${prev?"":"disabled"}>‹ Previous stage</button><select id="sjump" aria-label="Go to a stage">${stages.map((x,i)=>`<option value="${i}" ${i===k?"selected":""}>Stage ${i+1}. ${esc(x.title)}</option>`).join("")}</select><button type="button" class="btn small" id="snext" ${next?"":"disabled"}>Next stage ›</button></nav>`:""}
-    <header class="stagehead"><span class="snum big">${k+1}</span><div class="stack tight" style="min-width:0"><h1>${esc(st.title)}</h1>${st.goal?`<p class="prose">${esc(st.goal)}</p>`:""}</div></header>
-    <div class="stbar" id="stbar"></div>
-    <div class="${mat?"stgrid":"stone"}">${mat?`<aside class="stmat" id="stmat" aria-label="${mat.kind==="chart"?"The graph":"The text"}"><div class="mathead"><span class="label">${mat.kind==="chart"?"The graph":"The text"}</span><button type="button" class="btn small ghost" id="matclose">Close</button></div><div class="matbar" id="matbar" hidden></div><div class="matbody" id="matbody">${mat.html}</div></aside>`:""}
-      <div class="sttasks">${st.tasks.map((d,i)=>taskShell(U,sec,d,i)).join("")}<div id="stend"></div></div></div>
-  </div>${mat?`<button type="button" class="matfab" id="matfab" aria-controls="stmat">${mat.kind==="chart"?"Show the graph":"Show the text"}</button>`:""}`;
+  STAGE={U,sec,st,k,stages,ctx:{},panel:null,cur:-1,pane:null};
+  document.body.classList.add("in-lesson"); applyTheme();
+  let num=0; const nums=st.tasks.map(d=>d.kind==="tip"?"Tip":String(++num));
+  const words=(st.words||[]).map(id=>findWord(id)).filter(Boolean);
+  const tabs=[...(mat?[["mat",mat.label]]:[]),["ref","Reference"],["notes","Notes"]];
+  app.innerHTML=`<div class="lesson">
+    <header class="lhead" id="lhead">
+      <div class="lh-row">
+        <button type="button" class="lh-back" id="sleave" aria-label="Back to ${esc(sec.title)}">←<span>${esc(sec.title)}</span></button>
+        <div class="lh-title"><span class="label">Unit ${U.number} · Stage ${k+1} of ${stages.length}</span><b>${esc(st.title)}</b></div>
+        <div class="lh-tools">
+          <button type="button" class="lh-tool lh-timer" id="ltimer" aria-label="Lesson timer: tap to start or pause"><span id="ltime">0:00</span></button>
+          <button type="button" class="lh-tool" id="zout" aria-label="Smaller text">A−</button><button type="button" class="lh-tool" id="zin" aria-label="Bigger text">A+</button>
+          <button type="button" class="lh-tool" id="ltheme" aria-label="Switch light or dark">${isDark()?"Light":"Dark"}</button>
+          <span class="lh-score" id="lscore" role="status"></span>
+        </div>
+      </div>
+      <nav class="lh-bar" aria-label="Tasks in this stage">
+        <button type="button" class="lh-nav" id="sprev" ${prev?"":"disabled"} aria-label="Previous stage">‹</button>
+        <div class="lh-chips" id="lchips">${st.tasks.map((d,i)=>`<button type="button" class="lh-chip ${d.kind==="tip"?"tipc":""}" data-goto="${i}" title="${esc(d.title)}"><b>${nums[i]}</b><span>${esc(d.kind==="tip"?d.title:(DRILL_KIND[d.kind]||d.kind))}</span></button>`).join("")}</div>
+        <button type="button" class="lh-nav" id="snext" ${next?"":"disabled"} aria-label="Next stage">›</button>
+        <button type="button" class="lh-reset" id="lreset">Reset</button>
+      </nav>
+    </header>
+    <div class="lgrid ${mat?"hasmat":""}">
+      <main class="lmain" id="lmain" style="zoom:${S.settings.zoom||1}">
+        <section class="lintro"><span class="snum big">${k+1}</span><div class="stack tight" style="min-width:0"><h1>${esc(st.title)}</h1>${st.goal?`<p class="prose">${esc(st.goal)}</p>`:""}</div></section>
+        ${words.length?`<section class="lcloud"><span class="label">Words for this stage · tap one to see what it means</span>${cloudHTML(words,[])}</section>`:""}
+        ${st.tasks.map((d,i)=>taskShell(U,sec,d,i,nums[i])).join("")}
+        <div id="stend"></div>
+      </main>
+      <aside class="lside" id="lside" aria-label="Reference and notes">
+        <div class="ls-head"><div class="ls-tabs" role="tablist">${tabs.map(([id,l])=>`<button type="button" role="tab" data-pane="${id}" aria-selected="false">${esc(l)}</button>`).join("")}</div><button type="button" class="ls-close" id="lsclose" aria-label="Close">✕</button></div>
+        ${mat?`<div class="ls-pane" data-panel="mat" id="stmat"><div class="matbar" id="matbar" hidden></div><div class="matbody" id="matbody">${mat.html}</div></div>`:""}
+        <div class="ls-pane" data-panel="ref" id="lref"></div>
+        <div class="ls-pane" data-panel="notes">${notepadHTML()}</div>
+      </aside>
+    </div>
+    <button type="button" class="lfab" id="lfab" aria-controls="lside">${mat?esc(mat.label)+" · ":""}Reference · Notes</button>
+  </div>`;
   if(mat){
     const P=STAGE.panel={el:$("#stmat"),bar:$("#matbar"),body:$("#matbody"),mat,owner:null,opt:null};
     P.body.addEventListener("click",e=>{ if(P.owner&&P.opt&&P.opt.onTap) P.opt.onTap(e); });
     P.body.addEventListener("keydown",e=>{ if((e.key==="Enter"||e.key===" ")&&e.target.matches("[data-pp]")&&P.owner&&P.opt.onTap){ e.preventDefault(); P.opt.onTap(e); } });
-    $("#matfab").onclick=()=>sheet(true); $("#matclose").onclick=()=>sheet(false);
   }
+  bindNotepad($(".np",$("#lside")),U.id);
+  $$("[data-pane]").forEach(b=>b.onclick=()=>showPane(b.dataset.pane));
+  showPane(mat&&mat.kind!=="img"?"mat":"ref");
+  $("#lfab").onclick=()=>sheet(true); $("#lsclose").onclick=()=>sheet(false);
   $("#sleave").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
-  if($("#sprev")){ $("#sprev").onclick=()=>prev&&go(runStage,U,sec,k-1); $("#snext").onclick=()=>next&&go(runStage,U,sec,k+1); $("#sjump").onchange=e=>go(runStage,U,sec,+e.target.value); }
-  CLEANUP.push(()=>{ document.body.classList.remove("sheet-open"); STAGE=null; });
-  const toph=()=>{ const t=$(".topbar"); document.documentElement.style.setProperty("--toph",(t?Math.round(t.getBoundingClientRect().height):54)+"px"); }; toph(); window.addEventListener("resize",toph); CLEANUP.push(()=>window.removeEventListener("resize",toph));
+  $("#sprev").onclick=()=>prev&&go(runStage,U,sec,k-1); $("#snext").onclick=()=>next&&go(runStage,U,sec,k+1);
+  $$("#lchips [data-goto]").forEach(b=>b.onclick=()=>scrollToTask(+b.dataset.goto));
+  /* timer, zoom, theme, reset */
+  const tick=()=>{ const s=ltElapsed(), el=$("#ltime"); if(el) el.textContent=`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`; const b=$("#ltimer"); if(b) b.classList.toggle("on",LT.on); };
+  tick(); const tid=setInterval(tick,1000); CLEANUP.push(()=>clearInterval(tid));
+  $("#ltimer").onclick=()=>{ if(LT.on){ LT.acc+=Date.now()-LT.start; LT.on=false; } else { LT.start=Date.now(); LT.on=true; } tick(); };
+  const zoom=d=>{ const z=S.settings.zoom||1, i=ZOOMS.indexOf(z)<0?1:ZOOMS.indexOf(z), n=ZOOMS[Math.max(0,Math.min(ZOOMS.length-1,i+d))]; S.settings.zoom=n; save(); $("#lmain").style.zoom=n; };
+  $("#zout").onclick=()=>zoom(-1); $("#zin").onclick=()=>zoom(1);
+  $("#ltheme").onclick=e=>{ S.settings.theme=isDark()?"light":"dark"; save(); applyTheme(); e.currentTarget.textContent=isDark()?"Light":"Dark"; };
+  $("#lreset").onclick=e=>{ const b=e.currentTarget; if(!b.dataset.armed){ b.dataset.armed="1"; b.textContent="Tap again to reset"; T.later(()=>{ if(b.isConnected){ delete b.dataset.armed; b.textContent="Reset"; } },3500); return; }
+    st.tasks.forEach(d=>delete S.results[U.id+":"+sec.id+":"+d.id]); save(); go(runStage,U,sec,k); };
+  /* header height for sticky offsets */
+  const toph=()=>{ const h=$("#lhead"); document.documentElement.style.setProperty("--toph",(h?Math.round(h.getBoundingClientRect().height):54)+"px"); };
+  toph(); window.addEventListener("resize",toph);
+  /* which task is being worked on: drives the chip bar and the Reference tab */
+  const spy=()=>{ const line=(parseFloat(getComputedStyle(document.documentElement).getPropertyValue("--toph"))||60)+120; let cur=0;
+    $$("#lmain > .task").forEach(el=>{ if(el.getBoundingClientRect().top<=line) cur=+el.dataset.i; }); if(cur!==STAGE.cur) setCurrent(cur); };
+  let raf=0; const onScroll=()=>{ if(raf) return; raf=requestAnimationFrame(()=>{ raf=0; spy(); }); };
+  window.addEventListener("scroll",onScroll,{passive:true});
+  CLEANUP.push(()=>{ window.removeEventListener("resize",toph); window.removeEventListener("scroll",onScroll); document.body.classList.remove("in-lesson","sheet-open"); STAGE=null; });
   st.tasks.forEach((_,i)=>mountTask(i));
-  stageBar();
+  stageBar(); setCurrent(0);
   if(focus){ const i=st.tasks.findIndex(d=>d.id===focus); if(i>0) setTimeout(()=>scrollToTask(i,"auto"),60); }
 }
-function sheet(on){ const P=STAGE&&STAGE.panel; if(!P) return; P.el.classList.toggle("sheet",!!on); document.body.classList.toggle("sheet-open",!!on); }
+function setCurrent(i){
+  if(!STAGE) return; STAGE.cur=i; const {U,sec,st}=STAGE, d=st.tasks[i]; if(!d) return;
+  $$("#lchips [data-goto]").forEach(b=>b.classList.toggle("cur",+b.dataset.goto===i));
+  const chip=$(`#lchips [data-goto="${i}"]`); if(chip){ const bar=$("#lchips"); const l=chip.offsetLeft-bar.offsetLeft; if(l<bar.scrollLeft||l+chip.offsetWidth>bar.scrollLeft+bar.clientWidth) bar.scrollTo({left:Math.max(0,l-40),behavior:"smooth"}); }
+  /* the reference of the nearest task that has one: a tip stays on screen while its drills follow */
+  let j=i; while(j>=0&&!refList(sec,st.tasks[j]).length) j--;
+  const src=j>=0?st.tasks[j]:null, refs=src?refList(sec,src):[];
+  const box=$("#lref"); if(!box) return;
+  box.innerHTML=refs.length?`<span class="label">${src===d?esc(d.title):`From “${esc(src.title)}”`}</span>${refs.map(c=>tipHTML(c,U)).join("")}`:`<p class="small muted">No reference card for this task. Use Notes to write down anything you want to remember.</p>`;
+  bindTips(box);
+}
+function showPane(id){ $$("[data-pane]").forEach(b=>b.setAttribute("aria-selected",b.dataset.pane===id)); $$(".ls-pane").forEach(p=>p.hidden=p.dataset.panel!==id); if(STAGE) STAGE.pane=id; }
+function sheet(on){ const s=$("#lside"); if(!s) return; s.classList.toggle("open",!!on); document.body.classList.toggle("sheet-open",!!on&&isNarrow()); }
 function scrollToTask(i,behavior){ const st=STAGE&&STAGE.st; if(!st||!st.tasks[i]) return; const el=document.getElementById("t-"+st.tasks[i].id); if(el) el.scrollIntoView({behavior:behavior||"smooth",block:"start"}); }
 function stageBar(){
   if(!STAGE) return; const {U,sec,st,k,stages}=STAGE, s=stageStats(U.id,sec.id,st), next=stages[k+1];
-  const bar=$("#stbar"); if(!bar) return;
-  bar.innerHTML=`<div class="stchips" role="list">${st.tasks.map((d,i)=>{ const b=drillBest(U.id,sec.id,d.id); return `<button type="button" role="listitem" class="stchip ${b===null?"":b>=70?"ok":"mid"}" data-goto="${i}" title="${i+1}. ${esc(d.title)}${b!==null?" · best "+b+"%":""}" aria-label="Task ${i+1}: ${esc(d.title)}${b!==null?", best "+b+"%":""}">${i+1}</button>`; }).join("")}</div><span class="label">${s.done}/${s.n} done${s.avg!==null?` · average ${s.avg}%`:""}</span>`;
-  $$("[data-goto]",bar).forEach(b=>b.onclick=()=>scrollToTask(+b.dataset.goto));
+  st.tasks.forEach((d,i)=>{ const b=drillBest(U.id,sec.id,d.id), c=$(`#lchips [data-goto="${i}"]`); if(c&&!UNSCORED[d.kind]){ c.classList.toggle("ok",b!==null&&b>=70); c.classList.toggle("mid",b!==null&&b<70); } });
+  const sc=$("#lscore"); if(sc) sc.textContent=`${s.done}/${s.n}${s.avg!==null?` · ${s.avg}%`:""}`;
   const end=$("#stend"); if(!end) return;
   const all=s.done===s.n;
-  end.innerHTML=`<div class="card ${all?"":"soft"} stack tight stdone ${all?"all":""}"><span class="label">${all?"Stage complete":`${s.n-s.done} task${s.n-s.done===1?"":"s"} left in this stage`}</span>${all?`<h2>${s.avg}% average</h2><p class="small">${s.avg>=85?"Excellent. You are ready for the next stage.":s.avg>=70?"Good work. Try again any task under 70%, or move on.":"Repeat the tasks marked in yellow: the reference cards show the rule."}</p>`:""}
-    <div class="row">${next?`<button type="button" class="btn ${all?"primary":""}" id="stnext">Next stage: ${esc(next.title)} →</button>`:`<button type="button" class="btn ${all?"primary":""}" id="sttask">Go to the ${taskWord(sec)}</button>`}<button type="button" class="btn ghost" id="stall">All stages</button></div></div>`;
-  if(next) $("#stnext").onclick=()=>go(runStage,U,sec,k+1); else $("#sttask").onclick=()=>go(viewSectionStart,U.id,sec.id,"task");
+  end.innerHTML=`<div class="stdone ${all?"all":""}"><span class="label">${all?"Stage complete":`${s.n-s.done} task${s.n-s.done===1?"":"s"} left in this stage`}</span>${all?`<h2>${s.avg}% average</h2><p class="small">${s.avg>=85?"Excellent. You are ready for the next stage.":s.avg>=70?"Good work. Try again any task under 70%, or move on.":"Repeat the tasks marked in yellow: the Reference tab shows the rule."}</p>`:""}
+    <div class="row">${next?`<button type="button" class="btn ${all?"primary":""}" id="stnext">Next stage: ${esc(next.title)} →</button>`:`<button type="button" class="btn ${all?"primary":""}" id="sttask">${sec.type==="vocab"?"Back to the module":"Go to the "+taskWord(sec)}</button>`}<button type="button" class="btn ghost" id="stall">All stages</button></div></div>`;
+  if(next) $("#stnext").onclick=()=>go(runStage,U,sec,k+1); else $("#sttask").onclick=()=>go(viewSectionStart,U.id,sec.id,sec.type==="vocab"?"train":"task");
   $("#stall").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
 }
 function mkCtx(U,sec,st,d,root,i){
@@ -1905,17 +2126,17 @@ function mkCtx(U,sec,st,d,root,i){
     clear(){ ids.forEach(id=>{ clearInterval(id); clearTimeout(id); }); ids.clear(); },
     framed(inner){
       if(covers(st,d)) return inner;
-      const ch=resolveChart(sec,d); if(ch) return `<div class="card tchart">${chartSVG(ch)}</div>${inner}`;
+      const ch=resolveChart(sec,d); if(ch) return `<div class="tchart">${chartSVG(ch)}</div>${inner}`;
       if(d.paras) return `<details class="tpass" open><summary>The text</summary>${passageHTML(sec,d)}</details>${inner}`;
       return inner;
     },
     end(pct,msg){
       cx.clear(); if(cx.dead) return;
       const key=U.id+":"+sec.id+":"+d.id, p=Math.round(pct*100); (S.results[key]=S.results[key]||[]).push({pct:p,date:Date.now(),mode:"train"}); save();
-      const nx=st.tasks[i+1];
-      foot.innerHTML=`<div class="tres ${p>=70?"ok":p>=50?"mid":"low"}" role="status"><span class="tscore">${p}%</span><div class="stack tight" style="min-width:0">${msg?`<p class="small">${esc(msg)}</p>`:""}<div class="row"><button type="button" class="btn small" data-again>Try again</button>${nx?`<button type="button" class="btn small primary" data-nexttask>Next: task ${i+2} ↓</button>`:""}</div></div></div>`;
+      const nx=st.tasks.slice(i+1).findIndex(x=>x.kind!=="tip")>=0?i+1:-1;
+      foot.innerHTML=`<div class="tres ${p>=70?"ok":p>=50?"mid":"low"}" role="status"><span class="tscore">${p}%</span><div class="stack tight" style="min-width:0">${msg?`<p class="small">${esc(msg)}</p>`:""}<div class="row"><button type="button" class="btn small" data-again>Try again</button>${nx>=0?`<button type="button" class="btn small primary" data-nexttask>Next ↓</button>`:""}</div></div></div>`;
       $("[data-again]",foot).onclick=()=>{ mountTask(i); root.scrollIntoView({behavior:"smooth",block:"start"}); };
-      if(nx) $("[data-nexttask]",foot).onclick=()=>scrollToTask(i+1);
+      if(nx>=0) $("[data-nexttask]",foot).onclick=()=>scrollToTask(nx);
       const b=drillBest(U.id,sec.id,d.id); $("[data-best]",root).innerHTML=`<span class="chip ${b>=70?"good":""}">Best ${b}%</span>`;
       stageBar();
     }
@@ -1931,13 +2152,114 @@ function mountTask(i){
   if(TIMED[d.kind]||(TAPK[d.kind]&&cx.usesPanel)){
     const secs=d.kind==="skim"?(d.seconds||60):0;
     const msg=d.kind==="skim"?`You will have ${secs} seconds to read the first sentences, then the text disappears.`:d.kind==="scan"?"A timed race: the clock starts when you press Start.":"";
-    const where=cx.usesPanel?(isNarrow()?"The text opens at the bottom of the screen and becomes tappable.":"The text on the left becomes tappable."):"";
+    const where=cx.usesPanel?(isNarrow()?"The text opens at the bottom of the screen and becomes tappable.":"The text on the right becomes tappable."):"";
     cx.frame(`<div class="tgate"><p class="small">${esc([msg,where].filter(Boolean).join(" "))}</p><button type="button" class="btn primary" data-go>Start${secs?` · ${secs} s`:""}</button></div>`);
     cx.$("[data-go]").onclick=()=>f(cx);
   } else f(cx);
   bindTips(root);
 }
 function runDrill(U,sec,d){ const ss=stagesOf(sec), k=ss.findIndex(s=>s.tasks.includes(d)); return runStage(U,sec,Math.max(0,k),d&&d.id); }
+
+/* ---- notepad: text with formatting, highlighter, colours, drawing, full screen ---- */
+const NP_COLS=["#18181a","#FF2E93","#2a6fd6","#0d8458"];
+let NP_SEL="";
+document.addEventListener("selectionchange",()=>{ const s=window.getSelection(); if(!s||s.isCollapsed) return; const n=s.anchorNode&&(s.anchorNode.nodeType===1?s.anchorNode:s.anchorNode.parentElement); if(n&&n.closest&&n.closest("[data-np-text]")) return; const t=String(s).trim(); if(t) NP_SEL=t.slice(0,400); });
+function notepadHTML(){ return `<div class="np" data-np>
+  <div class="np-bar" role="toolbar" aria-label="Notepad tools">
+    <button type="button" data-npc="bold" aria-label="Bold"><b>B</b></button><button type="button" data-npc="underline" aria-label="Underline"><u>U</u></button>
+    <select data-np-size aria-label="Text size"><option value="2">S</option><option value="3" selected>M</option><option value="5">L</option><option value="6">XL</option><option value="7">XXL</option></select>
+    <button type="button" data-np-hl aria-label="Highlighter" class="np-hl">ab</button>
+    ${NP_COLS.map(c=>`<button type="button" class="np-col" data-np-col="${c}" style="--c:${c}" aria-label="Colour ${c}"></button>`).join("")}
+    <button type="button" data-np-sel title="Copy text you selected in the lesson">+ Selection</button>
+    <button type="button" data-np-draw aria-pressed="false">Draw</button>
+    <span class="np-pens" data-np-pens hidden>${[2,5,10].map((w,i)=>`<button type="button" data-np-w="${w}" aria-pressed="${i===0}" aria-label="Pen ${w} px"><i style="--w:${w}px"></i></button>`).join("")}<button type="button" data-np-eraser aria-pressed="false">Eraser</button></span>
+    <button type="button" data-np-full aria-pressed="false" aria-label="Full screen">⤢</button>
+    <button type="button" data-np-clear>Clear</button>
+  </div>
+  <div class="np-page" data-np-page><div class="np-text" contenteditable="true" data-np-text aria-label="Your notes" data-ph="Notes for this unit: words, rules, your own examples."></div><canvas class="np-canvas" data-np-canvas aria-hidden="true"></canvas></div>
+</div>`; }
+function bindNotepad(np,uid){
+  if(!np) return; const key="ielts-ladder:notes:"+(uid||"all"), q=s=>np.querySelector(s), qa=s=>[...np.querySelectorAll(s)];
+  const text=q("[data-np-text]"), cv=q("[data-np-canvas]"), page=q("[data-np-page]"), cx=cv.getContext("2d");
+  let saved={}; try{ saved=JSON.parse(localStorage.getItem(key)||"{}")||{}; }catch(e){}
+  text.innerHTML=saved.html||""; let img=saved.img||"", color=NP_COLS[0], pen=2, eraser=false, drawing=false, last=null;
+  let deb; const persist=()=>{ clearTimeout(deb); deb=setTimeout(()=>{ try{ localStorage.setItem(key,JSON.stringify({html:text.innerHTML,img})); }catch(e){} },400); };
+  const size=()=>{ const w=page.clientWidth, h=Math.max(page.scrollHeight,page.clientHeight); if(!w) return; if(cv.width===w&&cv.height===h) return; const keep=img; cv.width=w; cv.height=h; if(keep){ const im=new Image(); im.onload=()=>cx.drawImage(im,0,0); im.src=keep; } };
+  const ro=new ResizeObserver(size); ro.observe(page); CLEANUP.push(()=>ro.disconnect());
+  text.addEventListener("input",persist);
+  const cmd=(c,v)=>{ text.focus(); try{ document.execCommand("styleWithCSS",false,true); }catch(e){} document.execCommand(c,false,v); persist(); };
+  qa("button,select").forEach(b=>{ if(b.tagName==="BUTTON") b.addEventListener("mousedown",e=>e.preventDefault()); });
+  qa("[data-npc]").forEach(b=>b.onclick=()=>cmd(b.dataset.npc));
+  q("[data-np-size]").onchange=e=>cmd("fontSize",e.target.value);
+  q("[data-np-hl]").onclick=()=>cmd("hiliteColor",isDark()?"#5a4a12":"#fff1a8");
+  qa("[data-np-col]").forEach(b=>b.onclick=()=>{ color=b.dataset.npCol; qa("[data-np-col]").forEach(x=>x.classList.toggle("on",x===b)); if(!np.classList.contains("drawing")) cmd("foreColor",color); });
+  q("[data-np-sel]").onclick=()=>{ if(!NP_SEL){ toast("Select some text in the lesson first."); return; } text.insertAdjacentHTML("beforeend",`<div style="font-size:40px;line-height:1.1;font-weight:600">${esc(NP_SEL)}</div><div><br></div>`); persist(); text.scrollIntoView({block:"end"}); };
+  const setDraw=on=>{ np.classList.toggle("drawing",on); q("[data-np-draw]").setAttribute("aria-pressed",on); q("[data-np-pens]").hidden=!on; text.contentEditable=on?"false":"true"; size(); };
+  q("[data-np-draw]").onclick=()=>setDraw(!np.classList.contains("drawing"));
+  qa("[data-np-w]").forEach(b=>b.onclick=()=>{ pen=+b.dataset.npW; eraser=false; qa("[data-np-w]").forEach(x=>x.setAttribute("aria-pressed",x===b)); q("[data-np-eraser]").setAttribute("aria-pressed","false"); });
+  q("[data-np-eraser]").onclick=e=>{ eraser=!eraser; e.currentTarget.setAttribute("aria-pressed",eraser); };
+  q("[data-np-full]").onclick=e=>{ const on=!np.classList.contains("full"); np.classList.toggle("full",on); e.currentTarget.setAttribute("aria-pressed",on); setTimeout(size,50); };
+  q("[data-np-clear]").onclick=e=>{ const b=e.currentTarget; if(!b.dataset.armed){ b.dataset.armed="1"; b.textContent="Sure?"; setTimeout(()=>{ delete b.dataset.armed; b.textContent="Clear"; },3000); return; } text.innerHTML=""; img=""; cx.clearRect(0,0,cv.width,cv.height); persist(); delete b.dataset.armed; b.textContent="Clear"; };
+  const pt=e=>{ const r=cv.getBoundingClientRect(); return {x:(e.clientX-r.left)*cv.width/r.width,y:(e.clientY-r.top)*cv.height/r.height}; };
+  cv.addEventListener("pointerdown",e=>{ if(!np.classList.contains("drawing")) return; drawing=true; last=pt(e); cv.setPointerCapture(e.pointerId); });
+  cv.addEventListener("pointermove",e=>{ if(!drawing) return; const p=pt(e); cx.globalCompositeOperation=eraser?"destination-out":"source-over"; cx.strokeStyle=color; cx.lineWidth=eraser?18:pen; cx.lineCap="round"; cx.lineJoin="round"; cx.beginPath(); cx.moveTo(last.x,last.y); cx.lineTo(p.x,p.y); cx.stroke(); last=p; });
+  const stop=()=>{ if(!drawing) return; drawing=false; try{ img=cv.toDataURL("image/png"); }catch(e){} persist(); };
+  cv.addEventListener("pointerup",stop); cv.addEventListener("pointercancel",stop);
+  setTimeout(size,30);
+}
+/* notes on exam screens: a button that opens the same notepad in a side drawer */
+function mountNoteFab(uid){
+  const w=document.createElement("div"); w.className="notefab-wrap";
+  w.innerHTML=`<button type="button" class="lfab show" data-nf>Notes</button><aside class="notedrawer" hidden aria-label="Notes"><div class="ls-head"><span class="label">Notes</span><button type="button" class="ls-close" data-nfc aria-label="Close">✕</button></div>${notepadHTML()}</aside>`;
+  app.appendChild(w); const d=$(".notedrawer",w);
+  $("[data-nf]",w).onclick=()=>{ d.hidden=false; $("[data-nf]",w).hidden=true; };
+  $("[data-nfc]",w).onclick=()=>{ d.hidden=true; $("[data-nf]",w).hidden=false; };
+  bindNotepad($(".np",w),uid);
+}
+
+/* ---- read-first tips, talk cards, picture hotspots ---- */
+function drillTip(cx){ const {U,sec,d}=cx; cx.frame(`<div class="tipflow">${refList(sec,d).map(c=>tipHTML(c,U)).join("")}</div>`); }
+function drillTalk(cx){ const {U,d}=cx; const L=["Short","Full","Extended"];
+  cx.frame(`<div class="talk">${d.items.map((it,i)=>`<div class="tq" data-q="${i}"><span class="label">Question ${i+1} of ${d.items.length}</span><p class="qbig">${esc(it.q)}</p>
+    <div class="row"><button type="button" class="btn small ghost" data-say="${i}">Hear it</button>${(it.ladder||[]).map((_,j)=>`<button type="button" class="btn small" data-lad="${i}" data-j="${j}" aria-expanded="false">${L[j]} answer</button>`).join("")}</div>
+    <div class="ladder" data-box="${i}"></div></div>`).join("")}</div>`);
+  cx.$$("[data-say]").forEach(b=>b.onclick=()=>TTS.say(d.items[+b.dataset.say].q,"en-GB","female"));
+  cx.$$("[data-lad]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.lad, j=+b.dataset.j, box=cx.$(`[data-box="${i}"]`), open=b.getAttribute("aria-expanded")==="true";
+    cx.$$(`[data-lad="${i}"]`).forEach(x=>x.setAttribute("aria-expanded","false"));
+    if(open){ box.innerHTML=""; return; } b.setAttribute("aria-expanded","true");
+    box.innerHTML=`<p class="model"><span class="label">${L[j]} answer</span><br>${linkWords(fp(d.items[i].ladder[j]),U)}</p><button type="button" class="btn small ghost" data-hear>Listen</button>`;
+    $("[data-hear]",box).onclick=()=>TTS.say(d.items[i].ladder[j].replace(/\[\[([^\]|]+)(\|[^\]]+)?\]\]/g,"$1"),"en-GB","male"); });
+}
+const imgSrc=(U,key)=>(U.images||{})[key]||"";
+function drillHotspot(cx){ const {U,d}=cx; const spots=d.spots||[], src=imgSrc(U,d.img); const seen=new Set();
+  cx.frame(`<div class="hs-game" data-game></div><div class="hs">
+    <div class="hs-stage" data-hs><span class="hs-bubble" hidden></span><img src="${src}" alt="${esc(d.alt||"")}" draggable="false">${spots.map((s,i)=>`<button type="button" class="hs-dot" data-s="${i}" style="left:${s.x}%;top:${s.y}%" aria-label="Point ${i+1}"><i></i></button>`).join("")}<span class="hs-ring" hidden></span></div>
+    <div class="hs-side"><div class="hs-card" data-card><span class="label">Explore</span><p>Tap the glowing points on the photo. Each one hides a word for talking about the modern city.</p></div>
+      <div class="stack tight"><span class="label" data-found>Found 0 of ${spots.length}</span><div class="hs-words" data-words></div></div>
+      <div class="row"><button type="button" class="btn primary" data-play>Play: find it on the photo</button></div></div></div>`);
+  const stage=cx.$("[data-hs]"), card=cx.$("[data-card]");
+  const wordOf=s=>findWord(s.w)||{word:s.w,def:"",pos:"",cefr:""};
+  const bub=stage.querySelector(".hs-bubble");
+  const bubble=i=>{ const s=spots[i]; bub.hidden=false; bub.textContent=wordOf(s).word; bub.style.left=s.x+"%"; bub.style.top=s.y+"%"; bub.dataset.edge=s.x<18?"l":s.x>82?"r":""; };
+  const showCard=i=>{ bubble(i); const s=spots[i], w=wordOf(s); card.innerHTML=`<div class="row between"><span class="label">${esc(w.pos||"")}</span>${w.cefr?`<span class="chip">${esc(w.cefr)}</span>`:""}</div><h3 class="hs-word">${esc(w.word)}</h3><p>${esc(w.def)}</p>${s.say?`<p class="hs-say">“${esc(s.say)}”</p>`:""}<div class="row"><button type="button" class="btn small ghost" data-hear>Listen</button></div>`;
+    $("[data-hear]",card).onclick=()=>TTS.say(w.word+". "+(s.say||""),"en-GB","female"); };
+  const drawWords=()=>{ cx.$("[data-found]").textContent=`Found ${seen.size} of ${spots.length}`; cx.$("[data-words]").innerHTML=spots.map((s,i)=>seen.has(i)?`<button type="button" class="hs-w" data-sw="${i}">${esc(wordOf(s).word)}</button>`:`<span class="hs-w off">?</span>`).join(""); cx.$$("[data-sw]").forEach(b=>b.onclick=()=>{ showCard(+b.dataset.sw); stage.querySelectorAll(".hs-dot").forEach(x=>x.classList.toggle("act",x.dataset.s===b.dataset.sw)); }); };
+  stage.querySelectorAll(".hs-dot").forEach(b=>b.onclick=()=>{ if(stage.classList.contains("game")) return; const i=+b.dataset.s; seen.add(i); b.classList.add("seen"); stage.querySelectorAll(".hs-dot").forEach(x=>x.classList.toggle("act",x===b)); showCard(i); drawWords(); });
+  drawWords();
+  cx.$("[data-play]").onclick=()=>{
+    const order=shuffle(spots.map((_,i)=>i)).slice(0,d.rounds||spots.length); let r=0, first=0, tries=0;
+    stage.classList.add("game"); bub.hidden=true; cx.$("[data-play]").closest(".row").remove();
+    const g=cx.$("[data-game]"), ring=stage.querySelector(".hs-ring");
+    const ask=()=>{ if(r>=order.length){ stage.classList.remove("game"); g.innerHTML=`<p class="small">${first} of ${order.length} found first time.</p>`; return cx.end(first/order.length,d.end||"Now use these words: the questions below ask you to describe the street."); }
+      const s=spots[order[r]], w=wordOf(s); tries=0; g.innerHTML=`<div class="hs-ask"><span class="label">Find it · ${r+1} of ${order.length}</span><p class="target">${esc(d.byDef?w.def:w.word)}</p><button type="button" class="btn small ghost" data-hint>Show me</button></div>`;
+      $("[data-hint]",g).onclick=()=>hit(order[r],false); };
+    const hit=(i,ok)=>{ const s=spots[i]; ring.hidden=false; ring.style.left=s.x+"%"; ring.style.top=s.y+"%"; ring.className="hs-ring "+(ok?"ok":"show"); if(ok&&tries===0) first++; seen.add(i); drawWords(); showCard(i); r++; cx.later(()=>{ ring.hidden=true; bub.hidden=true; ask(); },ok?700:1300); };
+    stage.onclick=e=>{ if(!stage.classList.contains("game")||r>=order.length) return; const rc=stage.getBoundingClientRect(), x=(e.clientX-rc.left)/rc.width*100, y=(e.clientY-rc.top)/rc.height*100;
+      const target=order[r], s=spots[target], dist=Math.hypot((x-s.x)*rc.width/100,(y-s.y)*rc.height/100), rad=(s.r||9)*rc.width/100;
+      if(dist<=rad) hit(target,true); else { tries++; ring.hidden=false; ring.style.left=x+"%"; ring.style.top=y+"%"; ring.className="hs-ring no"; cx.later(()=>{ ring.hidden=true; },500); } };
+    ask(); g.scrollIntoView({behavior:"smooth",block:"start"});
+  };
+}
 
 /* ---- the pinned text: tap tasks borrow it ---- */
 const sentsOf=t=>String(t).match(/[^.!?]+[.!?]+["’”]?|[^.!?]+$/g)||[String(t)];
@@ -1956,7 +2278,7 @@ function panelRender(){
   P.el.classList.toggle("claimed",!!o);
   if(!o){ P.bar.hidden=true; P.body.innerHTML=P.mat.html; sheet(false); return; }
   P.body.innerHTML=textHTML(STAGE.sec,STAGE.st.material,o.mode); panelBar();
-  if(isNarrow()) sheet(true); else P.el.scrollTop=0;
+  showPane("mat"); if(isNarrow()) sheet(true); else { const sd=$("#lside"); if(sd) sd.scrollTop=0; }
 }
 function panelBar(){ const P=STAGE&&STAGE.panel; if(!P||!P.opt) return; const o=P.opt; P.bar.hidden=false; P.bar.innerHTML=`<span class="label">Task ${o.n} · ${esc(o.label||"tap in the text")}</span>${o.target?`<div class="target">${o.target}</div>`:""}`; }
 /* returns a host for the task's text: the pinned panel when the stage pins the same text, otherwise an inline copy */
@@ -2049,13 +2371,14 @@ const AUTO={
   outline:{l:"Says what the essay will do",f:t=>/\b(this essay will|will (examine|discuss|explain|consider|look at)|will be discussed)\b/i.test(t),tip:"Add an outline: This essay will examine…"},
   words:{l:"Right length",f:(t,c)=>c.words>=c.min&&c.words<=c.max,tip:"Check the word range for this task."},
   trend:{l:"Uses trend language",f:t=>(t.match(TREND_RE)||[]).length>=2,tip:"Use at least two trend phrases: rose steadily, levelled off…"},
+  useWords:{l:"Uses words from this unit",f:(t,c)=>c.used>=c.need,tip:"Use at least 3–4 words from the cloud above the task."},
   data:{l:"Includes key figures",f:t=>(t.match(/\d+/g)||[]).length>=2,tip:"Support the main features with numbers."}
 };
 /* ---- tap tasks: work on the pinned text or an inline copy ---- */
 function drillHunt(cx){ const {sec,d}=cx;
   const paras=resolveParas(sec,d), scan=d.kind==="scan", items=(scan?d.targets:d.items)||[];
   let i=0, first=0, wrong=0, hits=[], done=false, tx=null; const start=Date.now();
-  const where=cx.usesPanel?`<p class="small muted">Tap the words in the text ${isNarrow()?"at the bottom of the screen":"on the left"}.</p>`:`<div data-text></div>`;
+  const where=cx.usesPanel?`<p class="small muted">Tap the words in the text ${isNarrow()?"at the bottom of the screen":"on the right"}.</p>`:`<div data-text></div>`;
   cx.frame(`<div class="dbar"><div class="stack" style="gap:2px"><span class="label" data-hc></span><div class="target" data-ht></div></div><div class="row"><span class="timer" data-hti>${scan?"0:00":""}</span><button class="btn small ghost" data-hs>Show me</button></div></div><div data-pz></div>${where}`);
   const tgt=()=>{ const it=items[i]; return scan?esc(it.p):`<span class="chip ${it.rel==="antonym"?"bad":"good"}">${it.rel==="antonym"?"Opposite of":"Same as"}</span> <span>“${esc(it.cue)}”</span>`; };
   const tk=(p,k)=>tx.root.querySelector(`.tk[data-p="${p}"][data-i="${k}"]`);
@@ -2080,7 +2403,7 @@ function drillHunt(cx){ const {sec,d}=cx;
 }
 function drillSkim(cx){ const {d}=cx; let left=d.seconds||60, started=false, tx=null;
   const fmt=s=>`0:${String(Math.max(0,s)).padStart(2,"0")}`;
-  cx.frame(`<div class="dbar"><div class="stack" style="gap:2px"><span class="label">Skim · first sentences only</span><div class="target">Get the gist</div></div><div class="row"><span class="timer" data-st>${fmt(left)}</span><button class="btn small primary" data-sd>I’m ready</button></div></div>${cx.usesPanel?`<p class="small muted" data-where>Read only the bold sentences in the text ${isNarrow()?"at the bottom of the screen":"on the left"}.</p>`:`<div data-text></div>`}<div data-sq class="stack"></div>`);
+  cx.frame(`<div class="dbar"><div class="stack" style="gap:2px"><span class="label">Skim · first sentences only</span><div class="target">Get the gist</div></div><div class="row"><span class="timer" data-st>${fmt(left)}</span><button class="btn small primary" data-sd>I’m ready</button></div></div>${cx.usesPanel?`<p class="small muted" data-where>Read only the bold sentences in the text ${isNarrow()?"at the bottom of the screen":"on the right"}.</p>`:`<div data-text></div>`}<div data-sq class="stack"></div>`);
   const quiz=()=>{
     if(started) return; started=true; cx.clear(); tx.mode("hide"); tx.set("Answer from the gist","Skim · time’s up");
     const sd=cx.$("[data-sd]"); if(sd) sd.remove(); cx.$("[data-st]").textContent=""; const w=cx.$("[data-where]"); if(w) w.remove();
@@ -2097,7 +2420,7 @@ function drillSkim(cx){ const {d}=cx; let left=d.seconds||60, started=false, tx=
   cx.$("[data-sd]").onclick=quiz;
 }
 function drillSentpick(cx){ const {d}=cx; const para=d.mode==="para"; let i=0, first=0, wrong=0, tx=null, done=false;
-  cx.frame(`<div class="dbar"><div class="stack" style="gap:2px"><span class="label" data-sc></span><div class="target" data-stg></div></div><button class="btn small ghost" data-ss>Show me</button></div><div data-pz></div>${cx.usesPanel?`<p class="small muted">Tap ${para?"a paragraph":"a sentence"} in the text ${isNarrow()?"at the bottom of the screen":"on the left"}.</p>`:`<div data-text></div>`}<div data-sfb></div>`);
+  cx.frame(`<div class="dbar"><div class="stack" style="gap:2px"><span class="label" data-sc></span><div class="target" data-stg></div></div><button class="btn small ghost" data-ss>Show me</button></div><div data-pz></div>${cx.usesPanel?`<p class="small muted">Tap ${para?"a paragraph":"a sentence"} in the text ${isNarrow()?"at the bottom of the screen":"on the right"}.</p>`:`<div data-text></div>`}<div data-sfb></div>`);
   const right=el=>{ const it=d.items[i]; if(para) return el.dataset.pp===it.a; return el.textContent.includes(it.a); };
   const sel=para?"[data-pp]":".sn";
   const show=()=>{ if(i>=d.items.length) return finish();
@@ -2132,10 +2455,10 @@ function drillWrite(cx){ const {U,sec,d}=cx; const [mn,mx]=d.target||[40,80], dk
     cx.$("[data-wc]").disabled=true; cx.$("[data-wm]").textContent="Checking…";
     let lt=null, ltErr=null; try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
     if(cx.dead) return;
-    const ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx};
+    const actW=activeList(U,d.use||sec.active), ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx,used:activeUsed(actW,text).length,need:d.need||3};
     const res=(d.checks||[]).filter(k=>AUTO[k]).map(k=>({k,ok:AUTO[k].f(text,ctx)}));
     const A=analyseEssay(text,{unitWords:U.words,lt,checks:null,task:sec.task,bank:sec.bank?sec.bank.flatMap(g=>g.w):null});
-    const act=activeList(U,sec.active), uids=activeUsed(act,text), uw=act.filter(w=>uids.includes(w.id)), al=alertsIn(text);
+    const act=actW, uids=activeUsed(act,text), uw=act.filter(w=>uids.includes(w.id)), al=alertsIn(text);
     const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
     const pct=res.length?res.filter(r=>r.ok).length/res.length:1;
     cx.$("[data-wr]").innerHTML=`<div class="card stack">
@@ -2313,7 +2636,7 @@ function drillTiles(cx){ const {U,sec,d}=cx;
 /* =========================================================
    VISUAL TASK TYPES · plans, pens, scales, mini charts, A vs B
    ========================================================= */
-Object.assign(DRILL_KIND,{diagram:"Choose the plan",highlight:"Colour code",cline:"On the scale",chartpick:"Which graph?",abpick:"A or B?"});
+Object.assign(DRILL_KIND,{hotspot:"Picture game",talk:"Talk about it",tip:"Tip",diagram:"Choose the plan",highlight:"Colour code",cline:"On the scale",chartpick:"Which graph?",abpick:"A or B?"});
 function pcol(t){ const s=String(t).toLowerCase().trim(); if(/^(intro|conclu)/.test(s)) return "p0"; let h=7; for(const ch of s) h=(h*31+ch.charCodeAt(0))>>>0; return "p"+(1+h%4); }
 function planHTML(blocks){ return `<span class="pstrip">${blocks.map(b=>{ const [t,s]=String(b).split("|"); return `<span class="pblk ${pcol(t)}"><b>${esc(t)}</b>${s?`<small>${esc(s)}</small>`:""}</span>`; }).join("")}</span>`; }
 /* one item at a time with Next */
@@ -2395,7 +2718,7 @@ Object.assign(TIPV,{
     return `<div class="v-marked"><p>${line}</p><div class="hllegend">${(c.pens||[]).map((p,k)=>`<span class="hlkey"><i class="pc${k+1}"></i>${esc(p.t||p)}${p.s?` <small class="muted">${esc(p.s)}</small>`:""}</span>`).join("")}</div></div>`; },
   plans:c=>`<div class="v-types">${c.items.map(x=>`<div class="v-type"><div class="top"><b>${esc(x.h)}</b></div>${planHTML(x.plan)}</div>`).join("")}</div>`
 });
-const DRILLS={skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick,diagram:drillDiagram,highlight:drillHighlight,cline:drillCline,chartpick:drillChartpick,abpick:drillAB};
+const DRILLS={skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick,diagram:drillDiagram,highlight:drillHighlight,cline:drillCline,chartpick:drillChartpick,abpick:drillAB,tip:drillTip,talk:drillTalk,hotspot:drillHotspot};
 
 /* =========================================================
    STYLE ALERTS · the hare meme
@@ -2447,10 +2770,10 @@ function runSpeaking(U,sec,tier){
   onLeave(()=>{ stopActive(); Object.values(answers).forEach(a=>a.url&&URL.revokeObjectURL(a.url)); });
   const usedIds=()=>{ const lower=tokenize(Object.values(answers).map(a=>a.transcript||"").join(" ")); return active.filter(w=>ticked.has(w.id)||wordUsed(w,lower)).map(w=>w.id); };
   const phrases=cfg.phrases||[];
+  const cloudBar=()=>{ const used=usedIds(); return active.length?`<section class="wcloudbar"><div class="row between"><span class="label" id="wcount">Words to use · ${used.length}/${active.length}</span><span class="small muted">Tap a word to see it · it’s ticked when you use it</span></div>${cloudHTML(active,used)}</section>`:""; };
   const helpers=(item)=>{
     const used=usedIds();
     return `${part===3&&item&&item.brief?`<section class="brief"><span class="label">Before you answer · read</span><h3>${esc(item.brief.title)}</h3><p>${linkWords(fp(item.brief.t),U)}</p>${item.brief.ideas?`<div class="stack tight"><span class="label">Ideas you can use</span><div class="ideas">${item.brief.ideas.map(x=>`<span>${esc(x)}</span>`).join("")}</div></div>`:""}${credit()}</section>`:""}
-      ${active.length?`<section class="stack tight"><div class="row between"><span class="label" id="wcount">Words to use · ${used.length}/${active.length}</span><span class="small muted">Tap a word to see it · it’s ticked when you use it</span></div>${cloudHTML(active,used)}</section>`:""}
       ${phrases.length?`<section class="stack tight"><span class="label">Useful phrases</span><div class="phrases">${phrases.map(p=>`<span>${esc(p)}</span>`).join("")}</div></section>`:""}
       ${part===3&&cfg.challenge?`<p class="note">${esc(cfg.challenge)}</p>`:""}
       ${item&&item.sample?`<details class="more"><summary>Sample answer</summary><p class="model">${esc(fp(item.sample))}</p>${credit()}<p class="small muted">Read it, close it, then answer in your own words.</p></details>`:""}`;
@@ -2465,6 +2788,7 @@ function runSpeaking(U,sec,tier){
       <div class="row between"><div class="row">${[1,2,3].map(p=>`<button class="btn small ${p===part?"primary":"ghost"}" data-part="${p}">Part ${p}</button>`).join("")}<button class="btn small ${part===4?"primary":"ghost"}" data-part="4">Self-check</button></div>
         ${part<4?`<div class="row small"><label class="row"><input type="checkbox" id="useRec" ${useRec?"checked":""} ${REC.ok()?"":"disabled"}> Record</label>${REC.SR?`<label class="row"><input type="checkbox" id="useTr" ${useTr?"checked":""}> Live transcript</label>`:""}</div>`:""}</div>
       <div id="pbody"></div></div>`;
+    mountNoteFab(U.id);
     $$("[data-part]").forEach(b=>b.onclick=()=>{ stopActive(); part=+b.dataset.part; draw(); window.scrollTo(0,0); });
     $("#leave").onclick=()=>go(viewUnit,U.id);
     if($("#useRec")) $("#useRec").onchange=e=>{useRec=e.target.checked;};
@@ -2473,7 +2797,7 @@ function runSpeaking(U,sec,tier){
   };
   const drawQ=()=>{
     const list=part===1?P1:P3, i=idx[part], item=list[i], key=`p${part}-${i}`, limit=part===1?cfg.answer:cfg.answer+15;
-    $("#pbody").innerHTML=`<div class="spk"><div class="spk-main"><div class="qcard">
+    $("#pbody").innerHTML=`${cloudBar()}<div class="spk"><div class="spk-main"><div class="qcard">
         <div class="row between"><span class="label">Part ${part} · Question ${i+1} of ${list.length}</span><div class="qdots">${list.map((_,k)=>`<i class="${k===i?"on":answers[`p${part}-${k}`]?"done":""}"></i>`).join("")}</div></div>
         <p class="qbig">${esc(item.q)}</p>
         ${answerBits(key,limit)}
@@ -2488,7 +2812,7 @@ function runSpeaking(U,sec,tier){
   };
   const drawP2=()=>{
     const p2=sec.part2, key="p2-0", limit=cfg.talk;
-    $("#pbody").innerHTML=`<div class="spk"><div class="spk-main"><div class="qcard cue">
+    $("#pbody").innerHTML=`${cloudBar()}<div class="spk"><div class="spk-main"><div class="qcard cue">
         <span class="label">Part 2 · Cue card</span><p class="qbig">${esc(p2.task)}</p><p class="small">You should say:</p><ul>${p2.points.map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
         <div class="row between"><span class="small"><b>Prepare</b> <span class="timer" id="prepT" style="font-size:16px">${fmt(cfg.prep)}</span></span><button class="btn small" id="prepGo">Start preparing</button></div>
         ${answerBits(key,limit)}
@@ -2504,7 +2828,7 @@ function runSpeaking(U,sec,tier){
     $("#prepGo").onclick=()=>{ let left=cfg.prep; $("#prepGo").disabled=true; const id=T.every(()=>{ left--; const el=$("#prepT"); if(el) el.textContent=fmt(Math.max(0,left)); if(left<=0){ clearInterval(id); toast("Preparation time is over. Start speaking."); startAnswer(key,limit,drawP2); } },1000); };
     bindCloud();
   };
-  const bindCloud=()=>{ $$(".spk-help .v-cloud [data-w]").forEach(b=>b.addEventListener("click",()=>{ const id=b.dataset.w; if(ticked.has(id)) ticked.delete(id); else ticked.add(id); const u=usedIds(); b.classList.toggle("used",u.includes(id)); const c=$("#wcount"); if(c) c.textContent=`Words to use · ${u.length}/${active.length}`; })); };
+  const bindCloud=()=>{ $$("#pbody .v-cloud [data-w]").forEach(b=>b.addEventListener("click",()=>{ const id=b.dataset.w; if(ticked.has(id)) ticked.delete(id); else ticked.add(id); const u=usedIds(); b.classList.toggle("used",u.includes(id)); const c=$("#wcount"); if(c) c.textContent=`Words to use · ${u.length}/${active.length}`; })); };
   const metrics=()=>{
     const all=Object.values(answers).filter(a=>a.transcript); if(!all.length) return null;
     const text=all.map(a=>a.transcript).join(" "), secs=all.reduce((x,a)=>x+a.secs,0), words=wc(text);
@@ -2570,11 +2894,11 @@ function runWriting(U,sec,tier){
   const usedNow=t=>activeUsed(active,t);
   app.innerHTML=`<div class="wrap stack" style="gap:16px">
     <div class="row between"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier}</span><button class="link small" id="leave">Leave</button></div>
+    ${active.length?`<section class="wcloudbar"><span class="label">Words to use · <span id="avc">0/${active.length}</span> used · they turn green as you use them, tap one to see its meaning</span><div id="avcloud">${cloudHTML(active,[])}</div></section>`:""}
     <div class="wlayout">
       <aside class="wside">
         <div class="card stack tight"><span class="label">${esc(W.type||"")}${W.time?` · ${W.time} min`:""} · ${W.target}+ words</span><p class="wtask" style="font-size:16px">${esc(W.task)}</p></div>
         ${ch?`<div class="card">${chartSVG(ch)}</div>`:""}
-        ${active.length?`<details class="more" open><summary>Words to use · <span id="avc">0/${active.length}</span> used</summary><div id="avcloud">${cloudHTML(active,[])}</div><p class="small muted">Words turn green as you use them in your essay. Tap one to see its meaning.</p></details>`:""}
         ${bank?`<details class="more" ${tier!=="C1"?"open":""}><summary>Word bank · tap to insert</summary><div class="bank">${bank.map(g=>`<div class="grp"><b>${esc(g.h)}</b>${g.w.map(w=>`<button type="button" data-ins="${esc(w)}">${esc(w)}</button>`).join("")}</div>`).join("")}</div></details>`:""}
       </aside>
       <section class="wmain">
@@ -2589,6 +2913,7 @@ function runWriting(U,sec,tier){
         <div class="row"><button class="btn primary" id="checkBtn">Check my writing</button><span class="small muted" id="checkMsg"></span></div>
       </section>
     </div></div>`;
+  mountNoteFab(U.id);
   const ta=$("#essay");
   const markBank=()=>{ if(!bank) return; $$("[data-ins]").forEach(b=>b.classList.toggle("used",bankRe(b.dataset.ins).test(ta.value))); };
   const markActive=()=>{ if(!active.length) return; const u=usedNow(ta.value); $$("#avcloud [data-w]").forEach(b=>b.classList.toggle("used",u.includes(b.dataset.w))); const c=$("#avc"); if(c) c.textContent=`${u.length}/${active.length}`; };
