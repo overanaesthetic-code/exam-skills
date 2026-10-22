@@ -1004,6 +1004,91 @@ b,strong{font-weight:700}
 .ccbig label{color:rgba(255,255,255,.86)}
 .ccside{display:grid;gap:16px;align-content:start}
 .ccside .model{line-height:1.7}
+/* ---------- unit 2 activities ---------- */
+/* draw the graph */
+.sk-wrap{display:grid;gap:8px}
+.sk-svg{width:100%;height:auto;display:block;touch-action:none;-webkit-user-select:none;user-select:none;cursor:crosshair;background:var(--field);border-radius:14px}
+.sk-svg .gl{stroke:var(--line);stroke-width:1}
+.sk-svg .ax{fill:var(--muted);font:11px var(--mono)}
+.sk-svg .sk-col{stroke:var(--line);stroke-width:1;stroke-dasharray:2 5;opacity:.7}
+.sk-svg .sk-ctx{fill:none;stroke:var(--cloud);stroke-width:2.2;stroke-linejoin:round}
+.sk-svg .sk-ctxl{fill:var(--muted);font:600 10px var(--body)}
+.sk-svg .sk-line{fill:none;stroke:var(--act);stroke-width:3;stroke-linejoin:round;stroke-linecap:round}
+.sk-svg .sk-target{fill:none;stroke:var(--accent);stroke-width:3;stroke-dasharray:7 5;stroke-linejoin:round}
+.sk-svg .sk-pt{fill:var(--bg);stroke:var(--act);stroke-width:3;cursor:ns-resize}
+.sk-svg .sk-pt.lock{fill:var(--act);cursor:default}
+.sk-svg .sk-pt.on,.sk-svg .sk-pt:focus{stroke:var(--accent);outline:none}
+.sk-svg .sk-pt.ok{stroke:var(--good);fill:var(--good)}
+.sk-svg .sk-pt.no{stroke:var(--bad);fill:var(--bg)}
+.sk-svg .sk-val{fill:var(--ink);font:600 12px var(--mono);paint-order:stroke;stroke:var(--field);stroke-width:4px}
+.sk-key{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:13px;color:var(--muted)}
+.sk-key i{display:inline-block;width:22px;height:0;border-top:3px solid var(--act);vertical-align:middle;margin-right:6px}
+.sk-key i.t{border-top:3px dashed var(--accent)}
+.sk-key i.c{border-top-color:var(--cloud)}
+/* social feed */
+.feed{display:grid;gap:10px}
+.fd-list{display:grid;gap:12px;max-width:600px}
+.fd-post{display:grid;gap:8px;padding:14px 16px;border-radius:18px;background:var(--surface);border:1.5px solid transparent}
+.fd-post header{display:flex;align-items:center;gap:10px}
+.fd-av{display:grid;place-items:center;width:38px;height:38px;border-radius:50%;background:var(--act);color:var(--act-ink);font:700 13px var(--body);flex:none;letter-spacing:.02em}
+.fd-who{display:grid;line-height:1.25;min-width:0}
+.fd-who small{color:var(--muted);font-size:12.5px}
+.fd-text{margin:0;font-size:16.5px;line-height:1.55}
+.fd-text mark.mb{background:var(--bad-soft);color:inherit;border-radius:4px;padding:0 2px}
+.fd-tag{margin:0;color:var(--accent);font-size:14px;font-weight:600}
+.fd-act{display:flex;flex-wrap:wrap;gap:8px}
+.fd-b{font:inherit;font-weight:600;font-size:14px;border:0;border-radius:999px;padding:8px 15px;background:var(--field);color:var(--ink);cursor:pointer}
+.fd-b:hover,.fd-b:focus-visible{background:var(--accent);color:#fff;outline:none}
+.fd-post.ok{border-color:var(--good)}
+.fd-post.no{border-color:var(--bad)}
+.fd-res{display:grid;gap:4px}
+.fd-res p{margin:0}
+.fd-v{font-weight:700}
+.fd-v.good{color:var(--good)}
+.fd-v.bad{color:var(--bad)}
+/* timeline */
+.tln{position:relative;display:grid;grid-template-columns:repeat(var(--n),minmax(0,1fr));gap:8px;padding-top:28px}
+.tln-line{position:absolute;left:4px;right:4px;top:11px;height:3px;background:var(--act);border-radius:2px}
+.tln-era{position:relative;display:grid;gap:8px;align-content:start;min-height:130px;padding:12px 8px;border-radius:14px;background:var(--field)}
+.tln-era.ready{cursor:pointer;box-shadow:inset 0 0 0 2px var(--accent)}
+.tln-dot{position:absolute;top:-24px;left:50%;width:14px;height:14px;margin-left:-7px;border-radius:50%;background:var(--bg);border:3px solid var(--act)}
+.tln-lab{font-family:var(--display);font-size:22px;letter-spacing:.04em;color:var(--ink);text-align:center;line-height:1}
+.tln-era .cards{display:grid;gap:6px}
+.tln-era .ccard{font-size:13.5px;width:100%;text-align:left}
+.tln-era .ccard small{display:block;margin-top:4px;font-size:12px;opacity:.85;font-weight:500}
+@container (max-width:700px){
+  .tln{grid-template-columns:1fr;padding-top:0;padding-left:28px}
+  .tln-line{left:11px;right:auto;top:6px;bottom:6px;width:3px;height:auto}
+  .tln-dot{top:14px;left:-24px;margin-left:0}
+  .tln-era{min-height:0}
+  .tln-lab{text-align:left}
+}
+/* cue card roulette */
+.whl{display:grid;grid-template-columns:minmax(0,340px) minmax(0,1fr);gap:24px;align-items:start}
+@container (max-width:760px){.whl{grid-template-columns:1fr}}
+.whl-wheel{position:relative;width:100%;max-width:340px;aspect-ratio:1;justify-self:center}
+.whl-disc{position:absolute;inset:0;overflow:hidden;border-radius:50%}
+.whl-svg{width:100%;height:100%;display:block;transition:transform 3.6s cubic-bezier(.12,.66,.16,1)}
+.whl-svg .sg0{fill:var(--act)}
+.whl-svg .sg1{fill:var(--act);opacity:.8}
+.whl-svg path{stroke:var(--bg);stroke-width:.6}
+.whl-svg text{fill:#fff;font:600 8.5px var(--mono)}
+.whl-svg .whl-done{fill:var(--accent)}
+.whl-svg .whl-hub{fill:var(--bg)}
+.whl-ptr{position:absolute;top:-8px;left:50%;margin-left:-13px;width:0;height:0;border-left:13px solid transparent;border-right:13px solid transparent;border-top:26px solid var(--accent);z-index:2;filter:drop-shadow(0 2px 2px rgba(0,0,0,.18))}
+.whl-spin{position:absolute;left:50%;top:50%;width:76px;height:76px;margin:-38px 0 0 -38px;border-radius:50%;border:0;background:var(--accent);color:#fff;font:400 22px/1 var(--display);letter-spacing:.06em;cursor:pointer;z-index:2;box-shadow:0 0 0 5px var(--bg)}
+.whl-spin:hover{filter:brightness(1.06)}
+.whl-spin:disabled{opacity:.75;cursor:default}
+.whl-out{display:grid;gap:14px;align-content:start}
+.whl-ws{display:flex;flex-wrap:wrap;gap:8px}
+.whl-w{font:inherit;font-weight:600;font-size:15px;border:0;border-radius:999px;padding:7px 14px;background:rgba(255,255,255,.12);color:#fff;cursor:pointer}
+.whl-w.used{background:var(--accent)}
+.whl-w.used::after{content:" ✓"}
+.whl-twist{border-radius:14px;padding:10px 14px;background:rgba(255,255,255,.08)}
+.whl-twist p{margin:4px 0 0;font-weight:600}
+@media (prefers-reduced-motion:reduce){.whl-svg{transition:none}}
+.chart .s3{stroke:var(--t4);fill:var(--t4)}
+.chart .ylab{fill:var(--muted);font:11px var(--mono)}
 </style>
 </head>
 <body>
@@ -1887,7 +1972,7 @@ const BASIC_WORDS=["very","good","bad","thing","things","lot","big","nice","stuf
 const THESIS_RE=/\b(I (strongly |partly |completely |firmly |largely )?(believe|agree|disagree|think|feel|would argue)|in my (view|opinion)|argue that|my view is|I am convinced)\b/i;
 const OPINION_RE=/\b(I think|I believe|in my opinion|I feel|in my view|I agree|I disagree)\b/i;
 const OVERVIEW_RE=/\b(overall|in general|it is clear|it is noticeable|generally speaking|on the whole)\b/i;
-const TREND_RE=/\b(rose|rise[sn]?|rising|increas\w*|grew|grow[sn]?|growth|climb\w*|fell|fall\w*|declin\w*|decreas\w*|drop\w*|remain\w* (stable|steady|constant)|level\w* off|peak\w*|fluctuat\w*|doubl\w*|tripl\w*|halv\w*|plateau\w*)\b/gi;
+const TREND_RE=/\b(rose|rise[sn]?|rising|increas\w*|grew|grow[sn]?|growth|climb\w*|fell|fall\w*|declin\w*|decreas\w*|drop\w*|remain\w* (stable|steady|constant)|level\w* off|peak\w*|fluctuat\w*|doubl\w*|tripl\w*|halv\w*|plateau\w*|surg(e|es|ed|ing)|plummet\w*|rocket(s|ed|ing)|soar\w*|dwindl\w*|recover(s|ed|ing)?|overt(ook|ake|akes|aken|aking)|dip(s|ped|ping)?)\b/gi;
 const IRREG={give:"give|gives|giving|gave|given",pose:"pose|poses|posed|posing",be:"be|is|are|was|were|been|being",rose:"rise|rises|rising|risen|rose",fell:"fall|falls|falling|fallen|fell",grew:"grow|grows|growing|grown|grew",rise:"rise|rises|rising|risen|rose",fall:"fall|falls|falling|fallen|fell",grow:"grow|grows|growing|grown|grew"};
 function bankRe(ph){
   const ws=String(ph).toLowerCase().replace(/[,.]/g,"").trim().split(/\s+/);
@@ -2156,6 +2241,7 @@ function timelineSVG(c){
   let g=`<line class="tl-ax" x1="${L}" x2="${W-R}" y1="56" y2="56"/><text class="tl-t" x="${L}" y="74">PAST</text><circle class="tl-now" cx="${W-R}" cy="56" r="6"/><text class="tl-t" x="${W-R}" y="76" text-anchor="middle">NOW</text>`;
   c.marks.forEach(m=>{
     if(m.kind==="dot") g+=`<circle class="tl-dot" cx="${x(m.x)}" cy="56" r="7"/><text class="tl-l" x="${x(m.x)}" y="40" text-anchor="middle">${esc(m.t)}</text><text class="tl-c" x="${x(m.x)}" y="22" text-anchor="middle">${esc(m.c||"")}</text>`;
+    else if(m.to!==undefined&&m.to<1) g+=`<line class="tl-span" x1="${x(m.from)}" x2="${x(m.to)}" y1="94" y2="94"/><line class="tl-span" x1="${x(m.from)}" x2="${x(m.from)}" y1="88" y2="100"/><line class="tl-span" x1="${x(m.to)}" x2="${x(m.to)}" y1="88" y2="100"/><text class="tl-c acc" x="${x(m.from)}" y="84">${esc(m.c||"")}</text><text class="tl-l" x="${(x(m.from)+x(m.to))/2}" y="116" text-anchor="middle">${esc(m.t)}</text>`;
     else g+=`<line class="tl-span" x1="${x(m.from)}" x2="${W-R-10}" y1="94" y2="94"/><path class="tl-arrow" d="M${W-R-12},87 L${W-R},94 L${W-R-12},101 Z"/><text class="tl-c acc" x="${x(m.from)}" y="86">${esc(m.c||"")}</text><text class="tl-l" x="${(x(m.from)+W-R)/2}" y="116" text-anchor="middle">${esc(m.t)}</text>`;
   });
   return `<svg class="v-tl" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.marks.map(m=>m.t).join("; "))}">${g}</svg>`;
@@ -2200,17 +2286,18 @@ function bindTips(root){
 }
 
 /* ---------- charts for Writing Task 1 ---------- */
+const niceStep=v=>{ const p=Math.pow(10,Math.floor(Math.log10(v||1))), n=v/p; return (n<=1?1:n<=2?2:n<=2.5?2.5:n<=5?5:10)*p; };
 function chartSVG(ch){
   if(!ch) return "";
   let g="", W=560, H;
   if(ch.type==="line"){
-    H=300; const L=44,R=92,T=16,B=40, pw=W-L-R, ph=H-T-B;
-    const max=Math.max(...ch.series.flatMap(s=>s.v)), top=Math.ceil(max/10)*10||10, step=top/5;
+    H=300; const L=ch.ylab?60:44,R=92,T=16,B=40, pw=W-L-R, ph=H-T-B;
+    const max=Math.max(...ch.series.flatMap(s=>s.v)), step=niceStep(max/5), top=Math.ceil(max/step)*step||10, nt=Math.round(top/step);
     const x=i=>L+(ch.x.length>1?i*pw/(ch.x.length-1):pw/2), y=v=>T+ph-(v/top)*ph;
-    for(let k=0;k<=5;k++){ const v=k*step, yy=y(v); g+=`<line class="gl" x1="${L}" x2="${L+pw}" y1="${yy}" y2="${yy}"/><text class="ax" x="${L-6}" y="${yy+4}" text-anchor="end">${v}${ch.unit==="%"?"%":""}</text>`; }
+    for(let k=0;k<=nt;k++){ const v=+(k*step).toFixed(6), yy=y(v); g+=`<line class="gl" x1="${L}" x2="${L+pw}" y1="${yy}" y2="${yy}"/><text class="ax" x="${L-6}" y="${yy+4}" text-anchor="end">${v}${ch.unit==="%"?"%":""}</text>`; }
     ch.x.forEach((t,i)=>g+=`<text class="ax" x="${x(i)}" y="${T+ph+20}" text-anchor="middle">${esc(t)}</text>`);
-    const dash=["","7 5","2 5"];
-    ch.series.forEach((s,i)=>{ g+=`<polyline class="ln s${i}" points="${s.v.map((v,j)=>x(j)+","+y(v)).join(" ")}" stroke-dasharray="${dash[i%3]}"/>`; s.v.forEach((v,j)=>g+=`<circle class="s${i}" cx="${x(j)}" cy="${y(v)}" r="3.5"/>`); });
+    const dash=["","7 5","2 5","10 4 2 4"]; if(ch.ylab) g+=`<text class="ylab" x="12" y="${T+ph/2}" transform="rotate(-90 12 ${T+ph/2})" text-anchor="middle">${esc(ch.ylab)}</text>`;
+    ch.series.forEach((s,i)=>{ g+=`<polyline class="ln s${i}" points="${s.v.map((v,j)=>x(j)+","+y(v)).join(" ")}" stroke-dasharray="${dash[i%4]}"/>`; s.v.forEach((v,j)=>g+=`<circle class="s${i}" cx="${x(j)}" cy="${y(v)}" r="3.5"/>`); });
     const ends=ch.series.map((s,i)=>({i,y:y(s.v[s.v.length-1]),name:s.name})).sort((a,b)=>a.y-b.y);
     for(let k=1;k<ends.length;k++) if(ends[k].y-ends[k-1].y<15) ends[k].y=ends[k-1].y+15;
     ends.forEach(e=>g+=`<text class="lab s${e.i}" x="${L+pw+10}" y="${e.y+4}">${esc(e.name)}</text>`);
@@ -2549,6 +2636,19 @@ const ICONS={
   "in-flux":`<path class="ic-l" d="M6 20C14 12 22 28 30 20S46 12 54 20"/><path class="ic-a" d="M6 34C14 26 22 42 30 34S46 26 54 34"/><path class="ic-l" d="M6 48C14 40 22 56 30 48S46 40 54 48"/><path class="ic-a" d="M50 30L55 34L50 38"/>`,
   irreversible:`<path class="ic-l" d="M8 24H52"/><path class="ic-l" d="M46 18L53 24L46 30"/><path class="ic-d" d="M56 42H12"/><path class="ic-d" d="M18 36L11 42L18 48"/><path class="ic-a" d="M24 34L40 50M40 34L24 50"/>`
 };
+Object.assign(ICONS,{
+  algorithm:`<rect class="ic-l" x="5" y="9" width="13" height="10" rx="2"/><rect class="ic-l" x="5" y="27" width="13" height="10" rx="2"/><rect class="ic-l" x="5" y="45" width="13" height="10" rx="2"/><path class="ic-l" d="M18 14H25L33 32M18 32H33M18 50H25L33 32"/><path class="ic-a" d="M33 32L44 21L55 32L44 43Z"/><path class="ic-l" d="M55 32H61"/>`,
+  "echo-chamber":`<circle class="ic-l" cx="32" cy="32" r="26"/><circle class="ic-af" cx="32" cy="32" r="5"/><path class="ic-a" d="M21 23A15 15 0 0 1 43 23M18 41A18 18 0 0 0 46 41"/><path class="ic-l" d="M25 28A9 9 0 0 1 39 28"/>`,
+  doomscrolling:`<rect class="ic-l" x="18" y="5" width="28" height="54" rx="5"/><path class="ic-l" d="M24 15H40M24 23H40M24 31H35"/><path class="ic-a" d="M32 37V52M26 46L32 52L38 46"/>`,
+  fomo:`<rect class="ic-l" x="24" y="7" width="35" height="35" rx="3"/><path class="ic-a" d="M41 15V25M36 20H46M51 29V37M47 33H55M33 31V35M31 33H35"/><circle class="ic-f" cx="11" cy="38" r="5"/><path class="ic-l" d="M11 44V57M5 50H17"/>`,
+  curated:`<rect class="ic-d" x="5" y="9" width="20" height="16" rx="2"/><rect class="ic-d" x="5" y="38" width="20" height="16" rx="2"/><rect class="ic-a" x="31" y="16" width="28" height="30" rx="3"/><path class="ic-l" d="M35 40L41 31L46 36L50 32L55 40"/>`,
+  "go-viral":`<circle class="ic-af" cx="12" cy="32" r="5"/><path class="ic-l" d="M17 32L29 17M17 32H29M17 32L29 47"/><circle class="ic-f" cx="32" cy="16" r="3.5"/><circle class="ic-f" cx="32" cy="32" r="3.5"/><circle class="ic-f" cx="32" cy="48" r="3.5"/><path class="ic-l" d="M36 16L50 9M36 16L50 22M36 32L50 27M36 32L50 37M36 48L50 43M36 48L50 55"/>`,
+  notification:`<path class="ic-l" d="M19 44V30A13 13 0 0 1 45 30V44L49 48H15Z"/><path class="ic-l" d="M27 53A5 5 0 0 0 37 53"/><circle class="ic-af" cx="46" cy="17" r="6.5"/>`,
+  "digital-footprint":`<ellipse class="ic-l" cx="21" cy="42" rx="8" ry="13"/><g class="ic-af"><rect x="12" y="21" width="4.5" height="4.5"/><rect x="18" y="18.5" width="4.5" height="4.5"/><rect x="24" y="20" width="4.5" height="4.5"/></g><ellipse class="ic-d" cx="44" cy="30" rx="8" ry="13"/><g class="ic-f"><rect x="35" y="9" width="4.5" height="4.5"/><rect x="41" y="6.5" width="4.5" height="4.5"/><rect x="47" y="8" width="4.5" height="4.5"/></g>`,
+  misinformation:`<path class="ic-l" d="M7 11H57V42H28L16 53V42H7Z"/><path class="ic-a" d="M24 19L40 34M40 19L24 34"/>`,
+  "digital-detox":`<rect class="ic-d" x="9" y="7" width="25" height="46" rx="4"/><path class="ic-a" d="M37 52C37 35 47 24 59 21C59 38 50 49 37 52ZM37 52L50 34"/>`,
+  engagement:`<path class="ic-a" d="M20 25C14 16 3 22 9 31L20 42L31 31C37 22 26 16 20 25Z"/><path class="ic-l" d="M36 29H59V47H47L41 54V47H36Z"/>`
+});
 const iconSVG=k=>ICONS[k]?`<svg class="ic" viewBox="0 0 64 64" aria-hidden="true">${ICONS[k]}</svg>`:"";
 function mindmapSVG(c){
   const W=660,H=430,cx=W/2,cy=205, pos=[[150,56],[510,56],[150,300],[510,300]];
@@ -3127,7 +3227,130 @@ Object.assign(TIPV,{
     return `<div class="v-marked"><p>${line}</p><div class="hllegend">${(c.pens||[]).map((p,k)=>`<span class="hlkey"><i class="pc${k+1}"></i>${esc(p.t||p)}${p.s?` <small class="muted">${esc(p.s)}</small>`:""}</span>`).join("")}</div></div>`; },
   plans:c=>`<div class="v-types">${c.items.map(x=>`<div class="v-type"><div class="top"><b>${esc(x.h)}</b></div>${planHTML(x.plan)}</div>`).join("")}</div>`
 });
-const DRILLS={skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick,diagram:drillDiagram,highlight:drillHighlight,cline:drillCline,chartpick:drillChartpick,abpick:drillAB,tip:drillTip,talk:drillTalk,hotspot:drillHotspot,cuecards:drillCuecards};
+/* =========================================================
+   UNIT 2 ACTIVITIES · draw the graph, social feed, timeline, cue card roulette
+   ========================================================= */
+Object.assign(DRILL_KIND,{sketch:"Draw the graph",feed:"Social feed",timeline:"Timeline",wheel:"Spin the wheel"});
+UNSCORED.wheel=1;
+/* draw the graph: read a description, drag the points to build the line */
+function drillSketch(cx){ const {d}=cx; cx.frame(cx.framed(`<div data-sk class="stack"></div>`)); const box=cx.$("[data-sk]");
+  const X=d.x||[], n=X.length, W=560, H=300, L=46, T=18, B=34, ph=H-T-B;
+  stepper(cx,box,d.items,(it,i,done)=>{
+    const R=(it.ctx||[]).length?84:24, pw=W-L-R, xf=j=>L+(n>1?j*pw/(n-1):pw/2);
+    const tv=it.v, ctx=it.ctx||[], all=tv.concat(ctx.flatMap(c=>c.v));
+    const max=it.max||d.max||Math.ceil(Math.max(...all)/niceStep(Math.max(...all)/5))*niceStep(Math.max(...all)/5);
+    const gstep=d.step||niceStep(max/5), snap=it.snap||d.snap||gstep/4, tol=it.tol||d.tol||Math.max(snap,Math.round(max*0.08));
+    const lock=new Set(it.lock||d.lock||[0]);
+    const start=it.start!==undefined?it.start:Math.round(max/2/snap)*snap;
+    let val=tv.map((v,j)=>lock.has(j)?v:start), checked=false, active=null, focusJ=null;
+    const yf=v=>T+ph-(v/max)*ph, vf=py=>Math.max(0,Math.min(max,Math.round(((T+ph-py)/ph*max)/snap)*snap));
+    const fmtv=v=>Number.isInteger(v)?String(v):v.toFixed(1);
+    box.innerHTML=`<span class="label">${i+1} of ${d.items.length}</span><p class="quote">${esc(it.s)}</p>
+      <p class="wtask">${esc(it.p||d.ask||"Drag the points (or tap a column) to draw the line the text describes.")}</p>
+      <div class="sk-wrap"><svg class="sk-svg" viewBox="0 0 ${W} ${H}" role="group" aria-label="${esc((it.name?it.name+": ":"")+"drawing area")}"></svg>
+      <div class="sk-key"><span><i></i>${esc(it.name||"your line")}</span>${ctx.length?`<span><i class="c"></i>given</span>`:""}<span class="sk-tkey" hidden><i class="t"></i>the real data</span>${d.unit?`<span>${esc(d.unit)}</span>`:""}</div></div>
+      <div class="row"><button type="button" class="btn primary" data-skc>Check</button><button type="button" class="btn ghost small" data-skr>Reset</button></div><div data-fb></div>`;
+    const svg=$(".sk-svg",box);
+    const draw=()=>{ let g="";
+      for(let v=0;v<=max+1e-9;v+=gstep){ const yy=yf(v); g+=`<line class="gl" x1="${L}" x2="${L+pw}" y1="${yy}" y2="${yy}"/><text class="ax" x="${L-8}" y="${yy+4}" text-anchor="end">${fmtv(v)}</text>`; }
+      X.forEach((t,j)=>{ g+=`<line class="sk-col" x1="${xf(j)}" x2="${xf(j)}" y1="${T}" y2="${T+ph}"/><text class="ax" x="${xf(j)}" y="${H-10}" text-anchor="middle">${esc(t)}</text>`; });
+      ctx.forEach(c=>{ g+=`<polyline class="sk-ctx" points="${c.v.map((v,j)=>xf(j)+","+yf(v)).join(" ")}"/><text class="sk-ctxl" x="${xf(n-1)+6}" y="${yf(c.v[n-1])+4}">${esc(c.short||"")}</text>`; });
+      if(checked) g+=`<polyline class="sk-target" points="${tv.map((v,j)=>xf(j)+","+yf(v)).join(" ")}"/>`;
+      g+=`<polyline class="sk-line" points="${val.map((v,j)=>xf(j)+","+yf(v)).join(" ")}"/>`;
+      val.forEach((v,j)=>{ const lk=lock.has(j), st=checked&&!lk?(Math.abs(v-tv[j])<=tol?"ok":"no"):"";
+        g+=`<circle class="sk-pt ${lk?"lock":""} ${active===j?"on":""} ${st}" data-j="${j}" cx="${xf(j)}" cy="${yf(v)}" r="${lk?6:8}" ${lk||checked?"":`tabindex="0" role="slider" aria-label="${esc(X[j])}" aria-valuemin="0" aria-valuemax="${max}" aria-valuenow="${v}"`}/>`;
+        if(active===j||focusJ===j) g+=`<text class="sk-val" x="${xf(j)}" y="${yf(v)-14}" text-anchor="middle">${fmtv(v)}</text>`; });
+      svg.innerHTML=g;
+      if(focusJ!==null&&!checked){ const el=svg.querySelector(`[data-j="${focusJ}"]`); if(el&&document.activeElement!==el) el.focus({preventScroll:true}); } };
+    const pt=e=>{ const r=svg.getBoundingClientRect(); return [(e.clientX-r.left)*W/r.width,(e.clientY-r.top)*H/r.height]; };
+    const col=px=>Math.max(0,Math.min(n-1,Math.round((px-L)/(n>1?pw/(n-1):1))));
+    svg.addEventListener("pointerdown",e=>{ if(checked) return; const [px,py]=pt(e), j=col(px); if(lock.has(j)) return; e.preventDefault(); active=j; focusJ=null; val[j]=vf(py); try{ svg.setPointerCapture(e.pointerId); }catch(_){} draw(); });
+    svg.addEventListener("pointermove",e=>{ if(active===null||checked) return; const [,py]=pt(e); const nv=vf(py); if(nv!==val[active]){ val[active]=nv; draw(); } });
+    const up=()=>{ if(active!==null){ active=null; draw(); } };
+    svg.addEventListener("pointerup",up); svg.addEventListener("pointercancel",up);
+    svg.addEventListener("focusin",e=>{ const t=e.target.closest("[data-j]"); if(t&&focusJ!==+t.dataset.j){ focusJ=+t.dataset.j; draw(); } });
+    svg.addEventListener("keydown",e=>{ if(checked||focusJ===null) return; const k=e.key; let dv=0;
+      if(k==="ArrowUp"||k==="ArrowRight") dv=snap; else if(k==="ArrowDown"||k==="ArrowLeft") dv=-snap; else if(k==="PageUp") dv=gstep; else if(k==="PageDown") dv=-gstep; else return;
+      e.preventDefault(); val[focusJ]=Math.max(0,Math.min(max,val[focusJ]+dv)); draw(); });
+    $("[data-skr]",box).onclick=()=>{ if(checked) return; val=tv.map((v,j)=>lock.has(j)?v:start); focusJ=null; draw(); };
+    $("[data-skc]",box).onclick=()=>{ if(checked) return; checked=true; active=null; focusJ=null; $("[data-skc]",box).disabled=true; $("[data-skr]",box).disabled=true; $(".sk-tkey",box).hidden=false;
+      const js=tv.map((_,j)=>j).filter(j=>!lock.has(j)), good=js.filter(j=>Math.abs(val[j]-tv[j])<=tol).length, s=js.length?good/js.length:1; draw();
+      done(s,`<p style="font-weight:700;color:var(--${s>=0.7?"good":"bad"})">${s>=0.99?"Spot on":s>=0.7?"Close":"Not quite"}</p><p class="small">${good}/${js.length} points within ±${fmtv(tol)} of the real data. The dashed pink line shows it.</p>${it.ex?`<p class="small muted">${esc(it.ex)}</p>`:""}`); };
+    draw();
+  },d.end);
+}
+/* social feed: like the correct posts, flag the ones with a mistake */
+function drillFeed(cx){ const {d}=cx; const posts=d.posts||[], ans=posts.map(()=>null);
+  cx.frame(cx.framed(`<div class="feed" data-fd></div>`)); const box=cx.$("[data-fd]");
+  const ini=s=>String(s||"?").replace(/[^\p{L}\s]/gu,"").split(/\s+/).filter(Boolean).map(w=>w[0]).join("").slice(0,2).toUpperCase()||"?";
+  const mark=(t,w)=>{ const h=esc(t), e=esc(w||""); if(!e) return h; const k=h.indexOf(e); return k<0?h:h.slice(0,k)+`<mark class="mb">${e}</mark>`+h.slice(k+e.length); };
+  const draw=()=>{ const nd=ans.filter(x=>x!==null).length;
+    box.innerHTML=`<p class="wtask">${esc(d.ask||"Like the posts that are correct. Flag the ones with a mistake.")}</p><span class="label">${nd} of ${posts.length} checked</span>
+      <div class="fd-list">${posts.map((p,k)=>{ const a=ans[k], isOk=p.ok!==false, right=a!==null&&a===isOk;
+        return `<article class="fd-post ${a===null?"":right?"ok":"no"}" aria-label="Post by ${esc(p.name)}">
+          <header><span class="fd-av" aria-hidden="true">${esc(ini(p.name))}</span><span class="fd-who"><b>${esc(p.name)}</b><small>${esc(p.u||"")}${p.t?` · ${esc(p.t)}`:""}</small></span></header>
+          <p class="fd-text">${a!==null&&!isOk?mark(p.s,p.wrong):esc(p.s)}</p>${p.tag?`<p class="fd-tag">${esc(p.tag)}</p>`:""}
+          ${a===null?`<div class="fd-act"><button type="button" class="fd-b" data-like="${k}"><span aria-hidden="true">♡</span> Correct</button><button type="button" class="fd-b" data-flag="${k}"><span aria-hidden="true">⚑</span> Mistake</button></div>`
+            :`<div class="fd-res"><p class="fd-v ${right?"good":"bad"}">${right?"Right call":"Not quite"}</p>${isOk?`<p class="small">This post is correct.</p>`:`<p class="small"><b>${esc(d.fixLabel||"Better:")}</b> ${esc(p.fix||"")}</p>`}${p.ex?`<p class="small muted">${esc(p.ex)}</p>`:""}</div>`}
+        </article>`; }).join("")}</div>`;
+    const pick=(k,v)=>{ ans[k]=v; draw(); if(ans.every(x=>x!==null)) cx.end(posts.filter((p,j)=>ans[j]===(p.ok!==false)).length/posts.length,d.end||""); };
+    $$("[data-like]",box).forEach(b=>b.onclick=()=>pick(+b.dataset.like,true));
+    $$("[data-flag]",box).forEach(b=>b.onclick=()=>pick(+b.dataset.flag,false));
+  };
+  draw();
+}
+/* timeline: place each item in its era */
+function drillTimeline(cx){ const {d}=cx; const eras=d.eras||[];
+  const items=shuffle(d.items.map((x,i)=>Object.assign({i},x))), place={}; let sel=null, checked=false;
+  cx.frame(cx.framed(`<div data-tln class="stack"></div>`)); const box=cx.$("[data-tln]");
+  const draw=()=>{ const pool=items.filter(x=>place[x.i]===undefined);
+    box.innerHTML=`${checked?"":`<span class="label">${pool.length?"Tap a card, then tap its time on the line":"All placed. Tap a card on the line to move it back."}</span><div class="cards">${pool.map(x=>`<button type="button" class="ccard ${sel===x.i?"sel":""}" data-c="${x.i}">${esc(x.t)}</button>`).join("")}</div>`}
+      <div class="tln" style="--n:${eras.length}"><div class="tln-line" aria-hidden="true"></div>${eras.map((e,ei)=>`<div class="tln-era ${sel!==null?"ready":""}" data-e="${ei}" role="group" aria-label="${esc(e)}"><span class="tln-dot" aria-hidden="true"></span><span class="tln-lab">${esc(e)}</span><div class="cards">${items.filter(x=>place[x.i]===ei).map(x=>{ const st=checked?(x.e===ei?"ok":"no"):""; return `<button type="button" class="ccard in ${st}" data-back="${x.i}" ${checked?"disabled":""}>${esc(x.t)}${checked?`<small>${x.y?esc(x.y):""}${x.e!==ei?` → ${esc(eras[x.e])}`:""}${x.ex?` · ${esc(x.ex)}`:""}</small>`:""}</button>`; }).join("")}</div></div>`).join("")}</div>
+      ${checked?"":`<div class="row"><button class="btn primary" data-id="tlcheck" ${pool.length?"disabled":""}>Check</button></div>`}`;
+    $$("[data-c]",box).forEach(b=>b.onclick=()=>{ sel=+b.dataset.c===sel?null:+b.dataset.c; draw(); });
+    $$("[data-e]",box).forEach(bx=>bx.onclick=e=>{ if(checked) return; if(sel!==null){ place[sel]=+bx.dataset.e; sel=null; draw(); return; } const back=e.target.closest("[data-back]"); if(back){ delete place[+back.dataset.back]; draw(); } });
+    const ck=$('[data-id="tlcheck"]',box); if(ck) ck.onclick=()=>{ checked=true; draw(); cx.end(items.filter(x=>place[x.i]===x.e).length/items.length,d.end||""); };
+  };
+  draw();
+}
+/* cue card roulette: spin for a random card, three must-use words and a challenge */
+const WHEEL_TWISTS=["Use the past perfect at least once.","Include a number or a date.","Compare then and now.","Describe how you felt with two different adjectives.","Use ‘used to’ or ‘would’ for a past habit.","Finish with a reflection: ‘Looking back, …’","Use a relative clause: which, who or that.","Use one idiom naturally.","Mention a problem and how it was solved.","Speak for the full two minutes without notes."];
+function drillWheel(cx){ const {U,sec,d}=cx; const cards=(d.cards==="part2"?[].concat(sec.part2||[]):d.cards)||[], N=cards.length;
+  if(!N){ cx.frame(`<p class="note">No cue cards yet.</p>`); return; }
+  const twists=d.twists||WHEEL_TWISTS, seg=360/N, key=c=>U.id+":"+sec.id+":cc-"+c.id, done=c=>!!(S.results[key(c)]||[]).length;
+  const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`, reduce=matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let rot=0, cur=-1, tid=null, spinning=false;
+  const arc=(j)=>{ const a0=(j*seg-90)*Math.PI/180, a1=((j+1)*seg-90)*Math.PI/180, r=100; return `M0 0L${(r*Math.cos(a0)).toFixed(2)} ${(r*Math.sin(a0)).toFixed(2)}A${r} ${r} 0 ${seg>180?1:0} 1 ${(r*Math.cos(a1)).toFixed(2)} ${(r*Math.sin(a1)).toFixed(2)}Z`; };
+  const wheelSVG=()=>cards.map((c,j)=>{ const m=((j+0.5)*seg-90), mr=m*Math.PI/180, tx=(80*Math.cos(mr)).toFixed(2), ty=(80*Math.sin(mr)).toFixed(2);
+    return `<path class="sg${j%2} ${done(c)?"sgd":""}" d="${arc(j)}"/><text x="${tx}" y="${ty}" transform="rotate(${(m+90).toFixed(2)} ${tx} ${ty})" text-anchor="middle" dominant-baseline="central">${j+1}</text>${done(c)?`<circle class="whl-done" cx="${(94*Math.cos(mr)).toFixed(2)}" cy="${(94*Math.sin(mr)).toFixed(2)}" r="2.6"/>`:""}`; }).join("")+`<circle class="whl-hub" r="30"/>`;
+  cx.frame(`<div class="whl"><div class="whl-wheel"><span class="whl-ptr" aria-hidden="true"></span><div class="whl-disc"><svg class="whl-svg" viewBox="-104 -104 208 208" aria-hidden="true">${wheelSVG()}</svg></div><button type="button" class="whl-spin" data-spin>Spin</button></div>
+    <div class="whl-out" data-out><span class="label">Cue card roulette · ${N} cards</span><p class="wtask">Spin the wheel. You get a random cue card, three words you must use and one challenge.</p><p class="small muted">Prepare for one minute, speak for two. Cards you have practised get a pink dot.</p></div></div>`);
+  const svg=cx.$(".whl-svg"), out=cx.$("[data-out]"), spinB=cx.$("[data-spin]");
+  const stop=()=>{ if(tid){ clearInterval(tid); tid=null; } };
+  const show=j=>{ stop(); cur=j; const c=cards[j], ws=shuffle((c.words||[]).map(id=>findWord(id)).filter(Boolean)).slice(0,d.pick||3), tw=twists[Math.floor(Math.random()*twists.length)];
+    out.innerHTML=`<div class="ccx ccbig"><span class="label">Card ${j+1} of ${N}${c.topic?` · ${esc(c.topic)}`:""}</span><p class="qbig">${esc(c.task)}</p><p class="small">You should say:</p><ul>${(c.points||[]).map(p=>`<li>${esc(p)}</li>`).join("")}</ul>
+        ${ws.length?`<div class="stack tight"><span class="label">Must use · tap when you have used it</span><div class="whl-ws">${ws.map(w=>`<button type="button" class="whl-w" data-w="${esc(w.id)}" title="${esc(w.def||"")}">${esc(w.word)}</button>`).join("")}</div></div>`:""}
+        <div class="whl-twist"><span class="label">Challenge</span><p>${esc(tw)}</p></div>
+        <div class="row between"><span class="timer" data-t>1:00</span><div class="row"><button type="button" class="btn small" data-prep>Prepare · 1 min</button><button type="button" class="btn small primary" data-talk>Speak · 2 min</button></div></div>
+        <div class="tbar"><i data-bar style="width:0%"></i></div></div>
+      ${c.model?`<details class="more"><summary>Model answer</summary><p class="model">${linkWords(fp(c.model),U).replace(/\n\n/g,"<br><br>")}</p>${credit()}</details>`:""}
+      <div class="row"><button type="button" class="btn ${done(c)?"":"primary"}" data-done>${done(c)?"Practised ✓ · again":"I practised this card"}</button><button type="button" class="btn ghost" data-again>Spin again</button></div>`;
+    const t=$("[data-t]",out), bar=$("[data-bar]",out);
+    const run=(secs,end)=>{ stop(); let left=secs; t.textContent=fmt(left); bar.style.width="0%"; tid=setInterval(()=>{ left--; t.textContent=fmt(Math.max(0,left)); bar.style.width=Math.min(100,(secs-left)/secs*100)+"%"; if(left<=0){ stop(); end&&end(); } },1000); };
+    $("[data-prep]",out).onclick=()=>run(60,()=>{ t.textContent="Speak!"; });
+    $("[data-talk]",out).onclick=()=>run(120,()=>{ t.textContent="Time!"; const m=$("details.more",out); if(m) m.open=true; });
+    $$("[data-w]",out).forEach(b=>b.onclick=()=>b.classList.toggle("used"));
+    $("[data-done]",out).onclick=()=>{ (S.results[key(c)]=S.results[key(c)]||[]).push({pct:100,date:Date.now(),mode:"train"}); save(); toast("Card "+(j+1)+" practised."); svg.innerHTML=wheelSVG(); const b=$("[data-done]",out); b.textContent="Practised ✓ · again"; b.classList.remove("primary"); try{ stageBar(); }catch(e){} };
+    $("[data-again]",out).onclick=()=>{ spin(); cx.root.scrollIntoView({behavior:"smooth",block:"start"}); };
+  };
+  const spin=()=>{ if(spinning) return; stop(); const pool=cards.map((c,j)=>j).filter(j=>j!==cur), fresh=pool.filter(j=>!done(cards[j])), from=fresh.length&&Math.random()<0.75?fresh:pool, j=from[Math.floor(Math.random()*from.length)]??0;
+    const want=((-(j+0.5)*seg)%360+360)%360, delta=((want-rot)%360+360)%360; rot+=(reduce?0:360*5)+delta+(Math.random()-0.5)*seg*0.6;
+    spinning=true; spinB.disabled=true; svg.style.transform=`rotate(${rot}deg)`;
+    cx.later(()=>{ spinning=false; spinB.disabled=false; show(j); },reduce?60:3700); };
+  spinB.onclick=spin;
+  CLEANUP.push(stop);
+}
+const DRILLS={sketch:drillSketch,feed:drillFeed,timeline:drillTimeline,wheel:drillWheel,skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick,diagram:drillDiagram,highlight:drillHighlight,cline:drillCline,chartpick:drillChartpick,abpick:drillAB,tip:drillTip,talk:drillTalk,hotspot:drillHotspot,cuecards:drillCuecards};
 
 /* =========================================================
    STYLE ALERTS · the hare meme
@@ -3164,9 +3387,15 @@ TIPV.meme=c=>memeHTML(c,false);
 /* =========================================================
    SPEAKING · one question at a time, everything on screen
    ========================================================= */
+const WU_IRREG={go:["went","gone","goes","going"],take:["took","taken","takes","taking"],make:["made","makes","making"],get:["got","gotten","gets","getting"],be:["is","are","was","were","been","being","am"],switch:["switched","switches","switching"]};
 function wordUsed(w,lower){
   const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase());
-  return forms.some(f=>{ const stem=f.length>5?f.slice(0,f.length-1):f; return lower.some(t=>t===f||(t.startsWith(stem)&&t.length<=f.length+3)); });
+  const hit=(t,f)=>{ if(!t) return false; if(WU_IRREG[f]&&WU_IRREG[f].includes(t)) return true; const stem=f.length>5?f.slice(0,f.length-1):f; return t===f||(t.startsWith(stem)&&t.length<=f.length+3); };
+  return forms.some(f=>{ const parts=f.split(/\s+/).filter(Boolean); if(parts.length<2) return lower.some(t=>hit(t,f));
+    for(let i=0;i<lower.length;i++){ if(!hit(lower[i],parts[0])) continue; let j=i, ok=true;
+      for(let k=1;k<parts.length&&ok;k++){ let found=-1; for(let g=j+1;g<=Math.min(lower.length-1,j+3);g++){ if(hit(lower[g],parts[k])){ found=g; break; } } if(found<0) ok=false; else j=found; }
+      if(ok) return true; }
+    return false; });
 }
 function runSpeaking(U,sec,tier){
   setNav({uid:U.id,sid:sec.id,tab:"task"});
