@@ -2742,10 +2742,11 @@ const imgSrc=(U,key)=>(U.images||{})[key]||"";
 function drillHotspot(cx){ const {U,d}=cx; const spots=d.spots||[], src=imgSrc(U,d.img); const seen=new Set();
   cx.frame(`<div class="hs-game" data-game></div><div class="hs">
     <div class="hs-stage" data-hs><span class="hs-bubble" hidden></span><img src="${src}" alt="${esc(d.alt||"")}" draggable="false">${spots.map((s,i)=>`<button type="button" class="hs-dot" data-s="${i}" style="left:${s.x}%;top:${s.y}%" aria-label="Point ${i+1}"><i></i></button>`).join("")}<span class="hs-ring" hidden></span></div>
-    <div class="hs-side"><div class="hs-card" data-card><span class="label">Explore</span><p>Tap the glowing points on the photo. Each one hides a word for talking about the modern city.</p></div>
+    <div class="hs-side"><div class="hs-card" data-card><span class="label">Explore</span><p>${esc(d.explore||"Tap the glowing points on the picture. Each one hides a word.")}</p></div>
       <div class="stack tight"><span class="label" data-found>Found 0 of ${spots.length}</span><div class="hs-words" data-words></div></div>
       <div class="row"><button type="button" class="btn primary" data-play>Play: find it on the photo</button></div></div></div>`);
   const stage=cx.$("[data-hs]"), card=cx.$("[data-card]");
+  { const im=stage.querySelector("img"); const fit=()=>{ if(im.naturalWidth&&im.naturalHeight>im.naturalWidth*1.05){ stage.style.maxWidth=`calc(72vh * ${(im.naturalWidth/im.naturalHeight).toFixed(4)})`; stage.style.marginInline="auto"; } }; if(im.complete) fit(); else im.addEventListener("load",fit); }
   const wordOf=s=>(s.w&&findWord(s.w))||{word:s.word||s.w,def:s.def||"",pos:s.pos||"",cefr:s.cefr||""};
   const bub=stage.querySelector(".hs-bubble");
   const bubble=i=>{ const s=spots[i]; bub.hidden=false; bub.textContent=wordOf(s).word; bub.style.left=s.x+"%"; bub.style.top=s.y+"%"; bub.dataset.edge=s.x<18?"l":s.x>82?"r":""; };
