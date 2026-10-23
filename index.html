@@ -854,6 +854,8 @@ input[type=text]:focus,select:focus,textarea:focus{border-color:var(--act);backg
 .v-pics,.v-icons{display:grid;gap:16px}
 .vp-g{display:grid;gap:8px}
 .vp-row,.vi-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(150px,1fr));gap:10px}
+.v-cols .vp-row,.v-cols .vi-row{grid-template-columns:repeat(var(--cols),minmax(0,1fr))}
+@media (max-width:620px){.v-cols .vp-row,.v-cols .vi-row{grid-template-columns:repeat(2,minmax(0,1fr))}}
 .ls-pane .vp-row,.ls-pane .vi-row,.tref .vp-row,.tref .vi-row{grid-template-columns:repeat(2,minmax(0,1fr))}
 .vp,.vi{display:grid;gap:4px;align-content:start;text-align:left;border:0;border-radius:14px;padding:8px;background:var(--field);color:var(--ink);font:inherit;cursor:pointer}
 .vp:hover,.vi:hover{background:var(--field-hover)}
@@ -867,6 +869,14 @@ input[type=text]:focus,select:focus,textarea:focus{border-color:var(--act);backg
 .ic-f{fill:var(--ink)} .ic-af,.ic-af circle{fill:var(--accent)}
 /* research card, brain network, mind map */
 .v-res{display:grid;gap:10px}
+.vr-img,.vm-img{margin:0;border-radius:16px;overflow:hidden;line-height:0;cursor:zoom-in;position:relative}
+.vr-img img,.vm-img img{width:100%;height:auto;display:block}
+.vm-img{background:#fff;border:1px solid var(--line)}
+.vm-img figcaption{position:absolute;right:10px;bottom:10px;line-height:1.2;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(32,36,40,.78);color:#fff}
+.deck .vr-img img{max-height:38vh;object-fit:cover}
+.zoomer{position:fixed;inset:0;z-index:200;background:rgba(14,16,18,.9);display:grid;place-items:center;padding:16px;cursor:zoom-out}
+.zoomer img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;background:#fff}
+.zoomer button{position:absolute;top:12px;right:12px}
 .vr-big{font-family:var(--display);font-size:clamp(64px,10vw,110px);line-height:.85;color:var(--accent)}
 .vr-bars{display:grid;gap:8px}
 .vr-b{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;font-size:14px}
@@ -2210,6 +2220,11 @@ function showDef(id){
   document.body.appendChild(t); setTimeout(()=>t.remove(),4500);
 }
 document.addEventListener("click",e=>{ const b=e.target.closest("[data-w]"); if(b) showDef(b.dataset.w); });
+document.addEventListener("click",e=>{ const f=e.target.closest("[data-zoom]"); if(!f) return; const im=f.querySelector("img"); if(!im) return;
+  const z=document.createElement("div"); z.className="zoomer"; z.setAttribute("role","dialog"); z.setAttribute("aria-label","Picture");
+  z.innerHTML=`<img src="${im.src}" alt="${esc(im.alt||"")}"><button type="button" class="btn small">Close</button>`;
+  const close=()=>{ z.remove(); document.removeEventListener("keydown",key); }, key=ev=>{ if(ev.key==="Escape") close(); };
+  z.addEventListener("click",close); document.addEventListener("keydown",key); document.body.appendChild(z); z.querySelector("button").focus(); });
 function linkWords(text,U){
   return esc(text).replace(/\[\[([^\]|]+)(?:\|([^\]]+))?\]\]/g,(m,a,b)=>{ const id=(b||a).trim(); return `<button type="button" class="vw" data-w="${esc(id)}">${a}</button>`; });
 }
@@ -2646,6 +2661,7 @@ Object.assign(ICONS,{
   notification:`<path class="ic-l" d="M19 44V30A13 13 0 0 1 45 30V44L49 48H15Z"/><path class="ic-l" d="M27 53A5 5 0 0 0 37 53"/><circle class="ic-af" cx="46" cy="17" r="6.5"/>`,
   "digital-footprint":`<ellipse class="ic-l" cx="21" cy="42" rx="8" ry="13"/><g class="ic-af"><rect x="12" y="21" width="4.5" height="4.5"/><rect x="18" y="18.5" width="4.5" height="4.5"/><rect x="24" y="20" width="4.5" height="4.5"/></g><ellipse class="ic-d" cx="44" cy="30" rx="8" ry="13"/><g class="ic-f"><rect x="35" y="9" width="4.5" height="4.5"/><rect x="41" y="6.5" width="4.5" height="4.5"/><rect x="47" y="8" width="4.5" height="4.5"/></g>`,
   misinformation:`<path class="ic-l" d="M7 11H57V42H28L16 53V42H7Z"/><path class="ic-a" d="M24 19L40 34M40 19L24 34"/>`,
+  hooked:`<path class="ic-l" d="M30 2V8"/><path class="ic-a" d="M30 8V26A8 8 0 0 1 14 26V19L19 24"/><g transform="rotate(18 34 45)"><rect class="ic-l" x="23" y="29" width="22" height="31" rx="4"/><path class="ic-l" d="M30 53H38"/></g>`,
   "digital-detox":`<rect class="ic-d" x="9" y="7" width="25" height="46" rx="4"/><path class="ic-a" d="M37 52C37 35 47 24 59 21C59 38 50 49 37 52ZM37 52L50 34"/>`,
   engagement:`<path class="ic-a" d="M20 25C14 16 3 22 9 31L20 42L31 31C37 22 26 16 20 25Z"/><path class="ic-l" d="M36 29H59V47H47L41 54V47H36Z"/>`
 });
@@ -2669,11 +2685,11 @@ function networkSVG(c){
 }
 Object.assign(TIPV,{
   banner:(c,U)=>imgSrc(U,c.img)?`<figure class="sbanner"><img src="${imgSrc(U,c.img)}" alt="${esc(c.alt||"")}"></figure>`:"",
-  pics:(c,U)=>`<div class="v-pics">${c.groups.map(g=>`<div class="vp-g"><span class="label">${esc(g.h)}</span><div class="vp-row">${g.items.map(x=>{ const w=findWord(x.w)||{word:x.w,def:""}; const src=imgSrc(U,x.img); return `<button type="button" class="vp" data-w="${esc(x.w)}" aria-label="${esc(w.word)}: ${esc(w.def)}">${src?`<img src="${src}" alt="" loading="lazy">`:""}<b>${esc(w.word)}</b><small>${esc(x.s||w.def)}</small></button>`; }).join("")}</div></div>`).join("")}</div>`,
-  icons:c=>`<div class="v-icons">${c.groups.map(g=>`<div class="vp-g"><span class="label">${esc(g.h)}</span><div class="vi-row">${g.items.map(x=>`<button type="button" class="vi" data-w="${esc(x.w)}">${iconSVG(x.icon||x.w)}<b>${esc(x.t||((findWord(x.w)||{}).word)||x.w)}</b><small>${esc(x.s||"")}</small></button>`).join("")}</div></div>`).join("")}</div>`,
-  research:c=>{ const max=Math.max(...(c.bars||[{w:1}]).map(b=>b.w)); return `<div class="v-res"><div class="vr-big">${esc(c.big)}</div>${c.bars?`<div class="vr-bars">${c.bars.map((b,i)=>`<div class="vr-b"><span>${esc(b.t)}</span><i class="${i===c.bars.length-1?"hi":""}" style="width:${Math.max(6,b.w/max*100)}%"></i></div>`).join("")}</div>`:""}${c.body?`<p class="small">${esc(c.body)}</p>`:""}${c.src?`<p class="vr-src">${esc(c.src)}</p>`:""}</div>`; },
+  pics:(c,U)=>`<div class="v-pics${c.cols?" v-cols":""}"${c.cols?` style="--cols:${+c.cols}"`:""}>${c.groups.map(g=>`<div class="vp-g"><span class="label">${esc(g.h)}</span><div class="vp-row">${g.items.map(x=>{ const w=findWord(x.w)||{word:x.w,def:""}; const src=imgSrc(U,x.img); return `<button type="button" class="vp" data-w="${esc(x.w)}" aria-label="${esc(w.word)}: ${esc(w.def)}">${src?`<img src="${src}" alt="" loading="lazy">`:""}<b>${esc(w.word)}</b><small>${esc(x.s||w.def)}</small></button>`; }).join("")}</div></div>`).join("")}</div>`,
+  icons:c=>`<div class="v-icons${c.cols?" v-cols":""}"${c.cols?` style="--cols:${+c.cols}"`:""}>${c.groups.map(g=>`<div class="vp-g"><span class="label">${esc(g.h)}</span><div class="vi-row">${g.items.map(x=>`<button type="button" class="vi" data-w="${esc(x.w)}">${iconSVG(x.icon||x.w)}<b>${esc(x.t||((findWord(x.w)||{}).word)||x.w)}</b><small>${esc(x.s||"")}</small></button>`).join("")}</div></div>`).join("")}</div>`,
+  research:(c,U)=>{ const max=Math.max(...(c.bars||[{w:1}]).map(b=>b.w)), pic=imgSrc(U,c.img); return `<div class="v-res">${pic?`<figure class="vr-img" data-zoom><img src="${pic}" alt="${esc(c.alt||"")}" loading="lazy"></figure>`:""}<div class="vr-big">${esc(c.big)}</div>${c.bars?`<div class="vr-bars">${c.bars.map((b,i)=>`<div class="vr-b"><span>${esc(b.t)}</span><i class="${i===c.bars.length-1?"hi":""}" style="width:${Math.max(6,b.w/max*100)}%"></i></div>`).join("")}</div>`:""}${c.body?`<p class="small">${esc(c.body)}</p>`:""}${c.src?`<p class="vr-src">${esc(c.src)}</p>`:""}</div>`; },
   network:c=>networkSVG(c)+(c.src?`<p class="vr-src">${esc(c.src)}</p>`:""),
-  mindmap:c=>mindmapSVG(c)
+  mindmap:(c,U)=>{ const pic=imgSrc(U,c.img); return pic?`<figure class="vm-img" data-zoom><img src="${pic}" alt="${esc(c.alt||("Mind map: "+c.center+". "+(c.branches||[]).map(b=>b.h+": "+b.words.join(", ")).join(". ")))}" loading="lazy"><figcaption>Tap to enlarge</figcaption></figure>`:mindmapSVG(c); }
 });
 /* ---- side panel: closed until you open it, closes on a second click ---- */
 function openPanel(id,force){
