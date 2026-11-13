@@ -65,7 +65,7 @@ button,input,select,textarea{font:inherit;color:inherit}
 .link{background:none;border:0;padding:0;color:var(--accent);font-weight:600;cursor:pointer;text-decoration:underline}
 :focus-visible{outline:2.5px solid var(--accent);outline-offset:2px}
 .chip{display:inline-flex;align-items:center;gap:6px;font-family:var(--mono);font-size:11px;letter-spacing:.06em;text-transform:uppercase;padding:3px 9px;border-radius:999px;border:1px solid var(--line);white-space:nowrap;color:var(--ink)}
-.chip.lv{background:var(--ink);color:var(--bg);border-color:var(--ink)}
+.chip.lv{background:var(--inkbg,var(--ink));color:var(--bg);border-color:var(--ink)}
 .chip.accent{background:var(--accent-soft);border-color:transparent}
 .chip.good{background:var(--good-soft);color:var(--good);border-color:transparent}
 .chip.bad{background:var(--bad-soft);color:var(--bad);border-color:transparent}
@@ -102,7 +102,7 @@ textarea{resize:vertical;line-height:1.6}
 .prow{display:grid;grid-template-columns:170px 1fr 92px;gap:14px;align-items:center}
 .scale{position:relative;display:grid;grid-template-columns:repeat(4,1fr);gap:4px}
 .scale i{height:10px;border-radius:3px;background:var(--line)}
-.scale i.on{background:var(--ink)}
+.scale i.on{background:var(--inkbg,var(--ink))}
 .scale i.top{background:var(--accent)}
 .scale-labels{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;font-family:var(--mono);font-size:10px;color:var(--muted)}
 @media (max-width:640px){.prow{grid-template-columns:1fr 84px}.prow .scalebox{grid-column:1/-1;grid-row:2}}
@@ -132,7 +132,7 @@ textarea{resize:vertical;line-height:1.6}
 .seg button{border:1.5px solid var(--line);background:var(--bg);border-radius:10px;padding:10px 14px;cursor:pointer;text-align:left;display:grid;gap:2px;min-width:110px;color:var(--ink)}
 .seg button strong{font-family:var(--display);font-weight:400;font-size:26px;line-height:1}
 .seg button span{font-size:12px;color:var(--muted)}
-.seg button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.seg button[aria-pressed="true"]{border-color:var(--inkbg,var(--ink));background:var(--inkbg,var(--ink));color:var(--bg)}
 .seg button[aria-pressed="true"] span{color:var(--bg);opacity:.8}
 
 /* quiz */
@@ -142,7 +142,7 @@ textarea{resize:vertical;line-height:1.6}
 .timer.low{color:var(--bad)}
 .tabs{display:none;border:1.5px solid var(--ink);border-radius:999px;overflow:hidden;width:100%}
 .tabs button{flex:1;border:0;background:transparent;padding:8px;font-weight:600;cursor:pointer;color:var(--ink)}
-.tabs button[aria-pressed="true"]{background:var(--ink);color:var(--bg)}
+.tabs button[aria-pressed="true"]{background:var(--inkbg,var(--ink));color:var(--bg)}
 .split{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:36px;align-items:start;padding-top:20px}
 .passage{position:sticky;top:130px;max-height:calc(100vh - 150px);overflow:auto;padding-right:6px}
 .passage h2{margin-bottom:6px}
@@ -178,7 +178,7 @@ textarea{resize:vertical;line-height:1.6}
 .opts .let{font-family:var(--mono);font-weight:500}
 .tf{display:flex;flex-wrap:wrap;gap:6px}
 .tf button{border:1.5px solid var(--line);background:var(--bg);border-radius:8px;padding:7px 12px;font-family:var(--mono);font-size:13px;letter-spacing:.04em;cursor:pointer;color:var(--ink)}
-.tf button[aria-pressed="true"]{border-color:var(--ink);background:var(--ink);color:var(--bg)}
+.tf button[aria-pressed="true"]{border-color:var(--inkbg,var(--ink));background:var(--inkbg,var(--ink));color:var(--bg)}
 .q input[type=text],.q select{max-width:340px}
 .qtools{display:flex;gap:8px;flex-wrap:wrap;align-items:center}
 .fb{font-size:14px;display:grid;gap:4px}
@@ -254,7 +254,7 @@ textarea{resize:vertical;line-height:1.6}
 details.more{border:1px solid var(--line);border-radius:12px;padding:12px 16px}
 details.more summary{cursor:pointer;font-weight:600}
 details.more[open] summary{margin-bottom:12px}
-.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:50}
+.toast{position:fixed;left:50%;bottom:calc(20px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--inkbg,var(--ink));color:var(--bg);padding:10px 16px;border-radius:999px;font-size:14px;z-index:50}
 
 /* ---- section hub ---- */
 .steps{display:flex;gap:4px;flex-wrap:wrap;border-bottom:1px solid var(--line)}
@@ -271,7 +271,7 @@ details.more[open] summary{margin-bottom:12px}
 .v-flow{display:grid}
 .v-step{display:grid;grid-template-columns:30px 1fr;column-gap:10px;position:relative;padding-bottom:12px}
 .v-step:last-child{padding-bottom:0}
-.v-step .v-n{grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--ink);color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:13px;z-index:1}
+.v-step .v-n{grid-row:span 2;width:30px;height:30px;border-radius:50%;background:var(--inkbg,var(--ink));color:var(--bg);display:grid;place-items:center;font-family:var(--mono);font-size:13px;z-index:1}
 .v-step:not(:last-child)::before{content:"";position:absolute;left:14px;top:30px;bottom:0;width:2px;background:var(--line)}
 .v-step:last-child .v-n{background:var(--accent);color:var(--accent-ink)}
 .v-step b{grid-column:2;font-size:15px;align-self:center;padding-top:4px}
@@ -287,7 +287,7 @@ details.more[open] summary{margin-bottom:12px}
 .v-q{border:1.5px solid var(--ink);border-radius:12px;padding:8px 12px;font-weight:600;font-size:14px}
 .v-br{display:flex;gap:8px;flex-wrap:wrap;align-items:center;padding-left:14px}
 .v-lab{font-family:var(--mono);font-size:11px;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
-.v-out{font-family:var(--mono);font-size:12px;letter-spacing:.05em;padding:4px 10px;border-radius:999px;background:var(--ink);color:var(--bg)}
+.v-out{font-family:var(--mono);font-size:12px;letter-spacing:.05em;padding:4px 10px;border-radius:999px;background:var(--inkbg,var(--ink));color:var(--bg)}
 .v-out.good{background:var(--good);color:var(--bg)}
 .v-out.bad{background:var(--bad);color:var(--bg)}
 .v-out.acc{background:var(--accent);color:var(--accent-ink)}
@@ -307,7 +307,7 @@ details.more[open] summary{margin-bottom:12px}
 .v-blk{display:grid;gap:4px}
 .v-blk .top{display:flex;justify-content:space-between;gap:8px;font-size:14px}
 .v-blk .top span{font-family:var(--mono);font-size:12px;color:var(--muted);white-space:nowrap}
-.v-bar{height:14px;border-radius:4px;background:var(--ink)}
+.v-bar{height:14px;border-radius:4px;background:var(--inkbg,var(--ink))}
 .v-blk:nth-child(odd) .v-bar{background:var(--accent)}
 .v-blk small{font-size:12px;color:var(--muted)}
 .v-trend,.v-tl{width:100%;height:auto;display:block}
@@ -400,7 +400,7 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .qdots{display:flex;gap:5px;flex-wrap:wrap}
 .qdots i{width:9px;height:9px;border-radius:50%;background:var(--line)}
 .qdots i.done{background:var(--accent)}
-.qdots i.on{background:var(--ink);box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--ink)}
+.qdots i.on{background:var(--inkbg,var(--ink));box-shadow:0 0 0 2px var(--bg),0 0 0 3px var(--ink)}
 .spk-help{display:grid;gap:18px;min-width:0}
 .wcloudbar{display:grid;gap:6px;padding-bottom:6px}
 .wcloudbar .v-cloud{zoom:.78}
@@ -449,7 +449,7 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .ccard.no{border-color:var(--bad);background:var(--bad-soft)}
 .ccard small{flex-basis:100%;font-size:12px;color:var(--muted)}
 .ccard.word{font-weight:600;padding:8px 12px}
-.pn{font-family:var(--mono);font-size:11px;background:var(--ink);color:var(--bg);border-radius:999px;padding:1px 7px;flex:none}
+.pn{font-family:var(--mono);font-size:11px;background:var(--inkbg,var(--ink));color:var(--bg);border-radius:999px;padding:1px 7px;flex:none}
 .buckets{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,200px),1fr));gap:12px}
 .bucket{border:1.5px dashed var(--line);border-radius:14px;padding:12px;min-height:120px;display:grid;gap:8px;align-content:start;cursor:pointer}
 .bucket.ready{border-color:var(--accent);background:var(--accent-soft)}
@@ -472,7 +472,7 @@ ins{color:var(--good);text-decoration:none;font-weight:700;background:var(--good
 .up.ok{border-bottom:2px solid var(--good);background:var(--good-soft);color:var(--good);font-weight:600}
 .up.no{border-bottom:2px solid var(--bad);background:var(--warn-soft);font-weight:600}
 .memgrid{display:grid;grid-template-columns:repeat(auto-fill,minmax(min(46%,150px),1fr));gap:10px}
-.mem{aspect-ratio:4/3;max-width:100%;border:1.5px solid var(--ink);border-radius:14px;background:var(--ink);color:var(--bg);cursor:pointer;font:600 15px var(--body);padding:8px;display:grid;place-items:center;text-align:center;transition:transform .2s}
+.mem{aspect-ratio:4/3;max-width:100%;border:1.5px solid var(--inkbg,var(--ink));border-radius:14px;background:var(--inkbg,var(--ink));color:var(--bg);cursor:pointer;font:600 15px var(--body);padding:8px;display:grid;place-items:center;text-align:center;transition:transform .2s}
 .mem .memback{font-family:var(--display);font-size:20px;letter-spacing:.04em;color:var(--accent)}
 .mem.flip{background:var(--bg);color:var(--ink)}
 .mem.flip.s1{background:var(--accent-soft)}
@@ -790,9 +790,9 @@ mark.mb{background:var(--bad-soft);color:var(--bad);border-radius:3px;padding:0 
 .vs-bar{height:8px;border-radius:4px;background:linear-gradient(90deg,var(--accent-soft),var(--accent))}
 .vs-ends{display:flex;justify-content:space-between;font-family:var(--mono);font-size:10.5px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted)}
 /* ---------- calm layer: barely-visible frames, soft fills for things you can tap, one dark grey for "active" ---------- */
-:root{--frame:rgba(21,18,23,.10);--line:rgba(21,18,23,.10);--field:#f3f3f4;--field-hover:#e9e9eb;--surface:#f7f7f8;--act:#18181a;--act-ink:#ffffff;--cloud:#6b6b72;--cloud-strong:#18181a}
-@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--frame:rgba(245,239,243,.10);--line:rgba(245,239,243,.10);--field:#1f1f22;--field-hover:#29292d;--surface:#19191c;--act:#3a3a40;--act-ink:#ffffff;--cloud:#9c9ca4;--cloud-strong:#f2f2f4}}
-:root[data-theme="dark"]{--frame:rgba(245,239,243,.10);--line:rgba(245,239,243,.10);--field:#1f1f22;--field-hover:#29292d;--surface:#19191c;--act:#3a3a40;--act-ink:#ffffff;--cloud:#9c9ca4;--cloud-strong:#f2f2f4}
+:root{--frame:rgba(21,18,23,.10);--line:rgba(21,18,23,.10);--field:#f3f3f4;--field-hover:#e9e9eb;--surface:#f7f7f8;--act:#4d4d4d;--inkbg:#4d4d4d;--act-ink:#ffffff;--cloud:#6b6b72;--cloud-strong:#18181a}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){--frame:rgba(245,239,243,.10);--line:rgba(245,239,243,.10);--field:#1f1f22;--field-hover:#29292d;--surface:#19191c;--act:#4d4d4d;--inkbg:var(--ink);--act-ink:#ffffff;--cloud:#9c9ca4;--cloud-strong:#f2f2f4}}
+:root[data-theme="dark"]{--frame:rgba(245,239,243,.10);--line:rgba(245,239,243,.10);--field:#1f1f22;--field-hover:#29292d;--surface:#19191c;--act:#4d4d4d;--inkbg:var(--ink);--act-ink:#ffffff;--cloud:#9c9ca4;--cloud-strong:#f2f2f4}
 .topbar{border-bottom:1px solid var(--frame)}
 .hero,.uhero,.score,.stagehead{border-bottom:1px solid var(--frame)}
 .card,.q,.tip,.player,.cue,.qcard,.meme,.deck .tip{border-color:var(--frame);border-width:1px}
@@ -816,7 +816,7 @@ input[type=text]:focus,select:focus,textarea:focus{border-color:var(--act);backg
 .btn.primary{background:var(--accent);border-color:var(--accent);color:var(--accent-ink)}
 .btn.ghost{background:transparent;border-color:var(--frame)}
 .mem.flip{border-color:var(--frame)}
-/* active states: #18181a with white text */
+/* active states: dark grey (70%) with white text */
 .seg button[aria-pressed="true"],.tabs button[aria-pressed="true"],.tf button[aria-pressed="true"],.chip.lv{background:var(--act);border-color:var(--act);color:var(--act-ink)}
 .seg button[aria-pressed="true"] span{color:rgba(255,255,255,.75)}
 .tabs{border:0;background:var(--field)}
@@ -872,9 +872,9 @@ input[type=text]:focus,select:focus,textarea:focus{border-color:var(--act);backg
 .vr-img,.vm-img{margin:0;border-radius:16px;overflow:hidden;line-height:0;cursor:zoom-in;position:relative}
 .vr-img img,.vm-img img{width:100%;height:auto;display:block}
 .vm-img{background:#fff;border:1px solid var(--line)}
-.vm-img figcaption{position:absolute;right:10px;bottom:10px;line-height:1.2;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(32,36,40,.78);color:#fff}
+.vm-img figcaption{position:absolute;right:10px;bottom:10px;line-height:1.2;font-size:12px;font-weight:600;padding:5px 10px;border-radius:999px;background:rgba(77,77,77,.86);color:#fff}
 .deck .vr-img img{max-height:38vh;object-fit:cover}
-.zoomer{position:fixed;inset:0;z-index:200;background:rgba(14,16,18,.9);display:grid;place-items:center;padding:16px;cursor:zoom-out}
+.zoomer{position:fixed;inset:0;z-index:200;background:rgba(77,77,77,.94);display:grid;place-items:center;padding:16px;cursor:zoom-out}
 .zoomer img{max-width:100%;max-height:100%;object-fit:contain;border-radius:12px;background:#fff}
 .zoomer button{position:absolute;top:12px;right:12px}
 .vr-big{font-family:var(--display);font-size:clamp(64px,10vw,110px);line-height:.85;color:var(--accent)}
@@ -935,7 +935,7 @@ b,strong{font-weight:700}
   .rail.open{width:min(300px,86vw)}
   .rail .rt{opacity:1}
   .railbtn{display:grid;gap:4px;place-content:center;position:fixed;left:14px;bottom:calc(16px + env(safe-area-inset-bottom,0px));z-index:36;width:46px;height:46px;border:0;border-radius:50%;background:var(--field);box-shadow:0 4px 14px rgba(0,0,0,.14);cursor:pointer}
-  .railbtn i{display:block;width:18px;height:2px;background:var(--ink);border-radius:1px}
+  .railbtn i{display:block;width:18px;height:2px;background:var(--inkbg,var(--ink));border-radius:1px}
 }
 @media (prefers-reduced-motion:reduce){.rail,.rail .rt{transition:none}}
 /* ---------- speaking cards: dark grey, white text ---------- */
@@ -990,6 +990,77 @@ b,strong{font-weight:700}
 .lc-levels small{color:var(--muted);font-size:12px}
 .sr-only{position:absolute!important;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
 .sbanner{margin:0 0 6px;border-radius:18px;overflow:hidden;line-height:0}
+.lbanner{margin:0 0 14px}
+.lbanner img{max-height:min(40vh,380px);object-fit:cover;object-position:center top}
+/* topic tour */
+.pr{display:grid;grid-template-columns:minmax(0,1.2fr) minmax(0,1fr);gap:18px;align-items:start}
+@media (max-width:860px){.pr{grid-template-columns:1fr}}
+.pr-view{position:relative;overflow:hidden;aspect-ratio:4/3;border-radius:18px;background:#4d4d4d}
+.pr-view img{position:absolute;max-width:none;height:auto;user-select:none;-webkit-user-drag:none;transition:width .9s cubic-bezier(.2,.7,.2,1),left .9s cubic-bezier(.2,.7,.2,1),top .9s cubic-bezier(.2,.7,.2,1)}
+.pr-ring{position:absolute;width:70px;height:70px;margin:-35px 0 0 -35px;border-radius:50%;border:3px solid #fff;box-shadow:0 0 0 3px var(--accent),0 0 26px rgba(255,46,147,.65);pointer-events:none;transition:left .9s cubic-bezier(.2,.7,.2,1),top .9s cubic-bezier(.2,.7,.2,1);animation:prPulse 1.8s ease-in-out infinite}
+@keyframes prPulse{50%{transform:scale(1.14)}}
+@media (prefers-reduced-motion:reduce){.pr-view img,.pr-ring{transition:none;animation:none}}
+.pr-cap{position:absolute;left:12px;bottom:12px;max-width:calc(100% - 24px);background:rgba(77,77,77,.9);color:#fff;font:800 clamp(16px,2.4vw,22px)/1.15 var(--body);padding:8px 14px;border-radius:12px;opacity:0;transform:translateY(8px);transition:opacity .4s,transform .4s;pointer-events:none}
+.pr-cap.on{opacity:1;transform:none}
+.pr-dots{display:flex;gap:5px;flex-wrap:wrap;margin-bottom:10px}.pr-dots i{width:20px;height:5px;border-radius:3px;background:var(--field)}.pr-dots i.on{background:var(--accent)}.pr-dots i.done{background:var(--act)}
+.pr-card{display:grid;gap:10px;padding:16px 18px;border-radius:16px;background:var(--surface);border:1px solid var(--line)}
+.pr-card h3{font-family:var(--body);font-weight:800;font-size:clamp(20px,2.4vw,26px);letter-spacing:0;line-height:1.15}
+.pr-card h3.pr-w{font-size:clamp(26px,3.4vw,38px);color:var(--accent)}
+.pr-fb{font-weight:700}.pr-fb.ok{color:var(--good)}.pr-fb.no{color:var(--bad)}
+.pr-lad{display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:13px}
+.pr-lad span{display:inline-grid;line-height:1.15;padding:5px 9px;border-radius:10px;background:var(--field);color:var(--muted)}
+.pr-lad span small{font-family:var(--mono);font-size:10px;letter-spacing:.06em}
+.pr-lad span.on{background:var(--act);color:var(--act-ink)}.pr-lad i{color:var(--muted);font-style:normal}
+/* level ladder */
+.v-lad{display:grid;grid-template-columns:minmax(90px,.8fr) repeat(3,minmax(0,1fr));gap:6px;font-size:14px;line-height:1.3}
+.v-lad .vl-h{font-family:var(--mono);font-size:12px;letter-spacing:.06em;color:var(--muted);padding:2px 8px}
+.v-lad .vl-h.on{color:var(--accent)}
+.v-lad .vl-r{font-size:12px;color:var(--muted);align-self:center}
+.v-lad .vl-c{background:var(--field);border-radius:10px;padding:8px 10px}
+.v-lad .vl-c.on{background:var(--act);color:var(--act-ink);font-weight:600}
+@media (max-width:620px){.v-lad{grid-template-columns:repeat(3,minmax(0,1fr))}.v-lad>span:first-child{display:none}.v-lad .vl-r{grid-column:1/-1;margin-top:6px}}
+.ls-pane .v-lad,.tref .v-lad{grid-template-columns:repeat(3,minmax(0,1fr))}.ls-pane .v-lad>span:first-child,.tref .v-lad>span:first-child{display:none}.ls-pane .v-lad .vl-r,.tref .v-lad .vl-r{grid-column:1/-1;margin-top:6px}
+/* essay map */
+.v-essay{display:grid;grid-template-columns:86px minmax(0,1fr);gap:16px;align-items:stretch}
+.ve-doc{display:flex;flex-direction:column;gap:6px;padding:10px;border-radius:10px;background:var(--bg);box-shadow:inset 0 0 0 1.5px var(--line);min-height:220px}
+.ve-doc i{display:grid;place-items:center;border-radius:5px;min-height:18px;color:#fff;font-style:normal}
+.ve-doc i.c0,.ve-p.c0{--vc:var(--t1)}.ve-doc i.c1,.ve-p.c1{--vc:var(--t2)}.ve-doc i.c2,.ve-p.c2{--vc:var(--t3)}.ve-doc i.c3,.ve-p.c3{--vc:var(--t4)}
+.ve-doc i{background:var(--vc)}
+.ve-paras{display:grid;gap:10px}
+.ve-p{border-left:6px solid var(--vc);background:var(--surface);border-radius:12px;padding:10px 12px;display:grid;gap:8px}
+.ve-top{display:flex;justify-content:space-between;gap:10px;align-items:baseline}.ve-top b{font-size:15px}.ve-top span{font-family:var(--mono);font-size:11px;color:var(--muted)}
+.ve-slots{display:flex;flex-wrap:wrap;gap:6px;align-items:stretch}
+.ve-s{display:grid;gap:2px;background:var(--bg);border-radius:10px;padding:7px 10px;box-shadow:inset 0 0 0 1.5px var(--line);max-width:100%}
+.ve-s span{font-weight:700;font-size:14px}.ve-s small{font-size:12.5px;color:var(--muted);line-height:1.35}
+.ve-s.star{box-shadow:inset 0 0 0 2px var(--accent)}.ve-s.star span{color:var(--accent)}
+.ve-ar{align-self:center;color:var(--muted);font-style:normal}
+.ve-note{grid-column:1/-1;font-size:13.5px;color:var(--muted)}
+@media (max-width:620px){.v-essay{grid-template-columns:1fr}.ve-doc{flex-direction:row;min-height:0;height:40px}.ve-doc i{min-height:0}.ve-ar{display:none}}
+.ls-pane .v-essay,.tref .v-essay{grid-template-columns:1fr}.ls-pane .ve-doc,.tref .ve-doc{display:none}
+/* life cycle */
+.v-cyc{display:grid;gap:8px;justify-items:center}
+.v-cycle{width:100%;max-width:440px;height:auto;overflow:visible}
+.cy-ring{fill:none;stroke:var(--line);stroke-width:10}
+.cy-arr{fill:var(--muted)}
+.cy-dot{stroke:var(--bg);stroke-width:3}.cy-dot.c0{fill:var(--t1)}.cy-dot.c1{fill:var(--t2)}.cy-dot.c2{fill:var(--t3)}.cy-dot.c3{fill:var(--t4)}
+.cy-n{fill:#fff;font:700 13px var(--mono)}
+.cy-t{fill:var(--ink);font:700 13px var(--body)}.cy-s{fill:var(--muted);font:500 11.5px var(--body)}
+.cy-c{fill:var(--ink);font:400 22px var(--display);letter-spacing:.03em}.cy-cs{fill:var(--muted);font:500 11.5px var(--body)}
+.vp-pic{cursor:zoom-in}
+/* writing: picture task */
+.wimg{padding:8px;cursor:zoom-in}.wimg img{width:100%;height:auto;display:block;border-radius:10px}
+.lsecnav{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin:0 0 14px}
+.lsecnav .label{margin-right:4px}
+.lsn{border:0;background:var(--field);color:var(--ink);border-radius:999px;padding:6px 12px;font:inherit;font-size:13px;font-weight:600;cursor:pointer;display:inline-flex;gap:6px;align-items:center;max-width:260px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.lsn b{font-family:var(--mono);font-size:11px;font-weight:500;opacity:.7}
+.lsn:hover{background:var(--field-hover)}
+.lsn.on{background:var(--act);color:var(--act-ink)}
+.lsn.ex{background:transparent;box-shadow:inset 0 0 0 1.5px var(--accent);color:var(--accent)}
+.lvsw{display:flex;flex-wrap:wrap;gap:6px;align-items:center;margin-top:4px}
+.lvsw .label{margin-right:4px}
+.lvsw button{border:0;background:var(--field);color:var(--ink);border-radius:12px;padding:6px 12px;font:inherit;cursor:pointer;display:grid;line-height:1.15;text-align:left}
+.lvsw button b{font-size:15px}.lvsw button small{font-size:11px;color:var(--muted)}
+.lvsw button[aria-pressed="true"]{background:var(--act);color:var(--act-ink)}.lvsw button[aria-pressed="true"] small{color:rgba(255,255,255,.75)}
 .sbanner img{width:100%;height:auto;display:block}
 .tip-banner .sbanner{margin:0}
 /* cue card studio */
@@ -1870,7 +1941,7 @@ function dueAfter(stage){ if(stage<3) return 0; return [1,3,7,21,45][Math.min(st
 function viewVocab(uid,sid,tab){
   setNav({uid,sid,tab:"task"});
   const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
-  let tier=S.tier.language||"B2"; tab=tab||((S.results[uid+":"+sid]||[]).length?"train":"tips");
+  const myT=secTier(U,sec); let tier=myT; tab=tab||((S.results[uid+":"+sid]||[]).length?"train":"tips");
   const draw=()=>{
     const ids=sec.sets[tier]||[], words=ids.map(id=>U.words.find(w=>w.id===id)).filter(Boolean);
     const now=Date.now(), neu=words.filter(w=>!wst(uid,w)).length, due=words.filter(w=>{const s=wst(uid,w);return s&&s.due<=now;}).length;
@@ -1878,7 +1949,7 @@ function viewVocab(uid,sid,tab){
     app.innerHTML=`<div class="wrap stack" style="gap:24px">
       <div class="row between"><span class="label">Unit ${U.number} · ${esc(U.title)} · Vocabulary</span><button class="link small" id="leave">Back to the unit</button></div>
       <h1>${esc(sec.title)}</h1>
-      <div class="seg" role="group" aria-label="Word set">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${t===(S.tier.language||"B2")?"your level":"word set"}</span></button>`).join("")}</div>
+      <div class="seg" role="group" aria-label="Word set">${TIERS.map(t=>`<button data-t="${t}" aria-pressed="${t===tier}"><strong>${t}</strong><span>${t===myT?"your level":"word set"}</span></button>`).join("")}</div>
       <div class="steps" role="tablist"><button role="tab" data-tab="tips" aria-selected="${tab==="tips"}">Tips</button><button role="tab" data-tab="train" aria-selected="${tab==="train"}">Train</button><button role="tab" data-tab="list" aria-selected="${tab==="list"}">Word list</button></div>
       ${tab==="tips"?`<div class="tipflow onepage">${[{v:"cloud",title:"This unit’s words",say:"Bigger and darker = more advanced. Tap a word to see what it means.",ids:ids}].concat(sec.learn||[]).map(c=>tipHTML(c,U)).join("")}</div>`:tab==="train"?`<div class="card soft stack">
         <div class="row" style="gap:28px"><div><span class="label">New</span><h2>${neu}</h2></div><div><span class="label">Due now</span><h2>${due}</h2></div><div><span class="label">Mastered</span><h2>${mastered}/${words.length}</h2></div></div>
@@ -1979,9 +2050,11 @@ const LINKERS={
   C1:["nevertheless","nonetheless","thus","hence","whereby","notwithstanding","conversely","to some extent","admittedly","in light of","given that","provided that","insofar as","albeit","paradoxically","that said","having said that","not only","to a large extent","it could be argued","in other words","at the same time"]
 };
 const BASIC_WORDS=["very","good","bad","thing","things","lot","big","nice","stuff","get","got","really"];
-const THESIS_RE=/\b(I (strongly |partly |completely |firmly |largely )?(believe|agree|disagree|think|feel|would argue)|in my (view|opinion)|argue that|my view is|I am convinced)\b/i;
+const THESIS_RE=/\b(I (strongly |partly |completely |firmly |largely |really )?(believe|agree|disagree|think|feel|would argue|would challenge|would contend|would maintain)|in my (view|opinion)|argue that|my view is|I am (firmly )?convinced|I am inclined to|while I accept|from my point of view|as far as I am concerned|it seems to me|on balance)\b/i;
 const OPINION_RE=/\b(I think|I believe|in my opinion|I feel|in my view|I agree|I disagree)\b/i;
 const OVERVIEW_RE=/\b(overall|in general|it is clear|it is noticeable|generally speaking|on the whole)\b/i;
+const SEQ_RE=/\b(first(ly)?|to begin with|initially|at first|then|next|after that|afterwards|after (this|which)|following this|subsequently|once|as soon as|when|later|eventually|finally|in the (first|second|third|next|final|last) stage|at (this|the next|the final) stage|before|meanwhile|at the same time|the (cycle|process) (then )?(begins|starts|ends|repeats))\b/gi;
+const STAGES_RE=/\b(there are|consists? of|involves?|goes through|is made up of)\b[^.]{0,30}\b(stages?|steps?|phases?)\b|\b(stages?|steps?|phases?)\b[^.]{0,40}\b(begin|begins|start|starts|end|ends)\b/i;
 const TREND_RE=/\b(rose|rise[sn]?|rising|increas\w*|grew|grow[sn]?|growth|climb\w*|fell|fall\w*|declin\w*|decreas\w*|drop\w*|remain\w* (stable|steady|constant)|level\w* off|peak\w*|fluctuat\w*|doubl\w*|tripl\w*|halv\w*|plateau\w*|surg(e|es|ed|ing)|plummet\w*|rocket(s|ed|ing)|soar\w*|dwindl\w*|recover(s|ed|ing)?|overt(ook|ake|akes|aken|aking)|dip(s|ped|ping)?)\b/gi;
 const IRREG={give:"give|gives|giving|gave|given",pose:"pose|poses|posed|posing",be:"be|is|are|was|were|been|being",rose:"rise|rises|rising|risen|rose",fell:"fall|falls|falling|fallen|fell",grew:"grow|grows|growing|grown|grew",rise:"rise|rises|rising|risen|rose",fall:"fall|falls|falling|fallen|fell",grow:"grow|grows|growing|grown|grew"};
 function bankRe(ph){
@@ -2029,9 +2102,7 @@ function analyseEssay(text,opts){
   let topic=[];
   if(opts.bank){ for(const ph of opts.bank){ if(bankRe(ph).test(raw)) topic.push(ph.replace(/,$/,"")); } topic=[...new Set(topic)]; }
   else for(const w of (opts.unitWords||[])){
-    const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase());
-    const hit=forms.some(f=>{ const stem=f.length>5?f.slice(0,f.length-1):f; return lower.some(t=>t===f||t.startsWith(stem)&&t.length<=f.length+3); });
-    if(hit) topic.push(w.word);
+    if(wordUsed(w,lower)) topic.push(w.word);
   }
   const basic=lower.filter(w=>BASIC_WORDS.includes(w)).length; const basicPer100=words?basic/words*100:0;
   let lt=null;
@@ -2054,7 +2125,13 @@ function analyseEssay(text,opts){
     if(cp.ratio>0.5){ TR=Math.max(0,TR-1); tips.TR.push("Your introduction copies the task. Paraphrase it: change the words and the word order."); }
     else if(cp.ratio>0.3) tips.TR.push("Part of your introduction repeats the task (“"+cp.phrases.slice(0,2).join("”, “")+"”). Paraphrase it."); }
   const overview=OVERVIEW_RE.test(raw), nums=(raw.match(/\b\d+(?:\.\d+)?\b/g)||[]).length, opinion=OPINION_RE.test(raw);
-  if(task1){
+  if(task1&&opts.kind==="process"){
+    const ov=overview||STAGES_RE.test(raw), seqs=(raw.match(SEQ_RE)||[]).length;
+    R.TR.push(ov?"Overview of the stages found.":"No overview found."); R.TR.push(`${seqs} sequencing word${seqs===1?"":"s"} (first, then, once…).`);
+    if(!ov){ TR=Math.min(TR,1); tips.TR.push("Add an overview: Overall, there are … stages, from … to … . Without it, the score is limited."); }
+    if(seqs<5) tips.TR.push("Guide the reader through every stage with sequencers: first, next, once, after that, finally.");
+    if(opinion){ TR=Math.min(TR,1); R.TR.push("Personal opinion found."); tips.TR.push("Task 1 is a report: remove opinions such as I think or in my opinion."); }
+  } else if(task1){
     R.TR.push(overview?"Overview found.":"No overview found."); R.TR.push(`${nums} figure${nums===1?"":"s"} reported.`);
     if(!overview){ TR=Math.min(TR,1); tips.TR.push("Add an overview: Overall, + the main trend + the biggest change. Without it, the score is limited."); }
     if(nums<4) tips.TR.push("Support the main features with key figures.");
@@ -2137,10 +2214,18 @@ function styleScan(text,act){
   const level=score>=7?"C1":score>=4?"B2":"B1";
   return {inf,infN,hedge,nom,c1,unit,level,words};
 }
-function structScan(text,task,prompt){
+function structScan(text,task,prompt,kind){
   const paras=text.split(/\n\s*\n|\n/).map(p=>p.trim()).filter(p=>wc(p)>=5), w=wc(text), first=paras[0]||"", last=paras.length>1?paras[paras.length-1]:"";
   const it=[];
-  if(task===1){
+  if(task===1&&kind==="process"){
+    const cp=prompt&&first?copyInfo(prompt,first):null, seqs=(text.match(SEQ_RE)||[]).length;
+    it.push({ok:w>=150,l:`Length: ${w} / 150+ words`});
+    it.push({ok:!!cp&&cp.ratio<=0.35&&wc(first)>=10,l:"Introduction paraphrases the task",tip:"shows → illustrates, the life cycle of → the stages in the life of."});
+    it.push({ok:OVERVIEW_RE.test(text)||STAGES_RE.test(text),l:"Overview: how many stages, first → last",tip:"Overall, there are six main stages, beginning with … and ending with …"});
+    it.push({ok:seqs>=5,l:`Sequencers: ${seqs} (5+ expected)`,tip:"First, … Next, … Once …, … After that, … Finally, …"});
+    it.push({ok:!OPINION_RE.test(text),l:"No personal opinion",tip:"Task 1 is a report: remove I think / in my opinion."});
+    it.push({ok:paras.length>=3,l:`Paragraphs: ${paras.length} (3–4 expected)`});
+  } else if(task===1){
     const cp=prompt&&first?copyInfo(prompt,first):null;
     it.push({ok:w>=150,l:`Length: ${w} / 150+ words`});
     it.push({ok:!!cp&&cp.ratio<=0.35&&wc(first)>=10,l:"Introduction paraphrases the task",tip:"Change the words and the order: shows → illustrates, between… → over a … period."});
@@ -2170,7 +2255,7 @@ function mountLive(box,ta,o){
   const render=()=>{
     if(dead) return; const text=ta.value, w=wc(text);
     if(w<20){ sum.textContent="Live check · starts after a few sentences"; body.innerHTML=`<p class="small muted">Keep writing. After about 20 words you’ll see grammar notes, structure and style here. It never interrupts: open it when you want.</p>`; return; }
-    const A=analyseEssay(text,{unitWords:o.U.words,lt:lt&&ltText===text?lt:null,task:o.task,bank:o.bank,prompt:o.prompt}), st=structScan(text,o.task,o.prompt), sty=styleScan(text,act), iss=issuesNow(text), E=EXPECT[o.tier]||EXPECT.B2;
+    const A=analyseEssay(text,{unitWords:o.U.words,lt:lt&&ltText===text?lt:null,task:o.task,bank:o.bank,prompt:o.prompt,kind:o.kind}), st=structScan(text,o.task,o.prompt,o.kind), sty=styleScan(text,act), iss=issuesNow(text), E=EXPECT[o.tier]||EXPECT.B2;
     const okN=st.filter(x=>x.ok).length, was=$$(".lc-sec",body).map(d=>d.open), short=o.mode==="short";
     sum.innerHTML=`<span class="lc-chip">${iss.length} language note${iss.length===1?"":"s"}${ltBusy?" · checking…":""}</span>${short?"":`<span class="lc-chip">Structure ${okN}/${st.length}</span>`}<span class="lc-chip">Style ${sty.level}</span>${short?"":`<span class="lc-chip strong">≈ ${A.overall} · IELTS ${BAND[A.overall]}</span>`}`;
     const crit=[["TR",o.task===1?"Task Achievement":"Task Response"],["CC","Coherence & Cohesion"],["LR","Lexical Resource"],["GRA","Grammar"]];
@@ -2273,7 +2358,7 @@ const TIPV={
   timeline:c=>timelineSVG(c),
   anatomy:c=>anatomyHTML(c.parts),
   compare:c=>`<div class="v-cmp">${c.cols.map(col=>`<div class="stack tight"><strong>${esc(col.h)}</strong>${col.sub?`<span class="small muted"><i>${esc(col.sub)}</i></span>`:""}${col.parts?anatomyHTML(col.parts):`<ul class="small">${(col.items||[]).map(x=>`<li>${esc(x)}</li>`).join("")}</ul>`}</div>`).join("")}</div>`,
-  cloud:(c,U)=>cloudHTML(c.ids?activeList(U,c.ids):(U.words||[]))
+  cloud:(c,U)=>cloudHTML(c.ids?activeList(U,pickTier(c.ids,CUR_TIER||"B2")):(U.words||[]))
 };
 function tipHTML(c,U){ const f=TIPV[c.v]; return `<article class="tip tip-${esc(c.v)}"><div class="stack tight"><h3>${esc(c.title)}</h3>${c.say?`<p class="tip-say">${esc(c.say)}</p>`:""}</div>${f?f(c,U):""}</article>`; }
 function deckHTML(cards,U,doneLabel){
@@ -2331,11 +2416,18 @@ function chartSVG(ch){
 /* =========================================================
    SECTION HUB · Tips / Training / Task
    ========================================================= */
-const DRILL_KIND={skim:"Skimming",scan:"Scanning race",find:"Word hunt",keywords:"Keywords",order:"Build it",quiz:"Practice",match:"Match",write:"Write & check"};
+const DRILL_KIND={present:"Topic tour",skim:"Skimming",scan:"Scanning race",find:"Word hunt",keywords:"Keywords",order:"Build it",quiz:"Practice",match:"Match",write:"Write & check"};
 function drillBest(uid,sid,did){ const r=S.results[uid+":"+sid+":"+did]; return r&&r.length?Math.max(...r.map(x=>x.pct)):null; }
 const taskLabel=sec=>sec.type==="speaking"?(sec.part?"Part "+sec.part+" exam practice":"Full test"):sec.type==="vocab"?"Flashcards":"Exam task";
 const taskWord=sec=>{ const t=taskLabel(sec); return /^Part/.test(t)?t:t.toLowerCase(); };
 /* stages: sec.stages = [{id,title,goal,material:{paras|chart},tasks:[…]}]; old units with a flat sec.train are grouped by d.group */
+function secTier(U,sec){ const o=(S.ltier||{})[U.id+":"+sec.id]; if(TIERS.includes(o)) return o; const t=S.tier[sec.skill]; if(TIERS.includes(t)) return t; const p=S.profile[sec.skill]; return p?tierOf(p==="C2"?"C1":p):"B2"; }
+const isTierObj=x=>!!x&&typeof x==="object"&&!Array.isArray(x)&&("B1" in x||"B2" in x||"C1" in x);
+const pickTier=(x,lv)=>isTierObj(x)?(x[lv]||x.B2||x.B1||x.C1):x;
+function tierStage(st,lv){ return Object.assign({},st,{words:pickTier(st.words,lv),goal:pickTier(st.goal,lv),tasks:(st.tasks||[]).map(d=>{ const t=d.tiers?Object.assign({},d,d.tiers[lv]||d.tiers.B2||{}):d; return t.words&&isTierObj(t.words)?Object.assign({},t,{words:pickTier(t.words,lv)}):t; })}); }
+const stageHasTiers=st=>isTierObj(st.words)||isTierObj(st.goal)||(st.tasks||[]).some(d=>d.tiers||isTierObj(d.words));
+let CUR_TIER=null;
+function firstOpenStage(uid,sec){ const ss=stagesOf(sec), k=ss.findIndex(st=>{ const s=stageStats(uid,sec.id,st); return s.n&&s.done<s.n; }); return k<0?0:k; }
 function stagesOf(sec){
   if(Array.isArray(sec.stages)&&sec.stages.length) return sec.stages.filter(s=>(s.tasks||[]).length);
   const out=[]; (sec.train||[]).forEach(d=>{ const g=d.group||"Training"; let s=out.find(x=>x.title===g); if(!s){ s={id:"g"+out.length,title:g,tasks:[]}; out.push(s); } s.tasks.push(d); });
@@ -2346,8 +2438,9 @@ function trainCount(uid,s){ const t=stagesOf(s).flatMap(x=>x.tasks).filter(d=>!U
 function matLabel(sec,st){ const m=st.material; if(!m) return ""; if(m.chart) return "graph pinned"; if(m.img) return "picture pinned"; const t=typeof m.paras==="string"&&m.paras.startsWith("tier:")&&sec.tiers&&sec.tiers[m.paras.slice(5)]; return t&&t.title?`text: ${t.title}`:"text pinned"; }
 function viewSectionStart(uid,sid,tab){
   const U=MODULES[uid], sec=U.sections.find(s=>s.id===sid);
-  if(sec.type==="vocab"&&!stagesOf(sec).length) return go(viewVocab,uid,sid);
+  if(sec.type==="vocab"&&(!stagesOf(sec).length||tab==="task")) return go(viewVocab,uid,sid,tab==="task"?"train":undefined);
   if(sec.type==="check") return go(runCheck,U,sec);
+  if((!tab||tab==="train"||tab==="tips")&&stagesOf(sec).length) return go(runStage,U,sec,firstOpenStage(uid,sec));
   const learn=sec.learn||[], stages=stagesOf(sec), tc=trainCount(uid,sec);
   const tried=!!(S.results[uid+":"+sid]||[]).length;
   tab=tab||(stagesOf(sec).length?"train":"task"); if(tab==="tips") tab=stagesOf(sec).length?"train":"task";
@@ -2373,7 +2466,7 @@ function viewSectionStart(uid,sid,tab){
     app.innerHTML=`<div class="wrap stack" style="gap:22px">
       <div class="row between"><span class="label">Unit ${U.number} · ${esc(U.title)} · ${esc(sec.type==="writing"&&sec.task?"Writing Task "+sec.task:(SEC_LABEL[sec.type]||""))}</span><button class="link small" id="back">Back to the unit</button></div>
       ${sec.banner&&imgSrc(U,sec.banner)?`<figure class="sbanner"><img src="${imgSrc(U,sec.banner)}" alt=""></figure>`:""}<h1 class="${sec.banner&&sec.bannerTitle?"sr-only":""}">${esc(sec.title)}</h1><p class="prose">${esc(sec.summary||"")}</p>${tabs}${body}</div>`;
-    $$("[data-tab]").forEach(b=>b.onclick=()=>{ if(b.dataset.tab==="tips") return go(runTips,U,sec); if(b.dataset.tab==="task"&&sec.type==="vocab") return go(viewVocab,uid,sid,"train"); tab=b.dataset.tab;draw();window.scrollTo(0,0);});
+    $$("[data-tab]").forEach(b=>b.onclick=()=>{ if(b.dataset.tab==="tips") return go(runTips,U,sec); if(b.dataset.tab==="task"&&sec.type==="vocab") return go(viewVocab,uid,sid,"train"); if(b.dataset.tab==="train"&&stages.length) return go(runStage,U,sec,firstOpenStage(uid,sec)); tab=b.dataset.tab;draw();window.scrollTo(0,0);});
     $$("[data-stage]").forEach(b=>b.onclick=()=>go(runStage,U,sec,+b.dataset.stage));
     $$("[data-t]").forEach(b=>b.onclick=()=>{tier=b.dataset.t;draw();});
     $$("[data-m]").forEach(b=>b.onclick=()=>{mode=b.dataset.m;draw();});
@@ -2422,7 +2515,8 @@ function isDark(){ const t=document.documentElement.dataset.theme; return t?t===
 const ZOOMS=[0.85,1,1.15,1.3,1.45];
 function runStage(U,sec,k,focus,custom){
   const stages=custom?[custom]:stagesOf(sec); if(!stages.length) return go(viewSectionStart,U.id,sec.id,"task");
-  k=custom?0:Math.max(0,Math.min(stages.length-1,k|0)); const st=stages[k], prev=custom?null:stages[k-1], next=custom?null:stages[k+1], mat=stageMat(sec,st);
+  k=custom?0:Math.max(0,Math.min(stages.length-1,k|0)); const lv=secTier(U,sec), tiered=!custom&&stageHasTiers(stages[k]); CUR_TIER=lv;
+  const st=custom?stages[k]:tierStage(stages[k],lv), prev=custom?null:stages[k-1], next=custom?null:stages[k+1], mat=stageMat(sec,st);
   setNav(custom?{uid:U.id,sid:sec.id,tab:"tips"}:{uid:U.id,sid:sec.id,stage:k});
   STAGE={U,sec,st,k,stages,ctx:{},panel:null,cur:-1,pane:null,custom:!!custom};
   document.body.classList.add("in-lesson"); applyTheme();
@@ -2432,7 +2526,7 @@ function runStage(U,sec,k,focus,custom){
   app.innerHTML=`<div class="lesson">
     <header class="lhead" id="lhead">
       <div class="lh-row">
-        <button type="button" class="lh-back" id="sleave" aria-label="Back to ${esc(sec.title)}">←<span>${esc(sec.title)}</span></button>
+        <button type="button" class="lh-back" id="sleave" aria-label="Back to Unit ${U.number}">←<span>Unit ${U.number}</span></button>
         <div class="lh-title"><span class="label">Unit ${U.number} · ${custom?"Tips":`Stage ${k+1} of ${stages.length}`}</span><b>${esc(st.title)}</b></div>
         <div class="lh-tools">
           <button type="button" class="lh-tool lh-timer" id="ltimer" aria-label="Lesson timer: tap to start or pause"><span id="ltime">0:00</span></button>
@@ -2451,7 +2545,9 @@ function runStage(U,sec,k,focus,custom){
     </header>
     <div class="lgrid ${mat?"hasmat":""}">
       <main class="lmain" id="lmain" style="zoom:${S.settings.zoom||1}">
-        <section class="lintro">${custom?"":`<span class="snum big">${k+1}</span>`}<div class="stack tight" style="min-width:0"><h1>${esc(st.title)}</h1>${st.goal?`<p class="prose">${esc(st.goal)}</p>`:""}</div></section>
+        ${!custom&&k===0&&sec.banner&&imgSrc(U,sec.banner)?`<figure class="sbanner lbanner"><img src="${imgSrc(U,sec.banner)}" alt=""></figure>`:""}
+        <nav class="lsecnav" aria-label="${esc(railName(sec))}"><span class="label">${esc(railName(sec))}</span>${(sec.learn||[]).length?`<button type="button" class="lsn ${custom?"on":""}" data-lsn="tips">Tips <b>${sec.learn.length}</b></button>`:""}${stages.length>1||custom?(custom?stagesOf(sec):stages).map((x,j)=>`<button type="button" class="lsn ${!custom&&j===k?"on":""}" data-lsn="stage:${j}" title="${esc(x.title)}"><b>${j+1}</b>${esc(x.title)}</button>`).join(""):""}${["check","intro"].includes(sec.type)?"":`<button type="button" class="lsn ex" data-lsn="task">${esc(taskLabel(sec))} →</button>`}</nav>
+        <section class="lintro">${custom?"":`<span class="snum big">${k+1}</span>`}<div class="stack tight" style="min-width:0"><h1>${esc(st.title)}</h1>${st.goal?`<p class="prose">${esc(st.goal)}</p>`:""}${tiered?`<div class="lvsw" role="group" aria-label="Level of these tasks"><span class="label">Tasks at level</span>${TIERS.map(t=>`<button type="button" data-lv="${t}" aria-pressed="${t===lv}"><b>${t}</b><small>${TIER_DESC[t].replace("IELTS ","")}</small></button>`).join("")}</div>`:""}</div></section>
         ${words.length?`<section class="lcloud"><span class="label">Words for this stage · tap one to see what it means</span>${cloudHTML(words,[])}</section>`:""}
         ${st.tasks.map((d,i)=>taskShell(U,sec,d,i,nums[i])).join("")}
         <div id="stend"></div>
@@ -2475,7 +2571,9 @@ function runStage(U,sec,k,focus,custom){
   $$("[data-open]").forEach(b=>b.onclick=()=>openPanel(b.dataset.open));
   showPane(mat&&mat.kind!=="img"?"mat":"ref");
   $("#lfab").onclick=()=>openPanel(STAGE.pane||"ref"); $("#lsclose").onclick=()=>closePanel();
-  $("#sleave").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
+  $("#sleave").onclick=()=>go(viewUnit,U.id);
+  $$("[data-lsn]").forEach(b=>b.onclick=()=>{ const v=b.dataset.lsn; if(v==="tips") return go(runTips,U,sec); if(v==="task") return sec.type==="vocab"?go(viewVocab,U.id,sec.id,"train"):go(viewSectionStart,U.id,sec.id,"task"); go(runStage,U,sec,+v.slice(6)); });
+  $$("[data-lv]").forEach(b=>b.onclick=()=>{ S.ltier=S.ltier||{}; S.ltier[U.id+":"+sec.id]=b.dataset.lv; save(); go(runStage,U,sec,k); });
   $("#sprev").onclick=()=>prev&&go(runStage,U,sec,k-1); $("#snext").onclick=()=>next&&go(runStage,U,sec,k+1);
   $$("#lchips [data-goto]").forEach(b=>b.onclick=()=>scrollToTask(+b.dataset.goto));
   /* timer, zoom, theme, reset */
@@ -2523,14 +2621,14 @@ function stageBar(){
   if(!s.n){ const cc=st.tasks.filter(d=>d.kind==="cuecards").map(d=>d.cards==="part2"?[].concat(sec.part2||[]):(d.cards||[])).flat(), pr=cc.filter(c=>(S.results[U.id+":"+sec.id+":cc-"+c.id]||[]).length).length;
     if(sc) sc.textContent=cc.length?`${pr}/${cc.length} cards`:"";
     end.innerHTML=`<div class="stdone ${cc.length&&pr===cc.length?"all":""}"><span class="label">${cc.length?"Your cue cards":"Practise at your own pace"}</span>${cc.length?`<h2>${pr} of ${cc.length} practised</h2><p class="small">${pr===cc.length?"Every card done. Go back to the ones that felt hardest and try them without notes.":"Aim for two or three cards a day: prepare for one minute, speak for two, then compare with the model."}</p>`:""}
-    <div class="row">${next?`<button type="button" class="btn" id="stnext">Next stage: ${esc(next.title)} →</button>`:`<button type="button" class="btn" id="sttask">Go to the ${taskWord(sec)}</button>`}<button type="button" class="btn ghost" id="stall">All stages</button></div></div>`;
+    <div class="row">${next?`<button type="button" class="btn" id="stnext">Next stage: ${esc(next.title)} →</button>`:`<button type="button" class="btn" id="sttask">Go to the ${taskWord(sec)}</button>`}<button type="button" class="btn ghost" id="stall">Back to Unit ${U.number}</button></div></div>`;
     if(next) $("#stnext").onclick=()=>go(runStage,U,sec,k+1); else $("#sttask").onclick=()=>go(viewSectionStart,U.id,sec.id,"task");
-    $("#stall").onclick=()=>go(viewSectionStart,U.id,sec.id,"train"); return; }
+    $("#stall").onclick=()=>go(viewUnit,U.id); return; }
   const all=s.done===s.n;
   end.innerHTML=`<div class="stdone ${all?"all":""}"><span class="label">${all?"Stage complete":`${s.n-s.done} task${s.n-s.done===1?"":"s"} left in this stage`}</span>${all?`<h2>${s.avg}% average</h2><p class="small">${s.avg>=85?"Excellent. You are ready for the next stage.":s.avg>=70?"Good work. Try again any task under 70%, or move on.":"Repeat the tasks marked in yellow: the Reference tab shows the rule."}</p>`:""}
-    <div class="row">${next?`<button type="button" class="btn ${all?"primary":""}" id="stnext">Next stage: ${esc(next.title)} →</button>`:`<button type="button" class="btn ${all?"primary":""}" id="sttask">${sec.type==="vocab"?"Back to the module":"Go to the "+taskWord(sec)}</button>`}<button type="button" class="btn ghost" id="stall">All stages</button></div></div>`;
-  if(next) $("#stnext").onclick=()=>go(runStage,U,sec,k+1); else $("#sttask").onclick=()=>go(viewSectionStart,U.id,sec.id,sec.type==="vocab"?"train":"task");
-  $("#stall").onclick=()=>go(viewSectionStart,U.id,sec.id,"train");
+    <div class="row">${next?`<button type="button" class="btn ${all?"primary":""}" id="stnext">Next stage: ${esc(next.title)} →</button>`:`<button type="button" class="btn ${all?"primary":""}" id="sttask">${sec.type==="vocab"?"Go to the flashcards":"Go to the "+taskWord(sec)}</button>`}<button type="button" class="btn ghost" id="stall">Back to Unit ${U.number}</button></div></div>`;
+  if(next) $("#stnext").onclick=()=>go(runStage,U,sec,k+1); else $("#sttask").onclick=()=>sec.type==="vocab"?go(viewVocab,U.id,sec.id,"train"):go(viewSectionStart,U.id,sec.id,"task");
+  $("#stall").onclick=()=>go(viewUnit,U.id);
 }
 function mkCtx(U,sec,st,d,root,i){
   const ids=new Set(), main=$(".tmain",root), foot=$(".tfoot",root);
@@ -2691,6 +2789,22 @@ Object.assign(TIPV,{
   network:c=>networkSVG(c)+(c.src?`<p class="vr-src">${esc(c.src)}</p>`:""),
   mindmap:(c,U)=>{ const pic=imgSrc(U,c.img); return pic?`<figure class="vm-img" data-zoom><img src="${pic}" alt="${esc(c.alt||("Mind map: "+c.center+". "+(c.branches||[]).map(b=>b.h+": "+b.words.join(", ")).join(". ")))}" loading="lazy"><figcaption>Tap to enlarge</figcaption></figure>`:mindmapSVG(c); }
 });
+function cycleSVG(c){ const n=c.steps.length, W=340, H=300, cx=170, cy=150, R=104, ang=k=>-Math.PI/2+k*2*Math.PI/n;
+  let g=`<circle class="cy-ring" cx="${cx}" cy="${cy}" r="${R}"/>`;
+  c.steps.forEach((s,k)=>{ const a=ang(k), a2=ang(k+0.5), x=cx+R*Math.cos(a), y=cy+R*Math.sin(a), ax=cx+R*Math.cos(a2), ay=cy+R*Math.sin(a2), rot=(a2*180/Math.PI)+90;
+    g+=`<path class="cy-arr" d="M-6,-5 L4,0 L-6,5" transform="translate(${ax.toFixed(1)},${ay.toFixed(1)}) rotate(${(rot-90).toFixed(1)})"/>`;
+    const lx=cx+(R+2)*Math.cos(a), ly=cy+(R+2)*Math.sin(a);
+    g+=`<circle class="cy-dot c${k%4}" cx="${x.toFixed(1)}" cy="${y.toFixed(1)}" r="15"/><text class="cy-n" x="${x.toFixed(1)}" y="${(y+5).toFixed(1)}" text-anchor="middle">${k+1}</text>`;
+    const tx=cx+(R+30)*Math.cos(a), ty=cy+(R+30)*Math.sin(a), anchor=Math.abs(Math.cos(a))<0.3?"middle":Math.cos(a)>0?"start":"end", tx2=anchor==="start"?tx-12:anchor==="end"?tx+12:tx, ty2=Math.abs(Math.cos(a))<0.3?(Math.sin(a)<0?ty+2:ty+4):ty;
+    g+=`<text class="cy-t" x="${tx2.toFixed(1)}" y="${ty2.toFixed(1)}" text-anchor="${anchor}">${esc(s.t)}</text>${s.s?`<text class="cy-s" x="${tx2.toFixed(1)}" y="${(ty2+15).toFixed(1)}" text-anchor="${anchor}">${esc(s.s)}</text>`:""}`; });
+  if(c.center) g+=`<text class="cy-c" x="${cx}" y="${cy-4}" text-anchor="middle">${esc(c.center)}</text>${c.centerS?`<text class="cy-cs" x="${cx}" y="${cy+16}" text-anchor="middle">${esc(c.centerS)}</text>`:""}`;
+  return `<svg class="v-cycle" viewBox="-40 -10 ${W+80} ${H+20}" role="img" aria-label="${esc(c.steps.map((s,k)=>(k+1)+". "+s.t+(s.s?" "+s.s:"")).join("; "))}">${g}</svg>`; }
+Object.assign(TIPV,{
+  ladder:c=>`<div class="v-lad" style="--rows:${c.rows.length}"><span></span>${TIERS.map(t=>`<span class="vl-h ${t===CUR_TIER?"on":""}">${t}${t===CUR_TIER?" · you":""}</span>`).join("")}${c.rows.map(r=>`<span class="vl-r">${esc(r.h||"")}</span>${r.c.map((x,k)=>`<span class="vl-c ${TIERS[k]===CUR_TIER?"on":""}" data-lvl="${TIERS[k]}">${esc(x)}</span>`).join("")}`).join("")}</div>`,
+  essay:c=>`<div class="v-essay"><div class="ve-doc" aria-hidden="true">${c.paras.map((p,k)=>`<i class="c${p.c!=null?p.c:k%4}" style="flex-grow:${p.n||1}">${p.slots.some(x=>x.star)?"<b>★</b>":""}</i>`).join("")}</div><div class="ve-paras">${c.paras.map((p,k)=>`<section class="ve-p c${p.c!=null?p.c:k%4}"><div class="ve-top"><b>${esc(p.h)}</b>${p.w?`<span>${esc(p.w)}</span>`:""}</div><div class="ve-slots">${p.slots.map(x=>`<div class="ve-s ${x.star?"star":""}"><span>${x.star?"★ ":""}${esc(x.t)}</span>${x.e?`<small>${esc(x.e)}</small>`:""}</div>`).join(`<i class="ve-ar" aria-hidden="true">→</i>`)}</div></section>`).join("")}${c.note?`<p class="ve-note">${esc(c.note)}</p>`:""}</div></div>`,
+  cycle:c=>`<div class="v-cyc">${cycleSVG(c)}${c.note?`<p class="small muted">${esc(c.note)}</p>`:""}</div>`,
+  picture:(c,U)=>imgSrc(U,c.img)?`<figure class="vr-img vp-pic" data-zoom><img src="${imgSrc(U,c.img)}" alt="${esc(c.alt||"")}" loading="lazy"><figcaption>Tap to enlarge</figcaption></figure>`:""
+});
 /* ---- side panel: closed until you open it, closes on a second click ---- */
 function openPanel(id,force){
   const g=$(".lgrid"); if(!g) return;
@@ -2703,6 +2817,40 @@ function openPanel(id,force){
 function closePanel(){ const g=$(".lgrid"); if(g) g.classList.remove("side-open"); const s=$("#lside"); if(s) s.classList.remove("open"); document.body.classList.remove("sheet-open"); $$("[data-open]").forEach(b=>b.setAttribute("aria-pressed","false")); if(STAGE&&STAGE.panel) STAGE.panel.auto=false; }
 
 /* ---- Part 2 cue card studio: pick a card, prepare, speak, compare ---- */
+function drillPresent(cx){ const {U,d}=cx; const slides=d.slides||[], src=imgSrc(U,d.img); let i=0, right=0, asked=0; const met=[];
+  cx.frame(`<div class="pr">
+    <div class="pr-view" data-pv><img src="${src}" alt="${esc(d.alt||"")}" draggable="false"><span class="pr-ring" hidden></span><span class="pr-cap" data-cap></span></div>
+    <div class="pr-side"><div class="pr-dots" aria-hidden="true">${slides.map((_,k)=>`<i data-pd="${k}"></i>`).join("")}</div><div class="pr-card" data-pc aria-live="polite"></div></div></div>`);
+  const view=cx.$("[data-pv]"), img=view.querySelector("img"), ring=view.querySelector(".pr-ring"), cap=cx.$("[data-cap]"), card=cx.$("[data-pc]");
+  const wordOf=s=>(s.w&&findWord(s.w))||(s.word?{word:s.word,def:s.def||"",cefr:s.cefr||"",pos:s.pos||""}:null);
+  const place=()=>{ const s=slides[i]; if(!s||!img.naturalWidth) return; const Wv=view.clientWidth, Hv=view.clientHeight, r=img.naturalHeight/img.naturalWidth;
+    const fit=Math.min(1,Hv/(Wv*r)), z=(!s.z||s.z==="fit")?fit:s.z, iw=z*Wv, ih=iw*r;
+    const fx=s.x==null?50:s.x, fy=s.y==null?50:s.y; let left=Wv/2-fx/100*iw, top=Hv/2-fy/100*ih;
+    left=iw>=Wv?Math.min(0,Math.max(Wv-iw,left)):(Wv-iw)/2; top=ih>=Hv?Math.min(0,Math.max(Hv-ih,top)):(Hv-ih)/2;
+    img.style.width=iw+"px"; img.style.left=left+"px"; img.style.top=top+"px";
+    if(s.x!=null&&s.z&&s.z!=="fit"&&s.ring!==false){ ring.hidden=false; ring.style.left=(left+fx/100*iw)+"px"; ring.style.top=(top+fy/100*ih)+"px"; } else ring.hidden=true; };
+  const dots=()=>cx.$$("[data-pd]").forEach((x,k)=>{ x.classList.toggle("on",k===i); x.classList.toggle("done",k<i); });
+  const ladder=s=>s.lad?`<div class="pr-lad" aria-label="The same idea at three levels">${s.lad.map((t,k)=>`<span class="${TIERS[k]===CUR_TIER?"on":""}"><small>${TIERS[k]}</small>${esc(t)}</span>`).join(`<i aria-hidden="true">→</i>`)}</div>`:"";
+  const reveal=(ok)=>{ const s=slides[i], w=wordOf(s); if(w){ met.push(w); cap.textContent=w.word; cap.classList.add("on"); }
+    card.innerHTML=`${ok===undefined?"":`<p class="pr-fb ${ok?"ok":"no"}">${ok?"Yes!":"Good guess, but no."} ${esc(s.fb||"")}</p>`}
+      ${w?`<span class="label">${esc(s.label||"New phrase")}${w.cefr?" · "+esc(w.cefr):""}${w.pos?" · "+esc(w.pos):""}</span><h3 class="pr-w">${esc(w.word)}</h3><p>${esc(w.def)}</p>`:`<h3 class="pr-w">${esc(s.h||"")}</h3>`}
+      ${s.say?`<p class="hs-say">“${linkWords(s.say,U)}”</p>`:""}${ladder(s)}
+      <div class="row">${w?`<button type="button" class="btn small ghost" data-hear>Listen</button>`:""}<button type="button" class="btn small primary" data-next>${i<slides.length-1?"Next →":"Finish the tour"}</button></div>`;
+    if(w) $("[data-hear]",card).onclick=()=>TTS.say(w.word+". "+(s.say||"").replace(/\[\[([^\]|]+)(\|[^\]]+)?\]\]/g,"$1"),"en-GB","female");
+    $("[data-next]",card).onclick=()=>{ i++; show(); }; };
+  const show=()=>{ cap.classList.remove("on"); if(i>=slides.length) return finish(); const s=slides[i]; dots(); place();
+    if(s.ask&&s.o){ asked++; const opts=shuffle(s.o.map((_,k)=>k));
+      card.innerHTML=`<span class="label">${i+1} of ${slides.length} · Guess</span><h3>${esc(s.ask)}</h3><div class="choices">${opts.map(k=>`<button type="button" data-o="${k}">${esc(s.o[k])}</button>`).join("")}</div>`;
+      cx.$$("[data-o]").forEach(b=>b.onclick=()=>{ const k=+b.dataset.o, ok=k===s.a; if(ok) right++; cx.$$("[data-o]").forEach(x=>{ x.disabled=true; if(+x.dataset.o===s.a) x.classList.add("right"); else if(x===b) x.classList.add("wrong"); }); cx.later(()=>reveal(ok),650); });
+    } else { card.innerHTML=`<span class="label">${i+1} of ${slides.length}</span>${s.h?`<h3>${esc(s.h)}</h3>`:""}${s.t?`<p>${linkWords(s.t,U)}</p>`:""}<div class="row"><button type="button" class="btn small primary" data-next>${s.btn||"Next →"}</button></div>`;
+      if(s.w) return reveal(); $("[data-next]",card).onclick=()=>{ i++; show(); }; } };
+  const finish=()=>{ ring.hidden=true; i=slides.length-1; const s0=slides[0]||{}; i=0; place(); i=slides.length; cx.$$("[data-pd]").forEach(x=>{ x.classList.remove("on"); x.classList.add("done"); });
+    card.innerHTML=`<span class="label">Tour complete</span><h3>${met.length} new phrase${met.length===1?"":"s"}</h3>${asked?`<p class="small">${right} of ${asked} guessed right.</p>`:""}<div class="hs-words">${met.map(w=>`<button type="button" class="hs-w" data-w="${esc(w.id||"")}">${esc(w.word)}</button>`).join("")}</div><p class="small muted">${esc(d.end||"Tap a phrase to see it again. The tasks below use all of them.")}</p><div class="row"><button type="button" class="btn small ghost" data-again>Watch again</button></div>`;
+    $("[data-again]",card).onclick=()=>{ i=0; right=0; asked=0; met.length=0; show(); };
+    cx.end(asked?right/asked:1,d.end||""); };
+  const ro=new ResizeObserver(()=>place()); ro.observe(view); CLEANUP.push(()=>ro.disconnect());
+  if(img.complete) show(); else { img.addEventListener("load",()=>place()); show(); }
+}
 function drillCuecards(cx){ const {U,sec,d}=cx; const cards=(d.cards==="part2"?[].concat(sec.part2||[]):d.cards)||[];
   let cur=-1, tid=null, rec=null, chunks=[];
   const key=c=>U.id+":"+sec.id+":cc-"+c.id, done=c=>!!(S.results[key(c)]||[]).length;
@@ -2897,7 +3045,12 @@ const AUTO={
   words:{l:"Right length",f:(t,c)=>c.words>=c.min&&c.words<=c.max,tip:"Check the word range for this task."},
   trend:{l:"Uses trend language",f:t=>(t.match(TREND_RE)||[]).length>=2,tip:"Use at least two trend phrases: rose steadily, levelled off…"},
   useWords:{l:"Uses words from this unit",f:(t,c)=>c.used>=c.need,tip:"Use at least 3–4 words from the cloud above the task."},
-  data:{l:"Includes key figures",f:t=>(t.match(/\d+/g)||[]).length>=2,tip:"Support the main features with numbers."}
+  data:{l:"Includes key figures",f:t=>(t.match(/\d+/g)||[]).length>=2,tip:"Support the main features with numbers."},
+  seq:{l:"Guides the reader through the stages",f:t=>(t.match(SEQ_RE)||[]).length>=3,tip:"Use at least three sequencers: first, next, once…, after that, finally."},
+  stages:{l:"Overview: how many stages, first → last",f:t=>OVERVIEW_RE.test(t)||STAGES_RE.test(t),tip:"Overall, there are … stages, beginning with … and ending with …"},
+  presentSimple:{l:"Present simple for the cycle",f:t=>!/\b(laid|hatched|grew|developed|became|turned|lost|started|appeared|emerged)\b/i.test(t),tip:"A life cycle happens again and again: use the present simple (lays, hatches, grows), not the past."},
+  compare:{l:"Compares (than, compared with, whereas…)",f:t=>/\b(than|compared (with|to)|whereas|while|in contrast|by contrast|unlike|as \w+ as|the same as|similar to|in the past|nowadays|these days|previous generations)\b/i.test(t),tip:"Add one comparison: … than in the past / compared with … / whereas …"},
+  opinionPhrase:{l:"Uses an opinion phrase",f:t=>THESIS_RE.test(t)||/\b(personally|for me|I would challenge|I accept that)\b/i.test(t),tip:"Start with an opinion phrase from the ladder: In my opinion, … / Personally, I feel that … / I would argue that …"}
 };
 /* ---- tap tasks: work on the pinned text or an inline copy ---- */
 function drillHunt(cx){ const {sec,d}=cx;
@@ -2975,15 +3128,16 @@ function drillWrite(cx){ const {U,sec,d}=cx; const [mn,mx]=d.target||[40,80], dk
     <label for="${fid}" class="label">Your answer · ${mn}–${mx} words</label><textarea id="${fid}" class="essay" style="min-height:200px" placeholder="Write here…">${esc(S.drafts[dk]||"")}</textarea><div class="wstats" data-ws></div><div data-live></div><div class="row"><button class="btn primary" data-wc>Check</button><span class="small muted" data-wm></span></div><div data-wr class="stack"></div>`));
   const ta=cx.$("textarea"), stats=()=>{ cx.$("[data-ws]").innerHTML=`<span>${wc(ta.value)} words</span><span>target ${mn}–${mx}</span>`; };
   let deb; ta.addEventListener("input",()=>{ stats(); clearTimeout(deb); deb=setTimeout(()=>{S.drafts[dk]=ta.value;save();},600); }); stats();
-  mountLive(cx.$("[data-live]"),ta,{U,task:sec.task||2,tier:S.tier.writing||"B2",prompt:d.task,active:activeList(U,d.use||sec.active),mode:"short"});
+  const lvW=CUR_TIER||S.tier.writing||"B2", useL=pickTier(d.use||sec.active,lvW);
+  mountLive(cx.$("[data-live]"),ta,{U,task:sec.task||2,tier:lvW,prompt:d.task,active:activeList(U,useL),mode:"short",kind:d.kind2||sec.kind||""});
   cx.$("[data-wc]").onclick=async()=>{
     const text=ta.value.trim(); if(wc(text)<8){ cx.$("[data-wm]").textContent="Write a little more first."; return; }
     cx.$("[data-wc]").disabled=true; cx.$("[data-wm]").textContent="Checking…";
     let lt=null, ltErr=null; try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
     if(cx.dead) return;
-    const actW=activeList(U,d.use||sec.active), ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx,used:activeUsed(actW,text).length,need:d.need||3};
+    const actW=activeList(U,useL), ctx={copy:copyInfo(d.task||"",text),words:wc(text),min:mn,max:mx,used:activeUsed(actW,text).length,need:d.need||3};
     const res=(d.checks||[]).filter(k=>AUTO[k]).map(k=>({k,ok:AUTO[k].f(text,ctx)}));
-    const A=analyseEssay(text,{unitWords:U.words,lt,checks:null,task:sec.task,bank:sec.bank?sec.bank.flatMap(g=>g.w):null});
+    const A=analyseEssay(text,{unitWords:U.words,lt,checks:null,task:sec.task,bank:sec.bank?sec.bank.flatMap(g=>g.w):null,kind:d.kind2||sec.kind||""});
     const act=actW, uids=activeUsed(act,text), uw=act.filter(w=>uids.includes(w.id)), al=alertsIn(text);
     const issues=A.lt?A.lt.matches.filter(m=>m.kind!=="style"):[];
     const pct=res.length?res.filter(r=>r.ok).length/res.length:1;
@@ -3367,7 +3521,7 @@ function drillWheel(cx){ const {U,sec,d}=cx; const cards=(d.cards==="part2"?[].c
   spinB.onclick=spin;
   CLEANUP.push(stop);
 }
-const DRILLS={sketch:drillSketch,feed:drillFeed,timeline:drillTimeline,wheel:drillWheel,skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick,diagram:drillDiagram,highlight:drillHighlight,cline:drillCline,chartpick:drillChartpick,abpick:drillAB,tip:drillTip,talk:drillTalk,hotspot:drillHotspot,cuecards:drillCuecards};
+const DRILLS={present:drillPresent,sketch:drillSketch,feed:drillFeed,timeline:drillTimeline,wheel:drillWheel,skim:drillSkim,scan:drillHunt,find:drillHunt,keywords:drillKeywords,order:drillOrder,quiz:drillQuiz,match:drillMatch,label:drillMatch,write:drillWrite,sort:drillSort,gapbank:drillGapbank,pairs:drillPairs,fix:drillFix,unscramble:drillUnscramble,upgrade:drillUpgrade,memory:drillMemory,sprint:drillSprint,odd:drillTiles,truths:drillTiles,sentpick:drillSentpick,diagram:drillDiagram,highlight:drillHighlight,cline:drillCline,chartpick:drillChartpick,abpick:drillAB,tip:drillTip,talk:drillTalk,hotspot:drillHotspot,cuecards:drillCuecards};
 
 /* =========================================================
    STYLE ALERTS · the hare meme
@@ -3404,9 +3558,9 @@ TIPV.meme=c=>memeHTML(c,false);
 /* =========================================================
    SPEAKING · one question at a time, everything on screen
    ========================================================= */
-const WU_IRREG={go:["went","gone","goes","going"],take:["took","taken","takes","taking"],make:["made","makes","making"],get:["got","gotten","gets","getting"],be:["is","are","was","were","been","being","am"],switch:["switched","switches","switching"]};
+const WU_IRREG={go:["went","gone","goes","going"],take:["took","taken","takes","taking"],make:["made","makes","making"],get:["got","gotten","gets","getting"],be:["is","are","was","were","been","being","am"],switch:["switched","switches","switching"],feel:["felt","feels","feeling"],keep:["kept","keeps","keeping"],pay:["paid","pays","paying"],grow:["grew","grown","grows","growing"],lay:["laid","lays","laying"],become:["became","becomes","becoming"],lose:["lost","loses","losing"],begin:["began","begun","begins","beginning"]};
 function wordUsed(w,lower){
-  const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase());
+  const forms=[w.word,...(w.fam||[]).map(f=>f.replace(/\s*\(.*\)\s*/,""))].map(f=>f.toLowerCase().replace(/^(a|an|the)\s+/,""));
   const hit=(t,f)=>{ if(!t) return false; if(WU_IRREG[f]&&WU_IRREG[f].includes(t)) return true; const stem=f.length>5?f.slice(0,f.length-1):f; return t===f||(t.startsWith(stem)&&t.length<=f.length+3); };
   return forms.some(f=>{ const parts=f.split(/\s+/).filter(Boolean); if(parts.length<2) return lower.some(t=>hit(t,f));
     for(let i=0;i<lower.length;i++){ if(!hit(lower[i],parts[0])) continue; let j=i, ok=true;
@@ -3419,7 +3573,7 @@ function runSpeaking(U,sec,tier){
   const cfg=sec.tiers[tier];
   if(!Array.isArray(sec.selfcheck)) sec=Object.assign({},sec,{selfcheck:DEFAULT_SELFCHECK});
   const P1=(sec.part1||[]).map(q=>typeof q==="string"?{q}:q), P3=(sec.part3||[]).map(q=>typeof q==="string"?{q}:q);
-  const active=(sec.words||[]).map(id=>U.words.find(w=>w.id===id)).filter(Boolean);
+  const active=activeList(U,pickTier(sec.words,tier)||[]);
   const answers={}, ticked=new Set(), idx={1:0,3:0}; let useRec=false, useTr=false, part=sec.part||1, active_=null, notes={};
   const P2=[].concat(sec.part2||[]).filter(Boolean); let p2i=Math.floor(Math.random()*Math.max(1,P2.length));
   const fmt=s=>`${Math.floor(s/60)}:${String(s%60).padStart(2,"0")}`;
@@ -3548,7 +3702,7 @@ function runWriting(U,sec,tier){
   if(!Array.isArray(sec.checklist)) sec=Object.assign({},sec,{checklist:DEFAULT_CHECKLIST});
   const W=sec.tiers[tier], task1=sec.task===1, ch=W.chart&&sec.charts?sec.charts[W.chart]:null;
   const dkey=U.id+":"+sec.id+":"+tier, bank=sec.bank||null, structure=(sec.learn||[]).find(c=>c.v==="blocks");
-  const active=activeList(U,sec.active), dismissed=new Set();
+  const active=activeList(U,pickTier(sec.active,tier)), dismissed=new Set(), proc=W.kind==="process"||sec.kind==="process"; CUR_TIER=tier;
   const usedNow=t=>activeUsed(active,t);
   app.innerHTML=`<div class="wrap stack" style="gap:16px">
     <div class="row between"><span class="label">${esc(U.title)} · Writing Task ${task1?1:2} · ${tier}</span><button class="link small" id="leave">Leave</button></div>
@@ -3556,7 +3710,7 @@ function runWriting(U,sec,tier){
     <div class="wlayout">
       <aside class="wside">
         <div class="card stack tight"><span class="label">${esc(W.type||"")}${W.time?` · ${W.time} min`:""} · ${W.target}+ words</span><p class="wtask" style="font-size:16px">${esc(W.task)}</p></div>
-        ${ch?`<div class="card">${chartSVG(ch)}</div>`:""}
+        ${ch?`<div class="card">${chartSVG(ch)}</div>`:""}${W.img&&imgSrc(U,W.img)?`<figure class="card wimg" data-zoom><img src="${imgSrc(U,W.img)}" alt="${esc(W.alt||"")}"></figure>`:""}
         ${bank?`<details class="more" ${tier!=="C1"?"open":""}><summary>Word bank · tap to insert</summary><div class="bank">${bank.map(g=>`<div class="grp"><b>${esc(g.h)}</b>${g.w.map(w=>`<button type="button" data-ins="${esc(w)}">${esc(w)}</button>`).join("")}</div>`).join("")}</div></details>`:""}
       </aside>
       <section class="wmain">
@@ -3574,7 +3728,7 @@ function runWriting(U,sec,tier){
     </div></div>`;
   mountNoteFab(U.id);
   const ta=$("#essay");
-  mountLive($("#live"),ta,{U,task:sec.task,tier,prompt:W.task,bank:bank?bank.flatMap(g=>g.w):null,active});
+  mountLive($("#live"),ta,{U,task:sec.task,tier,prompt:W.task,bank:bank?bank.flatMap(g=>g.w):null,active,kind:proc?"process":""});
   const markBank=()=>{ if(!bank) return; $$("[data-ins]").forEach(b=>b.classList.toggle("used",bankRe(b.dataset.ins).test(ta.value))); };
   const markActive=()=>{ if(!active.length) return; const u=usedNow(ta.value); $$("#avcloud [data-w]").forEach(b=>b.classList.toggle("used",u.includes(b.dataset.w))); const c=$("#avc"); if(c) c.textContent=`${u.length}/${active.length}`; };
   const memes=()=>{ const box=$("#memebox"); if(!box) return; const hit=alertsIn(ta.value).find(x=>!dismissed.has(x.a.k)); box.innerHTML=hit?memeHTML(hit.a,true):""; const b=$("[data-meme-ok]",box); if(b) b.onclick=()=>{ dismissed.add(b.dataset.memeOk); memes(); }; };
@@ -3590,7 +3744,7 @@ function runWriting(U,sec,tier){
     const checks=$$("[data-ck]").filter(c=>c.checked).length;
     $("#checkBtn").disabled=true; $("#checkMsg").textContent="Checking grammar and spelling…";
     let lt=null, ltErr=null; try{ lt=await languageTool(text); }catch(e){ ltErr=e; }
-    const A=analyseEssay(text,{unitWords:U.words,lt,checks,target:W.target,task:task1?1:2,bank:bank?bank.flatMap(g=>g.w):null,prompt:W.task});
+    const A=analyseEssay(text,{unitWords:U.words,lt,checks,target:W.target,task:task1?1:2,bank:bank?bank.flatMap(g=>g.w):null,prompt:W.task,kind:proc?"process":""});
     const vu=usedNow(text); A.vocab={used:active.filter(w=>vu.includes(w.id)),unused:active.filter(w=>!vu.includes(w.id))}; A.alerts=alertsIn(text);
     const before=S.profile.writing; S.profile.writing=A.overall; S.tier.writing=tierOf(A.overall);
     S.essays.push({uid:U.id,taskNo:task1?1:2,tier,task:W.task,text,date:Date.now(),overall:A.overall,levels:A.levels,words:A.words,vocab:active.length?{used:A.vocab.used.map(w=>w.word),total:active.length}:null,alerts:Object.fromEntries(A.alerts.map(x=>[x.a.k,x.n])),lt:A.lt?{grammar:A.lt.grammar,spelling:A.lt.spelling,punctuation:A.lt.punctuation,style:A.lt.style}:null});
