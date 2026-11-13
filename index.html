@@ -649,6 +649,7 @@ body.in-lesson #foot{display:none}
 .talk{display:grid;gap:22px}
 .tq{display:grid;gap:10px;padding:16px 18px;border-radius:16px;background:var(--surface)}
 .ladder:empty{display:none}
+.btn.playing{background:var(--accent)!important;color:#fff!important;border-color:var(--accent)!important}
 .ladder .model{margin:0}
 /* picture hotspots */
 .hs{display:grid;grid-template-columns:minmax(0,1.05fr) minmax(0,1fr);gap:22px;align-items:start}
@@ -949,7 +950,8 @@ b,strong{font-weight:700}
 .qcard .transcript{color:rgba(255,255,255,.86)}
 .tq .model,.ccx .model{background:rgba(255,255,255,.08);color:#fff;border-radius:12px;padding:12px 14px}
 .tq .model .label,.ccx .model .label{color:rgba(255,255,255,.6)}
-.tq .vw,.ccx .vw,.qcard .vw{color:#fff;text-decoration-color:var(--accent)}
+.tq .vw,.ccx .vw,.qcard .vw,.cue .vw{background:var(--accent);color:#fff;font-weight:600;border-bottom-color:rgba(255,255,255,.55)}
+.tq .vw:hover,.ccx .vw:hover,.qcard .vw:hover,.cue .vw:hover{filter:brightness(1.08)}
 .qdots i{background:rgba(255,255,255,.25)}
 .qdots i.on{background:#fff;box-shadow:none}
 .qdots i.done{background:var(--accent)}
@@ -2891,16 +2893,19 @@ function drillCuecards(cx){ const {U,sec,d}=cx; const cards=(d.cards==="part2"?[
 
 /* ---- read-first tips, talk cards, picture hotspots ---- */
 function drillTip(cx){ const {U,sec,d}=cx; cx.frame(`<div class="tipflow">${refList(sec,d).map(c=>tipHTML(c,U)).join("")}</div>`); }
-function drillTalk(cx){ const {U,d}=cx; const L=["Short","Full","Extended"];
+const AUD={cur:null,btn:null,play(src,btn){ this.stop(); const a=new Audio(src); this.cur=a; this.btn=btn||null; if(btn) btn.classList.add("playing"); a.onended=()=>this.stop(); a.play().catch(()=>this.stop()); },
+  stop(){ if(this.cur){ try{ this.cur.pause(); }catch(e){} this.cur=null; } if(this.btn){ this.btn.classList.remove("playing"); this.btn=null; } }};
+const audSrc=(U,k)=>k?((U.audio||{})[k]||""):"";
+function drillTalk(cx){ const {U,d}=cx; const L=["Short","Full","Extended"]; onLeave(()=>AUD.stop());
   cx.frame(`<div class="talk">${d.items.map((it,i)=>`<div class="tq" data-q="${i}"><span class="label">Question ${i+1} of ${d.items.length}</span><p class="qbig">${esc(it.q)}</p>
     <div class="row"><button type="button" class="btn small ghost" data-say="${i}">Hear it</button>${(it.ladder||[]).map((_,j)=>`<button type="button" class="btn small" data-lad="${i}" data-j="${j}" aria-expanded="false">${L[j]} answer</button>`).join("")}</div>
     <div class="ladder" data-box="${i}"></div></div>`).join("")}</div>`);
-  cx.$$("[data-say]").forEach(b=>b.onclick=()=>TTS.say(d.items[+b.dataset.say].q,"en-GB","female"));
+  cx.$$("[data-say]").forEach(b=>b.onclick=()=>{ const it=d.items[+b.dataset.say], a=audSrc(U,it.audio&&it.audio.q); if(a){ if(AUD.btn===b){ AUD.stop(); return; } AUD.play(a,b); } else TTS.say(it.q,"en-GB","female"); });
   cx.$$("[data-lad]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.lad, j=+b.dataset.j, box=cx.$(`[data-box="${i}"]`), open=b.getAttribute("aria-expanded")==="true";
     cx.$$(`[data-lad="${i}"]`).forEach(x=>x.setAttribute("aria-expanded","false"));
     if(open){ box.innerHTML=""; return; } b.setAttribute("aria-expanded","true");
     box.innerHTML=`<p class="model"><span class="label">${L[j]} answer</span><br>${linkWords(fp(d.items[i].ladder[j]),U)}</p><button type="button" class="btn small ghost" data-hear>Listen</button>`;
-    $("[data-hear]",box).onclick=()=>TTS.say(d.items[i].ladder[j].replace(/\[\[([^\]|]+)(\|[^\]]+)?\]\]/g,"$1"),"en-GB","male"); });
+    const hb=$("[data-hear]",box); hb.onclick=()=>{ const it=d.items[i], a=audSrc(U,it.audio&&it.audio.ladder&&it.audio.ladder[j]); if(a){ if(AUD.btn===hb){ AUD.stop(); return; } AUD.play(a,hb); } else TTS.say(it.ladder[j].replace(/\[\[([^\]|]+)(\|[^\]]+)?\]\]/g,"$1"),"en-GB","male"); }; });
 }
 const imgSrc=(U,key)=>(U.images||{})[key]||"";
 function drillHotspot(cx){ const {U,d}=cx; const spots=d.spots||[], src=imgSrc(U,d.img); const seen=new Set();
