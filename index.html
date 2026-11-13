@@ -310,7 +310,7 @@ details.more[open] summary{margin-bottom:12px}
 .v-bar{height:14px;border-radius:4px;background:var(--inkbg,var(--ink))}
 .v-blk:nth-child(odd) .v-bar{background:var(--accent)}
 .v-blk small{font-size:12px;color:var(--muted)}
-.v-trend,.v-tl{width:100%;height:auto;display:block}
+.v-trend{width:100%;height:auto;display:block}.v-tl{width:100%;max-width:620px;height:auto;display:block;margin-inline:auto;overflow:visible}
 .tr-base{fill:none;stroke:var(--line);stroke-width:2}
 .tr-seg{fill:none;stroke-width:4;stroke-linecap:round;stroke-linejoin:round}
 .tr-lab{font:600 11px var(--body)}
@@ -320,8 +320,8 @@ text.t0{fill:var(--t1);stroke:none} text.t1{fill:var(--t2);stroke:none} text.t2{
 .tl-t{font:500 10px var(--mono);fill:var(--muted);letter-spacing:.08em}
 .tl-now{fill:var(--ink)}
 .tl-dot{fill:var(--accent)}
-.tl-l{font:600 12px var(--body);fill:var(--ink)}
-.tl-c{font:500 10px var(--mono);fill:var(--muted);text-transform:uppercase;letter-spacing:.06em}
+.tl-l{font:600 13px var(--body);fill:var(--ink)}.tl-tick{stroke:var(--accent);stroke-width:2}
+.tl-c{font:500 11px var(--mono);fill:var(--muted);text-transform:uppercase;letter-spacing:.06em}
 .tl-c.acc{fill:var(--accent)}
 .tl-span{stroke:var(--accent);stroke-width:4;stroke-linecap:round}
 .tl-arrow{fill:var(--accent)}
@@ -504,14 +504,9 @@ ins{color:var(--good);text-decoration:none;font-weight:700;background:var(--good
 .meme-t s{text-decoration-color:var(--bad);text-decoration-thickness:3px}
 .meme>.row{padding:8px 16px 12px}
 .hare{width:96px;height:96px}
-.hare .h-body{fill:var(--bg);stroke:var(--ink);stroke-width:2.5}
-.hare .h-ear{fill:var(--bg);stroke:var(--ink);stroke-width:2.5}
-.hare .h-in{fill:var(--accent);opacity:.55}
-.hare .h-eye{fill:var(--ink)}
-.hare .h-nose{fill:var(--accent)}
-.hare .h-line{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
-.hare .h-line.thin{stroke-width:1.2}
-.hare .h-arm{fill:none;stroke:var(--ink);stroke-width:2.5;stroke-linecap:round}
+.hare .h-rab{fill:var(--ink)}.hare.yes .h-rab{fill:var(--accent)}.hare.no .h-rab{fill:var(--muted)}
+.hare .h-badge circle{fill:var(--bg);stroke-width:2.5}.hare .h-badge path{fill:none;stroke-width:3;stroke-linecap:round;stroke-linejoin:round}
+.hare.yes .h-badge circle,.hare.yes .h-badge path{stroke:var(--good)}.hare.no .h-badge circle,.hare.no .h-badge path{stroke:var(--bad)}
 @media (max-width:420px){.meme-row{grid-template-columns:64px 1fr}.hare{width:64px;height:64px}}
 
 /* ---- tip deck: one idea per screen ---- */
@@ -531,7 +526,7 @@ ins{color:var(--good);text-decoration:none;font-weight:700;background:var(--good
 .dnav select{flex:1;min-width:0;max-width:480px;padding:6px 10px;font-size:14px}
 /* ---- memory card back ---- */
 .mem{background:var(--warm);border:0;color:var(--ink)}
-.mem .haremark{width:44%;max-width:64px;fill:#fff}
+.mem .haremark{height:58%;max-height:72px;width:auto;fill:#fff}
 .mem.flip{background:var(--bg);color:var(--ink);border:1.5px solid var(--line)}
 .mem.flip.s1{background:var(--accent-soft)}
 .mem.done{background:var(--good-soft);color:var(--good);border:1.5px solid var(--good)}
@@ -1172,6 +1167,33 @@ b,strong{font-weight:700}
 @media (prefers-reduced-motion:reduce){.whl-svg{transition:none}}
 .chart .s3{stroke:var(--t4);fill:var(--t4)}
 .chart .ylab{fill:var(--muted);font:11px var(--mono)}
+
+/* ---- sample answers in talk tasks ---- */
+.tsample{display:grid;gap:10px}
+.tsw{display:flex;flex-wrap:wrap;gap:6px}
+.tsw button{font:600 13px var(--body);padding:6px 12px;border-radius:999px;border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;cursor:pointer;display:inline-flex;gap:6px;align-items:center}
+.tsw button[aria-pressed="true"]{background:var(--accent);border-color:var(--accent)}
+.tsw button i{font-style:normal;font-weight:500;font-size:11px;opacity:.8}
+/* ---- listening player ---- */
+.lplay{display:grid;gap:10px;padding:14px 16px;border-radius:16px;background:var(--inkbg,var(--ink));color:#fff;margin-bottom:6px}
+.lp-row{display:flex;align-items:center;gap:12px;flex-wrap:wrap}
+.lp-btn{width:46px;height:46px;border-radius:50%;border:0;background:var(--accent);color:#fff;font:700 16px var(--body);display:grid;place-items:center;cursor:pointer;flex:none}
+.lp-btn.off{background:rgba(255,255,255,.14);cursor:default}
+.lp-mid{flex:1 1 200px;display:grid;gap:8px;min-width:0}
+.lplay .label{color:rgba(255,255,255,.7)}.lplay .small{color:rgba(255,255,255,.86);margin:0}
+.lp-bar{height:8px;border-radius:99px;background:rgba(255,255,255,.18);cursor:pointer;position:relative}
+.lp-bar i{position:absolute;inset:0 auto 0 0;width:0;border-radius:99px;background:var(--accent)}
+.lp-time{font:500 12px var(--mono);color:rgba(255,255,255,.8);min-width:74px;text-align:right}
+.lp-sm{font:600 12px var(--body);border:1px solid rgba(255,255,255,.28);background:transparent;color:#fff;border-radius:999px;padding:5px 10px;cursor:pointer}
+.lp-script summary{cursor:pointer;font:600 13px var(--body);color:rgba(255,255,255,.86)}
+.lp-script .script{margin-top:10px;background:var(--bg);color:var(--ink);border-radius:12px;padding:12px 14px;display:grid;gap:8px;max-height:360px;overflow:auto}
+.lp-script .script p{margin:0;line-height:1.55;display:grid;grid-template-columns:64px minmax(0,1fr);gap:8px}.lp-script .script b{margin:0;padding-top:3px;color:var(--accent)}
+/* ---- first-use guide ---- */
+.coach{position:fixed;inset:0;z-index:400}
+.co-hole{position:fixed;border-radius:12px;box-shadow:0 0 0 200vmax rgba(30,30,32,.55);outline:2px solid var(--accent);outline-offset:2px;transition:left .25s,top .25s,width .25s,height .25s;pointer-events:none}
+.co-tip{position:fixed;background:var(--bg);color:var(--ink);border-radius:14px;padding:14px 16px;box-shadow:0 14px 36px rgba(0,0,0,.28);display:grid;gap:6px;font:14px/1.45 var(--body);transition:top .25s,left .25s}
+.co-tip b{font:700 16px var(--body)}.co-tip p{margin:0}.co-tip .row{margin-top:6px}
+.navhelp{min-width:34px;font-weight:700}
 </style>
 </head>
 <body>
@@ -1215,7 +1237,7 @@ function median(arr){const a=arr.slice().sort((x,y)=>x-y);return a.length?a[Math
 const T={ids:new Set(),every(fn,ms){const id=setInterval(fn,ms);this.ids.add(id);return id;},later(fn,ms){const id=setTimeout(fn,ms);this.ids.add(id);return id;},clear(){this.ids.forEach(id=>{clearInterval(id);clearTimeout(id);});this.ids.clear();}};
 let CLEANUP=[];
 const onLeave=fn=>CLEANUP.push(fn);
-function go(fn,...args){document.querySelectorAll(".defpop").forEach(x=>x.remove());T.clear();CLEANUP.forEach(f=>{try{f();}catch(e){}});CLEANUP=[];TTS.stop();window.scrollTo(0,0);renderTop();NAV={};const r=fn(...args);try{renderRail();}catch(e){}return r;}
+function go(fn,...args){document.querySelectorAll(".defpop").forEach(x=>x.remove());T.clear();CLEANUP.forEach(f=>{try{f();}catch(e){}});CLEANUP=[];TTS.stop();try{LP.stop();AUD.stop();COACH.close();clearTimeout(COACH.t);COACH.t=setTimeout(()=>COACH.auto(),650);}catch(e){}window.scrollTo(0,0);renderTop();NAV={};const r=fn(...args);try{renderRail();}catch(e){}return r;}
 
 /* ---------- state ---------- */
 const SKEY="ielts-ladder:v1";
@@ -1385,7 +1407,8 @@ function renderTop(){
     <button data-nav="home">Course</button>
     <button data-nav="review">Words${due?`<span class="count">${due}</span>`:""}</button>
     <button data-nav="send">Send progress</button>
-    <button data-nav="settings">Settings</button>`;
+    <button data-nav="settings">Settings</button>
+    <button data-nav="help" class="navhelp" aria-label="How to use the course" title="How to use the course">?</button>`;
 }
 document.addEventListener("click",e=>{
   const b=e.target.closest("[data-nav]"); if(!b) return;
@@ -1394,6 +1417,7 @@ document.addEventListener("click",e=>{
   if(n==="review") go(viewReview);
   if(n==="send") go(viewSend);
   if(n==="settings") go(viewSettings);
+  if(n==="help") COACH.start();
   if(n==="exitpreview") location.reload();
   if(n==="terms") go(viewTerms);
 });
@@ -1402,6 +1426,46 @@ $("#brandBtn").addEventListener("click",()=>{ if(PREVIEW) return; if(S.code) go(
 /* ---------- left rail: the unit menu, quiet until you hover it ---------- */
 let NAV={};
 function setNav(o){ NAV=Object.assign({},o||{}); }
+const COACH={el:null,steps:[],i:0,p:"",t:0,
+  T:{home:[[".hero","Your level","Your overall level from the placement test. Each skill below moves on its own as you work."],
+           ["#contBtn","Continue","One tap takes you to the next part you have not finished."],
+           [".units","Your units","Tap an open unit to start. Your teacher opens new units for you."],
+           ['#nav [data-nav="review"]',"Words","The words you meet come back here for short reviews."],
+           ['#nav [data-nav="help"]',"Help","Tap ? at any time to see these tips again."]],
+     unit:[[".seclist","Parts of the unit","Work from top to bottom: vocabulary, grammar, the four skills, then the unit check."],
+           [".secrow","Open a part","Tap a part to go straight to its tasks. Your progress shows on the right."],
+           ["#railBtn","Unit menu","Jump to any part of this unit from here."]],
+     stage:[[".lvsw","Choose your level","Every task changes to B1, B2 or C1. Start at your level; try one level up when it feels easy."],
+           ["#lchips","Tasks in this stage","Tap a number to jump to a task."],
+           [".lcloud","Words for this stage","Tap a word to see its meaning and an example."],
+           [".lh-pans","Reference and Notes","Tips, the pinned picture and your own notes open beside the tasks."],
+           [".lsecnav","Tips, stages, exam","Move between the tips, the stages and the exam-style task of this part."],
+           ["#lhelp","Help","Tap ? to see these tips again."]]},
+  page(){ if(document.querySelector(".lesson")) return "stage"; if(document.querySelector(".seclist")) return "unit"; if(document.querySelector(".units")) return "home"; return ""; },
+  vis(sel){ const t=document.querySelector(sel); return t&&t.getClientRects().length&&getComputedStyle(t).visibility!=="hidden"?t:null; },
+  auto(){ const p=COACH.page(); if(!p||COACH.el) return; if(((S.settings||{}).coach||{})[p]) return; COACH.start(p); },
+  start(p){ p=p||COACH.page(); COACH.close(); const steps=(COACH.T[p]||[]).filter(x=>COACH.vis(x[0])); if(!steps.length) return;
+    COACH.p=p; COACH.steps=steps; COACH.i=0;
+    const el=document.createElement("div"); el.className="coach"; el.innerHTML=`<div class="co-hole"></div><div class="co-tip" role="dialog" aria-modal="false" aria-live="polite"></div>`; document.body.appendChild(el); COACH.el=el;
+    el.addEventListener("click",e=>{ if(e.target.closest("[data-co-next]")) return COACH.next(); if(e.target.closest("[data-co-skip]")||!e.target.closest(".co-tip")) return COACH.done(); });
+    COACH.key=e=>{ if(e.key==="Escape") COACH.done(); else if(e.key==="ArrowRight") COACH.next(); }; document.addEventListener("keydown",COACH.key);
+    COACH.rs=()=>COACH.place(); window.addEventListener("resize",COACH.rs); window.addEventListener("scroll",COACH.rs,{passive:true});
+    COACH.show(); },
+  show(){ const st=COACH.steps[COACH.i], tg=st&&COACH.vis(st[0]); if(!tg) return COACH.next(); const n=COACH.steps.length, last=COACH.i===n-1;
+    const r=tg.getBoundingClientRect(); if(r.top<70||r.bottom>innerHeight-24) tg.scrollIntoView({block:r.height>innerHeight*.6?"start":"center"});
+    COACH.el.querySelector(".co-tip").innerHTML=`<span class="label">${COACH.i+1} of ${n}</span><b>${esc(st[1])}</b><p>${esc(st[2])}</p><div class="row between"><button type="button" class="link small" data-co-skip>${last?"Close":"Skip the tour"}</button><button type="button" class="btn small primary" data-co-next>${last?"Got it":"Next"}</button></div>`;
+    COACH.place(); const b=COACH.el.querySelector("[data-co-next]"); if(b) b.focus({preventScroll:true}); },
+  place(){ if(!COACH.el) return; const st=COACH.steps[COACH.i], tg=st&&document.querySelector(st[0]); if(!tg) return;
+    const r=tg.getBoundingClientRect(), pad=6, hole=COACH.el.querySelector(".co-hole"), tip=COACH.el.querySelector(".co-tip");
+    const t=Math.max(4,r.top-pad), b=Math.min(innerHeight-4,r.bottom+pad);
+    Object.assign(hole.style,{left:(r.left-pad)+"px",top:t+"px",width:(r.width+pad*2)+"px",height:Math.max(0,b-t)+"px"});
+    const tw=Math.min(320,innerWidth-24), th=tip.offsetHeight; tip.style.width=tw+"px"; tip.style.left=Math.max(12,Math.min(innerWidth-tw-12,r.left+r.width/2-tw/2))+"px";
+    let y=b+12; if(y+th>innerHeight-12) y=t-12-th; if(y<12) y=innerHeight-th-16; tip.style.top=y+"px"; },
+  next(){ COACH.i++; if(COACH.i>=COACH.steps.length) return COACH.done(); COACH.show(); },
+  done(){ if(COACH.p){ S.settings.coach=Object.assign({},S.settings.coach,{[COACH.p]:1}); try{ save(); }catch(e){} } COACH.close(); },
+  close(){ if(COACH.el){ COACH.el.remove(); COACH.el=null; } if(COACH.key) document.removeEventListener("keydown",COACH.key); if(COACH.rs){ window.removeEventListener("resize",COACH.rs); window.removeEventListener("scroll",COACH.rs); } }
+};
+document.addEventListener("click",e=>{ if(e.target.closest("#lhelp")) COACH.start("stage"); });
 function railName(s){ if(s.nav) return s.nav; if(s.type==="writing"&&s.task) return "Writing Task "+s.task; if(s.type==="speaking"&&s.part) return "Speaking Part "+s.part; return s.title; }
 function renderRail(){
   let r=document.getElementById("rail"); const U=NAV.uid&&MODULES[NAV.uid];
@@ -2339,14 +2403,28 @@ function trendSVG(c){
   return `<svg class="v-trend" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.segs.map(s=>s.t).join(", "))}">${g}</svg>`;
 }
 function timelineSVG(c){
-  const W=320,H=122,L=16,R=40, x=f=>L+f*(W-L-R);
-  let g=`<line class="tl-ax" x1="${L}" x2="${W-R}" y1="56" y2="56"/><text class="tl-t" x="${L}" y="74">PAST</text><circle class="tl-now" cx="${W-R}" cy="56" r="6"/><text class="tl-t" x="${W-R}" y="76" text-anchor="middle">NOW</text>`;
-  c.marks.forEach(m=>{
-    if(m.kind==="dot") g+=`<circle class="tl-dot" cx="${x(m.x)}" cy="56" r="7"/><text class="tl-l" x="${x(m.x)}" y="40" text-anchor="middle">${esc(m.t)}</text><text class="tl-c" x="${x(m.x)}" y="22" text-anchor="middle">${esc(m.c||"")}</text>`;
-    else if(m.to!==undefined&&m.to<1) g+=`<line class="tl-span" x1="${x(m.from)}" x2="${x(m.to)}" y1="94" y2="94"/><line class="tl-span" x1="${x(m.from)}" x2="${x(m.from)}" y1="88" y2="100"/><line class="tl-span" x1="${x(m.to)}" x2="${x(m.to)}" y1="88" y2="100"/><text class="tl-c acc" x="${x(m.from)}" y="84">${esc(m.c||"")}</text><text class="tl-l" x="${(x(m.from)+x(m.to))/2}" y="116" text-anchor="middle">${esc(m.t)}</text>`;
-    else g+=`<line class="tl-span" x1="${x(m.from)}" x2="${W-R-10}" y1="94" y2="94"/><path class="tl-arrow" d="M${W-R-12},87 L${W-R},94 L${W-R-12},101 Z"/><text class="tl-c acc" x="${x(m.from)}" y="86">${esc(m.c||"")}</text><text class="tl-l" x="${(x(m.from)+W-R)/2}" y="116" text-anchor="middle">${esc(m.t)}</text>`;
-  });
-  return `<svg class="v-tl" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.marks.map(m=>m.t).join("; "))}">${g}</svg>`;
+  const W=560, L=22, R=50, x=f=>L+f*(W-L-R), CH=7.8, LH=17;
+  const wrap=(t,n)=>{ const out=[]; let ln=""; String(t||"").split(/\s+/).forEach(w=>{ if(ln&&(ln+" "+w).length>n){ out.push(ln); ln=w; } else ln=ln?ln+" "+w:w; }); if(ln) out.push(ln); return out; };
+  const clampX=(cx,w)=>Math.max(4+w/2,Math.min(W-4-w/2,cx));
+  const dots=c.marks.filter(m=>m.kind==="dot").sort((a,b)=>a.x-b.x), spans=c.marks.filter(m=>m.kind!=="dot");
+  const D=dots.map((m,i)=>{ const px=x(m.x), gl=i?px-x(dots[i-1].x):Infinity, gr=i<dots.length-1?x(dots[i+1].x)-px:Infinity;
+    const room=Math.max(90,Math.min(200,Math.min(gl,gr)-30)), lines=wrap(m.t,Math.floor(room/CH)), w=Math.max(...lines.map(l=>l.length))*CH;
+    return {m,px,lines,cx:clampX(px,Math.max(w,String(m.c||"").length*6.6))}; });
+  const top=Math.max(1,...D.map(d=>d.lines.length)), ay=14+16+top*LH+12;
+  let g=`<line class="tl-ax" x1="${L}" x2="${W-R}" y1="${ay}" y2="${ay}"/><text class="tl-t" x="${L}" y="${ay+22}">PAST</text><circle class="tl-now" cx="${W-R}" cy="${ay}" r="7"/><text class="tl-t" x="${W-R}" y="${ay+24}" text-anchor="middle">NOW</text>`;
+  D.forEach(d=>{ const y0=ay-14-(d.lines.length-1)*LH;
+    g+=`<line class="tl-tick" x1="${d.px}" x2="${d.px}" y1="${ay-12}" y2="${ay}"/><circle class="tl-dot" cx="${d.px}" cy="${ay}" r="8"/>`;
+    g+=`<text class="tl-c" x="${d.cx}" y="${y0-LH}" text-anchor="middle">${esc(d.m.c||"")}</text>`;
+    g+=`<text class="tl-l" text-anchor="middle">${d.lines.map((l,k)=>`<tspan x="${d.cx}" y="${y0+k*LH}">${esc(l)}</tspan>`).join("")}</text>`; });
+  let by=ay+48, H=ay+36;
+  spans.forEach(m=>{ const x1=x(m.from), x2=m.to!==undefined&&m.to<1?x(m.to):W-R, open=!(m.to!==undefined&&m.to<1), mid=(x1+x2)/2;
+    const lines=wrap(m.t,Math.floor(Math.max(150,x2-x1+40)/CH)), w=Math.max(...lines.map(l=>l.length))*CH, cx=clampX(mid,w);
+    g+=`<text class="tl-c acc" x="${clampX(x1+String(m.c||"").length*3.3,String(m.c||"").length*6.6)}" y="${by-10}" text-anchor="middle">${esc(m.c||"")}</text>`;
+    g+=open?`<line class="tl-span" x1="${x1}" x2="${x2-12}" y1="${by}" y2="${by}"/><path class="tl-arrow" d="M${x2-13},${by-7} L${x2},${by} L${x2-13},${by+7} Z"/><line class="tl-span" x1="${x1}" x2="${x1}" y1="${by-6}" y2="${by+6}"/>`
+           :`<line class="tl-span" x1="${x1}" x2="${x2}" y1="${by}" y2="${by}"/><line class="tl-span" x1="${x1}" x2="${x1}" y1="${by-6}" y2="${by+6}"/><line class="tl-span" x1="${x2}" x2="${x2}" y1="${by-6}" y2="${by+6}"/>`;
+    g+=`<text class="tl-l" text-anchor="middle">${lines.map((l,k)=>`<tspan x="${cx}" y="${by+24+k*LH}">${esc(l)}</tspan>`).join("")}</text>`;
+    H=by+24+(lines.length-1)*LH+10; by=H+30; });
+  return `<svg class="v-tl" viewBox="0 0 ${W} ${H}" role="img" aria-label="${esc(c.marks.map(m=>(m.c?m.c+": ":"")+m.t).join("; "))}">${g}</svg>`;
 }
 const TIPV={
   flow:c=>`<div class="v-flow">${c.steps.map((s,i)=>`<div class="v-step"><span class="v-n">${i+1}</span><b>${esc(s.t)}</b>${s.s?`<small>${esc(s.s)}</small>`:""}</div>`).join("")}</div>`,
@@ -2506,7 +2584,7 @@ function taskShell(U,sec,d,i,num){
     <header class="thead"><span class="tnum ${num==="Tip"?"tiplabel":""}">${num}</span><div class="stack tight" style="min-width:0"><span class="label">${esc(tip?"Read first":(DRILL_KIND[d.kind]||d.kind))}</span><h2 id="th-${esc(d.id)}">${esc(d.title)}</h2>${d.goal?`<p class="tgoal">${esc(d.goal)}</p>`:""}</div><span data-best>${b!==null&&!UNSCORED[d.kind]?`<span class="chip ${b>=70?"good":""}">Best ${b}%</span>`:""}</span></header>
     ${cloudW.length?`<div class="tcloud"><span class="label">Words to use · tap one to see it</span>${cloudHTML(cloudW,[])}</div>`:""}
     ${refs.length?`<details class="tref"><summary>Reference</summary><div class="tref-in">${refs.map(c=>tipHTML(c,U)).join("")}</div></details>`:""}
-    <div class="tmain"></div>
+    ${d.listen?LP.html(U,d):""}<div class="tmain"></div>
     <div class="tfoot"></div></section>`;
 }
 /* ---- lesson tools: timer, zoom, theme ---- */
@@ -2534,6 +2612,7 @@ function runStage(U,sec,k,focus,custom){
           <button type="button" class="lh-tool lh-timer" id="ltimer" aria-label="Lesson timer: tap to start or pause"><span id="ltime">0:00</span></button>
           <button type="button" class="lh-tool" id="zout" aria-label="Smaller text">A−</button><button type="button" class="lh-tool" id="zin" aria-label="Bigger text">A+</button>
           <button type="button" class="lh-tool" id="ltheme" aria-label="Switch light or dark">${isDark()?"Light":"Dark"}</button>
+          <button type="button" class="lh-tool" id="lhelp" aria-label="How this page works" title="How this page works">?</button>
           <span class="lh-pans">${tabs.map(([id,l])=>`<button type="button" class="lh-tool lh-pan" data-open="${id}" aria-pressed="false">${esc(l)}</button>`).join("")}</span>
           <span class="lh-score" id="lscore" role="status"></span>
         </div>
@@ -2643,7 +2722,7 @@ function mkCtx(U,sec,st,d,root,i){
     clear(){ ids.forEach(id=>{ clearInterval(id); clearTimeout(id); }); ids.clear(); },
     framed(inner){
       if(covers(st,d)) return inner;
-      if(d.img&&!(st.material&&st.material.img===d.img)&&imgSrc(U,d.img)) return `<div class="timg"><figure><img src="${imgSrc(U,d.img)}" alt="${esc(d.alt||"")}"></figure><div class="timg-main">${inner}</div></div>`;
+      if(d.img&&!(st.material&&st.material.img===d.img)&&imgSrc(U,d.img)) return `<div class="timg"><figure data-zoom><img src="${imgSrc(U,d.img)}" alt="${esc(d.alt||"")}"></figure><div class="timg-main">${inner}</div></div>`;
       const ch=resolveChart(sec,d); if(ch) return `<div class="tchart">${chartSVG(ch)}</div>${inner}`;
       if(d.paras) return `<details class="tpass" open><summary>The text</summary>${passageHTML(sec,d)}</details>${inner}`;
       return inner;
@@ -2826,7 +2905,7 @@ function drillPresent(cx){ const {U,d}=cx; const slides=d.slides||[], src=imgSrc
   const view=cx.$("[data-pv]"), img=view.querySelector("img"), ring=view.querySelector(".pr-ring"), cap=cx.$("[data-cap]"), card=cx.$("[data-pc]");
   const wordOf=s=>(s.w&&findWord(s.w))||(s.word?{word:s.word,def:s.def||"",cefr:s.cefr||"",pos:s.pos||""}:null);
   const place=()=>{ const s=slides[i]; if(!s||!img.naturalWidth) return; const Wv=view.clientWidth, Hv=view.clientHeight, r=img.naturalHeight/img.naturalWidth;
-    const fit=Math.min(1,Hv/(Wv*r)), z=(!s.z||s.z==="fit")?fit:s.z, iw=z*Wv, ih=iw*r;
+    const fit=Math.min(1,Hv/(Wv*r)), zr=(!s.z||s.z==="fit")?fit:s.z, z=zr===fit?fit:Math.max(fit,Math.min(zr,1.25*img.naturalWidth/Wv)), iw=z*Wv, ih=iw*r;
     const fx=s.x==null?50:s.x, fy=s.y==null?50:s.y; let left=Wv/2-fx/100*iw, top=Hv/2-fy/100*ih;
     left=iw>=Wv?Math.min(0,Math.max(Wv-iw,left)):(Wv-iw)/2; top=ih>=Hv?Math.min(0,Math.max(Hv-ih,top)):(Hv-ih)/2;
     img.style.width=iw+"px"; img.style.left=left+"px"; img.style.top=top+"px";
@@ -2868,11 +2947,11 @@ function drillCuecards(cx){ const {U,sec,d}=cx; const cards=(d.cards==="part2"?[
         <div class="row between"><span class="timer" data-t>1:00</span><div class="row"><button type="button" class="btn small" data-prep>Prepare · 1 min</button><button type="button" class="btn small primary" data-talk>Speak · 2 min</button></div></div>
         <div class="tbar"><i data-bar style="width:0%"></i></div>
         ${REC.ok()?`<label class="row small"><input type="checkbox" data-rec> Record myself</label>`:""}<div data-audio></div>
-        <button type="button" class="btn small" data-hear>Hear the card</button></div>
+</div>
       <div class="ccside">
         ${cw.length?`<section class="stack tight"><span class="label">Words for this card · tap the ones you used</span>${cloudHTML(cw,[])}</section>`:""}
         <section class="stack tight"><span class="label">Your notes · key words only</span><div class="notes4">${c.points.map((p,k)=>`<label>${esc(p)}<textarea data-note="${k}"></textarea></label>`).join("")}</div>${c.notes?`<details class="more"><summary>Example notes</summary><div class="ideas">${c.notes.map(x=>`<span>${esc(x)}</span>`).join("")}</div></details>`:""}</section>
-        <details class="more ccmodel"><summary>Model answer · about 2 minutes</summary><p class="model">${linkWords(fp(c.model||""),U).replace(/\n\n/g,"<br><br>")}</p><div class="row"><button type="button" class="btn small" data-listen>Listen</button></div>${credit()}</details>
+        <details class="more ccmodel"><summary>Model answer · about 2 minutes</summary><p class="model">${linkWords(fp(c.model||""),U).replace(/\n\n/g,"<br><br>")}</p>${credit()}</details>
         <div class="row"><button type="button" class="btn ${done(c)?"":"primary"}" data-done>${done(c)?"Practised ✓ · practise again":"I practised this card"}</button></div>
       </div></div>`;
     const P=cx.$("[data-p]"), t=$("[data-t]",P), bar=$("[data-bar]",P);
@@ -2881,8 +2960,6 @@ function drillCuecards(cx){ const {U,sec,d}=cx; const cards=(d.cards==="part2"?[
     $("[data-talk]",P).onclick=async()=>{ const box=$("[data-audio]",P), want=$("[data-rec]",P)&&$("[data-rec]",P).checked; box.innerHTML="";
       if(want){ try{ const stream=await navigator.mediaDevices.getUserMedia({audio:true}); chunks=[]; rec=new MediaRecorder(stream); rec.ondataavailable=e=>chunks.push(e.data); rec.onstop=()=>{ stream.getTracks().forEach(x=>x.stop()); const url=URL.createObjectURL(new Blob(chunks,{type:rec.mimeType||"audio/webm"})); box.innerHTML=`<audio controls src="${url}"></audio>`; }; rec.start(); }catch(e){ box.innerHTML=`<p class="small">The microphone isn’t available, so this talk isn’t recorded.</p>`; } }
       run(120,()=>{ if(rec&&rec.state==="recording") rec.stop(); t.textContent="Time!"; const m=$(".ccmodel",P); if(m) m.open=true; }); };
-    $("[data-hear]",P).onclick=()=>TTS.say(c.task+" You should say: "+c.points.join(", "),"en-GB","female");
-    $("[data-listen]",P).onclick=()=>TTS.say((c.model||"").replace(/\[\[([^\]|]+)(\|[^\]]+)?\]\]/g,"$1"),"en-GB","male");
     $$(".v-cloud [data-w]",P).forEach(b=>b.addEventListener("click",()=>b.classList.toggle("used")));
     $("[data-done]",P).onclick=()=>{ (S.results[key(c)]=S.results[key(c)]||[]).push({pct:100,date:Date.now(),mode:"train"}); save(); toast("Card "+(i+1)+" practised."); open(i); try{ stageBar(); }catch(e){} };
     if($("[data-prev]",P)) $("[data-prev]",P).onclick=()=>open(i-1); if($("[data-next]",P)) $("[data-next]",P).onclick=()=>open(i+1);
@@ -2896,16 +2973,46 @@ function drillTip(cx){ const {U,sec,d}=cx; cx.frame(`<div class="tipflow">${refL
 const AUD={cur:null,btn:null,play(src,btn){ this.stop(); const a=new Audio(src); this.cur=a; this.btn=btn||null; if(btn) btn.classList.add("playing"); a.onended=()=>this.stop(); a.play().catch(()=>this.stop()); },
   stop(){ if(this.cur){ try{ this.cur.pause(); }catch(e){} this.cur=null; } if(this.btn){ this.btn.classList.remove("playing"); this.btn=null; } }};
 const audSrc=(U,k)=>k?((U.audio||{})[k]||""):"";
-function drillTalk(cx){ const {U,d}=cx; const L=["Short","Full","Extended"]; onLeave(()=>AUD.stop());
-  cx.frame(`<div class="talk">${d.items.map((it,i)=>`<div class="tq" data-q="${i}"><span class="label">Question ${i+1} of ${d.items.length}</span><p class="qbig">${esc(it.q)}</p>
-    <div class="row"><button type="button" class="btn small ghost" data-say="${i}">Hear it</button>${(it.ladder||[]).map((_,j)=>`<button type="button" class="btn small" data-lad="${i}" data-j="${j}" aria-expanded="false">${L[j]} answer</button>`).join("")}</div>
-    <div class="ladder" data-box="${i}"></div></div>`).join("")}</div>`);
-  cx.$$("[data-say]").forEach(b=>b.onclick=()=>{ const it=d.items[+b.dataset.say], a=audSrc(U,it.audio&&it.audio.q); if(a){ if(AUD.btn===b){ AUD.stop(); return; } AUD.play(a,b); } else TTS.say(it.q,"en-GB","female"); });
-  cx.$$("[data-lad]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.lad, j=+b.dataset.j, box=cx.$(`[data-box="${i}"]`), open=b.getAttribute("aria-expanded")==="true";
-    cx.$$(`[data-lad="${i}"]`).forEach(x=>x.setAttribute("aria-expanded","false"));
-    if(open){ box.innerHTML=""; return; } b.setAttribute("aria-expanded","true");
-    box.innerHTML=`<p class="model"><span class="label">${L[j]} answer</span><br>${linkWords(fp(d.items[i].ladder[j]),U)}</p><button type="button" class="btn small ghost" data-hear>Listen</button>`;
-    const hb=$("[data-hear]",box); hb.onclick=()=>{ const it=d.items[i], a=audSrc(U,it.audio&&it.audio.ladder&&it.audio.ladder[j]); if(a){ if(AUD.btn===hb){ AUD.stop(); return; } AUD.play(a,hb); } else TTS.say(it.ladder[j].replace(/\[\[([^\]|]+)(\|[^\]]+)?\]\]/g,"$1"),"en-GB","male"); }; });
+const fmtT=t=>{ t=Math.max(0,Math.floor(t||0)); return Math.floor(t/60)+":"+String(t%60).padStart(2,"0"); };
+const LP={a:null,el:null,
+  html(U,d){ const sc=(U.scripts||{})[d.listen]; if(!sc) return ""; const src=audSrc(U,sc.audio), sp=sc.speakers||{};
+    const lines=(sc.lines||[]).map(l=>`<p><b>${esc((sp[l.s]||{}).name||l.s)}</b>${linkWords(fp(l.t),U)}</p>`).join("");
+    const scr=d.script==="none"?"":`<details class="lp-script"${d.script==="open"?" open":""}><summary>${d.script==="open"?"The script":src?"Script · open it after you answer":"Open the script"}</summary><div class="script">${lines}</div></details>`;
+    return `<div class="lplay" data-lp="${esc(d.listen)}">
+      <div class="lp-row">${src?`<button type="button" class="lp-btn" data-lpgo aria-label="Play">▶</button>`:`<span class="lp-btn off" aria-hidden="true">♪</span>`}
+        <div class="lp-mid"><span class="label">Listening · ${esc(sc.title||"")}${sc.dur?` · about ${esc(sc.dur)}`:""}</span>${src?`<div class="lp-bar" data-lpbar><i></i></div>`:`<p class="small">The recording is on its way. Until then, read the questions first, then open the script and find the answers.</p>`}</div>
+        ${src?`<span class="lp-time" data-lptime>0:00</span><button type="button" class="lp-sm" data-lpback aria-label="Back 5 seconds">−5 s</button><button type="button" class="lp-sm" data-lprate aria-label="Playback speed">1×</button>`:""}</div>${scr}</div>`; },
+  toggle(el){ const U=STAGE&&STAGE.U, sc=U&&(U.scripts||{})[el.dataset.lp], src=sc&&audSrc(U,sc.audio); if(!src) return;
+    if(LP.el===el&&LP.a){ if(LP.a.paused) LP.a.play().catch(()=>{}); else LP.a.pause(); return LP.ui(); }
+    LP.stop(); AUD.stop(); const a=new Audio(src); LP.a=a; LP.el=el; a.playbackRate=+(el.dataset.rate||1);
+    ["timeupdate","ended","pause","play","loadedmetadata"].forEach(ev=>a.addEventListener(ev,()=>LP.ui())); a.play().catch(()=>{}); LP.ui(); },
+  ui(){ const el=LP.el, a=LP.a; if(!el||!a) return; const b=el.querySelector("[data-lpgo]"); if(b){ b.textContent=a.paused?"▶":"❚❚"; b.setAttribute("aria-label",a.paused?"Play":"Pause"); }
+    const bar=el.querySelector("[data-lpbar] i"); if(bar) bar.style.width=(a.duration?a.currentTime/a.duration*100:0)+"%";
+    const t=el.querySelector("[data-lptime]"); if(t) t.textContent=fmtT(a.currentTime)+(a.duration?" / "+fmtT(a.duration):""); },
+  stop(){ const el=LP.el; if(LP.a){ try{ LP.a.pause(); }catch(e){} } LP.a=null; LP.el=null; if(el){ const b=el.querySelector("[data-lpgo]"); if(b){ b.textContent="▶"; b.setAttribute("aria-label","Play"); } } }
+};
+document.addEventListener("click",e=>{ const el=e.target.closest(".lplay"); if(!el) return;
+  if(e.target.closest("[data-lpgo]")) return LP.toggle(el);
+  if(e.target.closest("[data-lpback]")){ if(LP.el===el&&LP.a){ LP.a.currentTime=Math.max(0,LP.a.currentTime-5); LP.ui(); } return; }
+  const rb=e.target.closest("[data-lprate]"); if(rb){ const r=el.dataset.rate==="0.85"?1:0.85; el.dataset.rate=String(r); rb.textContent=r===1?"1×":"0.85×"; if(LP.el===el&&LP.a) LP.a.playbackRate=r; return; }
+  const bar=e.target.closest("[data-lpbar]"); if(bar){ if(LP.el!==el) LP.toggle(el); const a=LP.a; if(!a) return; const r=bar.getBoundingClientRect(), f=Math.max(0,Math.min(1,(e.clientX-r.left)/r.width));
+    const seek=()=>{ a.currentTime=f*a.duration; LP.ui(); }; if(a.duration) seek(); else a.addEventListener("loadedmetadata",seek,{once:true}); } });
+function drillTalk(cx){ const {U,d}=cx; const N=["short","full","extended"]; onLeave(()=>AUD.stop());
+  const mine=Math.max(0,TIERS.indexOf(CUR_TIER||"B2"));
+  cx.frame(cx.framed(`<div class="talk">${d.items.map((it,i)=>{ const qa=audSrc(U,it.audio&&it.audio.q), n=(it.ladder||[]).length;
+    return `<div class="tq" data-q="${i}"><span class="label">Question ${i+1} of ${d.items.length}</span><p class="qbig">${esc(it.q)}</p>
+      <div class="row">${qa?`<button type="button" class="btn small ghost" data-say="${i}">Hear the question</button>`:""}${n?`<button type="button" class="btn small" data-sample="${i}" aria-expanded="false">Sample answer</button>`:""}</div>
+      <div class="tsample" data-box="${i}" hidden></div></div>`; }).join("")}</div>`));
+  cx.$$("[data-say]").forEach(b=>b.onclick=()=>{ const it=d.items[+b.dataset.say], a=audSrc(U,it.audio&&it.audio.q); if(!a) return; if(AUD.btn===b){ AUD.stop(); return; } AUD.play(a,b); });
+  const show=(i,j)=>{ const it=d.items[i], box=cx.$(`[data-box="${i}"]`), n=it.ladder.length; j=Math.max(0,Math.min(n-1,j)); AUD.stop();
+    const a=audSrc(U,it.audio&&it.audio.ladder&&it.audio.ladder[j]), my=Math.min(mine,n-1);
+    box.innerHTML=`${n>1?`<div class="tsw" role="group" aria-label="Sample answer level">${it.ladder.map((_,k)=>`<button type="button" data-lv="${k}" aria-pressed="${k===j}">${TIERS[k]||""} · ${N[k]||""}${k===my?`<i>your level</i>`:""}</button>`).join("")}</div>`:""}
+      <p class="model">${linkWords(fp(it.ladder[j]),U)}</p>${a?`<div class="row"><button type="button" class="btn small ghost" data-hear>Listen</button></div>`:""}${j===my&&j<n-1?`<p class="small">Next time, borrow one phrase from the ${N[j+1]} answer.</p>`:""}`;
+    box.querySelectorAll("[data-lv]").forEach(x=>x.onclick=()=>show(i,+x.dataset.lv));
+    const hb=box.querySelector("[data-hear]"); if(hb) hb.onclick=()=>{ if(AUD.btn===hb){ AUD.stop(); return; } AUD.play(a,hb); }; };
+  cx.$$("[data-sample]").forEach(b=>b.onclick=()=>{ const i=+b.dataset.sample, box=cx.$(`[data-box="${i}"]`), open=b.getAttribute("aria-expanded")==="true";
+    b.setAttribute("aria-expanded",String(!open)); b.textContent=open?"Sample answer":"Hide the answer";
+    if(open){ AUD.stop(); box.hidden=true; box.innerHTML=""; return; } box.hidden=false; show(i,mine); });
 }
 const imgSrc=(U,key)=>(U.images||{})[key]||"";
 function drillHotspot(cx){ const {U,d}=cx; const spots=d.spots||[], src=imgSrc(U,d.img); const seen=new Set();
@@ -3278,7 +3385,8 @@ function drillUpgrade(cx){ const {U,sec,d}=cx;
   draw();
 }
 /* ---- memory (flip pairs) ---- */
-const hareMark=()=>`<svg class="haremark" viewBox="0 0 64 64" aria-hidden="true"><ellipse cx="25" cy="16" rx="4.6" ry="14" transform="rotate(-12 25 30)"/><ellipse cx="36" cy="15" rx="4.6" ry="14" transform="rotate(10 36 30)"/><circle cx="31" cy="33" r="10.5"/><ellipse cx="31" cy="50" rx="15.5" ry="11"/><circle cx="46" cy="53" r="4"/></svg>`;
+const RABBIT_D="M15.2 99.0C14.6 98.9 13.9 98.8 13.6 98.7C13.3 98.6 12.8 98.5 12.6 98.5C11.8 98.3 9.2 97.3 8.6 96.8C8.4 96.7 8.0 96.4 7.7 96.2C5.8 94.8 4.8 93.8 3.2 91.3C1.2 88.1 0.5 83.0 1.2 77.6C1.4 76.2 1.9 73.6 2.1 73.3C2.1 73.1 2.3 72.7 2.4 72.3C2.5 72.0 2.6 71.5 2.8 71.3C2.9 71.1 3.1 70.5 3.3 70.0C3.9 68.5 4.9 66.5 5.4 65.8C5.6 65.5 5.9 65.1 6.0 64.9C6.1 64.8 6.5 64.2 6.9 63.7C7.3 63.2 7.6 62.7 7.6 62.7C7.6 62.5 10.8 59.6 11.6 59.0C14.0 57.4 15.3 56.5 15.6 56.5C15.7 56.4 16.3 56.1 16.9 55.8C17.5 55.5 18.3 55.2 18.6 55.0C19.4 54.8 20.6 54.2 21.3 53.8C21.6 53.7 22.0 53.5 22.2 53.5C22.4 53.5 22.8 53.3 23.1 53.2C23.3 53.1 23.6 53.0 23.7 53.0C23.8 53.0 24.7 52.7 27.2 51.9C27.6 51.7 27.9 51.6 28.0 51.5C28.2 51.5 28.5 51.3 28.8 51.2C29.1 51.1 29.5 50.9 29.7 50.8C30.0 50.7 30.2 50.6 30.3 50.6C30.3 50.6 30.9 50.3 31.5 50.0C36.9 47.4 36.0 40.4 29.6 36.1C29.4 35.9 28.9 35.5 28.4 35.2C27.3 34.3 26.4 33.6 26.0 33.4C25.9 33.2 25.6 33.1 25.5 33.0C25.4 32.9 24.9 32.5 24.4 32.0C22.2 30.1 19.7 27.2 18.7 25.5C18.5 25.1 18.1 24.5 17.9 24.2C17.3 23.3 16.3 21.3 15.8 19.9C14.2 15.7 14.2 11.6 15.8 9.3C15.9 9.2 16.0 9.0 16.0 8.9C16.0 8.7 17.8 6.9 18.4 6.6C20.0 5.5 22.5 5.2 24.2 5.8C25.5 6.3 25.7 6.3 26.1 5.5C26.6 4.1 27.8 2.8 28.9 2.1C31.7 0.4 34.4 0.5 38.2 2.3C39.4 2.9 40.9 3.8 41.3 4.1C41.4 4.2 41.8 4.5 42.0 4.7C42.3 4.9 42.7 5.2 42.9 5.4C44.2 6.3 44.9 6.9 45.6 7.6C46.0 8.0 46.8 8.7 47.2 9.1C47.6 9.5 48.3 10.1 48.6 10.6C49.0 11.0 49.3 11.4 49.4 11.5C49.7 11.7 51.4 13.8 51.4 13.9C51.4 14.0 51.6 14.2 52.4 15.2C52.7 15.6 53.5 16.7 53.9 17.3C54.0 17.6 54.5 18.4 54.9 19.1C55.4 19.9 55.8 20.6 55.9 20.7C56.0 20.8 56.2 21.3 56.5 21.8C56.7 22.3 56.9 22.8 57.0 23.0C57.1 23.1 57.4 23.8 57.7 24.4C58.6 26.6 58.5 26.6 60.0 26.9C61.4 27.2 64.4 28.4 65.9 29.4C66.3 29.6 66.6 29.8 66.7 29.8C66.7 29.8 66.9 29.9 67.1 30.1C67.3 30.3 67.6 30.4 67.8 30.5C69.0 31.2 72.4 34.7 74.3 37.5C74.6 37.8 74.8 38.2 74.9 38.3C75.0 38.4 75.1 38.6 75.1 38.8C75.2 38.9 75.3 39.2 75.4 39.3C75.5 39.5 75.7 39.9 75.8 40.2C76.0 40.5 76.3 41.1 76.5 41.6C79.3 47.3 79.1 54.0 76.0 57.7C74.5 59.6 74.2 59.9 72.6 61.0C72.2 61.3 71.6 61.7 71.3 61.9C70.9 62.2 70.6 62.4 70.6 62.4C70.1 62.4 68.1 63.6 68.0 63.9C67.8 64.4 68.0 65.7 68.3 66.7C68.5 67.2 68.7 68.6 69.0 71.2C69.3 73.4 68.9 79.4 68.4 80.6C68.3 80.8 68.2 81.2 68.1 81.4C68.1 81.7 67.6 83.2 67.0 84.8C66.9 85.2 66.7 85.6 66.6 85.8C65.9 87.0 66.0 87.3 67.1 87.9C68.1 88.4 68.4 88.6 69.2 89.5C69.6 90.0 69.9 90.4 69.9 90.5C69.9 90.6 70.0 90.8 70.1 91.0C70.8 92.3 70.9 95.2 70.2 96.7C69.7 97.7 68.4 98.8 67.1 99.0C66.3 99.2 16.5 99.2 15.2 99.0ZM45.1 95.9C46.6 94.8 45.6 91.5 43.6 90.8C43.4 90.8 43.1 90.6 42.9 90.5C42.6 90.4 42.1 90.2 41.8 90.2C41.5 90.2 41.0 90.1 40.7 90.0C40.5 89.9 39.9 89.8 39.5 89.8C38.3 89.7 37.9 89.4 37.7 88.5C37.6 87.9 38.1 87.0 38.8 86.7C41.6 85.8 42.8 77.6 40.5 74.2C40.4 74.0 40.3 73.8 40.3 73.8C40.3 73.4 39.0 71.8 37.8 70.9C36.1 69.5 36.3 69.6 34.3 68.7C33.9 68.5 33.4 68.3 33.3 68.3C33.2 68.3 32.9 68.2 32.6 68.0C31.8 67.7 30.4 67.3 29.1 67.0C27.2 66.7 26.6 66.2 26.6 65.2C26.7 64.1 27.6 63.6 29.0 63.9C29.5 64.0 30.1 64.1 30.4 64.1C32.4 64.5 36.5 66.0 37.6 66.9C37.9 67.1 38.3 67.4 38.6 67.5C39.3 67.9 41.3 69.7 42.0 70.7C42.2 71.0 42.4 71.2 42.4 71.2C42.5 71.2 43.3 72.6 43.9 74.0C45.3 77.5 45.1 82.5 43.5 86.0C42.9 87.2 42.9 87.1 45.0 88.1C47.7 89.4 49.0 91.3 49.0 94.4C49.0 95.6 49.0 95.8 49.2 96.0C49.4 96.2 65.8 96.3 66.5 96.0C68.1 95.5 68.0 92.2 66.2 91.0C66.0 90.9 65.7 90.7 65.6 90.6C64.7 89.8 63.4 89.7 58.4 89.7C53.2 89.6 53.5 89.7 53.1 89.0C52.6 88.3 53.0 87.1 53.8 86.8C54.2 86.7 58.4 86.5 59.8 86.6C62.1 86.7 62.8 86.5 63.4 85.2C63.5 85.0 63.7 84.6 63.8 84.5C64.2 83.6 64.9 81.7 65.1 80.6C65.2 80.4 65.3 79.7 65.4 79.2C66.1 76.4 66.0 71.4 65.3 67.9C65.2 67.0 64.9 65.8 64.8 65.4C64.3 62.8 64.9 61.7 67.3 60.4C68.0 60.1 68.9 59.6 69.2 59.4C69.6 59.2 69.9 59.0 70.1 58.9C71.7 58.1 74.1 55.5 74.6 54.1C74.6 53.9 74.8 53.6 74.9 53.4C75.4 52.5 75.5 48.2 75.0 46.8C74.8 46.3 74.6 45.8 74.6 45.5C74.6 45.2 74.4 44.7 74.2 44.3C74.1 43.9 73.8 43.3 73.6 42.8C73.5 42.4 73.3 42.0 73.3 41.9C73.2 41.9 73.0 41.5 72.8 41.2C72.2 40.0 72.1 39.9 71.9 39.6C71.7 39.4 71.5 39.1 71.4 38.8C71.2 38.6 71.0 38.2 70.8 38.0C70.7 37.8 70.5 37.6 70.4 37.4C70.0 36.7 67.4 34.2 66.1 33.3C65.9 33.1 65.5 32.9 65.2 32.7C64.1 31.8 62.5 31.0 61.3 30.6C60.8 30.5 60.1 30.2 59.8 30.1C59.5 30.0 59.0 29.8 58.6 29.8C56.9 29.5 56.0 28.9 55.7 27.9C55.6 27.5 55.1 26.3 54.8 25.6C53.2 22.4 52.6 21.2 52.0 20.3C51.9 20.1 51.7 19.8 51.6 19.6C51.5 19.4 51.3 19.1 51.2 19.0C51.1 18.8 50.8 18.5 50.6 18.1C50.0 17.2 50.0 17.0 48.2 15.0C48.1 14.8 47.9 14.5 47.7 14.2C46.8 13.1 43.5 9.8 43.3 9.8C43.3 9.8 42.9 9.4 42.4 8.9C41.9 8.5 41.4 8.1 41.3 8.0C41.1 7.9 40.7 7.6 40.3 7.3C39.4 6.7 37.9 5.6 37.6 5.5C37.6 5.5 37.4 5.4 37.3 5.3C35.5 3.8 31.4 3.8 29.9 5.2C28.2 6.9 27.8 12.9 29.3 15.2C29.4 15.3 29.5 15.6 29.6 15.9C29.7 16.1 29.8 16.4 30.0 16.6C30.1 16.9 30.5 17.5 30.8 18.0C31.6 19.3 33.2 21.6 33.3 21.7C33.4 21.7 33.7 22.1 33.9 22.5C34.5 23.3 35.2 24.2 36.0 25.0C36.3 25.3 36.6 25.7 36.7 25.9C37.1 26.5 40.7 30.2 42.8 32.1C44.1 33.3 44.2 33.4 44.3 33.8C44.8 35.5 42.8 36.3 41.5 35.1C41.1 34.7 40.6 34.3 40.4 34.1C40.0 33.8 37.0 30.9 36.6 30.4C36.5 30.3 35.7 29.4 34.9 28.5C34.1 27.7 33.3 26.8 33.2 26.6C33.1 26.5 32.7 26.0 32.3 25.5C31.2 24.2 30.9 23.7 30.4 23.0C29.9 22.3 29.5 21.8 29.3 21.5C29.2 21.4 29.0 21.1 28.8 20.8C27.4 19.0 25.7 14.9 25.4 12.7C25.0 9.7 24.1 8.6 22.3 8.6C18.7 8.6 16.5 13.2 18.2 17.5C18.7 18.8 19.2 20.0 19.3 20.1C19.3 20.2 19.4 20.4 19.5 20.6C19.6 20.9 19.7 21.2 19.8 21.3C19.9 21.5 20.3 22.1 20.6 22.7C21.0 23.3 21.4 24.0 21.5 24.1C21.7 24.3 22.0 24.7 22.2 25.0C22.9 26.1 25.9 29.3 27.0 30.1C27.2 30.2 27.7 30.7 28.1 31.0C29.7 32.2 29.5 32.1 31.2 33.2C31.4 33.4 31.7 33.6 31.9 33.8C32.0 33.9 32.4 34.2 32.6 34.3C33.9 35.3 35.0 36.5 36.2 38.1C36.7 38.8 37.1 39.8 37.7 41.8C38.6 44.9 37.8 48.9 35.9 50.7C34.7 51.8 32.0 53.6 31.4 53.6C31.3 53.6 31.1 53.6 30.9 53.7C30.8 53.8 29.9 54.1 29.1 54.4C28.3 54.7 27.2 55.1 26.8 55.3C26.3 55.4 25.6 55.7 25.2 55.8C24.8 56.0 24.4 56.1 24.4 56.2C24.3 56.2 23.9 56.4 23.6 56.5C23.2 56.6 22.5 56.8 22.0 57.0C21.4 57.2 20.7 57.5 20.5 57.6C20.2 57.6 19.9 57.8 19.7 57.9C19.5 58.0 19.2 58.2 19.0 58.3C18.7 58.4 18.5 58.5 18.4 58.5C18.2 58.7 17.7 59.0 16.7 59.5C15.6 60.0 14.6 60.7 13.9 61.2C13.6 61.5 12.9 62.1 12.4 62.4C10.9 63.6 8.6 66.3 7.7 68.1C7.6 68.3 7.3 68.9 7.0 69.3C6.8 69.8 6.5 70.3 6.4 70.6C6.3 70.8 6.2 71.0 6.2 71.1C5.9 71.4 5.1 74.0 4.8 75.6C4.6 76.2 4.5 76.9 4.4 77.2C3.9 79.0 3.9 84.6 4.4 85.6C4.5 85.7 4.6 86.2 4.7 86.6C5.5 90.3 8.4 93.7 12.0 95.0C12.4 95.1 12.8 95.2 12.9 95.3C13.7 95.7 13.9 95.5 14.0 94.1C14.2 90.3 17.1 87.2 19.0 88.7C19.9 89.5 19.6 90.5 18.3 91.5C16.8 92.6 16.7 94.8 18.1 95.8C18.7 96.2 44.6 96.3 45.1 95.9ZM61.5 44.7C61.0 44.5 60.5 43.9 60.2 43.1C59.2 40.5 62.7 38.5 64.6 40.6C66.5 42.7 64.2 45.6 61.5 44.7ZM45.9 31.0C43.8 30.3 44.3 28.0 46.6 28.0C47.7 28.0 47.9 27.9 48.1 27.4C48.4 26.6 48.2 25.4 47.4 24.1C47.2 23.8 47.0 23.3 46.9 23.0C46.7 22.8 46.4 22.3 46.2 22.0C45.9 21.7 45.7 21.4 45.6 21.2C45.4 20.8 44.2 19.3 43.4 18.5C43.0 18.1 42.5 17.5 42.2 17.2C41.9 16.9 41.4 16.5 41.1 16.2C40.1 15.3 40.0 14.6 40.9 13.7C41.5 13.2 42.2 13.2 42.8 13.7C43.1 13.9 43.5 14.2 43.7 14.4C44.4 14.8 46.3 16.9 47.0 17.8C47.2 18.1 47.6 18.6 47.9 18.9C48.2 19.3 48.5 19.7 48.6 19.9C49.1 20.8 49.2 20.9 49.4 21.2C49.6 21.4 49.9 21.9 50.0 22.3C50.2 22.7 50.5 23.2 50.6 23.5C52.1 26.2 51.6 29.3 49.5 30.4C49.3 30.6 48.9 30.8 48.7 30.8C48.4 31.0 46.4 31.1 45.9 31.0Z", RABBIT_VB="0 0 79.3 100.0";
+const hareMark=()=>`<svg class="haremark" viewBox="${RABBIT_VB}" aria-hidden="true"><path fill-rule="evenodd" d="${RABBIT_D}"/></svg>`;
 function drillMemory(cx){ const {U,sec,d}=cx;
   const cards=shuffle(d.pairs.flatMap(([a,b],i)=>[{t:a,p:i,s:0},{t:b,p:i,s:1}])); let open=[], matched=new Set(), moves=0, lock=false;
   cx.frame(`<div class="row between"><span class="label">Find the pairs</span><span class="label" data-id="mv">0 moves</span></div><div class="memgrid" data-id="mg"></div>`);
@@ -3541,17 +3649,8 @@ const ALERTS=[
 function alertsIn(text){ return ALERTS.map(a=>({a,n:(String(text).match(a.re)||[]).length})).filter(x=>x.n>=(x.a.min||1)); }
 function hareSVG(mood){
   const yes=mood==="yes";
-  return `<svg class="hare" viewBox="0 0 120 120" aria-hidden="true">
-    <g transform="${yes?"":"translate(120,0) scale(-1,1)"}">
-      <ellipse class="h-ear" cx="48" cy="26" rx="7" ry="22" transform="rotate(${yes?-10:-24} 48 46)"/><ellipse class="h-in" cx="48" cy="28" rx="3" ry="15" transform="rotate(${yes?-10:-24} 48 46)"/>
-      <ellipse class="h-ear" cx="66" cy="24" rx="7" ry="22" transform="rotate(${yes?14:-4} 66 46)"/><ellipse class="h-in" cx="66" cy="26" rx="3" ry="15" transform="rotate(${yes?14:-4} 66 46)"/>
-      <ellipse class="h-body" cx="58" cy="92" rx="30" ry="22"/>
-      <circle class="h-body" cx="58" cy="58" r="21"/>
-      ${yes?`<circle class="h-eye" cx="65" cy="54" r="3.2"/><circle cx="66.2" cy="52.8" r="1" fill="#fff"/><path class="h-line" d="M60 66 q6 6 12 0"/>`:`<path class="h-line" d="M60 54 h9"/><path class="h-line" d="M61 67 h9"/>`}
-      <circle class="h-nose" cx="77" cy="60" r="2.6"/>
-      <path class="h-line thin" d="M78 63 l12 -2 M78 65 l12 3"/>
-      ${yes?`<path class="h-arm" d="M76 86 q14 -6 26 -16"/><circle class="h-body" cx="103" cy="69" r="4.5"/>`:`<path class="h-arm" d="M70 84 q8 -14 4 -30"/><circle class="h-body" cx="74" cy="52" r="5"/>`}
-    </g></svg>`;
+  return `<svg class="hare ${yes?"yes":"no"}" viewBox="-6 -4 96 108" aria-hidden="true"><path class="h-rab" fill-rule="evenodd" d="${RABBIT_D}"/>
+    <g class="h-badge"><circle cx="74" cy="12" r="12"/>${yes?`<path d="M68 12.5 l4.2 4.2 l8 -8.4"/>`:`<path d="M69.5 7.5 l9 9 M78.5 7.5 l-9 9"/>`}</g></svg>`;
 }
 function memeHTML(a,dismiss){
   return `<div class="meme" role="status"><div class="meme-row no">${hareSVG("no")}<div class="stack tight"><span class="label">Nope</span><p class="meme-t"><s>${esc(a.nope)}</s></p></div></div>
